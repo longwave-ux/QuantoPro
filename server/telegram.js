@@ -16,9 +16,12 @@ const sentAlertsCache = new Set();
 export const getSettings = async () => {
     try {
         const data = await fs.readFile(SETTINGS_FILE, 'utf-8');
-        return JSON.parse(data);
+        const settings = JSON.parse(data);
+        // Default entryAlerts to true if not specified
+        if (settings.entryAlerts === undefined) settings.entryAlerts = true;
+        return settings;
     } catch {
-        return { enabled: false, botToken: '', chatId: '', minScore: 85 };
+        return { enabled: false, botToken: '', chatId: '', minScore: 85, entryAlerts: true };
     }
 };
 
@@ -57,6 +60,7 @@ export const sendTelegramAlert = async (results) => {
     
 <b>Score: ${pair.score}/100</b>
 Price: $${pair.price}
+Exchange: ${pair.source || 'Unknown'}
 Bias: ${pair.htf.bias}
 Timeframe: ${pair.meta.htfInterval}
 
@@ -94,6 +98,7 @@ export const sendEntryAlert = async (trade) => {
     const message = `
 🚀 <b>ENTRY TRIGGERED: ${trade.symbol}</b>
 
+<b>Exchange:</b> ${trade.exchange || 'Unknown'}
 <b>Side:</b> ${trade.side}
 <b>Entry Price:</b> $${trade.entryPrice}
 <b>Time:</b> ${new Date().toLocaleString()}
@@ -129,6 +134,7 @@ export const sendExitAlert = async (trade) => {
     const message = `
 ${emoji} <b>TRADE CLOSED: ${trade.symbol}</b>
 
+<b>Exchange:</b> ${trade.exchange || 'Unknown'}
 <b>Result:</b> ${trade.result}
 <b>PnL:</b> ${pnlText}
 <b>Exit Price:</b> $${trade.exitPrice}
@@ -136,6 +142,7 @@ ${emoji} <b>TRADE CLOSED: ${trade.symbol}</b>
 
 <i>${isWin ? 'Target Hit!' : 'Stop Loss Hit.'}</i>
 `;
+
 
     try {
         const url = `https://api.telegram.org/bot${settings.botToken}/sendMessage`;
