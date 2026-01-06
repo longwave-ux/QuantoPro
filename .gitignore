@@ -1,1 +1,17 @@
 node_modules
+# Dati di mercato
+data/*.json
+data/*.jsonl
+
+# Log
+logs/
+*.log
+
+# Build
+dist/
+
+# Node
+node_modules/
+
+# Cache
+.cache
