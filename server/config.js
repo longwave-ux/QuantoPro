@@ -11,7 +11,8 @@ export const CONFIG = {
         SCAN_INTERVAL: 15 * 60 * 1000, // 15 Minutes
         TRACKER_INTERVAL: 1 * 60 * 1000, // 1 Minute
         BATCH_SIZE: 5,
-        HTTP_PORT: process.env.PORT || 3000
+        HTTP_PORT: process.env.PORT || 3000,
+        ENABLE_ADAPTIVE: false // Default Off
     },
     SCANNERS: {
         HTF: '4h',
@@ -40,6 +41,14 @@ export const CONFIG = {
         MONEY_FLOW: { OBV: 25, DIVERGENCE: 0 },
         TIMING: { PULLBACK: 5, REJECTION: 5 },
         PENALTIES: { CONTRARIAN_OBV: 40, CONTRARIAN_DIV: 20, OVEREXTENDED: 20, HIGH_VOL_PULLBACK: 20 }
+    },
+    // New Adaptive Regimes
+    REGIMES: {
+        TRENDING: { // Applied when ADX > 25
+            TREND_MULTIPLIER: 1.5,
+            STRUCTURE_MULTIPLIER: 0.8, // Structure matters less in strong trends
+            TIMING_MULTIPLIER: 1.2
+        }
     },
     RISK: {
         ATR_MULTIPLIER: 2.5,

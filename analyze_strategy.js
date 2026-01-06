@@ -8,8 +8,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, 'data');
 
-// Simulation settings
-const BACKTEST_CANDLES = 1200; // Look back ~1200 candles (12 days) for deeper simulation
+// 1 Day = 96 candles (15m)
+const getCandlesFromDays = (days) => Math.ceil(days * 24 * 4);
 
 const parseFilename = (filename) => {
     const parts = filename.split('_');
@@ -37,11 +37,12 @@ const getFutureOutcome = (candles, startIndex, entry, tp, sl, side) => {
     return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD };
 };
 
-export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false }) => {
+export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12 }) => {
     // If running in standalone mode (no custom config), look for global CONFIG
     // Otherwise use provided config, merging checks if needed.
     const activeConfig = customConfig || CONFIG;
     const { limit, verbose } = options;
+    const backtestCandles = getCandlesFromDays(options.days || 12);
 
     // In API mode, we might need absolute path if CWD differs, but here assuming same DIR structure
     const files = await fs.readdir(DATA_DIR);
@@ -84,7 +85,7 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
 
             const htfRaw = JSON.parse(await fs.readFile(htfPath, 'utf-8'));
 
-            if (!htfRaw || ltfRaw.length < BACKTEST_CANDLES) continue;
+            if (!htfRaw || ltfRaw.length < backtestCandles) continue;
 
             // Map to standard format
             let ltfData = Array.isArray(ltfRaw[0]) ? ltfRaw.map(d => ({ time: d[0], open: parseFloat(d[1]), high: parseFloat(d[2]), low: parseFloat(d[3]), close: parseFloat(d[4]), volume: parseFloat(d[5]) })) : ltfRaw;
@@ -94,7 +95,7 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
             let htfIndex = 0;
 
             // Run Backtest Loop
-            for (let i = ltfData.length - BACKTEST_CANDLES; i < ltfData.length - 100; i++) {
+            for (let i = ltfData.length - backtestCandles; i < ltfData.length - 100; i++) {
                 // Slice data to simulate "now"
                 const currentLtf = ltfData.slice(0, i + 1);
                 const currentTimestamp = currentLtf[currentLtf.length - 1].time;
@@ -104,8 +105,6 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
                 while (htfIndex < htfData.length && htfData[htfIndex].time <= currentTimestamp) {
                     htfIndex++;
                 }
-                // We want everything UP TO htfIndex (exclusive of the one that passed, inclusive of the one equal)
-                // Actually the loop goes passed. htfIndex points to first candle > currentTimestamp.
                 const currentHtf = htfData.slice(0, htfIndex);
 
                 if (currentHtf.length < 50) continue;

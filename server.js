@@ -164,15 +164,70 @@ app.post('/api/backtest', async (req, res) => {
 
 import { optimizeStrategy } from './server/optimizer.js';
 
+// ==========================================
+// OPTIMIZATION & BACKTESTING
+// ==========================================
+
+// Global Status Tracker (Simple in-memory for single user)
+global.optimizationStatus = {
+    status: 'IDLE', // IDLE, RUNNING, COMPLETED, ERROR
+    progress: 0,
+    eta: 0, // Seconds
+    result: null,
+    error: null
+};
+
+app.get('/api/optimize/status', (req, res) => {
+    res.json(global.optimizationStatus);
+});
+
 app.post('/api/optimize', async (req, res) => {
     try {
-        const currentConfig = req.body;
-        console.log('[OPTIMIZER] Request received');
+        if (global.optimizationStatus.status === 'RUNNING') {
+            return res.status(409).json({ error: 'Optimization already running' });
+        }
 
-        const result = await optimizeStrategy(currentConfig);
-        res.json({ success: true, result });
+        const currentConfig = req.body.config || req.body; // Handle wrapped config
+        const options = {
+            days: req.body.days || 12 // Default 12 days
+        };
+
+        console.log(`[OPTIMIZER] Starting job. Days: ${options.days}`);
+
+        // Reset Status
+        global.optimizationStatus = {
+            status: 'RUNNING',
+            progress: 0,
+            eta: 0,
+            result: null,
+            error: null
+        };
+
+        // Send immediate response
+        res.json({ success: true, message: 'Optimization started' });
+
+        // Run Async
+        optimizeStrategy(currentConfig, {
+            days: options.days,
+            onProgress: (pct, eta) => {
+                global.optimizationStatus.progress = pct;
+                global.optimizationStatus.eta = eta;
+            }
+        })
+            .then(result => {
+                global.optimizationStatus.status = 'COMPLETED';
+                global.optimizationStatus.progress = 100;
+                global.optimizationStatus.result = result;
+                console.log('[OPTIMIZER] Job Completed');
+            })
+            .catch(e => {
+                console.error('[OPTIMIZER] Job Failed:', e);
+                global.optimizationStatus.status = 'ERROR';
+                global.optimizationStatus.error = e.message;
+            });
+
     } catch (e) {
-        console.error('Optimization failed:', e);
+        console.error('Optimization request failed:', e);
         res.status(500).json({ success: false, error: e.message });
     }
 });

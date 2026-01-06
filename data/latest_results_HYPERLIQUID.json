@@ -2,13 +2,13 @@
   {
     "symbol": "kPEPEUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.006892,
-    "score": 85,
+    "price": 0.006848,
+    "score": 88.5,
     "setup": {
       "entry": 0.0067,
-      "sl": 0.006569719614766848,
+      "sl": 0.0065652289926626875,
       "tp": 0.007106,
-      "rr": 3.12,
+      "rr": 3.01,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -17,421 +17,45 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 20,
       "moneyFlowScore": 25,
-      "timingScore": 10
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.0057826432893984675,
-      "ema200": 0.004866941163506611,
+      "ema50": 0.005780917799202389,
+      "ema200": 0.004866503352561337,
       "adx": 48.2455401511278
     },
     "ltf": {
-      "rsi": 53.285725238825215,
+      "rsi": 46.55857802688302,
       "divergence": "NONE",
       "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.5051546391752584,
+      "pullbackDepth": 0.6185567010309281,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 80,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "kLUNCUSDT",
-    "source": "HYPERLIQUID",
-    "price": 0.044788,
-    "score": 80,
-    "setup": {
-      "entry": 0.044269,
-      "sl": 0.04345043645641775,
-      "tp": 0.047192,
-      "rr": 3.57,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.04215264907961001,
-      "ema200": 0.04091324755518221,
-      "adx": 41.565592188421356
-    },
-    "ltf": {
-      "rsi": 56.319069900644934,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.33527198084159987,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
       "status": "NEW"
-    }
-  },
-  {
-    "symbol": "LINKUSDT",
-    "source": "HYPERLIQUID",
-    "price": 13.825,
-    "score": 70,
-    "setup": {
-      "entry": 11.984,
-      "sl": 11.855402402432087,
-      "tp": 15.235,
-      "rr": 25.28,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 13.138070190922102,
-      "ema200": 13.110416965660628,
-      "adx": 54.29802674560579
-    },
-    "ltf": {
-      "rsi": 46.101878706983,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.5050505050505083,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 70,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "STXUSDT",
-    "source": "HYPERLIQUID",
-    "price": 0.37874,
-    "score": 70,
-    "setup": {
-      "entry": 0.36166,
-      "sl": 0.35525154068520154,
-      "tp": 0.38981,
-      "rr": 4.39,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.3099247244371321,
-      "ema200": 0.2908575818297688,
-      "adx": 74.54373628105282
-    },
-    "ltf": {
-      "rsi": 42.082064174257894,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.7086788280818133,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 70,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "SUIUSDT",
-    "source": "HYPERLIQUID",
-    "price": 1.985,
-    "score": 60,
-    "setup": {
-      "entry": 1.9285,
-      "sl": 1.8908938300722644,
-      "tp": 2.0188,
-      "rr": 2.4,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 10
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 1.643586967059503,
-      "ema200": 1.57311577374592,
-      "adx": 63.955915195016416
-    },
-    "ltf": {
-      "rsi": 61.01311038710572,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.3743078626799561,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 60,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "PAXGUSDT",
-    "source": "HYPERLIQUID",
-    "price": 4466.1,
-    "score": 60,
-    "setup": {
-      "entry": 4293.7,
-      "sl": 4268.749796170696,
-      "tp": 4555,
-      "rr": 10.47,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 4408.1833608754905,
-      "ema200": 4354.164486482462,
-      "adx": 28.879404696709862
-    },
-    "ltf": {
-      "rsi": 48.79885015316664,
-      "divergence": "BEARISH",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.7353184449958635,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "PENGUUSDT",
-    "source": "HYPERLIQUID",
-    "price": 0.013423,
-    "score": 60,
-    "setup": {
-      "entry": 0.012784,
-      "sl": 0.0124815389644293,
-      "tp": 0.013815,
-      "rr": 3.41,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 10
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.011143095026133622,
-      "ema200": 0.010705353096150918,
-      "adx": 65.51055171931165
-    },
-    "ltf": {
-      "rsi": 61.89397608053373,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.38021338506304597,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "SOLUSDT",
-    "source": "HYPERLIQUID",
-    "price": 138.74,
-    "score": 55,
-    "setup": {
-      "entry": 132.86,
-      "sl": 131.6848482422436,
-      "tp": 139.98,
-      "rr": 6.06,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 131.49886853492526,
-      "ema200": 131.42348934993336,
-      "adx": 38.96732429937379
-    },
-    "ltf": {
-      "rsi": 51.76892596762306,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.45255474452554356,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "DOGEUSDT",
-    "source": "HYPERLIQUID",
-    "price": 0.1516,
-    "score": 55,
-    "setup": {
-      "entry": 0.14593,
-      "sl": 0.14437293624339304,
-      "tp": 0.15453,
-      "rr": 5.52,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.1396489223541844,
-      "ema200": 0.13752405288844105,
-      "adx": 45.68283720293065
-    },
-    "ltf": {
-      "rsi": 56.09556602368882,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.43925233644859585,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
     }
   },
   {
     "symbol": "kSHIBUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.009411,
-    "score": 55,
+    "price": 0.00934,
+    "score": 88.5,
     "setup": {
       "entry": 0.009122,
-      "sl": 0.008995967976196421,
+      "sl": 0.008985174016822677,
       "tp": 0.010067,
-      "rr": 7.5,
+      "rr": 6.91,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -440,45 +64,45 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.008208330226056593,
-      "ema200": 0.007963526744410124,
-      "adx": 59.066122895219515
+      "ema50": 0.008205545912331103,
+      "ema200": 0.007962820276748432,
+      "adx": 59.094933445334
     },
     "ltf": {
-      "rsi": 60.653679670859944,
+      "rsi": 49.2936319218651,
       "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.4329268292682945,
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.5772357723577248,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "symbol": "LTCUSDT",
     "source": "HYPERLIQUID",
-    "price": 83.805,
-    "score": 55,
+    "price": 84.32,
+    "score": 88.5,
     "setup": {
       "entry": 80.688,
-      "sl": 80.14998346460509,
-      "tp": 84.534,
-      "rr": 7.15,
+      "sl": 79.88302494307844,
+      "tp": 84.847,
+      "rr": 5.17,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -487,76 +111,29 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 81.00485454201335,
-      "ema200": 80.98119501040975,
-      "adx": 30.535470403777005
+      "ema50": 81.02505062044472,
+      "ema200": 80.9863193885192,
+      "adx": 30.926113454621287
     },
     "ltf": {
-      "rsi": 53.78209345416902,
+      "rsi": 57.97955750592802,
       "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.33578104138851705,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767707473965,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "TONUSDT",
-    "source": "HYPERLIQUID",
-    "price": 1.9398,
-    "score": 55,
-    "setup": {
-      "entry": 1.8335,
-      "sl": 1.8135600366529463,
-      "tp": 1.949,
-      "rr": 5.79,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 1.7759601738842334,
-      "ema200": 1.6650772644305722,
-      "adx": 52.68341087361934
-    },
-    "ltf": {
-      "rsi": 66.07104692731386,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.15944540727903092,
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.25871379479627055,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -564,15 +141,15 @@
     }
   },
   {
-    "symbol": "PROVEUSDT",
+    "symbol": "ORDIUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.45116,
-    "score": 55,
+    "price": 4.8398,
+    "score": 88.5,
     "setup": {
-      "entry": 0.426,
-      "sl": 0.421712043357593,
-      "tp": 0.45585,
-      "rr": 6.96,
+      "entry": 4.7147,
+      "sl": 4.641661884491488,
+      "tp": 4.9455,
+      "rr": 3.16,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -581,29 +158,29 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.4277054027753252,
-      "ema200": 0.42637559811360465,
-      "adx": 38.562930763623974
+      "ema50": 4.526487060036058,
+      "ema200": 4.3104834608082205,
+      "adx": 42.44165080012355
     },
     "ltf": {
-      "rsi": 58.082721748528876,
+      "rsi": 47.24238805160481,
       "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.30759803921568774,
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.4714038128249541,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -613,13 +190,13 @@
   {
     "symbol": "GASUSDT",
     "source": "HYPERLIQUID",
-    "price": 2.1764,
-    "score": 55,
+    "price": 2.1729,
+    "score": 88.5,
     "setup": {
       "entry": 2.1453,
-      "sl": 2.1341755,
+      "sl": 2.125846066798996,
       "tp": 2.266,
-      "rr": 10.85,
+      "rr": 6.2,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -628,45 +205,139 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 2.0602836828992874,
-      "ema200": 2.0399991055489077,
-      "adx": 35.14481028312689
+      "ema50": 2.0601464279973265,
+      "ema200": 2.039964279678261,
+      "adx": 35.20165980071081
     },
     "ltf": {
-      "rsi": 47.868208862959484,
+      "rsi": 53.48050964418554,
       "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6040000000000013,
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.4254032258064552,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
-    "symbol": "WLDUSDT",
+    "symbol": "MEMEUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.63895,
-    "score": 50,
+    "price": 0.001269,
+    "score": 86.5,
     "setup": {
-      "entry": 0.61846,
-      "sl": 0.6100874845876759,
-      "tp": 0.66191,
-      "rr": 5.19,
+      "entry": 0.001192,
+      "sl": 0.0011724781013333916,
+      "tp": 0.001291,
+      "rr": 5.07,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 12
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.0011368626828600324,
+      "ema200": 0.001112899481033533,
+      "adx": 56.880789800936
+    },
+    "ltf": {
+      "rsi": 55.90522313431674,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.30909090909090986,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "JTOUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.51063,
+    "score": 80.5,
+    "setup": {
+      "entry": 0.46828,
+      "sl": 0.4566516418790509,
+      "tp": 0.52696,
+      "rr": 5.05,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.4468169258645754,
+      "ema200": 0.43976441004377476,
+      "adx": 60.31341064835726
+    },
+    "ltf": {
+      "rsi": 55.972773613585545,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.4114386495338865,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "PENGUUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.013277,
+    "score": 68.5,
+    "setup": {
+      "entry": 0.012784,
+      "sl": 0.012436463342946198,
+      "tp": 0.013815,
+      "rr": 2.97,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -675,29 +346,217 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 0
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.5648220848942667,
-      "ema200": 0.562815520689471,
-      "adx": 64.55966593662654
+      "ema50": 0.011137369535937544,
+      "ema200": 0.01070390035983251,
+      "adx": 65.55281294308868
     },
     "ltf": {
-      "rsi": 60.35758415897284,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.253551912568305,
-      "isPullback": false,
+      "rsi": 51.674690251077905,
+      "divergence": "BEARISH",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.5218234723569342,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "FARTCOINUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.4476,
+    "score": 63.5,
+    "setup": {
+      "entry": 0.4259,
+      "sl": 0.41585029999999995,
+      "tp": 0.46453,
+      "rr": 3.84,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.3509496648976863,
+      "ema200": 0.32591587455376037,
+      "adx": 55.14612866768209
+    },
+    "ltf": {
+      "rsi": 48.8892907354481,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.3633827001502467,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "PAXGUSDT",
+    "source": "HYPERLIQUID",
+    "price": 4487,
+    "score": 63.5,
+    "setup": {
+      "entry": 4293.7,
+      "sl": 4268.073037445168,
+      "tp": 4555,
+      "rr": 10.2,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 4409.002968718628,
+      "ema200": 4354.3724466814665,
+      "adx": 28.879404696709862
+    },
+    "ltf": {
+      "rsi": 60.14949387109936,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.6427221172022674,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "BCHUSDT",
+    "source": "HYPERLIQUID",
+    "price": 634.88,
+    "score": 63.5,
+    "setup": {
+      "entry": 630.86,
+      "sl": 621.80535,
+      "tp": 669.19,
+      "rr": 4.23,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 624.8348579459582,
+      "ema200": 590.8316409431295,
+      "adx": 42.435116879980384
+    },
+    "ltf": {
+      "rsi": 38.208879518081766,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.5876502279320328,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "FETUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.30221,
+    "score": 63.5,
+    "setup": {
+      "entry": 0.29073,
+      "sl": 0.28782365000000004,
+      "tp": 0.31518,
+      "rr": 8.41,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.24723211248430096,
+      "ema200": 0.23610228192288243,
+      "adx": 66.7071981521477
+    },
+    "ltf": {
+      "rsi": 47.810665254367564,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.5005789270551927,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -707,13 +566,13 @@
   {
     "symbol": "ARBUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.22401,
-    "score": 50,
+    "price": 0.22463,
+    "score": 63.5,
     "setup": {
       "entry": 0.21809,
-      "sl": 0.21594470427321832,
-      "tp": 0.22438,
-      "rr": 2.93,
+      "sl": 0.2146767641290309,
+      "tp": 0.22748,
+      "rr": 2.75,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -722,29 +581,29 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 0
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.20684253360294855,
-      "ema200": 0.2060263157328462,
-      "adx": 44.349328689263594
+      "ema50": 0.20686684732843874,
+      "ema200": 0.20603248488707504,
+      "adx": 44.779952231739905
     },
     "ltf": {
-      "rsi": 68.40202563101059,
+      "rsi": 57.93335212213147,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.06445993031359051,
-      "isPullback": false,
+      "pullbackDepth": 0.3223981900452484,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -752,15 +611,15 @@
     }
   },
   {
-    "symbol": "LDOUSDT",
+    "symbol": "kLUNCUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.66486,
-    "score": 50,
+    "price": 0.04654,
+    "score": 63.5,
     "setup": {
-      "entry": 0.64848,
-      "sl": 0.6418475127359532,
-      "tp": 0.66832,
-      "rr": 2.99,
+      "entry": 0.044269,
+      "sl": 0.043475684563613545,
+      "tp": 0.047192,
+      "rr": 3.68,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -769,29 +628,29 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 0
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.6173270438306336,
-      "ema200": 0.6063440513195058,
-      "adx": 44.0909614757377
+      "ema50": 0.04260846631813585,
+      "ema200": 0.04106846453414222,
+      "adx": 42.764511597008685
     },
     "ltf": {
-      "rsi": 56.63396540482669,
+      "rsi": 54.11911529035415,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.17439516129032281,
-      "isPullback": false,
+      "pullbackDepth": 0.317139924734861,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -799,15 +658,15 @@
     }
   },
   {
-    "symbol": "FILUSDT",
+    "symbol": "OPUSDT",
     "source": "HYPERLIQUID",
-    "price": 1.595,
-    "score": 50,
+    "price": 0.33269,
+    "score": 63.5,
     "setup": {
-      "entry": 1.5484,
-      "sl": 1.531202056645259,
-      "tp": 1.6858,
-      "rr": 7.99,
+      "entry": 0.32475,
+      "sl": 0.31961727489560166,
+      "tp": 0.34033,
+      "rr": 3.04,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -816,29 +675,29 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 0
+      "timingScore": 6
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 1.4585674867509613,
-      "ema200": 1.4314619653530258,
-      "adx": 41.814154610758024
+      "ema50": 0.30307930958743307,
+      "ema200": 0.3013207511278743,
+      "adx": 53.89597566059003
     },
     "ltf": {
-      "rsi": 63.13905569337989,
+      "rsi": 50.05180098343125,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.20042643923241027,
-      "isPullback": false,
+      "pullbackDepth": 0.49037227214377516,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -846,46 +705,46 @@
     }
   },
   {
-    "symbol": "ARUSDT",
+    "symbol": "MELANIAUSDT",
     "source": "HYPERLIQUID",
-    "price": 4.2039,
-    "score": 50,
+    "price": 0.14839,
+    "score": 61.5,
     "setup": {
-      "entry": 4.042,
-      "sl": 3.99022647840112,
-      "tp": 4.2043,
-      "rr": 3.13,
+      "entry": 0.13125,
+      "sl": 0.12532252810894798,
+      "tp": 0.16,
+      "rr": 4.85,
       "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
+      "confluenceType": "STRUCTURE_ONLY"
     },
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 12,
       "moneyFlowScore": 0,
-      "timingScore": 0
+      "timingScore": 12
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "ema50": 3.8337336331641083,
-      "ema200": 3.781912904416818,
-      "adx": 41.856309634241924
+      "ema50": 0.12695941720085877,
+      "ema200": 0.1194119501330854,
+      "adx": 43.7910942719264
     },
     "ltf": {
-      "rsi": 65.25458839194394,
+      "rsi": 62.04147832543349,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.11649831649831988,
-      "isPullback": false,
+      "pullbackDepth": 0.45907473309608565,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -893,15 +752,62 @@
     }
   },
   {
-    "symbol": "GOATUSDT",
+    "symbol": "AIXBTUSDT",
     "source": "HYPERLIQUID",
-    "price": 0.042909,
-    "score": 50,
+    "price": 0.042348,
+    "score": 60.5,
     "setup": {
-      "entry": 0.041879,
-      "sl": 0.04105528851013481,
-      "tp": 0.044609,
-      "rr": 3.31,
+      "entry": 0.040304,
+      "sl": 0.03936204889534717,
+      "tp": 0.043886,
+      "rr": 3.8,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 6
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.03873623985600352,
+      "ema200": 0.0375875709034541,
+      "adx": 45.51879196160729
+    },
+    "ltf": {
+      "rsi": 52.21717642109044,
+      "divergence": "BEARISH",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.3769230769230774,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "SOLUSDT",
+    "source": "HYPERLIQUID",
+    "price": 142.69,
+    "score": 57.5,
+    "setup": {
+      "entry": 132.86,
+      "sl": 130.85957644274055,
+      "tp": 143.36,
+      "rr": 5.25,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -910,29 +816,123 @@
       "ltfInterval": "15m"
     },
     "details": {
-      "trendScore": 25,
-      "structureScore": 25,
+      "trendScore": 37.5,
+      "structureScore": 20,
       "moneyFlowScore": 0,
       "timingScore": 0
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.03845039027832961,
-      "ema200": 0.037177360881472485,
-      "adx": 44.81597834323116
+      "ema50": 131.65377049570958,
+      "ema200": 131.46279283252045,
+      "adx": 39.96019106407488
     },
     "ltf": {
-      "rsi": 66.64724650648265,
+      "rsi": 74.20138306082231,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.2069597069597078,
+      "pullbackDepth": 0.11019736842105503,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": false,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "WLDUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.64309,
+    "score": 57.5,
+    "setup": {
+      "entry": 0.61846,
+      "sl": 0.6075242482624633,
+      "tp": 0.66191,
+      "rr": 3.97,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.5649844378354432,
+      "ema200": 0.5628567147193219,
+      "adx": 64.72590047139224
+    },
+    "ltf": {
+      "rsi": 59.60500247445141,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.23031249999999942,
       "isPullback": false,
       "volumeOk": false,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767707473965,
+    "timestamp": 1767712928131,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "OMUSDT",
+    "source": "HYPERLIQUID",
+    "price": 0.08422,
+    "score": 57.5,
+    "setup": {
+      "entry": 0.08014,
+      "sl": 0.07897076592438626,
+      "tp": 0.08425,
+      "rr": 3.52,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.0762996295516686,
+      "ema200": 0.07564327572842924,
+      "adx": 51.458503259100404
+    },
+    "ltf": {
+      "rsi": 68.58151403872202,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.008849557522124546,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767712928131,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,

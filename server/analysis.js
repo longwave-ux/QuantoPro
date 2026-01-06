@@ -169,12 +169,13 @@ export const AnalysisEngine = {
         const atr = calculateATR(ltfData, 14);
 
         // ADAPTIVE LOGIC: Adjust Confirmation Window based on Trend Strength
-        // Parabolic (ADX > 50) -> Fast Window (10 candles / 2.5h) to catch rapid steps
-        // Strong (ADX > 25) -> Medium Window (20 candles / 5h)
-        // Ranging (ADX < 25) -> Slow Window (50 candles / 12.5h) for major levels only
+        // Only active if ENABLE_ADAPTIVE is true
         let lookbackWindow = 50;
-        if (adx > 50) lookbackWindow = 10;
-        else if (adx > 25) lookbackWindow = 20;
+
+        if (config.SYSTEM.ENABLE_ADAPTIVE) {
+            if (adx > 50) lookbackWindow = 10;
+            else if (adx > 25) lookbackWindow = 20;
+        }
 
         const levels = findKeyLevels(ltfData, lookbackWindow);
         const { high: majorHigh, low: majorLow } = getSwingHighLow(ltfData, 120);
@@ -186,8 +187,11 @@ export const AnalysisEngine = {
         let confluenceType = 'ATR_REVERSION';
 
         // DYNAMIC ENTRY: Adjust pullback depth based on aggression
-        // If ADX > 40, we allow entering at 0.382 Fib (shallow pullback)
-        const fibRatio = adx > 40 ? 0.382 : 0.618;
+        // Only active if ENABLE_ADAPTIVE is true
+        let fibRatio = 0.618;
+        if (config.SYSTEM.ENABLE_ADAPTIVE && adx > 40) {
+            fibRatio = 0.382;
+        }
 
         if (bias === 'LONG') {
             const range = swingHigh - swingLow;
@@ -254,6 +258,9 @@ export const AnalysisEngine = {
     },
 
     analyzePair: (symbol, htfData, ltfData, htf, ltf, now, source, config = CONFIG) => {
+        if (config.SYSTEM.ENABLE_ADAPTIVE) {
+            // console.log(`[ANALYSIS] Adaptive Mode ACTIVE for ${symbol}`);
+        }
         const { bias, trendStruct, ema50, ema200, adx } = AnalysisEngine.detectTrendHTF(htfData, config);
         const { isPullback, depth, hasRejection } = AnalysisEngine.detectPullback(ltfData, bias, config);
         const volumeOk = AnalysisEngine.checkVolume(ltfData);
@@ -290,6 +297,14 @@ export const AnalysisEngine = {
             if (volumeOk) timingScore += config.SCORING.TIMING.PULLBACK;
         }
         if (hasRejection) timingScore += config.SCORING.TIMING.REJECTION;
+
+        // ADAPTIVE SCORING (REGIME SWITCHING)
+        // If Enabled and Trend is Strong, boost Trend/Timing and reduce Structure dependency
+        if (config.SYSTEM.ENABLE_ADAPTIVE && adx > 25 && config.REGIMES?.TRENDING) {
+            trendScore *= config.REGIMES.TRENDING.TREND_MULTIPLIER;
+            structureScore *= config.REGIMES.TRENDING.STRUCTURE_MULTIPLIER;
+            timingScore *= config.REGIMES.TRENDING.TIMING_MULTIPLIER;
+        }
 
         let totalScore = trendScore + structureScore + moneyFlowScore + timingScore;
 

@@ -100,6 +100,7 @@ export interface Config {
     TRACKER_INTERVAL: number;
     BATCH_SIZE: number;
     HTTP_PORT: number;
+    ENABLE_ADAPTIVE: boolean;
   };
   SCANNERS: {
     HTF: string;
