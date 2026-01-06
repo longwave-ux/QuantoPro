@@ -1,0 +1,1212 @@
+Found 682 pairs to analyze...
+{
+  "totalSignals": 5411,
+  "wins": 1692,
+  "losses": 1407,
+  "expired": 2312,
+  "byScore": {
+    "80-89": {
+      "wins": 556,
+      "losses": 478,
+      "total": 1723
+    },
+    "70-79": {
+      "wins": 1090,
+      "losses": 860,
+      "total": 3500
+    },
+    "90-99": {
+      "wins": 40,
+      "losses": 63,
+      "total": 174
+    },
+    "100-109": {
+      "wins": 6,
+      "losses": 6,
+      "total": 14
+    }
+  },
+  "byIndicator": {
+    "rsiOverboughtWin": 1684,
+    "rsiOverboughtLoss": 1383,
+    "divergenceWin": 219,
+    "divergenceLoss": 269,
+    "pullbackWin": 1394,
+    "pullbackLoss": 1029
+  },
+  "weak_signals": [
+    {
+      "symbol": "ALTUSDT",
+      "time": "2026-01-01T00:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.79982537021727,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7346938775510201,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "AVNTUSDT",
+      "time": "2025-12-31T04:00:00.000Z",
+      "side": "LONG",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 44.00354516222754,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.7962962962962958,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "DASHUSDT",
+      "time": "2026-01-01T00:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.483924670486,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.5714285714285714,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T06:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.61239926701222,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7142857142857143,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T06:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.61239926701222,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7142857142857143,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T08:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 61.215749712757244,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.875,
+        "isPullback": false,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T08:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 57.33512441920711,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8124999999999973,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T08:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 60.061672112629346,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8666666666666663,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GALAUSDT",
+      "time": "2026-01-01T08:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 66.89643327036609,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 1,
+        "isPullback": false,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "HBARUSDT",
+      "time": "2026-01-01T03:30:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.476342689393555,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.44415584415584425,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "HBARUSDT",
+      "time": "2026-01-01T03:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.76047236195772,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.4168865435356194,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "HUMAUSDT",
+      "time": "2026-01-01T21:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 67.82800086760923,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8524590163934428,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "HUMAUSDT",
+      "time": "2026-01-01T22:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 68.65579450877478,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.868852459016393,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T00:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.55074316882851,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.5789473684210525,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T01:00:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.58848091195124,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6140350877192967,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T01:45:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 57.20295380515792,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6666666666666666,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T03:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 59.55434874113402,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7058823529411766,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T03:45:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 60.47715922571951,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7083333333333336,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T04:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.32523305106852,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6304347826086947,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MATICUSDT",
+      "time": "2024-09-08T23:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.998050212232435,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6904761904761894,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "POLYUSDT",
+      "time": "2022-10-07T16:00:00.000Z",
+      "side": "LONG",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 45.777331043145,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.7346938775510192,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "POLYUSDT",
+      "time": "2022-10-07T16:15:00.000Z",
+      "side": "LONG",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 40.83418477238051,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.8775510204081653,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "POLYUSDT",
+      "time": "2022-10-07T16:30:00.000Z",
+      "side": "LONG",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 41.16001467429797,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.870748299319727,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "TOMOUSDT",
+      "time": "2023-11-19T01:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 48.24786550827953,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.5235294117647066,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "WALUSDT",
+      "time": "2026-01-01T16:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 52.677765169729916,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6428571428571455,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "WALUSDT",
+      "time": "2026-01-01T16:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.92926168256833,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6666666666666666,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "WALUSDT",
+      "time": "2026-01-01T16:30:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.92926168256833,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6666666666666666,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "WALUSDT",
+      "time": "2026-01-01T21:00:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 62.14862865822378,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.9062500000000014,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "WALUSDT",
+      "time": "2026-01-01T21:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 62.14862865822378,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.9062500000000014,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "XLMUSDT",
+      "time": "2026-01-02T00:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.13864943291624,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6949152542372882,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "XLMUSDT",
+      "time": "2026-01-02T01:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 52.01329336049667,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6271186440677946,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "YFIUSDT",
+      "time": "2026-01-01T19:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 62.30083197023217,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.782608695652174,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "YFIUSDT",
+      "time": "2026-01-01T20:00:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 65.32668131553929,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8405797101449275,
+        "isPullback": false,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "BIGTIMEUSDT",
+      "time": "2026-01-01T01:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 50.94230514310843,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.3563829787234058,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "BIGTIMEUSDT",
+      "time": "2026-01-01T01:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 48.914712155013525,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.32700135685210463,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "BIGTIMEUSDT",
+      "time": "2026-01-01T02:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 51.08885928203411,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.3649932157394862,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "BIGTIMEUSDT",
+      "time": "2026-01-01T02:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 54.09454796936258,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.4227086183310543,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "DOODUSDT",
+      "time": "2026-01-03T02:15:00.000Z",
+      "side": "LONG",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 48.54187845009185,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.5840336134453783,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "DYMUSDT",
+      "time": "2026-01-01T06:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 52.4925028167237,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6046511627906975,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T20:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 72.14223157165326,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.9236947791164661,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": false,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T20:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 63.47940264116543,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8447121820615798,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T20:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 57.89593989248914,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7858099062918332,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T21:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.5178464702334,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7349397590361441,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T21:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.84712577263628,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7831325301204808,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T22:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 64.4176653397167,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.9170013386880862,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T23:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 61.84044555998717,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.9098039215686257,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T23:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 52.57204065489069,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8026143790849672,
+        "isPullback": false,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "GMTUSDT",
+      "time": "2026-01-01T23:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.033691148235796,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8549019607843138,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ICPUSDT",
+      "time": "2026-01-01T02:30:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 66.03429987532792,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7792416452442167,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MNTUSDT",
+      "time": "2026-01-01T15:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 53.266397504295014,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.700492610837445,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MNTUSDT",
+      "time": "2026-01-01T16:00:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 49.1593567929531,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.5477832512315284,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MNTUSDT",
+      "time": "2026-01-01T16:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 46.19002896792053,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.42955665024630874,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MNTUSDT",
+      "time": "2026-01-01T16:30:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 46.364474232999655,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.43546798029557576,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MNTUSDT",
+      "time": "2026-01-01T17:30:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.47493329872196,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7556650246305489,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "MORPHOUSDT",
+      "time": "2026-01-03T17:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 51.90909672875656,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7748287671232877,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ONDOUSDT",
+      "time": "2026-01-01T12:30:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.70206080950117,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7869012707722374,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ZEREBROUSDT",
+      "time": "2026-01-01T21:15:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 64.437609661529,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7943336831059827,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ZEREBROUSDT",
+      "time": "2026-01-01T21:30:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 60.34987736664532,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.7334732423924475,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ZEREBROUSDT",
+      "time": "2026-01-01T21:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 57.89492694820818,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6956977964323201,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ZEREBROUSDT",
+      "time": "2026-01-01T22:00:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 63.29889775157583,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.8226652675760764,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "ZEREBROUSDT",
+      "time": "2026-01-01T22:15:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 64.43637301174218,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.852046169989508,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "AIXUSDT",
+      "time": "2026-01-03T13:45:00.000Z",
+      "side": "SHORT",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 46.75982725385829,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.30429999999999896,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "CHECKUSDT",
+      "time": "2026-01-03T10:15:00.000Z",
+      "side": "LONG",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 48.63820629369844,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.7779374775422205,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "CHECKUSDT",
+      "time": "2026-01-03T10:30:00.000Z",
+      "side": "LONG",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 45.95408910850593,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.7945682451253481,
+        "isPullback": true,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "CHECKUSDT",
+      "time": "2026-01-03T10:45:00.000Z",
+      "side": "LONG",
+      "score": 90,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 43.06649465210756,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.8405292479108635,
+        "isPullback": false,
+        "volumeOk": false,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "CHECKUSDT",
+      "time": "2026-01-03T11:00:00.000Z",
+      "side": "LONG",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 41.719089629530174,
+        "divergence": "BULLISH",
+        "obvImbalance": "BULLISH",
+        "pullbackDepth": 0.862465181058496,
+        "isPullback": false,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-02T23:45:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 55.657862572085996,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.5932203389830512,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T01:30:00.000Z",
+      "side": "SHORT",
+      "score": 95,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 58.25199056314727,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6915254237288133,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    },
+    {
+      "symbol": "LUNAUSDT",
+      "time": "2026-01-03T01:45:00.000Z",
+      "side": "SHORT",
+      "score": 100,
+      "reason": "High Score Loss",
+      "indicators": {
+        "rsi": 56.67902152817768,
+        "divergence": "BEARISH",
+        "obvImbalance": "BEARISH",
+        "pullbackDepth": 0.6677966101694911,
+        "isPullback": true,
+        "volumeOk": true,
+        "momentumOk": true,
+        "isOverextended": false
+      }
+    }
+  ]
+}
