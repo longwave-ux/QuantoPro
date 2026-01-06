@@ -40,6 +40,11 @@ export const CONFIG = {
         MONEY_FLOW: { OBV: 25, DIVERGENCE: 0 },
         TIMING: { PULLBACK: 5, REJECTION: 5 },
         PENALTIES: { CONTRARIAN_OBV: 40, CONTRARIAN_DIV: 20, OVEREXTENDED: 20, HIGH_VOL_PULLBACK: 20 }
+    },
+    RISK: {
+        ATR_MULTIPLIER: 2.5,
+        SL_BUFFER: 0.005,
+        TP_RR_MIN: 1.5
     }
 };
 

@@ -6,12 +6,12 @@ import {
 import { CONFIG } from './config.js';
 
 export const AnalysisEngine = {
-    detectTrendHTF: (htfData) => {
-        if (htfData.length < CONFIG.SCANNERS.MIN_HISTORY_HTF) return { bias: 'NONE', trendStruct: 'DOWN', ema50: 0, ema200: 0, adx: 0 };
+    detectTrendHTF: (htfData, config = CONFIG) => {
+        if (htfData.length < config.SCANNERS.MIN_HISTORY_HTF) return { bias: 'NONE', trendStruct: 'DOWN', ema50: 0, ema200: 0, adx: 0 };
 
-        const ema50Arr = calculateEMA(htfData, CONFIG.INDICATORS.EMA.FAST);
-        const ema200Arr = calculateEMA(htfData, CONFIG.INDICATORS.EMA.SLOW);
-        const adxArr = calculateADX(htfData, CONFIG.INDICATORS.ADX.PERIOD);
+        const ema50Arr = calculateEMA(htfData, config.INDICATORS.EMA.FAST);
+        const ema200Arr = calculateEMA(htfData, config.INDICATORS.EMA.SLOW);
+        const adxArr = calculateADX(htfData, config.INDICATORS.ADX.PERIOD);
 
         const close = htfData[htfData.length - 1].close;
         const closePrev3 = htfData[htfData.length - 3].close;
@@ -34,16 +34,16 @@ export const AnalysisEngine = {
         return { bias, trendStruct, ema50, ema200, adx };
     },
 
-    checkBollinger: (ltfData) => {
-        const bands = calculateBollingerBands(ltfData, CONFIG.INDICATORS.BOL_BANDS.PERIOD, CONFIG.INDICATORS.BOL_BANDS.STD_DEV);
+    checkBollinger: (ltfData, config = CONFIG) => {
+        const bands = calculateBollingerBands(ltfData, config.INDICATORS.BOL_BANDS.PERIOD, config.INDICATORS.BOL_BANDS.STD_DEV);
         const lastBand = bands[bands.length - 1];
         const lastPrice = ltfData[ltfData.length - 1].close;
         return lastPrice > lastBand.upper || lastPrice < lastBand.lower;
     },
 
-    checkOBVImbalance: (data) => {
+    checkOBVImbalance: (data, config = CONFIG) => {
         if (data.length < 30) return 'NEUTRAL';
-        const lookback = CONFIG.INDICATORS.OBV.LOOKBACK;
+        const lookback = config.INDICATORS.OBV.LOOKBACK;
         const fullObv = calculateOBV(data);
         const obvSlice = fullObv.slice(-lookback);
         const priceSlice = data.slice(-lookback).map(d => d.close);
@@ -65,12 +65,12 @@ export const AnalysisEngine = {
         const normObv = (currentObv - minObv) / obvRange;
         const diff = normObv - normPrice;
 
-        if (diff > CONFIG.INDICATORS.OBV.THRESHOLD) return 'BULLISH';
-        if (diff < -CONFIG.INDICATORS.OBV.THRESHOLD) return 'BEARISH';
+        if (diff > config.INDICATORS.OBV.THRESHOLD) return 'BULLISH';
+        if (diff < -config.INDICATORS.OBV.THRESHOLD) return 'BEARISH';
         return 'NEUTRAL';
     },
 
-    detectPullback: (ltfData, bias) => {
+    detectPullback: (ltfData, bias, config = CONFIG) => {
         if (ltfData.length === 0 || bias === 'NONE') return { isPullback: false, depth: 0, hasRejection: false };
         const { high: recentHigh, low: recentLow } = getSwingHighLow(ltfData, 50);
         const lastClose = ltfData[ltfData.length - 1].close;
@@ -82,7 +82,7 @@ export const AnalysisEngine = {
         if (bias === 'LONG') depth = (recentHigh - lastClose) / range;
         else depth = (lastClose - recentLow) / range;
 
-        isPullback = depth >= CONFIG.INDICATORS.PULLBACK.MIN_DEPTH && depth <= CONFIG.INDICATORS.PULLBACK.MAX_DEPTH;
+        isPullback = depth >= config.INDICATORS.PULLBACK.MIN_DEPTH && depth <= config.INDICATORS.PULLBACK.MAX_DEPTH;
         const lastCandle = ltfData[ltfData.length - 1];
         const hasRejection = detectRejection(lastCandle, bias);
         return { isPullback, depth, hasRejection };
@@ -96,11 +96,11 @@ export const AnalysisEngine = {
         return recentVol < meanVol;
     },
 
-    checkMomentum: (ltfData) => {
-        if (ltfData.length < CONFIG.SCANNERS.MIN_HISTORY_LTF) return { momentumOk: false, rsi: 50, divergence: 'NONE' };
-        const rsiArr = calculateRSI(ltfData, CONFIG.INDICATORS.RSI.PERIOD);
+    checkMomentum: (ltfData, config = CONFIG) => {
+        if (ltfData.length < config.SCANNERS.MIN_HISTORY_LTF) return { momentumOk: false, rsi: 50, divergence: 'NONE' };
+        const rsiArr = calculateRSI(ltfData, config.INDICATORS.RSI.PERIOD);
         const currentRsi = rsiArr[rsiArr.length - 1];
-        const momentumOk = currentRsi > CONFIG.INDICATORS.RSI.OVERSOLD && currentRsi < CONFIG.INDICATORS.RSI.OVERBOUGHT;
+        const momentumOk = currentRsi > config.INDICATORS.RSI.OVERSOLD && currentRsi < config.INDICATORS.RSI.OVERBOUGHT;
 
         let divergence = 'NONE';
 
@@ -130,7 +130,7 @@ export const AnalysisEngine = {
         const lastCompletedIndex = ltfData.length - 2;
 
         // 1. Check Bullish Divergence (Lower Low Price, Higher Low RSI)
-        const lowPivots = findPivots('LOW', lastCompletedIndex, CONFIG.INDICATORS.PIVOT_LOOKBACK);
+        const lowPivots = findPivots('LOW', lastCompletedIndex, config.INDICATORS.PIVOT_LOOKBACK);
         if (lowPivots.length === 2) {
             const recent = lowPivots[0];  // Pivot B
             const previous = lowPivots[1]; // Pivot A
@@ -145,7 +145,7 @@ export const AnalysisEngine = {
 
         // 2. Check Bearish Divergence (Higher High Price, Lower High RSI)
         if (divergence === 'NONE') {
-            const highPivots = findPivots('HIGH', lastCompletedIndex, CONFIG.INDICATORS.PIVOT_LOOKBACK);
+            const highPivots = findPivots('HIGH', lastCompletedIndex, config.INDICATORS.PIVOT_LOOKBACK);
             if (highPivots.length === 2) {
                 const recent = highPivots[0];
                 const previous = highPivots[1];
@@ -162,12 +162,21 @@ export const AnalysisEngine = {
         return { momentumOk, rsi: currentRsi, divergence };
     },
 
-    calculateTradeSetup: (ltfData, bias) => {
+    calculateTradeSetup: (ltfData, bias, adx, config = CONFIG) => {
         if (bias === 'NONE' || ltfData.length === 0) return null;
 
         const currentPrice = ltfData[ltfData.length - 1].close;
         const atr = calculateATR(ltfData, 14);
-        const levels = findKeyLevels(ltfData, 50);
+
+        // ADAPTIVE LOGIC: Adjust Confirmation Window based on Trend Strength
+        // Parabolic (ADX > 50) -> Fast Window (10 candles / 2.5h) to catch rapid steps
+        // Strong (ADX > 25) -> Medium Window (20 candles / 5h)
+        // Ranging (ADX < 25) -> Slow Window (50 candles / 12.5h) for major levels only
+        let lookbackWindow = 50;
+        if (adx > 50) lookbackWindow = 10;
+        else if (adx > 25) lookbackWindow = 20;
+
+        const levels = findKeyLevels(ltfData, lookbackWindow);
         const { high: majorHigh, low: majorLow } = getSwingHighLow(ltfData, 120);
         const { high: swingHigh, low: swingLow } = getSwingHighLow(ltfData, 50);
 
@@ -176,9 +185,15 @@ export const AnalysisEngine = {
         let tp = 0;
         let confluenceType = 'ATR_REVERSION';
 
+        // DYNAMIC ENTRY: Adjust pullback depth based on aggression
+        // If ADX > 40, we allow entering at 0.382 Fib (shallow pullback)
+        const fibRatio = adx > 40 ? 0.382 : 0.618;
+
         if (bias === 'LONG') {
             const range = swingHigh - swingLow;
-            const fibLevel = swingHigh - (range * 0.618);
+            const fibLevel = swingHigh - (range * fibRatio);
+
+            // Filter supports relative to our dynamic Fib level
             const validSupports = levels.supports.filter(s => s < currentPrice && s >= fibLevel * 0.95);
             const bestSupport = validSupports.sort((a, b) => Math.abs(a - fibLevel) - Math.abs(b - fibLevel))[0];
 
@@ -201,7 +216,7 @@ export const AnalysisEngine = {
 
         } else {
             const range = swingHigh - swingLow;
-            const fibLevel = swingLow + (range * 0.618);
+            const fibLevel = swingLow + (range * fibRatio);
             const validResistances = levels.resistances.filter(r => r > currentPrice && r <= fibLevel * 1.05);
             const bestRes = validResistances.sort((a, b) => Math.abs(a - fibLevel) - Math.abs(b - fibLevel))[0];
 
@@ -238,52 +253,54 @@ export const AnalysisEngine = {
         return { entry, sl, tp, rr, side: bias, confluenceType };
     },
 
-    analyzePair: (symbol, htfData, ltfData, htf, ltf, now, source) => {
-        const { bias, trendStruct, ema50, ema200, adx } = AnalysisEngine.detectTrendHTF(htfData);
-        const { isPullback, depth, hasRejection } = AnalysisEngine.detectPullback(ltfData, bias);
+    analyzePair: (symbol, htfData, ltfData, htf, ltf, now, source, config = CONFIG) => {
+        const { bias, trendStruct, ema50, ema200, adx } = AnalysisEngine.detectTrendHTF(htfData, config);
+        const { isPullback, depth, hasRejection } = AnalysisEngine.detectPullback(ltfData, bias, config);
         const volumeOk = AnalysisEngine.checkVolume(ltfData);
-        const { momentumOk, rsi, divergence } = AnalysisEngine.checkMomentum(ltfData);
-        const isOverextended = AnalysisEngine.checkBollinger(ltfData);
-        const obvImbalance = AnalysisEngine.checkOBVImbalance(ltfData);
+        const { momentumOk, rsi, divergence } = AnalysisEngine.checkMomentum(ltfData, config);
+        const isOverextended = AnalysisEngine.checkBollinger(ltfData, config);
+        const obvImbalance = AnalysisEngine.checkOBVImbalance(ltfData, config);
 
-        const setup = (adx > CONFIG.INDICATORS.ADX.MIN_TREND) ? AnalysisEngine.calculateTradeSetup(ltfData, bias) : null;
+        // PASS ADX TO SETUP CALCULATOR
+        const setup = (adx > config.INDICATORS.ADX.MIN_TREND) ? AnalysisEngine.calculateTradeSetup(ltfData, bias, adx, config) : null;
 
         let trendScore = 0, structureScore = 0, moneyFlowScore = 0, timingScore = 0;
 
         if (bias === 'LONG' && htfData[htfData.length - 1].close > ema50 && ema50 > ema200) {
-            trendScore = CONFIG.SCORING.TREND.BASE; if (adx > CONFIG.INDICATORS.ADX.STRONG_TREND) trendScore += CONFIG.SCORING.TREND.STRONG_ADX;
+            trendScore = config.SCORING.TREND.BASE; if (adx > config.INDICATORS.ADX.STRONG_TREND) trendScore += config.SCORING.TREND.STRONG_ADX;
         } else if (bias === 'SHORT' && htfData[htfData.length - 1].close < ema50 && ema50 < ema200) {
-            trendScore = CONFIG.SCORING.TREND.BASE; if (adx > CONFIG.INDICATORS.ADX.STRONG_TREND) trendScore += CONFIG.SCORING.TREND.STRONG_ADX;
-        } else { if (bias !== 'NONE') trendScore = CONFIG.SCORING.TREND.WEAK_BIAS; }
+            trendScore = config.SCORING.TREND.BASE; if (adx > config.INDICATORS.ADX.STRONG_TREND) trendScore += config.SCORING.TREND.STRONG_ADX;
+        } else { if (bias !== 'NONE') trendScore = config.SCORING.TREND.WEAK_BIAS; }
 
         if (setup) {
-            if (setup.confluenceType === 'FIB_STRUCTURE') structureScore = CONFIG.SCORING.STRUCTURE.FIB;
-            else if (setup.confluenceType === 'STRUCTURE_ONLY') structureScore = CONFIG.SCORING.STRUCTURE.LEVEL;
+            if (setup.confluenceType === 'FIB_STRUCTURE') structureScore = config.SCORING.STRUCTURE.FIB;
+            else if (setup.confluenceType === 'STRUCTURE_ONLY') structureScore = config.SCORING.STRUCTURE.LEVEL;
 
-            if (setup.rr < 1.0) structureScore -= CONFIG.SCORING.STRUCTURE.POOR_RR_PENALTY;
-            else if (setup.rr < 1.5) structureScore -= CONFIG.SCORING.STRUCTURE.MED_RR_PENALTY;
+            if (setup.rr < 1.0) structureScore -= config.SCORING.STRUCTURE.POOR_RR_PENALTY;
+            else if (setup.rr < 1.5) structureScore -= config.SCORING.STRUCTURE.MED_RR_PENALTY;
         }
 
         if (bias === 'LONG') {
-            if (obvImbalance === 'BULLISH') moneyFlowScore += CONFIG.SCORING.MONEY_FLOW.OBV;
+            if (obvImbalance === 'BULLISH') moneyFlowScore += config.SCORING.MONEY_FLOW.OBV;
         } else if (bias === 'SHORT') {
-            if (obvImbalance === 'BEARISH') moneyFlowScore += CONFIG.SCORING.MONEY_FLOW.OBV;
+            if (obvImbalance === 'BEARISH') moneyFlowScore += config.SCORING.MONEY_FLOW.OBV;
         }
 
         if (isPullback) {
-            if (volumeOk) timingScore += CONFIG.SCORING.TIMING.PULLBACK;
-            else totalScore -= CONFIG.SCORING.PENALTIES.HIGH_VOL_PULLBACK;
+            if (volumeOk) timingScore += config.SCORING.TIMING.PULLBACK;
         }
-        if (hasRejection) timingScore += CONFIG.SCORING.TIMING.REJECTION;
+        if (hasRejection) timingScore += config.SCORING.TIMING.REJECTION;
 
         let totalScore = trendScore + structureScore + moneyFlowScore + timingScore;
 
-        if (bias === 'LONG' && obvImbalance === 'BEARISH') totalScore -= CONFIG.SCORING.PENALTIES.CONTRARIAN_OBV;
-        if (bias === 'SHORT' && obvImbalance === 'BULLISH') totalScore -= CONFIG.SCORING.PENALTIES.CONTRARIAN_OBV;
-        if (bias === 'LONG' && divergence === 'BEARISH') totalScore -= CONFIG.SCORING.PENALTIES.CONTRARIAN_DIV;
-        if (bias === 'SHORT' && divergence === 'BULLISH') totalScore -= CONFIG.SCORING.PENALTIES.CONTRARIAN_DIV;
-        if (isOverextended) totalScore -= CONFIG.SCORING.PENALTIES.OVEREXTENDED;
-        if (adx < CONFIG.INDICATORS.ADX.MIN_TREND || !setup) totalScore = 0;
+        if (isPullback && !volumeOk) totalScore -= config.SCORING.PENALTIES.HIGH_VOL_PULLBACK;
+
+        if (bias === 'LONG' && obvImbalance === 'BEARISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_OBV;
+        if (bias === 'SHORT' && obvImbalance === 'BULLISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_OBV;
+        if (bias === 'LONG' && divergence === 'BEARISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_DIV;
+        if (bias === 'SHORT' && divergence === 'BULLISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_DIV;
+        if (isOverextended) totalScore -= config.SCORING.PENALTIES.OVEREXTENDED;
+        if (adx < config.INDICATORS.ADX.MIN_TREND || !setup) totalScore = 0;
 
         return {
             symbol,

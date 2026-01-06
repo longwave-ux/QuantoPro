@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const DATA_DIR = path.join(__dirname, 'data');
 
 // Simulation settings
-const BACKTEST_CANDLES = 500; // Look back 500 candles for simulation
+const BACKTEST_CANDLES = 1200; // Look back ~1200 candles (12 days) for deeper simulation
 
 const parseFilename = (filename) => {
     const parts = filename.split('_');
@@ -37,9 +37,21 @@ const getFutureOutcome = (candles, startIndex, entry, tp, sl, side) => {
     return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD };
 };
 
-const runAnalysis = async () => {
+export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false }) => {
+    // If running in standalone mode (no custom config), look for global CONFIG
+    // Otherwise use provided config, merging checks if needed.
+    const activeConfig = customConfig || CONFIG;
+    const { limit, verbose } = options;
+
+    // In API mode, we might need absolute path if CWD differs, but here assuming same DIR structure
     const files = await fs.readdir(DATA_DIR);
-    const ltfFiles = files.filter(f => f.endsWith('_15m.json'));
+    let ltfFiles = files.filter(f => f.endsWith('_15m.json'));
+
+    // Shuffle or sort? Let's just take top N if limit is set. 
+    // Ideally we want random or volume weighted, but for now simple slicing.
+    if (limit > 0) {
+        ltfFiles = ltfFiles.slice(0, limit);
+    }
 
     const stats = {
         totalSignals: 0,
@@ -55,7 +67,7 @@ const runAnalysis = async () => {
         weak_signals: []
     };
 
-    console.log(`Found ${ltfFiles.length} pairs to analyze...`);
+    if (verbose) console.log(`[BACKTEST] Analyzing ${ltfFiles.length} pairs ...`);
 
     for (const ltfFile of ltfFiles) {
         const { source, symbol } = parseFilename(ltfFile);
@@ -63,16 +75,23 @@ const runAnalysis = async () => {
 
         try {
             const ltfRaw = JSON.parse(await fs.readFile(path.join(DATA_DIR, ltfFile), 'utf-8'));
-            const htfRaw = await fs.readFile(path.join(DATA_DIR, htfFile), 'utf-8').then(JSON.parse).catch(() => null);
+            const htfPath = path.join(DATA_DIR, htfFile);
+
+            // Check if HTF file exists
+            try {
+                await fs.access(htfPath);
+            } catch { continue; }
+
+            const htfRaw = JSON.parse(await fs.readFile(htfPath, 'utf-8'));
 
             if (!htfRaw || ltfRaw.length < BACKTEST_CANDLES) continue;
 
             // Map to standard format
-            // marketData.js maps raw arrays to objects { time, open, high, low, close, volume }
-            // We need to ensure we map them correctly based on structure
-            // Usually local files are stored as objects if from cache, check format
             let ltfData = Array.isArray(ltfRaw[0]) ? ltfRaw.map(d => ({ time: d[0], open: parseFloat(d[1]), high: parseFloat(d[2]), low: parseFloat(d[3]), close: parseFloat(d[4]), volume: parseFloat(d[5]) })) : ltfRaw;
             let htfData = Array.isArray(htfRaw[0]) ? htfRaw.map(d => ({ time: d[0], open: parseFloat(d[1]), high: parseFloat(d[2]), low: parseFloat(d[3]), close: parseFloat(d[4]), volume: parseFloat(d[5]) })) : htfRaw;
+
+            // Optimize: HTF is sorted. Maintain an index.
+            let htfIndex = 0;
 
             // Run Backtest Loop
             for (let i = ltfData.length - BACKTEST_CANDLES; i < ltfData.length - 100; i++) {
@@ -80,15 +99,21 @@ const runAnalysis = async () => {
                 const currentLtf = ltfData.slice(0, i + 1);
                 const currentTimestamp = currentLtf[currentLtf.length - 1].time;
 
-                // Find matching HTF data (everything before currentTimestamp)
-                const currentHtf = htfData.filter(c => c.time <= currentTimestamp);
+                // Efficient HTF Slicing
+                // Advance htfIndex until we pass the currentTimestamp
+                while (htfIndex < htfData.length && htfData[htfIndex].time <= currentTimestamp) {
+                    htfIndex++;
+                }
+                // We want everything UP TO htfIndex (exclusive of the one that passed, inclusive of the one equal)
+                // Actually the loop goes passed. htfIndex points to first candle > currentTimestamp.
+                const currentHtf = htfData.slice(0, htfIndex);
 
                 if (currentHtf.length < 50) continue;
 
-                // Run Strategy
-                const analysis = AnalysisEngine.analyzePair(symbol, currentHtf, currentLtf, '4h', '15m', currentTimestamp, source);
+                // Run Strategy with injected config
+                const analysis = AnalysisEngine.analyzePair(symbol, currentHtf, currentLtf, '4h', '15m', currentTimestamp, source, activeConfig);
 
-                if (analysis.score >= CONFIG.THRESHOLDS.MIN_SCORE_SIGNAL && analysis.setup) {
+                if (analysis.score >= activeConfig.THRESHOLDS.MIN_SCORE_SIGNAL && analysis.setup) {
                     // We found a signal!
                     stats.totalSignals++;
 
@@ -123,27 +148,18 @@ const runAnalysis = async () => {
                         if (outcome.result === 'WIN') stats.byIndicator.pullbackWin++;
                         else if (outcome.result === 'LOSS') stats.byIndicator.pullbackLoss++;
                     }
-
-                    // Capture Weak Signals (High score but loss)
-                    if (analysis.score > 85 && outcome.result === 'LOSS') {
-                        stats.weak_signals.push({
-                            symbol,
-                            time: new Date(currentTimestamp).toISOString(),
-                            side: analysis.setup.side,
-                            score: analysis.score,
-                            reason: 'High Score Loss',
-                            indicators: analysis.ltf
-                        });
-                    }
                 }
             }
 
         } catch (e) {
-            // console.error(`Error processing ${symbol}:`, e.message);
+            console.error(`Error processing ${symbol}:`, e.message);
         }
     }
 
-    console.log(JSON.stringify(stats, null, 2));
+    return stats;
 };
 
-runAnalysis();
+// Check if run directly
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    runBacktest().then(stats => console.log(JSON.stringify(stats, null, 2)));
+}

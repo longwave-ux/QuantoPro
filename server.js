@@ -147,6 +147,36 @@ app.post('/api/config', async (req, res) => {
     }
 });
 
+import { runBacktest } from './analyze_strategy.js';
+
+app.post('/api/backtest', async (req, res) => {
+    const customConfig = req.body;
+    console.log('[BACKTEST] Starting simulation with custom config...');
+    try {
+        // Run backtest in non-blocking way if possible, but here we await result to return it
+        const stats = await runBacktest(customConfig);
+        res.json({ success: true, stats });
+    } catch (e) {
+        console.error('[BACKTEST ERROR]', e);
+        res.status(500).json({ error: 'Backtest failed', details: e.message });
+    }
+});
+
+import { optimizeStrategy } from './server/optimizer.js';
+
+app.post('/api/optimize', async (req, res) => {
+    try {
+        const currentConfig = req.body;
+        console.log('[OPTIMIZER] Request received');
+
+        const result = await optimizeStrategy(currentConfig);
+        res.json({ success: true, result });
+    } catch (e) {
+        console.error('Optimization failed:', e);
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
 // ==========================================
 // LOCAL PROXY ENDPOINT
 // ==========================================

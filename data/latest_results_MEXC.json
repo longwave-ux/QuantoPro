@@ -1,13 +1,577 @@
 [
   {
-    "symbol": "PROMPTUSDT",
+    "symbol": "RDDTONUSDT",
     "source": "MEXC",
-    "price": 0.06391,
-    "score": 100,
+    "price": 246.97,
+    "score": 85,
     "setup": {
-      "entry": 0.06115,
-      "sl": 0.05951034257250007,
-      "tp": 0.06655,
+      "entry": 241.51,
+      "sl": 240.62685258449073,
+      "tp": 249.75,
+      "rr": 9.33,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 10
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 238.83656222349876,
+      "ema200": 229.30038418936385,
+      "adx": 32.63071953019397
+    },
+    "ltf": {
+      "rsi": 51.14110194829873,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.3113553113553104,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "LINKUSDT",
+    "source": "MEXC",
+    "price": 13.84,
+    "score": 80,
+    "setup": {
+      "entry": 13.26,
+      "sl": 13.113114147308226,
+      "tp": 14.13,
+      "rr": 5.92,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 13.140177806389579,
+      "ema200": 13.111480275779535,
+      "adx": 48.95486097747541
+    },
+    "ltf": {
+      "rsi": 47.55464917883009,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.46875000000000067,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "symbol": "APPONUSDT",
+    "source": "MEXC",
+    "price": 633.88,
+    "score": 80,
+    "setup": {
+      "entry": 639.58,
+      "sl": 642.2336564569247,
+      "tp": 604.87,
+      "rr": 13.08,
+      "side": "SHORT",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "ema50": 651.8141162623713,
+      "ema200": 669.6525562664467,
+      "adx": 47.70609632902298
+    },
+    "ltf": {
+      "rsi": 44.40635929067554,
+      "divergence": "NONE",
+      "obvImbalance": "BEARISH",
+      "pullbackDepth": 0.32464454976303214,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "ADBEONUSDT",
+    "source": "MEXC",
+    "price": 331.74,
+    "score": 80,
+    "setup": {
+      "entry": 332.53,
+      "sl": 333.7552911216236,
+      "tp": 323.4485,
+      "rr": 7.41,
+      "side": "SHORT",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "ema50": 340.12751734771336,
+      "ema200": 344.7072172460231,
+      "adx": 59.07669161230745
+    },
+    "ltf": {
+      "rsi": 57.2422949340639,
+      "divergence": "NONE",
+      "obvImbalance": "BEARISH",
+      "pullbackDepth": 0.7312925170068149,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "SPELLUSDT",
+    "source": "MEXC",
+    "price": 0.0003044,
+    "score": 75,
+    "setup": {
+      "entry": 0.0002867,
+      "sl": 0.00027369912561700223,
+      "tp": 0.0003317,
+      "rr": 3.46,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 15,
+      "moneyFlowScore": 25,
+      "timingScore": 10
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.00026301705584091674,
+      "ema200": 0.0002576463186509107,
+      "adx": 60.25536564461662
+    },
+    "ltf": {
+      "rsi": 52.665413900823815,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.6066666666666656,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "FDUSDUSDT",
+    "source": "MEXC",
+    "price": 0.9998,
+    "score": 70,
+    "setup": {
+      "entry": 0.9946,
+      "sl": 0.9940106855593569,
+      "tp": 1.0019505999999998,
+      "rr": 12.47,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.9994976545844027,
+      "ema200": 0.9989172909308262,
+      "adx": 24.060142834507648
+    },
+    "ltf": {
+      "rsi": 49.87412430452636,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.4545454545454087,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "OGUSDT",
+    "source": "MEXC",
+    "price": 4.301,
+    "score": 70,
+    "setup": {
+      "entry": 5.977,
+      "sl": 6.097571958899723,
+      "tp": 4.11,
+      "rr": 15.48,
+      "side": "SHORT",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 15,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "ema50": 7.642103955676423,
+      "ema200": 10.811955586458966,
+      "adx": 73.45420974358444
+    },
+    "ltf": {
+      "rsi": 45.75316169056945,
+      "divergence": "NONE",
+      "obvImbalance": "BEARISH",
+      "pullbackDepth": 0.5052910052910047,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "XCNUSDT",
+    "source": "MEXC",
+    "price": 0.0113534,
+    "score": 70,
+    "setup": {
+      "entry": 0.0088062,
+      "sl": 0.008479987,
+      "tp": 0.0130135,
+      "rr": 12.9,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 15,
+      "moneyFlowScore": 25,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.005930258224347325,
+      "ema200": 0.005267892148771526,
+      "adx": 69.1452134252233
+    },
+    "ltf": {
+      "rsi": 53.597817470449726,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.36965864303369056,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "PENGUUSDT",
+    "source": "MEXC",
+    "price": 0.013415,
+    "score": 60,
+    "setup": {
+      "entry": 0.012776,
+      "sl": 0.012456062502444605,
+      "tp": 0.013818,
+      "rr": 3.26,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 10
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.01114370490746948,
+      "ema200": 0.01070859414672995,
+      "adx": 65.73790251055173
+    },
+    "ltf": {
+      "rsi": 61.30847007556482,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.38675623800383885,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 55,
+      "status": "STABLE"
+    }
+  },
+  {
+    "symbol": "GEONUSDT",
+    "source": "MEXC",
+    "price": 325.39,
+    "score": 60,
+    "setup": {
+      "entry": 321.72,
+      "sl": 319.4287658480992,
+      "tp": 329.51,
+      "rr": 3.4,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 10
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 319.3108000933358,
+      "ema200": 305.465529202326,
+      "adx": 64.36400589511295
+    },
+    "ltf": {
+      "rsi": 47.53557934689639,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.7410071942446048,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "ABNBONUSDT",
+    "source": "MEXC",
+    "price": 136.11,
+    "score": 60,
+    "setup": {
+      "entry": 135.58,
+      "sl": 134.7628,
+      "tp": 137.92,
+      "rr": 2.86,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 10
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 134.89535754572285,
+      "ema200": 131.96522491740598,
+      "adx": 37.735174055832694
+    },
+    "ltf": {
+      "rsi": 46.5292517567904,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.4017857142857025,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "ETHUSDT",
+    "source": "MEXC",
+    "price": 3231,
+    "score": 55,
+    "setup": {
+      "entry": 3203.6,
+      "sl": 3186.025607886499,
+      "tp": 3264.38,
+      "rr": 3.46,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 3098.449738839702,
+      "ema200": 3064.7338911050165,
+      "adx": 52.28204329429855
+    },
+    "ltf": {
+      "rsi": 48.32843244123518,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.49401197604790437,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "XRPUSDT",
+    "source": "MEXC",
+    "price": 2.3716,
+    "score": 55,
+    "setup": {
+      "entry": 2.3163,
+      "sl": 2.2856137518731785,
+      "tp": 2.4174,
       "rr": 3.29,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
@@ -19,748 +583,43 @@
     "details": {
       "trendScore": 25,
       "structureScore": 25,
-      "moneyFlowScore": 40,
-      "timingScore": 10
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.057760241600346665,
-      "ema200": 0.05568683011125536,
-      "adx": 63.52623988678977
-    },
-    "ltf": {
-      "rsi": 52.55716778404062,
-      "divergence": "BULLISH",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.45620437956204546,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 60,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "symbol": "LUNAUSDT",
-    "source": "MEXC",
-    "price": 0.0968,
-    "score": 95,
-    "setup": {
-      "entry": 0.0984,
-      "sl": 0.09988173447480282,
-      "tp": 0.094,
-      "rr": 2.97,
-      "side": "SHORT",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 40,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "ema50": 0.09736520868029719,
-      "ema200": 0.10535649167350312,
-      "adx": 42.9089375421821
-    },
-    "ltf": {
-      "rsi": 51.84931023457734,
-      "divergence": "BEARISH",
-      "obvImbalance": "BEARISH",
-      "pullbackDepth": 0.6071428571428565,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 95,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "ETHUSDT",
-    "source": "MEXC",
-    "price": 3223.36,
-    "score": 80,
-    "setup": {
-      "entry": 3076.19,
-      "sl": 3052.623935471281,
-      "tp": 3264.38,
-      "rr": 7.99,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 3092.4650143435583,
-      "ema200": 3062.8791457279863,
-      "adx": 51.66211598321166
-    },
-    "ltf": {
-      "rsi": 49.63381356382398,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.5954964176049078,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 3,
-      "prevScore": 80,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "ALGOUSDT",
-    "source": "MEXC",
-    "price": 0.1413,
-    "score": 80,
-    "setup": {
-      "entry": 0.1337,
-      "sl": 0.13159087630155733,
-      "tp": 0.144,
-      "rr": 4.88,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.12769431789379385,
-      "ema200": 0.1265180546033996,
-      "adx": 56.05443489087405
-    },
-    "ltf": {
-      "rsi": 46.43384027167502,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.4499999999999984,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 80,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "WLFIUSDT",
-    "source": "MEXC",
-    "price": 0.1729,
-    "score": 75,
-    "setup": {
-      "entry": 0.1684,
-      "sl": 0.166158716232288,
-      "tp": 0.1787,
-      "rr": 4.6,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.15962069700663103,
-      "ema200": 0.1477674862480608,
-      "adx": 56.99198509070993
-    },
-    "ltf": {
-      "rsi": 43.8989769124896,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.8055555555555572,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 75,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "WBTUSDT",
-    "source": "MEXC",
-    "price": 58.164,
-    "score": 70,
-    "setup": {
-      "entry": 56.646,
-      "sl": 56.112962875019186,
-      "tp": 58.79,
-      "rr": 4.02,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 15,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 57.3053984973323,
-      "ema200": 57.208048813748846,
-      "adx": 47.85146370731661
-    },
-    "ltf": {
-      "rsi": 46.21513433511782,
-      "divergence": "BULLISH",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.7964376590330745,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "PONKEUSDT",
-    "source": "MEXC",
-    "price": 0.06595,
-    "score": 70,
-    "setup": {
-      "entry": 0.05312,
-      "sl": 0.04795202248668009,
-      "tp": 0.08151,
-      "rr": 5.49,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.04272306583378352,
-      "ema200": 0.035522061676043236,
-      "adx": 63.18727037661923
-    },
-    "ltf": {
-      "rsi": 45.4823413423013,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.5415918611609818,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "MYXUSDT",
-    "source": "MEXC",
-    "price": 4.92979,
-    "score": 70,
-    "setup": {
-      "entry": 3.6742,
-      "sl": 3.5100361642829765,
-      "tp": 5.89058,
-      "rr": 13.5,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 4.6755978881887215,
-      "ema200": 3.6913757625373074,
-      "adx": 41.57943026507663
-    },
-    "ltf": {
-      "rsi": 47.62571618142306,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.5402551381998586,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 70,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "WOOUSDT",
-    "source": "MEXC",
-    "price": 0.03234,
-    "score": 70,
-    "setup": {
-      "entry": 0.02764,
-      "sl": 0.026486452951056696,
-      "tp": 0.03369,
-      "rr": 5.24,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.02861096102457515,
-      "ema200": 0.02762740203851044,
-      "adx": 39.55278369603127
-    },
-    "ltf": {
-      "rsi": 55.19337541717558,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.3169014084507038,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "AIXUSDT",
-    "source": "MEXC",
-    "price": 1.37565,
-    "score": 65,
-    "setup": {
-      "entry": 1.41188,
-      "sl": 1.4555259740094246,
-      "tp": 1.350322,
-      "rr": 1.41,
-      "side": "SHORT",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "ema50": 1.3759720944833744,
-      "ema200": 1.394264385204848,
-      "adx": 59.862712372933984
-    },
-    "ltf": {
-      "rsi": 51.778344400286485,
-      "divergence": "NONE",
-      "obvImbalance": "BEARISH",
-      "pullbackDepth": 0.26652408176695735,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "POPCATUSDT",
-    "source": "MEXC",
-    "price": 0.10487,
-    "score": 65,
-    "setup": {
-      "entry": 0.10371,
-      "sl": 0.10165465814437492,
-      "tp": 0.11152,
-      "rr": 3.8,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 15,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.09393051447864044,
-      "ema200": 0.09277533491401796,
-      "adx": 55.20210289836029
-    },
-    "ltf": {
-      "rsi": 36.56497059106918,
-      "divergence": "BULLISH",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9185082872928166,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 3,
-      "prevScore": 70,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "PNUTUSDT",
-    "source": "MEXC",
-    "price": 0.09275,
-    "score": 65,
-    "setup": {
-      "entry": 0.08952,
-      "sl": 0.08769284261787466,
-      "tp": 0.09744,
-      "rr": 4.33,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
-      "moneyFlowScore": 15,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.08290499559683857,
-      "ema200": 0.08113449696132165,
-      "adx": 50.12094414761501
-    },
-    "ltf": {
-      "rsi": 42.291306803783876,
-      "divergence": "BULLISH",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.8389982110912346,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 3,
-      "prevScore": 70,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "FDUSDUSDT",
-    "source": "MEXC",
-    "price": 0.9997,
-    "score": 60,
-    "setup": {
-      "entry": 0.9946,
-      "sl": 0.9939469405306173,
-      "tp": 1.0019505999999998,
-      "rr": 11.26,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 15,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.9994774708179424,
-      "ema200": 0.9989062364192595,
-      "adx": 24.607127730409626
-    },
-    "ltf": {
-      "rsi": 52.45666582399222,
-      "divergence": "BULLISH",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6153846153845628,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 85,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "symbol": "PLKUSDT",
-    "source": "MEXC",
-    "price": 0.0000123,
-    "score": 60,
-    "setup": {
-      "entry": 0.0001079,
-      "sl": 0.00010897984131521586,
-      "tp": 0.0000085,
-      "rr": 92.05,
-      "side": "SHORT",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 15,
-      "moneyFlowScore": 15,
-      "timingScore": 5
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "ema50": 0.001921930260536049,
-      "ema200": 0.5683845857850607,
-      "adx": 28.666860216542197
-    },
-    "ltf": {
-      "rsi": 81.890611094422,
-      "divergence": "BEARISH",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6666666666666669,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": false,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 65,
-      "status": "STABLE"
-    }
-  },
-  {
-    "symbol": "AIXBTUSDT",
-    "source": "MEXC",
-    "price": 0.04157,
-    "score": 60,
-    "setup": {
-      "entry": 0.04024,
-      "sl": 0.03916637856395147,
-      "tp": 0.04524,
-      "rr": 4.66,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 25,
-      "structureScore": 25,
       "moneyFlowScore": 0,
-      "timingScore": 10
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.038602317756537066,
-      "ema200": 0.03744616355090462,
-      "adx": 46.03553371356188
-    },
-    "ltf": {
-      "rsi": 44.147866680507455,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.7594936708860752,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767690258747,
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 70,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "symbol": "XDCUSDT",
-    "source": "MEXC",
-    "price": 0.05382,
-    "score": 60,
-    "setup": {
-      "entry": 0.05045,
-      "sl": 0.05008528927438604,
-      "tp": 0.05467,
-      "rr": 11.57,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 15,
-      "structureScore": 15,
-      "moneyFlowScore": 25,
       "timingScore": 5
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "ema50": 0.05199444947327305,
-      "ema200": 0.05080887072247469,
-      "adx": 22.465685648595628
+      "ema50": 2.055887099146164,
+      "ema200": 2.0035261515727565,
+      "adx": 65.22605768212416
     },
     "ltf": {
-      "rsi": 42.11058687966182,
+      "rsi": 53.57724627624623,
       "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.7589285714285726,
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.47167868177137173,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767690258747,
+    "timestamp": 1767707474703,
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 60,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
-    "symbol": "BCHUSDT",
+    "symbol": "SHIBUSDT",
     "source": "MEXC",
-    "price": 640.1,
+    "price": 0.000009418,
     "score": 55,
     "setup": {
-      "entry": 635.7,
-      "sl": 629.2627300103672,
-      "tp": 669.6,
-      "rr": 5.27,
+      "entry": 0.000009121,
+      "sl": 0.0000089792807804409,
+      "tp": 0.000010083,
+      "rr": 6.79,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -775,39 +634,86 @@
       "timingScore": 5
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "ema50": 624.6302824597574,
-      "ema200": 590.3446103324588,
-      "adx": 46.55986278127751
+      "ema50": 0.000008213213205095564,
+      "ema200": 0.000007961322635634138,
+      "adx": 59.460566909369824
     },
     "ltf": {
-      "rsi": 35.13847000717085,
+      "rsi": 61.59611305717639,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.8915662650602391,
-      "isPullback": false,
+      "pullbackDepth": 0.428278688524589,
+      "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767690258747,
+    "timestamp": 1767707474703,
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 55,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "symbol": "LTCUSDT",
     "source": "MEXC",
-    "price": 83.16,
+    "price": 83.85,
     "score": 55,
     "setup": {
       "entry": 80.76,
-      "sl": 79.99308795255097,
+      "sl": 80.13729015869916,
       "tp": 84.58,
-      "rr": 4.98,
+      "rr": 6.13,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 81.03942815578318,
+      "ema200": 80.87250335538548,
+      "adx": 34.93083404663357
+    },
+    "ltf": {
+      "rsi": 54.02192887924774,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.34615384615384964,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "TRXUSDT",
+    "source": "MEXC",
+    "price": 0.292,
+    "score": 55,
+    "setup": {
+      "entry": 0.2878,
+      "sl": 0.286924659929528,
+      "tp": 0.2949,
+      "rr": 8.11,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -824,21 +730,21 @@
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 80.898828586649,
-      "ema200": 80.83612255665155,
-      "adx": 34.24275821297085
+      "ema50": 0.28927135435266693,
+      "ema200": 0.28508319371757,
+      "adx": 29.542689737824166
     },
     "ltf": {
-      "rsi": 42.8035434473372,
+      "rsi": 48.312043494374905,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.762237762237761,
+      "pullbackDepth": 0.6250000000000115,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767690258747,
+    "timestamp": 1767707474703,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -848,13 +754,13 @@
   {
     "symbol": "DOTUSDT",
     "source": "MEXC",
-    "price": 2.199,
+    "price": 2.226,
     "score": 55,
     "setup": {
-      "entry": 2.095,
-      "sl": 2.055515490831625,
-      "tp": 2.247,
-      "rr": 3.85,
+      "entry": 2.179,
+      "sl": 2.144692738492356,
+      "tp": 2.249,
+      "rr": 2.04,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -869,39 +775,86 @@
       "timingScore": 5
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "ema50": 2.0385118919289047,
-      "ema200": 2.029712433658481,
-      "adx": 44.21155248597433
+      "ema50": 2.0466932786408902,
+      "ema200": 2.0318567094034226,
+      "adx": 44.73158857171899
     },
     "ltf": {
-      "rsi": 46.409547204013535,
+      "rsi": 55.54677539917909,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.7058823529411765,
+      "pullbackDepth": 0.3285714285714291,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767690258747,
+    "timestamp": 1767707474703,
     "history": {
-      "consecutiveScans": 3,
-      "prevScore": 55,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
-    "symbol": "APPONUSDT",
+    "symbol": "CHZUSDT",
     "source": "MEXC",
-    "price": 632.86,
+    "price": 0.04408,
     "score": 55,
     "setup": {
-      "entry": 641.3,
-      "sl": 644.7045462123224,
-      "tp": 604.87,
-      "rr": 10.7,
+      "entry": 0.04326,
+      "sl": 0.04209845,
+      "tp": 0.04663,
+      "rr": 2.9,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 0.04284871090447555,
+      "ema200": 0.0371291374653247,
+      "adx": 44.02869466077567
+    },
+    "ltf": {
+      "rsi": 47.90211264146792,
+      "divergence": "BULLISH",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.4942857142857135,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "PVTUSDT",
+    "source": "MEXC",
+    "price": 0.001105,
+    "score": 55,
+    "setup": {
+      "entry": 0.001132,
+      "sl": 0.0011392514916234776,
+      "tp": 0.001071,
+      "rr": 8.41,
       "side": "SHORT",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -916,23 +869,70 @@
       "timingScore": 5
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "SHORT",
-      "ema50": 652.4363170844084,
-      "ema200": 669.9647175037487,
-      "adx": 48.69487737328495
+      "ema50": 0.0012079809463334508,
+      "ema200": 0.0014382838781556335,
+      "adx": 25.764785476837712
     },
     "ltf": {
-      "rsi": 33.15233436544291,
+      "rsi": 59.17606938148165,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.39240506329114,
+      "pullbackDepth": 0.7714285714285727,
       "isPullback": true,
-      "volumeOk": false,
+      "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767690258747,
+    "timestamp": 1767707474703,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "TONUSDT",
+    "source": "MEXC",
+    "price": 1.94,
+    "score": 55,
+    "setup": {
+      "entry": 1.834,
+      "sl": 1.8106974360233865,
+      "tp": 1.949,
+      "rr": 4.94,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 25,
+      "structureScore": 25,
+      "moneyFlowScore": 0,
+      "timingScore": 5
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "ema50": 1.7757194669393928,
+      "ema200": 1.6635234232183553,
+      "adx": 53.126409736274596
+    },
+    "ltf": {
+      "rsi": 69.11803528735295,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.15517241379310537,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767707474703,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,

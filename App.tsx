@@ -51,6 +51,30 @@ export default function App() {
 
     // Notification Settings State
     const [showSettings, setShowSettings] = useState(false);
+    const [modalDimensions, setModalDimensions] = useState({ width: 500, height: 600 });
+
+    const handleModalResize = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const startX = e.clientX;
+        const startY = e.clientY;
+        const startWidth = modalDimensions.width;
+        const startHeight = modalDimensions.height;
+
+        const onMouseMove = (e: MouseEvent) => {
+            const newWidth = startWidth + (e.clientX - startX);
+            const newHeight = startHeight + (e.clientY - startY);
+            setModalDimensions({
+                width: Math.max(400, Math.min(1600, newWidth)),
+                height: Math.max(500, Math.min(1200, newHeight))
+            });
+        };
+        const onMouseUp = () => {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    };
     const [activeTab, setActiveTab] = useState<'ALERTS' | 'DATA' | 'LOGS' | 'TRADING' | 'AI' | 'STRATEGY'>('ALERTS');
     const [systemLogs, setSystemLogs] = useState<LogEntry[]>([]);
     const [testMsgStatus, setTestMsgStatus] = useState<'IDLE' | 'SENDING' | 'SUCCESS' | 'ERROR'>('IDLE');
@@ -306,7 +330,16 @@ export default function App() {
             {/* Settings Modal */}
             {showSettings && (
                 <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col max-h-[85vh]">
+                    <div
+                        style={{ width: `${modalDimensions.width}px`, height: `${modalDimensions.height}px` }}
+                        className="bg-gray-900 border border-gray-700 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col relative"
+                    >
+                        <div
+                            className="absolute right-0 bottom-0 w-8 h-8 cursor-nwse-resize flex items-end justify-end p-1 z-50 hover:bg-gray-800 rounded-br-xl transition-colors"
+                            onMouseDown={handleModalResize}
+                        >
+                            <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 mr-1 mb-1"></div>
+                        </div>
                         <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-850">
                             <h3 className="font-semibold text-white flex items-center gap-2">
                                 <Settings className="w-5 h-5 text-gray-400" /> System Settings
