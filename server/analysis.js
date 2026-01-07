@@ -169,6 +169,11 @@ export const AnalysisEngine = {
         const currentPrice = ltfData[ltfData.length - 1].close;
         const atr = calculateATR(ltfData, 14);
 
+        // DEBUG: Trace Config Propagation
+        if (Math.random() < 0.01) { // Log 1% of the time to avoid spamming
+            console.log(`[ANALYSIS DEBUG] Using ATR Multiplier: ${config?.RISK?.ATR_MULTIPLIER}, Buffer: ${config?.RISK?.SL_BUFFER}`);
+        }
+
         // ADAPTIVE LOGIC: Adjust Confirmation Window based on Trend Strength
         // Only active if ENABLE_ADAPTIVE is true
         let lookbackWindow = 50;
@@ -227,7 +232,7 @@ export const AnalysisEngine = {
             const bestRes = validResistances.sort((a, b) => Math.abs(a - fibLevel) - Math.abs(b - fibLevel))[0];
 
             if (bestRes) {
-                 entry = bestRes;
+                entry = bestRes;
                 confluenceType = 'FIB_STRUCTURE';
             } else {
                 const anyRes = levels.resistances.filter(r => r > currentPrice).sort((a, b) => a - b)[0];
