@@ -149,17 +149,63 @@ app.post('/api/config', async (req, res) => {
 
 import { runBacktest } from './analyze_strategy.js';
 
+// Global Backtest Status Tracker
+global.backtestStatus = {
+    status: 'IDLE', // IDLE, RUNNING, COMPLETED, ERROR
+    progress: 0,
+    eta: 0,
+    result: null,
+    error: null
+};
+
+app.get('/api/backtest/status', (req, res) => {
+    res.json(global.backtestStatus);
+});
+
 app.post('/api/backtest', async (req, res) => {
-    const customConfig = req.body;
-    console.log('[BACKTEST] Starting simulation with custom config...');
-    try {
-        // Run backtest in non-blocking way if possible, but here we await result to return it
-        const stats = await runBacktest(customConfig);
-        res.json({ success: true, stats });
-    } catch (e) {
-        console.error('[BACKTEST ERROR]', e);
-        res.status(500).json({ error: 'Backtest failed', details: e.message });
+    if (global.backtestStatus.status === 'RUNNING') {
+        return res.status(409).json({ error: 'Backtest already running' });
     }
+
+    const { config, days } = req.body;
+    // Handle both direct config (legacy) and wrapped { config, days } format
+    const activeConfig = config || req.body;
+    const backtestDays = days || activeConfig.SYSTEM?.FORETEST_DAYS || 10;
+
+    console.log(`[BACKTEST] Starting simulation (Days: ${backtestDays})...`);
+
+    // Reset Status
+    global.backtestStatus = {
+        status: 'RUNNING',
+        progress: 0,
+        eta: 0,
+        result: null,
+        error: null
+    };
+
+    // Return immediately
+    res.json({ success: true, message: 'Backtest started' });
+
+    // Run Async
+    runBacktest(activeConfig, {
+        days: backtestDays,
+        verbose: false,
+        onProgress: (pct, eta) => {
+            global.backtestStatus.progress = pct;
+            global.backtestStatus.eta = eta;
+        }
+    })
+        .then(stats => {
+            global.backtestStatus.status = 'COMPLETED';
+            global.backtestStatus.progress = 100;
+            global.backtestStatus.result = stats;
+            console.log('[BACKTEST] Completed');
+        })
+        .catch(e => {
+            console.error('[BACKTEST ERROR]', e);
+            global.backtestStatus.status = 'ERROR';
+            global.backtestStatus.error = e.message;
+        });
 });
 
 import { optimizeStrategy } from './server/optimizer.js';

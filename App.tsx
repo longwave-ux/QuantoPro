@@ -98,6 +98,65 @@ export default function App() {
     useEffect(() => { localStorage.setItem('cs_timeframe', timeframe); }, [timeframe]);
     useEffect(() => { localStorage.setItem('cs_datasource', dataSource); }, [dataSource]);
 
+
+    // ==========================================
+    // FORETEST / SIMULATION STATE (LIFTED)
+    // ==========================================
+    const [foretestDays, setForetestDays] = useState(10);
+    const [foretestStatus, setForetestStatus] = useState<any>({ status: 'IDLE', progress: 0, eta: 0 });
+    const [simulationResults, setSimulationResults] = useState<any | null>(null);
+    const [isSimulating, setIsSimulating] = useState(false);
+    const foretestTimer = useRef<number | null>(null);
+
+    // Poll Foretest Status
+    useEffect(() => {
+        if (isSimulating) {
+            foretestTimer.current = window.setInterval(async () => {
+                try {
+                    const res = await fetch('/api/backtest/status');
+                    const status = await res.json();
+                    setForetestStatus(status);
+
+                    if (status.status === 'COMPLETED') {
+                        setSimulationResults(status.result);
+                        setIsSimulating(false);
+                        if (foretestTimer.current) clearInterval(foretestTimer.current);
+                    } else if (status.status === 'ERROR') {
+                        console.error("Backtest failed", status.error);
+                        setIsSimulating(false);
+                        if (foretestTimer.current) clearInterval(foretestTimer.current);
+                    }
+                } catch (e) {
+                    console.error('Backtest poll failed', e);
+                }
+            }, 1000);
+        }
+        return () => {
+            if (foretestTimer.current) clearInterval(foretestTimer.current);
+        };
+    }, [isSimulating]);
+
+    const triggerForetest = async (cfg: any, days: number) => {
+        setIsSimulating(true);
+        // setSimulationResults(null); // Optional: Keep old results visible while recalculating?
+
+        try {
+            const res = await fetch('/api/backtest', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ config: cfg, days })
+            });
+            const data = await res.json();
+            if (!data.success) {
+                console.error("Failed to start backtest", data);
+                setIsSimulating(false);
+            }
+        } catch (e) {
+            console.error("Failed to trigger backtest", e);
+            setIsSimulating(false);
+        }
+    };
+
     // Use a ref to keep track of latest settings for the interval closure and scan callbacks
     const settingsRef = useRef(settings);
 
@@ -560,7 +619,10 @@ export default function App() {
 
                             {activeTab === 'STRATEGY' && (
                                 <div className="animate-in fade-in slide-in-from-right-4 duration-200">
-                                    <ConfigPanel />
+                                    <ConfigPanel
+                                        onRunSimulation={triggerForetest}
+                                        isSimulating={isSimulating}
+                                    />
                                 </div>
                             )}
 
@@ -777,6 +839,49 @@ export default function App() {
 
             {/* Main Content (Full Width) */}
             <main className="w-full max-w-7xl mx-auto space-y-4">
+
+                {/* FORETEST / SIMULATION FEEDBACK (When in Performance Mode) */}
+                {mainView === 'PERFORMANCE' && (isSimulating || simulationResults) && (
+                    <div className="animate-in fade-in slide-in-from-top-4 duration-500 mb-6">
+
+                        {/* Progress Bar */}
+                        {isSimulating && (
+                            <div className="bg-gray-800 border border-purple-500/30 p-4 rounded-lg mb-4 flex items-center gap-4 shadow-lg shrink-0">
+                                <div className="p-2 bg-purple-500/10 rounded-full"><RefreshCw className="text-purple-500 animate-spin" size={20} /></div>
+                                <div className="flex-1">
+                                    <div className="flex justify-between text-xs mb-1">
+                                        <span className="text-gray-300 font-bold">Recalculating Foretest (Simulation)...</span>
+                                        <span className="text-white font-mono">{foretestStatus.progress}% ({foretestStatus.eta}s left)</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                        <div className="h-full bg-purple-500 transition-all duration-300" style={{ width: `${foretestStatus.progress}%` }} />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Simulation Results Summary */}
+                        {simulationResults && (
+                            <div className="bg-gray-900 border border-purple-500/30 p-4 rounded-xl shadow-xl flex flex-col md:flex-row gap-6 items-center justify-between pb-4">
+                                <div>
+                                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                                        <Zap className="text-purple-500" size={20} />
+                                        Simulation Results (New Parameters)
+                                    </h3>
+                                    <p className="text-xs text-gray-400">
+                                        Projected performance over the last {foretestDays} days based on current settings.
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-4 gap-4 text-center">
+                                    <div className="bg-gray-800 p-2 rounded min-w-[80px]"><div className="text-gray-500 text-[10px] uppercase">Signals</div><div className="text-lg font-bold text-white">{simulationResults.totalSignals}</div></div>
+                                    <div className="bg-gray-800 p-2 rounded min-w-[80px]"><div className="text-gray-500 text-[10px] uppercase">Win Rate</div><div className={`text-lg font-bold ${(simulationResults.wins / (simulationResults.wins + simulationResults.losses)) > 0.6 ? 'text-green-400' : 'text-yellow-400'}`}>{((simulationResults.wins / (simulationResults.wins + simulationResults.losses)) * 100).toFixed(1)}%</div></div>
+                                    <div className="bg-gray-800 p-2 rounded min-w-[80px]"><div className="text-gray-500 text-[10px] uppercase">Wins</div><div className="text-lg font-bold text-green-500">{simulationResults.wins}</div></div>
+                                    <div className="bg-gray-800 p-2 rounded min-w-[80px]"><div className="text-gray-500 text-[10px] uppercase">Losses</div><div className="text-lg font-bold text-red-500">{simulationResults.losses}</div></div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {/* Network Error State */}
                 {scanError && (

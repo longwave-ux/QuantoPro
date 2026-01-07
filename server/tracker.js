@@ -158,11 +158,14 @@ export const updateOutcomes = async () => {
                         }
                         // ENTRY TRIGGER
                         else if (candle.low <= trade.entryPrice) {
-                            isFilled = true;
                             trade.isFilled = true;
                             trade.fillDate = new Date(candle.time).toISOString();
                             stateChanged = true;
-                            if (settings.entryAlerts) sendEntryAlert(trade);
+
+                            if (settings.entryAlerts) {
+
+                                sendEntryAlert(trade);
+                            }
                         }
                     } else { // SHORT
                         // CRASH PROTECTION: If price hits SL before Entry -> INVALIDATED
@@ -190,29 +193,57 @@ export const updateOutcomes = async () => {
                 // 2. Only check for TP/SL if the trade is filled
                 if (isFilled) {
                     let outcome = null;
+                    let exitPrice = 0;
 
+                    // A. Time-Based Stop Check
+                    if (CONFIG.RISK.ENABLE_TIME_BASED_STOP) {
+                        const fillTime = new Date(trade.fillDate).getTime();
+                        const timeInTrade = candle.time - fillTime;
+                        const limitMs = (CONFIG.RISK.TIME_BASED_STOP_CANDLES || 12) * 15 * 60 * 1000;
+
+                        if (timeInTrade >= limitMs) {
+                            exitPrice = candle.close;
+                            // Calculate PnL to decide WIN/LOSS
+                            const pnlRaw = trade.side === 'LONG'
+                                ? (exitPrice - trade.entryPrice) / trade.entryPrice
+                                : (trade.entryPrice - exitPrice) / trade.entryPrice;
+
+                            outcome = pnlRaw >= 0 ? 'WIN' : 'LOSS';
+                            // We don't distinguish "TIME_EXIT" in result string yet to keep stats simple, 
+                            // but we could add a meta field later.
+                        }
+                    }
+
+                    // B. Regular TP/SL Check (Overrides Time Stop if hit in same candle)
                     if (trade.side === 'LONG') {
-                        if (candle.low <= trade.sl) outcome = 'LOSS';
-                        else if (candle.high >= trade.tp) outcome = 'WIN';
+                        if (candle.low <= trade.sl) { outcome = 'LOSS'; exitPrice = trade.sl; }
+                        else if (candle.high >= trade.tp) { outcome = 'WIN'; exitPrice = trade.tp; }
                     } else { // SHORT
-                        if (candle.high >= trade.sl) outcome = 'LOSS';
-                        else if (candle.low <= trade.tp) outcome = 'WIN';
+                        if (candle.high >= trade.sl) { outcome = 'LOSS'; exitPrice = trade.sl; }
+                        else if (candle.low <= trade.tp) { outcome = 'WIN'; exitPrice = trade.tp; }
                     }
 
                     if (outcome) {
                         trade.status = 'CLOSED';
                         trade.result = outcome;
                         trade.exitDate = new Date(candle.time).toISOString();
+                        trade.exitPrice = exitPrice;
 
                         if (outcome === 'WIN') {
-                            trade.exitPrice = trade.tp;
-                            trade.pnl = Math.abs((trade.tp - trade.entryPrice) / trade.entryPrice) * 100;
+                            trade.pnl = Math.abs((exitPrice - trade.entryPrice) / trade.entryPrice) * 100;
                         } else {
-                            trade.exitPrice = trade.sl;
-                            trade.pnl = -Math.abs((trade.sl - trade.entryPrice) / trade.entryPrice) * 100;
+                            trade.pnl = -Math.abs((trade.entryPrice - exitPrice) / trade.entryPrice) * 100; // Fix PnL Math for Short
+                            // Actually, simpler:
+                            // trade.pnl = (trade.side === 'LONG' ? (exitPrice - entry)/entry : (entry - exitPrice)/entry) * 100
+                            // But let's stick to the existing style but fix the logic
+                            const pnlVal = trade.side === 'LONG'
+                                ? (exitPrice - trade.entryPrice) / trade.entryPrice
+                                : (trade.entryPrice - exitPrice) / trade.entryPrice;
+                            trade.pnl = pnlVal * 100;
                         }
 
                         stateChanged = true;
+
                         if (settings.entryAlerts) sendExitAlert(trade);
                         break; // Stop checking candles for this trade
                     }

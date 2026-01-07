@@ -216,8 +216,9 @@ export const AnalysisEngine = {
                 }
             }
             const distToLow = (entry - swingLow) / entry;
-            if (distToLow < 0.05 && distToLow > 0) sl = swingLow * 0.995;
-            else sl = entry - (2.5 * atr);
+            const buffer = config.RISK.SL_BUFFER || 0.005;
+            if (distToLow < 0.05 && distToLow > 0) sl = swingLow * (1 - buffer);
+            else sl = entry - ((config.RISK.ATR_MULTIPLIER || 2.5) * atr);
 
         } else {
             const range = swingHigh - swingLow;
@@ -226,7 +227,7 @@ export const AnalysisEngine = {
             const bestRes = validResistances.sort((a, b) => Math.abs(a - fibLevel) - Math.abs(b - fibLevel))[0];
 
             if (bestRes) {
-                entry = bestRes;
+                 entry = bestRes;
                 confluenceType = 'FIB_STRUCTURE';
             } else {
                 const anyRes = levels.resistances.filter(r => r > currentPrice).sort((a, b) => a - b)[0];
@@ -239,8 +240,9 @@ export const AnalysisEngine = {
                 }
             }
             const distToHigh = (swingHigh - entry) / entry;
-            if (distToHigh < 0.05 && distToHigh > 0) sl = swingHigh * 1.005;
-            else sl = entry + (2.5 * atr);
+            const buffer = config.RISK.SL_BUFFER || 0.005;
+            if (distToHigh < 0.05 && distToHigh > 0) sl = swingHigh * (1 + buffer);
+            else sl = entry + ((config.RISK.ATR_MULTIPLIER || 2.5) * atr);
         }
 
         if (bias === 'LONG') {
@@ -258,7 +260,7 @@ export const AnalysisEngine = {
         return { entry, sl, tp, rr, side: bias, confluenceType };
     },
 
-    analyzePair: (symbol, htfData, ltfData, htf, ltf, now, source, config = CONFIG) => {
+    analyzePair: (symbol, htfData, ltfData, htf, ltf, now, source, config = CONFIG, optionalData = {}) => {
         if (config.SYSTEM.ENABLE_ADAPTIVE) {
             // console.log(`[ANALYSIS] Adaptive Mode ACTIVE for ${symbol}`);
         }
@@ -316,6 +318,47 @@ export const AnalysisEngine = {
         if (bias === 'LONG' && divergence === 'BEARISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_DIV;
         if (bias === 'SHORT' && divergence === 'BULLISH') totalScore -= config.SCORING.PENALTIES.CONTRARIAN_DIV;
         if (isOverextended) totalScore -= config.SCORING.PENALTIES.OVEREXTENDED;
+
+        // VOLATILITY PROTECTION
+        // If ATR is > 3% of price, it's too volatile (likely a pump or crash).
+        const currentPrice = ltfData[ltfData.length - 1].close;
+        const atr = calculateATR(ltfData, 14);
+        if ((atr / currentPrice) > 0.03 && config.SCORING.PENALTIES.HIGH_VOLATILITY) {
+            totalScore -= config.SCORING.PENALTIES.HIGH_VOLATILITY;
+        }
+
+        // LIQUIDITY & SIZE OPTIMIZATION
+        // 1. Calculate 24h Volume (Last 96 candles of 15m)
+        let vol24h = 0;
+        const volLookback = Math.min(ltfData.length, 96);
+        for (let i = 0; i < volLookback; i++) {
+            const c = ltfData[ltfData.length - 1 - i];
+            vol24h += c.volume * c.close;
+        }
+
+        // 3. Market Cap Adjustments
+        // optionalData.mcap passed from scanner
+        const mcap = optionalData?.mcap || 0;
+
+        // 2. High Volume Reward (Conditional: Must be > $50M Mcap to avoid dust pumps)
+        if (config.SCORING.VOLUME?.ENABLE_VOLUME_LOGIC !== false) {
+            if (vol24h > 100000000 && config.SCORING.VOLUME?.HIGH_VOLUME_REWARD) {
+                if (mcap === 0 || mcap > 50000000) {
+                    totalScore += config.SCORING.VOLUME.HIGH_VOLUME_REWARD;
+                }
+            }
+        }
+
+        if (mcap > 0 && config.SCORING.MARKET_CAP?.ENABLE_MCAP_LOGIC !== false) {
+            if (mcap < 1000000000 && config.SCORING.MARKET_CAP?.SMALL_CAP_REWARD) {
+                // < $1B: Reward (+5)
+                totalScore += config.SCORING.MARKET_CAP.SMALL_CAP_REWARD;
+            } else if (mcap > 10000000000 && config.SCORING.MARKET_CAP?.MEGA_CAP_REWARD) {
+                // > $10B: Reward (+5) for Stability
+                totalScore += config.SCORING.MARKET_CAP.MEGA_CAP_REWARD;
+            }
+        }
+
         if (adx < config.INDICATORS.ADX.MIN_TREND || !setup) totalScore = 0;
 
         return {
@@ -325,7 +368,7 @@ export const AnalysisEngine = {
             score: Math.max(0, Math.min(100, totalScore)),
             setup,
             meta: { htfInterval: htf, ltfInterval: ltf },
-            details: { trendScore, structureScore, moneyFlowScore, timingScore },
+            details: { trendScore, structureScore, moneyFlowScore, timingScore, mcap, vol24h },
             htf: { trend: trendStruct, bias, ema50, ema200, adx },
             ltf: { rsi, divergence, obvImbalance, pullbackDepth: depth, isPullback, volumeOk, momentumOk, isOverextended },
             timestamp: now

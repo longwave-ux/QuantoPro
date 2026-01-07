@@ -93,7 +93,8 @@ Timeframe: ${pair.meta.htfInterval}
 
 export const sendEntryAlert = async (trade) => {
     const settings = await getSettings();
-    if (!settings.enabled || !settings.botToken || !settings.chatId) return;
+    // Entry Alerts independent of "High Score" (enabled) switch
+    if (!settings.entryAlerts || !settings.botToken || !settings.chatId) return;
 
     const message = `
 🚀 <b>ENTRY TRIGGERED: ${trade.symbol}</b>
@@ -125,7 +126,8 @@ export const sendEntryAlert = async (trade) => {
 
 export const sendExitAlert = async (trade) => {
     const settings = await getSettings();
-    if (!settings.enabled || !settings.botToken || !settings.chatId) return;
+    // Exit Alerts independent of "High Score" (enabled) switch
+    if (!settings.entryAlerts || !settings.botToken || !settings.chatId) return;
 
     const isWin = trade.result === 'WIN';
     const emoji = isWin ? '✅' : '❌';

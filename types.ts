@@ -101,6 +101,7 @@ export interface Config {
     BATCH_SIZE: number;
     HTTP_PORT: number;
     ENABLE_ADAPTIVE: boolean;
+    FORETEST_DAYS?: number;
   };
   SCANNERS: {
     HTF: string;
@@ -128,6 +129,18 @@ export interface Config {
     STRUCTURE: { FIB: number; LEVEL: number; POOR_RR_PENALTY: number; MED_RR_PENALTY: number };
     MONEY_FLOW: { OBV: number; DIVERGENCE: number };
     TIMING: { PULLBACK: number; REJECTION: number };
-    PENALTIES: { CONTRARIAN_OBV: number; CONTRARIAN_DIV: number; OVEREXTENDED: number };
+    MARKET_CAP?: { SMALL_CAP_REWARD: number; MEGA_CAP_REWARD: number; ENABLE_MCAP_LOGIC: boolean };
+    VOLUME?: { HIGH_VOLUME_REWARD: number; ENABLE_VOLUME_LOGIC: boolean };
+    PENALTIES: { CONTRARIAN_OBV: number; CONTRARIAN_DIV: number; OVEREXTENDED: number; HIGH_VOL_PULLBACK: number; HIGH_VOLATILITY: number };
+  };
+  REGIMES?: {
+    TRENDING: { TREND_MULTIPLIER: number; STRUCTURE_MULTIPLIER: number; TIMING_MULTIPLIER: number };
+  };
+  RISK: {
+    ATR_MULTIPLIER: number;
+    SL_BUFFER: number;
+    TP_RR_MIN: number;
+    ENABLE_TIME_BASED_STOP?: boolean;
+    TIME_BASED_STOP_CANDLES?: number;
   };
 }

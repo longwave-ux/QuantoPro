@@ -254,13 +254,25 @@ export const fetchTopVolumePairs = async (source) => {
         if (!res.ok) throw new Error(res.statusText);
         const data = await res.json();
 
-        const topPairs = data
-            .filter((t) => t.symbol.endsWith('USDT') && parseFloat(t.quoteVolume) > 1000000)
+        // 1. Filter: USDT only & Min Volume 1M (to avoid absolute garbage)
+        const validPairs = data.filter((t) => t.symbol.endsWith('USDT') && parseFloat(t.quoteVolume) > 1000000);
+
+        // 2. Top 200 by Volume
+        const topVolume = validPairs
             .sort((a, b) => parseFloat(b.quoteVolume) - parseFloat(a.quoteVolume))
             .slice(0, 200)
             .map((t) => t.symbol);
 
-        return topPairs;
+        // 3. Top 50 by Gainers (Price Change %)
+        const topGainers = validPairs
+            .sort((a, b) => parseFloat(b.priceChangePercent) - parseFloat(a.priceChangePercent))
+            .slice(0, 50)
+            .map((t) => t.symbol);
+
+        // 4. Merge & Dedupe
+        const combined = [...new Set([...topVolume, ...topGainers])];
+
+        return combined;
     } catch (error) {
         console.error(`Error fetching top pairs from ${source}:`, error);
         return ['XBTUSDTM', 'ETHUSDTM', 'SOLUSDTM']; // KuCoin Fallbacks

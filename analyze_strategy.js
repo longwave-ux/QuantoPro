@@ -20,24 +20,50 @@ const parseFilename = (filename) => {
     return { source, symbol, timeframe };
 };
 
-const getFutureOutcome = (candles, startIndex, entry, tp, sl, side) => {
+const getFutureOutcome = (candles, startIndex, entry, tp, sl, side, config) => {
     // Look ahead up to 24 hours (96 candles of 15m)
     const LOOKAHEAD = 96;
+    const timeLimit = (config?.RISK?.ENABLE_TIME_BASED_STOP && config?.RISK?.TIME_BASED_STOP_CANDLES)
+        ? config.RISK.TIME_BASED_STOP_CANDLES
+        : LOOKAHEAD;
 
     for (let i = startIndex + 1; i < Math.min(candles.length, startIndex + LOOKAHEAD); i++) {
         const c = candles[i];
+        const barsElapsed = i - startIndex;
+
+        // Check Hard TP/SL First
         if (side === 'LONG') {
-            if (c.low <= sl) return { result: 'LOSS', pnl: -1, candles: i - startIndex };
-            if (c.high >= tp) return { result: 'WIN', pnl: 1, candles: i - startIndex };
+            if (c.low <= sl) return { result: 'LOSS', pnl: (sl - entry) / entry, candles: barsElapsed };
+            if (c.high >= tp) return { result: 'WIN', pnl: (tp - entry) / entry, candles: barsElapsed };
         } else {
-            if (c.high >= sl) return { result: 'LOSS', pnl: -1, candles: i - startIndex };
-            if (c.low <= tp) return { result: 'WIN', pnl: 1, candles: i - startIndex };
+            if (c.high >= sl) return { result: 'LOSS', pnl: (entry - sl) / entry, candles: barsElapsed };
+            if (c.low <= tp) return { result: 'WIN', pnl: (entry - tp) / entry, candles: barsElapsed };
+        }
+
+        // Time-Based Stop
+        if (barsElapsed >= timeLimit) {
+            // Force Close at Close price
+            const exitPrice = c.close;
+            let pnlPct = 0;
+            let result = 'EXPIRED'; // Default if flat (should basically never happen with floating point)
+
+            if (side === 'LONG') {
+                pnlPct = (exitPrice - entry) / entry;
+            } else {
+                pnlPct = (entry - exitPrice) / entry;
+            }
+
+            if (pnlPct > 0) result = 'WIN';
+            else if (pnlPct < 0) result = 'LOSS';
+            else result = 'EXPIRED';
+
+            return { result, pnl: pnlPct, candles: barsElapsed, isTimeExit: true };
         }
     }
     return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD };
 };
 
-export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12 }) => {
+export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12, onProgress: null }) => {
     // If running in standalone mode (no custom config), look for global CONFIG
     // Otherwise use provided config, merging checks if needed.
     const activeConfig = customConfig || CONFIG;
@@ -59,6 +85,9 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
         wins: 0,
         losses: 0,
         expired: 0,
+        timeExits: 0,
+        totalPnL: 0, // Sum of PnL percentages
+        pnlHistory: [], // Array of individual trade PnLs
         byScore: {}, // { "80-90": { wins: 0, total: 0 } }
         byIndicator: {
             rsiOverboughtWin: 0, rsiOverboughtLoss: 0,
@@ -68,9 +97,32 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
         weak_signals: []
     };
 
+    // Load Mcap Cache
+    let mcapCache = {};
+    try {
+        const cachePath = path.join(DATA_DIR, 'mcap_cache.json');
+        mcapCache = JSON.parse(await fs.readFile(cachePath, 'utf-8')).data || {};
+    } catch (e) {
+        if (verbose) console.warn('[BACKTEST] No mcap_cache.json found. MCap scoring disabled.');
+    }
+
     if (verbose) console.log(`[BACKTEST] Analyzing ${ltfFiles.length} pairs ...`);
 
+    if (verbose) console.log(`[BACKTEST] Analyzing ${ltfFiles.length} pairs ...`);
+
+    let completed = 0;
+    const startTime = Date.now();
+
     for (const ltfFile of ltfFiles) {
+        // Progress Reporting
+        completed++;
+        if (options.onProgress) {
+            const pct = Math.round((completed / ltfFiles.length) * 100);
+            const elapsed = (Date.now() - startTime) / 1000; // seconds
+            const avgTime = elapsed / completed;
+            const eta = Math.round((ltfFiles.length - completed) * avgTime);
+            options.onProgress(pct, eta);
+        }
         const { source, symbol } = parseFilename(ltfFile);
         const htfFile = ltfFile.replace('_15m.json', '_4h.json');
 
@@ -110,19 +162,30 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
                 if (currentHtf.length < 50) continue;
 
                 // Run Strategy with injected config
-                const analysis = AnalysisEngine.analyzePair(symbol, currentHtf, currentLtf, '4h', '15m', currentTimestamp, source, activeConfig);
+                // Get Mcap
+                const baseSym = symbol.replace('USDT', '').replace('USDC', '').replace('PERP', '');
+                const mcap = mcapCache[baseSym] || 0;
+
+                const analysis = AnalysisEngine.analyzePair(symbol, currentHtf, currentLtf, '4h', '15m', currentTimestamp, source, activeConfig, { mcap });
 
                 if (analysis.score >= activeConfig.THRESHOLDS.MIN_SCORE_SIGNAL && analysis.setup) {
                     // We found a signal!
                     stats.totalSignals++;
 
-                    const outcome = getFutureOutcome(ltfData, i, analysis.setup.entry, analysis.setup.tp, analysis.setup.sl, analysis.setup.side);
+                    const outcome = getFutureOutcome(ltfData, i, analysis.setup.entry, analysis.setup.tp, analysis.setup.sl, analysis.setup.side, activeConfig);
 
                     // Categorize Score
                     const scoreRange = Math.floor(analysis.score / 10) * 10;
                     const key = `${scoreRange}-${scoreRange + 9}`;
                     if (!stats.byScore[key]) stats.byScore[key] = { wins: 0, losses: 0, total: 0 };
                     stats.byScore[key].total++;
+
+                    if (outcome.isTimeExit) stats.timeExits++;
+
+                    if (outcome.result !== 'EXPIRED') {
+                        stats.totalPnL += outcome.pnl;
+                        stats.pnlHistory.push(outcome.pnl);
+                    }
 
                     if (outcome.result === 'WIN') {
                         stats.wins++;

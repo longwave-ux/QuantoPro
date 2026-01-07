@@ -8,6 +8,7 @@ import { registerSignals, updateOutcomes } from './tracker.js';
 import { CONFIG } from './config.js';
 import { AnalysisEngine } from './analysis.js';
 import { Logger } from './logger.js';
+import { McapService } from './mcapService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -102,7 +103,8 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
 
         if (htfData.length === 0 || ltfData.length === 0) return null;
 
-        const resultBase = AnalysisEngine.analyzePair(symbol, htfData, ltfData, htf, ltf, now, source);
+        const mcap = McapService.getMcap(symbol);
+        const resultBase = AnalysisEngine.analyzePair(symbol, htfData, ltfData, htf, ltf, now, source, CONFIG, { mcap });
 
         let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
 
@@ -160,7 +162,11 @@ export const runServerScan = async (source = 'KUCOIN') => {
     // 1. Update outcomes of previous signals (Foretesting)
     await updateOutcomes();
 
+    // 2. Refresh MCap Cache
+    await McapService.init();
     const topPairs = await fetchTopVolumePairs(source);
+    await McapService.refreshIfNeeded(topPairs);
+
     const results = [];
     const htf = CONFIG.SCANNERS.HTF;
     const ltf = CONFIG.SCANNERS.LTF;

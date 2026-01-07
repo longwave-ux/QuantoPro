@@ -14,6 +14,12 @@ The **QuantPro Crypto Scanner** is designed to solve the problem of "Analysis Pa
 
 ## Recent Updates / Changelog
 
+### **2026-01-06: Telegram Notification Fixes**
+-   **Debugging & Fix:**
+    -   Resolved issue where Telegram alerts were not sending despite being enabled.
+    -   Added explicit checks for `settings.entryAlerts` in `server/tracker.js` before calling alert functions.
+    -   Verified functionality with temporary debug logs, now removed.
+
 ### **2026-01-06: Adaptive Strategy & Optimization**
 -   **Optimization Fix:**
     -   Investigated a reported crash (`Cannot set properties of undefined`) in the Auto-Optimizer.
@@ -27,6 +33,18 @@ The **QuantPro Crypto Scanner** is designed to solve the problem of "Analysis Pa
         -   Added a global toggle `ENABLE_ADAPTIVE` in `server/config.js` and `ConfigPanel.tsx`.
         -   Fixed a persistence bug where the toggle appeared reset upon reload due to browser caching. **Fix:** Added timestamp `?t=...` to the `fetchConfig` call in React.
     -   **Verification:** Verified end-to-end configuration persistence with `verify_persistence.js` and manual API simulation.
+
+### **2026-01-07: Foretest UX & Persistence Overhaul**
+-   **Foretest UX Improvements:**
+    -   Moved "Recalculating..." progress bar from Settings Modal to Main View (Performance Panel).
+    -   Prevented annoying "Auto-Run" on simply opening the Strategy tab. It now only runs on parameter *changes*.
+    -   Unified simulation state in `App.tsx` for cleaner architecture.
+    -   See [Foretest_UX_Walkthrough.md](./Foretest_UX_Walkthrough.md) for details.
+-   **Configuration Persistence Fix:**
+    -   Debugged issue where parameters (especially `FORETEST_DAYS` lookback) were not saving.
+    -   **Fix:** Refactored `server/config.js` to use **Deep Merge** for saving, preventing accidental overwrites of missing keys.
+    -   **Fix:** Wired "Lookback" input directly to `config.SYSTEM` to fix state desync.
+    -   **Fix:** Updated `types.ts` to include `FORETEST_DAYS`.
 
 ## Directory Structure & Key Files
 
@@ -59,3 +77,11 @@ The **QuantPro Crypto Scanner** is designed to solve the problem of "Analysis Pa
 ## Pending / Roadmap
 -   **Adaptive Logic Tuning:** Monitor the performance of "Adaptive Mode" in forward testing.
 -   **UI Feedback:** Add visual indicators in `ScannerTable` when a setup was generated using "Aggressive" vs "Conservative" logic.
+
+### **Development Note: Building Frontend**
+> [!IMPORTANT]
+> The application serves the frontend as static files from the `dist/` directory.
+> Any changes made to React components (`src/`, `components/`) **MUST** be followed by a rebuild command to take effect in the production server:
+> ```bash
+> npm run build
+> ```

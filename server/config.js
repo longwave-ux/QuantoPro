@@ -12,7 +12,9 @@ export const CONFIG = {
         TRACKER_INTERVAL: 1 * 60 * 1000, // 1 Minute
         BATCH_SIZE: 5,
         HTTP_PORT: process.env.PORT || 3000,
-        ENABLE_ADAPTIVE: false // Default Off
+        ENABLE_ADAPTIVE: false, // Default Off
+        FORETEST_DAYS: 10,
+        CMC_API_KEY: 'e86a7a5e-c95e-4f20-b137-72a9ef78fa93'
     },
     SCANNERS: {
         HTF: '4h',
@@ -40,7 +42,9 @@ export const CONFIG = {
         STRUCTURE: { FIB: 25, LEVEL: 15, POOR_RR_PENALTY: 30, MED_RR_PENALTY: 10 },
         MONEY_FLOW: { OBV: 25, DIVERGENCE: 0 },
         TIMING: { PULLBACK: 5, REJECTION: 5 },
-        PENALTIES: { CONTRARIAN_OBV: 40, CONTRARIAN_DIV: 20, OVEREXTENDED: 20, HIGH_VOL_PULLBACK: 20 }
+        MARKET_CAP: { SMALL_CAP_REWARD: 5, MEGA_CAP_REWARD: 5, ENABLE_MCAP_LOGIC: true },
+        VOLUME: { HIGH_VOLUME_REWARD: 5, ENABLE_VOLUME_LOGIC: true },
+        PENALTIES: { CONTRARIAN_OBV: 40, CONTRARIAN_DIV: 20, OVEREXTENDED: 20, HIGH_VOL_PULLBACK: 20, HIGH_VOLATILITY: 20 }
     },
     // New Adaptive Regimes
     REGIMES: {
@@ -52,9 +56,21 @@ export const CONFIG = {
     },
     RISK: {
         ATR_MULTIPLIER: 2.5,
-        SL_BUFFER: 0.005,
-        TP_RR_MIN: 1.5
+        TP_RR_MIN: 1.5,
+        ENABLE_TIME_BASED_STOP: true, // Auto-Close Stale Trades
+        TIME_BASED_STOP_CANDLES: 12 // 3 Hours (12 * 15m)
     }
+};
+
+// Helper for Deep Merge
+const deepMerge = (target, source) => {
+    for (const key in source) {
+        if (source[key] instanceof Object && key in target) {
+            Object.assign(source[key], deepMerge(target[key], source[key]));
+        }
+    }
+    Object.assign(target || {}, source);
+    return target;
 };
 
 export const loadConfig = async () => {
@@ -62,18 +78,7 @@ export const loadConfig = async () => {
         const data = await fs.readFile(CONFIG_FILE, 'utf-8');
         const savedConfig = JSON.parse(data);
 
-        // Deep merge to ensure structure is preserved
-        const merge = (target, source) => {
-            for (const key in source) {
-                if (source[key] instanceof Object && key in target) {
-                    Object.assign(source[key], merge(target[key], source[key]));
-                }
-            }
-            Object.assign(target || {}, source);
-            return target;
-        };
-
-        merge(CONFIG, savedConfig);
+        deepMerge(CONFIG, savedConfig);
         console.log('[CONFIG] Configuration loaded from disk.');
     } catch (e) {
         console.log('[CONFIG] No saved config found, using defaults.');
@@ -82,8 +87,16 @@ export const loadConfig = async () => {
 
 export const saveConfig = async (newConfig) => {
     try {
-        // Update in-memory config
-        Object.assign(CONFIG, newConfig);
+        // Log incoming config for debugging
+        console.log('[CONFIG] Saving config. System keys:', Object.keys(newConfig.SYSTEM || {}));
+        if (newConfig.SYSTEM && newConfig.SYSTEM.FORETEST_DAYS) {
+            console.log('[CONFIG] Saving FORETEST_DAYS:', newConfig.SYSTEM.FORETEST_DAYS);
+        } else {
+            console.warn('[CONFIG] Saving config MISSING FORETEST_DAYS in payload!');
+        }
+
+        // Deep merge to update in-memory config safely
+        deepMerge(CONFIG, newConfig);
 
         // Save to disk
         await fs.writeFile(CONFIG_FILE, JSON.stringify(CONFIG, null, 2));

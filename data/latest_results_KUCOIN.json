@@ -1,14 +1,14 @@
 [
   {
-    "symbol": "HIPPOUSDTM",
+    "symbol": "SHIBUSDTM",
     "source": "KUCOIN",
-    "price": 0.0011967,
-    "score": 82.5,
+    "price": 0.000008863,
+    "score": 88.5,
     "setup": {
-      "entry": 0.0011778,
-      "sl": 0.0011314746051276935,
-      "tp": 0.0013379,
-      "rr": 3.46,
+      "entry": 0.000008817,
+      "sl": 0.000008766944999999999,
+      "tp": 0.000009511,
+      "rr": 13.86,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -20,26 +20,28 @@
       "trendScore": 37.5,
       "structureScore": 20,
       "moneyFlowScore": 25,
-      "timingScore": 0
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 118.34354908899998
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 0.0011613145873397793,
-      "ema200": 0.0010989915000000005,
-      "adx": 30.456116165798807
+      "ema50": 0.000008392274181716778,
+      "ema200": 0.000007870919999999997,
+      "adx": 53.24439780932044
     },
     "ltf": {
-      "rsi": 38.75810943981337,
+      "rsi": 38.8998388482234,
       "divergence": "NONE",
       "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.8196564885496178,
+      "pullbackDepth": 0.8807339449541274,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -47,17 +49,17 @@
     }
   },
   {
-    "symbol": "ZKUSDTM",
+    "symbol": "XPINUSDTM",
     "source": "KUCOIN",
-    "price": 0.03648,
-    "score": 80.5,
+    "price": 0.0025433,
+    "score": 88.5,
     "setup": {
-      "entry": 0.03364,
-      "sl": 0.03217368426055272,
-      "tp": 0.04188,
-      "rr": 5.62,
+      "entry": 0.0025185,
+      "sl": 0.0024905845,
+      "tp": 0.0026988,
+      "rr": 6.46,
       "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
+      "confluenceType": "FIB_STRUCTURE"
     },
     "meta": {
       "htfInterval": "4h",
@@ -65,28 +67,30 @@
     },
     "details": {
       "trendScore": 37.5,
-      "structureScore": 12,
+      "structureScore": 20,
       "moneyFlowScore": 25,
-      "timingScore": 6
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 2256.015605599999
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 0.032611629009560585,
-      "ema200": 0.030842450000000018,
-      "adx": 41.87507739411035
+      "ema50": 0.002505540624696535,
+      "ema200": 0.002215479999999999,
+      "adx": 40.16477434837393
     },
     "ltf": {
-      "rsi": 40.68341421143444,
+      "rsi": 33.8522274474374,
       "divergence": "NONE",
       "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.6553398058252432,
+      "pullbackDepth": 0.7945835462442503,
       "isPullback": true,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -94,17 +98,17 @@
     }
   },
   {
-    "symbol": "BEATUSDTM",
+    "symbol": "DOGEUSDTM",
     "source": "KUCOIN",
-    "price": 0.59267,
-    "score": 74.5,
+    "price": 0.14633,
+    "score": 82.5,
     "setup": {
-      "entry": 0.74257,
-      "sl": 0.7857518772492924,
-      "tp": 0.54569,
-      "rr": 4.56,
-      "side": "SHORT",
-      "confluenceType": "STRUCTURE_ONLY"
+      "entry": 0.1435,
+      "sl": 0.14089472712572623,
+      "tp": 0.15661,
+      "rr": 5.03,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
     },
     "meta": {
       "htfInterval": "4h",
@@ -112,28 +116,30 @@
     },
     "details": {
       "trendScore": 37.5,
-      "structureScore": 12,
+      "structureScore": 20,
       "moneyFlowScore": 25,
-      "timingScore": 0
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 561833.4318499998
     },
     "htf": {
       "trend": "DOWN",
-      "bias": "SHORT",
-      "ema50": 1.112819278971432,
-      "ema200": 1.8967714000000007,
-      "adx": 32.90935800650182
+      "bias": "LONG",
+      "ema50": 0.1416205919159319,
+      "ema200": 0.1342662,
+      "adx": 37.911076494510326
     },
     "ltf": {
-      "rsi": 45.522686522025154,
-      "divergence": "BEARISH",
-      "obvImbalance": "BEARISH",
-      "pullbackDepth": 0.2573541495480692,
+      "rsi": 41.524146658072745,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.8356756756756765,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -143,107 +149,13 @@
   {
     "symbol": "1000BONKUSDTM",
     "source": "KUCOIN",
-    "price": 0.011688,
-    "score": 74.5,
+    "price": 0.011589,
+    "score": 82.5,
     "setup": {
-      "entry": 0.011459,
-      "sl": 0.011068666520002216,
-      "tp": 0.013393,
-      "rr": 4.95,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 12,
-      "moneyFlowScore": 25,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.0100903520060334,
-      "ema200": 0.008864145000000004,
-      "adx": 65.69386261879798
-    },
-    "ltf": {
-      "rsi": 35.491272726376195,
-      "divergence": "BULLISH",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.8925120772946854,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "STXUSDTM",
-    "source": "KUCOIN",
-    "price": 0.3617,
-    "score": 74.5,
-    "setup": {
-      "entry": 0.3466,
-      "sl": 0.33754143979477585,
-      "tp": 0.3906,
-      "rr": 4.86,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 12,
-      "moneyFlowScore": 25,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.312059427207682,
-      "ema200": 0.27855549999999984,
-      "adx": 70.35733741070409
-    },
-    "ltf": {
-      "rsi": 24.43635463626417,
-      "divergence": "NONE",
-      "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.9322580645161276,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": false,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "ORCAUSDTM",
-    "source": "KUCOIN",
-    "price": 1.2039,
-    "score": 74.5,
-    "setup": {
-      "entry": 1.1911,
-      "sl": 1.154538477168475,
-      "tp": 1.2366,
-      "rr": 1.24,
+      "entry": 0.011574,
+      "sl": 0.01138479,
+      "tp": 0.012427,
+      "rr": 4.51,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -253,28 +165,30 @@
     },
     "details": {
       "trendScore": 37.5,
-      "structureScore": 12,
+      "structureScore": 20,
       "moneyFlowScore": 25,
-      "timingScore": 0
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 4706.635036000001
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 1.1535086222947648,
-      "ema200": 1.1534874999999996,
-      "adx": 38.16154032261996
+      "ema50": 0.010443069211078833,
+      "ema200": 0.008926940000000005,
+      "adx": 58.859405665082384
     },
     "ltf": {
-      "rsi": 42.086025881404424,
+      "rsi": 45.941812323286705,
       "divergence": "NONE",
       "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.26328502415458926,
+      "pullbackDepth": 0.8292682926829271,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -282,15 +196,358 @@
     }
   },
   {
-    "symbol": "KGENUSDTM",
+    "symbol": "ZKUSDTM",
     "source": "KUCOIN",
-    "price": 0.21193,
+    "price": 0.03443,
+    "score": 82.5,
+    "setup": {
+      "entry": 0.03364,
+      "sl": 0.03289510538847811,
+      "tp": 0.0404,
+      "rr": 9.08,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 145342.55627
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.03313706548949316,
+      "ema200": 0.030784700000000026,
+      "adx": 34.53719908417263
+    },
+    "ltf": {
+      "rsi": 43.25928594252184,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.8299319727891153,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "GALAUSDTM",
+    "source": "KUCOIN",
+    "price": 0.00726,
+    "score": 82.5,
+    "setup": {
+      "entry": 0.00723,
+      "sl": 0.00715405,
+      "tp": 0.00791,
+      "rr": 8.95,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 975538.8900800002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.0069580306641450615,
+      "ema200": 0.006659850000000002,
+      "adx": 40.437242497588514
+    },
+    "ltf": {
+      "rsi": 36.82815104583654,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.8333333333333337,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "MELANIAUSDTM",
+    "source": "KUCOIN",
+    "price": 0.1479,
+    "score": 80.5,
+    "setup": {
+      "entry": 0.1425,
+      "sl": 0.13775721396878182,
+      "tp": 0.1593,
+      "rr": 3.54,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 16979548.287600003
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.13211455866791447,
+      "ema200": 0.11620899999999997,
+      "adx": 54.90538454431779
+    },
+    "ltf": {
+      "rsi": 45.10340675317592,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.6645962732919245,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "JASMYUSDTM",
+    "source": "KUCOIN",
+    "price": 0.008685,
+    "score": 74.5,
+    "setup": {
+      "entry": 0.008414,
+      "sl": 0.008158798882551513,
+      "tp": 0.010142,
+      "rr": 6.77,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 960689.8962300002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.007260251882827821,
+      "ema200": 0.006479394999999999,
+      "adx": 59.192734949448884
+    },
+    "ltf": {
+      "rsi": 34.50895029631231,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.9304418985270049,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "IPUSDTM",
+    "source": "KUCOIN",
+    "price": 2.05317,
+    "score": 74.5,
+    "setup": {
+      "entry": 1.9859,
+      "sl": 1.9448472029994661,
+      "tp": 2.25334,
+      "rr": 6.51,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 1820810.0293999994
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 1.9966487649437448,
+      "ema200": 1.8246358500000002,
+      "adx": 45.24121854418805
+    },
+    "ltf": {
+      "rsi": 35.25319751523645,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.8607777521347796,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "SONICUSDTM",
+    "source": "KUCOIN",
+    "price": 0.08322,
+    "score": 74.5,
+    "setup": {
+      "entry": 0.08068,
+      "sl": 0.0768077895874033,
+      "tp": 0.09564,
+      "rr": 3.86,
+      "side": "LONG",
+      "confluenceType": "STRUCTURE_ONLY"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 12,
+      "moneyFlowScore": 25,
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 1038871.72873
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.08037055219280702,
+      "ema200": 0.07555790000000001,
+      "adx": 36.51702733684624
+    },
+    "ltf": {
+      "rsi": 36.33677401840258,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.9430523917995444,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "ZENUSDTM",
+    "source": "KUCOIN",
+    "price": 9.235,
+    "score": 70,
+    "setup": {
+      "entry": 9.043,
+      "sl": 8.806213116319583,
+      "tp": 9.832,
+      "rr": 3.33,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 25277366.76599999
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 9.191148911992155,
+      "ema200": 8.640210000000003,
+      "adx": 20.41012251816472
+    },
+    "ltf": {
+      "rsi": 44.761062141968445,
+      "divergence": "NONE",
+      "obvImbalance": "BULLISH",
+      "pullbackDepth": 0.642706131078226,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "OMUSDTM",
+    "source": "KUCOIN",
+    "price": 0.08029,
     "score": 69.5,
     "setup": {
-      "entry": 0.2088,
-      "sl": 0.20726845,
-      "tp": 0.23,
-      "rr": 13.84,
+      "entry": 0.07886,
+      "sl": 0.07731705458655583,
+      "tp": 0.08534,
+      "rr": 4.2,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -302,26 +559,126 @@
       "trendScore": 37.5,
       "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 12
+      "timingScore": 12,
+      "mcap": 0,
+      "vol24h": 106153.32456999997
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 0.20739266302396012,
-      "ema200": 0.19927985,
-      "adx": 30.54552618326947
+      "ema50": 0.07744967064756716,
+      "ema200": 0.07325185000000001,
+      "adx": 42.271052832797
     },
     "ltf": {
-      "rsi": 42.86565463502822,
+      "rsi": 42.30527941684438,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.7300613496932497,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "XBTUSDTM",
+    "source": "KUCOIN",
+    "price": 91414.4,
+    "score": 68.5,
+    "setup": {
+      "entry": 91278.8,
+      "sl": 90553.557,
+      "tp": 94444,
+      "rr": 4.36,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 485067687608.19995
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 91072.81407634304,
+      "ema200": 89273.77399999999,
+      "adx": 32.19116722136507
+    },
+    "ltf": {
+      "rsi": 37.50110809840529,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.7919294467517866,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "BCHUSDTM",
+    "source": "KUCOIN",
+    "price": 627.49,
+    "score": 68.5,
+    "setup": {
+      "entry": 624.3,
+      "sl": 617.9609438511397,
+      "tp": 642.28,
+      "rr": 2.84,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 751652635.3499998
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 626.4324244685533,
+      "ema200": 591.3434499999998,
+      "adx": 27.077153931906984
+    },
+    "ltf": {
+      "rsi": 40.4548925016377,
       "divergence": "BULLISH",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6275720164609043,
-      "isPullback": true,
+      "pullbackDepth": 0.8736637512147756,
+      "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -329,62 +686,15 @@
     }
   },
   {
-    "symbol": "BOBBOBUSDTM",
+    "symbol": "APTUSDTM",
     "source": "KUCOIN",
-    "price": 0.011677,
-    "score": 63.5,
+    "price": 1.877,
+    "score": 68.5,
     "setup": {
-      "entry": 0.012282,
-      "sl": 0.012550227597256105,
-      "tp": 0.011646,
-      "rr": 2.37,
-      "side": "SHORT",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 6
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "ema50": 0.0118813646435528,
-      "ema200": 0.013910339999999995,
-      "adx": 33.86597512001211
-    },
-    "ltf": {
-      "rsi": 28.86269987113016,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.04874213836477957,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": false,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "WILDUSDTM",
-    "source": "KUCOIN",
-    "price": 0.0609,
-    "score": 63.5,
-    "setup": {
-      "entry": 0.05472,
-      "sl": 0.0524365,
-      "tp": 0.0654,
-      "rr": 4.68,
+      "entry": 1.866,
+      "sl": 1.8314154134145113,
+      "tp": 2.011,
+      "rr": 4.19,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
     },
@@ -396,26 +706,28 @@
       "trendScore": 37.5,
       "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 6
+      "timingScore": 6,
+      "mcap": 59717369.37324728,
+      "vol24h": 29609224.141
     },
     "htf": {
-      "trend": "UP",
+      "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 0.05239578094516177,
-      "ema200": 0.04990794999999998,
-      "adx": 32.78483067854051
+      "ema50": 1.8668200996373403,
+      "ema200": 1.7138449999999994,
+      "adx": 36.792166884746266
     },
     "ltf": {
-      "rsi": 50.466738185941146,
+      "rsi": 33.07912147282289,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.354330708661417,
-      "isPullback": true,
+      "pullbackDepth": 0.8829787234042562,
+      "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -423,14 +735,161 @@
     }
   },
   {
-    "symbol": "DAMUSDTM",
+    "symbol": "OPUSDTM",
     "source": "KUCOIN",
-    "price": 0.02771,
+    "price": 0.3153,
     "score": 63.5,
     "setup": {
-      "entry": 0.02739,
-      "sl": 0.02665605,
-      "tp": 0.02978,
+      "entry": 0.3141,
+      "sl": 0.3111365,
+      "tp": 0.3407,
+      "rr": 8.98,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 2458477.0949
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.30783295279203665,
+      "ema200": 0.2933064999999998,
+      "adx": 41.607780614733315
+    },
+    "ltf": {
+      "rsi": 33.84251132619603,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.8673469387755078,
+      "isPullback": false,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "BOMEUSDTM",
+    "source": "KUCOIN",
+    "price": 0.0007727,
+    "score": 63.5,
+    "setup": {
+      "entry": 0.0007712,
+      "sl": 0.000758787,
+      "tp": 0.0008736,
+      "rr": 8.25,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 10698.436488
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.0007128888195500759,
+      "ema200": 0.0006400805000000001,
+      "adx": 53.66343013485188
+    },
+    "ltf": {
+      "rsi": 44.36170024948576,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.7864693446088801,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "WLFIUSDTM",
+    "source": "KUCOIN",
+    "price": 0.1687,
+    "score": 63.5,
+    "setup": {
+      "entry": 0.1662,
+      "sl": 0.163589137239054,
+      "tp": 0.1786,
+      "rr": 4.75,
+      "side": "LONG",
+      "confluenceType": "FIB_STRUCTURE"
+    },
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "details": {
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 6,
+      "mcap": 0,
+      "vol24h": 953546.3853000002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "ema50": 0.1629194684383645,
+      "ema200": 0.14570149999999996,
+      "adx": 42.07038697069701
+    },
+    "ltf": {
+      "rsi": 44.19007595521368,
+      "divergence": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "pullbackDepth": 0.6987951807228914,
+      "isPullback": true,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767801655112,
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "symbol": "MUSDTM",
+    "source": "KUCOIN",
+    "price": 1.6869,
+    "score": 62.5,
+    "setup": {
+      "entry": 1.61109,
+      "sl": 1.580718857687377,
+      "tp": 1.71017,
       "rr": 3.26,
       "side": "LONG",
       "confluenceType": "FIB_STRUCTURE"
@@ -443,73 +902,28 @@
       "trendScore": 37.5,
       "structureScore": 20,
       "moneyFlowScore": 0,
-      "timingScore": 6
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.02625954195746665,
-      "ema200": 0.022222150000000017,
-      "adx": 34.20918304384562
-    },
-    "ltf": {
-      "rsi": 45.758374155277465,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6654545454545463,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "DOODUSDTM",
-    "source": "KUCOIN",
-    "price": 0.006194,
-    "score": 63.5,
-    "setup": {
-      "entry": 0.006141,
-      "sl": 0.006001217661152551,
-      "tp": 0.006715,
-      "rr": 4.11,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 6
+      "timingScore": 0,
+      "mcap": 464084.21548363805,
+      "vol24h": 873389.1825599999
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 0.00603435413827715,
-      "ema200": 0.005676014999999999,
-      "adx": 54.2487534919581
+      "ema50": 1.5837258676784667,
+      "ema200": 1.4997399000000007,
+      "adx": 33.26831337885839
     },
     "ltf": {
-      "rsi": 30.684115951633487,
+      "rsi": 53.92120591384404,
       "divergence": "NONE",
       "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9022346368715098,
+      "pullbackDepth": 0.2643540669856442,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
@@ -517,15 +931,15 @@
     }
   },
   {
-    "symbol": "MYXUSDTM",
+    "symbol": "VIRTUALUSDTM",
     "source": "KUCOIN",
-    "price": 4.69869,
+    "price": 1.0626,
     "score": 62.5,
     "setup": {
-      "entry": 4.629738399351734,
-      "sl": 4.457359397731066,
-      "tp": 5.31961,
-      "rr": 4,
+      "entry": 1.0507150584776779,
+      "sl": 1.0210027046718726,
+      "tp": 1.199,
+      "rr": 4.99,
       "side": "LONG",
       "confluenceType": "ATR_REVERSION"
     },
@@ -537,402 +951,28 @@
       "trendScore": 37.5,
       "structureScore": 0,
       "moneyFlowScore": 25,
-      "timingScore": 0
+      "timingScore": 0,
+      "mcap": 0,
+      "vol24h": 5355785.996999999
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "ema50": 4.682726442505346,
-      "ema200": 3.5191082500000004,
-      "adx": 34.6853368887738
+      "ema50": 0.9299028481296788,
+      "ema200": 0.7825344999999999,
+      "adx": 64.00760110373143
     },
     "ltf": {
-      "rsi": 35.89591409470475,
+      "rsi": 34.72429717034265,
       "divergence": "NONE",
       "obvImbalance": "BULLISH",
-      "pullbackDepth": 0.8479322096343371,
+      "pullbackDepth": 0.9353070175438595,
       "isPullback": false,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "MELANIAUSDTM",
-    "source": "KUCOIN",
-    "price": 0.1427,
-    "score": 61.5,
-    "setup": {
-      "entry": 0.1309,
-      "sl": 0.12466657536826517,
-      "tp": 0.1593,
-      "rr": 4.56,
-      "side": "LONG",
-      "confluenceType": "STRUCTURE_ONLY"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 12,
-      "moneyFlowScore": 0,
-      "timingScore": 12
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 0.12753618124301447,
-      "ema200": 0.11527799999999999,
-      "adx": 44.809436796124366
-    },
-    "ltf": {
-      "rsi": 50.35062273913031,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.6747967479674796,
-      "isPullback": true,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "ETHUSDTM",
-    "source": "KUCOIN",
-    "price": 3218.96,
-    "score": 57.5,
-    "setup": {
-      "entry": 3202.73,
-      "sl": 3158.465010815605,
-      "tp": 3308.62,
-      "rr": 2.39,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 3104.4458507698605,
-      "ema200": 3044.3196000000003,
-      "adx": 53.225981313370525
-    },
-    "ltf": {
-      "rsi": 37.04152840590806,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9159260394320152,
-      "isPullback": false,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "LINKUSDTM",
-    "source": "KUCOIN",
-    "price": 13.629,
-    "score": 57.5,
-    "setup": {
-      "entry": 13.391,
-      "sl": 13.108016612164198,
-      "tp": 14.238,
-      "rr": 2.99,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 13.166375231041247,
-      "ema200": 13.050480000000011,
-      "adx": 49.307182184255545
-    },
-    "ltf": {
-      "rsi": 33.87923508073642,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.8890510948905126,
-      "isPullback": false,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "MUSDTM",
-    "source": "KUCOIN",
-    "price": 1.62902,
-    "score": 57.5,
-    "setup": {
-      "entry": 1.54851,
-      "sl": 1.5350461999999998,
-      "tp": 1.66815,
-      "rr": 8.89,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "ema50": 1.5575405208696624,
-      "ema200": 1.488631550000001,
-      "adx": 29.834506800072422
-    },
-    "ltf": {
-      "rsi": 55.137593450984596,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.16211753278290508,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "LTCUSDTM",
-    "source": "KUCOIN",
-    "price": 81.94,
-    "score": 57.5,
-    "setup": {
-      "entry": 81.42,
-      "sl": 80.14372726866901,
-      "tp": 84.91,
-      "rr": 2.73,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 81.05494665874969,
-      "ema200": 79.74780000000004,
-      "adx": 26.260530372947535
-    },
-    "ltf": {
-      "rsi": 30.569462842867964,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9195046439628508,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "ENAUSDTM",
-    "source": "KUCOIN",
-    "price": 0.2442,
-    "score": 57.5,
-    "setup": {
-      "entry": 0.2386,
-      "sl": 0.2316174152590844,
-      "tp": 0.2634,
-      "rr": 3.55,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.23280450413656711,
-      "ema200": 0.23056150000000003,
-      "adx": 33.89690862632599
-    },
-    "ltf": {
-      "rsi": 31.507791455968032,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9504950495049506,
-      "isPullback": false,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "NEARUSDTM",
-    "source": "KUCOIN",
-    "price": 1.753,
-    "score": 57.5,
-    "setup": {
-      "entry": 1.744,
-      "sl": 1.7313,
-      "tp": 1.841,
-      "rr": 7.64,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 1.6728875701790256,
-      "ema200": 1.6112799999999998,
-      "adx": 43.93326045834302
-    },
-    "ltf": {
-      "rsi": 33.9587888988016,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.8712871287128723,
-      "isPullback": false,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "symbol": "EDENUSDTM",
-    "source": "KUCOIN",
-    "price": 0.06858,
-    "score": 57.5,
-    "setup": {
-      "entry": 0.06759,
-      "sl": 0.06561926567552245,
-      "tp": 0.07286,
-      "rr": 2.67,
-      "side": "LONG",
-      "confluenceType": "FIB_STRUCTURE"
-    },
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "details": {
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "ema50": 0.06845964199561758,
-      "ema200": 0.06815665000000004,
-      "adx": 38.90491747875988
-    },
-    "ltf": {
-      "rsi": 29.632113548987135,
-      "divergence": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "pullbackDepth": 0.9164882226980724,
-      "isPullback": false,
-      "volumeOk": true,
-      "momentumOk": false,
-      "isOverextended": false
-    },
-    "timestamp": 1767721923776,
+    "timestamp": 1767801655112,
     "history": {
       "consecutiveScans": 1,
       "prevScore": 0,
