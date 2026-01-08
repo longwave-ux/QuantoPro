@@ -57,6 +57,7 @@ export const CONFIG = {
     RISK: {
         ATR_MULTIPLIER: 2.5,
         TP_RR_MIN: 1.5,
+        ENTRY_ON_CANDLE_CLOSE: true, // If true, waits for candle close to confirm entry (avoids wicking out)
         ENABLE_TIME_BASED_STOP: true, // Auto-Close Stale Trades
         TIME_BASED_STOP_CANDLES: 12 // 3 Hours (12 * 15m)
     }

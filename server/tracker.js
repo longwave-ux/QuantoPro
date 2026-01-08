@@ -158,13 +158,33 @@ export const updateOutcomes = async () => {
                         }
                         // ENTRY TRIGGER
                         else if (candle.low <= trade.entryPrice) {
-                            trade.isFilled = true;
-                            trade.fillDate = new Date(candle.time).toISOString();
-                            stateChanged = true;
+                            // POTENTIAL FILL
+                            let shouldFill = true;
 
-                            if (settings.entryAlerts) {
+                            if (CONFIG.RISK.ENTRY_ON_CANDLE_CLOSE) {
+                                // CONFIRMATION LOGIC: Check Close
+                                if (candle.close <= trade.sl) {
+                                    // Invalidated! Wicks triggered entry but Close stopped out.
+                                    trade.status = 'CLOSED';
+                                    trade.result = 'INVALIDATED';
+                                    trade.exitDate = new Date(candle.time).toISOString();
+                                    trade.pnl = 0;
+                                    trade.exitPrice = trade.sl;
+                                    stateChanged = true;
+                                    shouldFill = false;
+                                    if (settings.entryAlerts) sendExitAlert(trade);
+                                    break;
+                                } else {
+                                    // Confirmed! Enter at CLOSE (conservative).
+                                    trade.entryPrice = candle.close; // Update entry to close price
+                                }
+                            }
 
-                                sendEntryAlert(trade);
+                            if (shouldFill) {
+                                trade.isFilled = true;
+                                trade.fillDate = new Date(candle.time).toISOString();
+                                stateChanged = true;
+                                if (settings.entryAlerts) sendEntryAlert(trade);
                             }
                         }
                     } else { // SHORT
@@ -181,11 +201,35 @@ export const updateOutcomes = async () => {
                         }
                         // ENTRY TRIGGER
                         else if (candle.high >= trade.entryPrice) {
-                            isFilled = true;
-                            trade.isFilled = true;
-                            trade.fillDate = new Date(candle.time).toISOString();
-                            stateChanged = true;
-                            if (settings.entryAlerts) sendEntryAlert(trade);
+                            // POTENTIAL FILL
+                            let shouldFill = true;
+
+                            if (CONFIG.RISK.ENTRY_ON_CANDLE_CLOSE) {
+                                // CONFIRMATION LOGIC: Check Close
+                                if (candle.close >= trade.sl) {
+                                    // Invalidated!
+                                    trade.status = 'CLOSED';
+                                    trade.result = 'INVALIDATED';
+                                    trade.exitDate = new Date(candle.time).toISOString();
+                                    trade.pnl = 0;
+                                    trade.exitPrice = trade.sl;
+                                    stateChanged = true;
+                                    shouldFill = false;
+                                    if (settings.entryAlerts) sendExitAlert(trade);
+                                    break;
+                                } else {
+                                    // Confirmed! Enter at CLOSE
+                                    trade.entryPrice = candle.close; // Update entry to close price
+                                }
+                            }
+
+                            if (shouldFill) {
+                                isFilled = true;
+                                trade.isFilled = true;
+                                trade.fillDate = new Date(candle.time).toISOString();
+                                stateChanged = true;
+                                if (settings.entryAlerts) sendEntryAlert(trade);
+                            }
                         }
                     }
                 }

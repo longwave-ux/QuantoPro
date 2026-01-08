@@ -131,6 +131,25 @@ app.get('/api/performance', async (req, res) => {
     res.json({ history, stats });
 });
 
+import { getExchangeData } from './server/exchange.js';
+
+// ==========================================
+// API: EXCHANGE DATA
+// ==========================================
+app.get('/api/exchange/account', async (req, res) => {
+    const { source } = req.query;
+    console.log(`[EXCHANGE API] Request received for source: ${source}`);
+    if (!source) return res.status(400).json({ error: 'Missing source parameter' });
+
+    try {
+        const data = await getExchangeData(source);
+        res.json(data);
+    } catch (e) {
+        console.error(`[EXCHANGE ERROR] ${source}:`, e.message);
+        res.status(500).json({ error: e.message });
+    }
+});
+
 // ==========================================
 // API: CONFIGURATION
 // ==========================================

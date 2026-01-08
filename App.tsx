@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Activity, Clock, Download, RefreshCw, Zap, BarChart2, Settings, Bell, X, Save, Database, Upload, Globe, Send, AlertTriangle, WifiOff, Terminal, CheckCircle2, AlertCircle, Bot } from 'lucide-react';
+import {
+    Zap, Activity, RefreshCw, Settings, Trophy, AlertTriangle, ArrowRight, BarChart2, Save, X, Terminal, Brain, Wallet,
+    Clock, Download, Database, Upload, Globe, Send, WifiOff, CheckCircle2, AlertCircle, Bot, Bell
+} from 'lucide-react';
 import { runScannerWorkflow, exportHistoryJSON, restoreHistoryJSON, getSystemLogs, LogEntry } from './services/dataService';
 import { AnalysisResult, NotificationSettings, DataSource } from './types';
 import { ScannerTable } from './components/ScannerTable';
 import { PerformancePanel } from './components/PerformancePanel';
 import { ConfigPanel } from './components/ConfigPanel';
+import { ExchangePanel } from './components/ExchangePanel';
+import { AIAnalysisPanel } from './components/AIAnalysisPanel';
 import { sendTelegramAlert } from './services/telegramService';
 
 const REFRESH_INTERVAL = 15 * 60; // 15 minutes in seconds
@@ -20,18 +25,13 @@ const DEFAULT_SETTINGS: NotificationSettings = {
 
 export default function App() {
     // PERSISTENT STATE: View Settings & Data
-    const [timeframe, setTimeframe] = useState(() => localStorage.getItem('cs_timeframe') || '4h');
+    const [timeframe, setTimeframe] = useState(() => localStorage.getItem('cs_timeframe') || '15m');
+    const [dataSource, setDataSource] = useState(() => localStorage.getItem('cs_datasource') || 'MEXC');
 
-    const [dataSource, setDataSource] = useState<DataSource>(() => {
-        return (localStorage.getItem('cs_datasource') as DataSource) || 'KUCOIN';
-    });
-
+    // Initial Data Load (Prevent Flash)
     const [data, setData] = useState<AnalysisResult[]>(() => {
         try {
-            // Try to load data for the initial datasource
-            const initialSource = (localStorage.getItem('cs_datasource') as DataSource) || 'KUCOIN';
-            const saved = localStorage.getItem(`cs_last_results_${initialSource}`);
-            return saved ? JSON.parse(saved) : [];
+            return [];
         } catch { return []; }
     });
 
@@ -47,26 +47,60 @@ export default function App() {
     const [timeLeft, setTimeLeft] = useState(REFRESH_INTERVAL);
 
     // Main View State
-    const [mainView, setMainView] = useState<'SCANNER' | 'PERFORMANCE'>('SCANNER');
+    const [mainView, setMainView] = useState<'SCANNER' | 'PERFORMANCE' | 'EXCHANGE'>('SCANNER');
+
+    // Performance Data State (Paper Trading / Foretest)
+    const [tradeHistory, setTradeHistory] = useState<any[]>([]);
+    const [perfStats, setPerfStats] = useState<any>({});
+
+    const triggerPerformanceUpdate = useCallback(async () => {
+        try {
+            // Only fetch if we are in Performance view OR Strategy Modal is open (to show live results if needed)
+            // But simpler to just fetch periodically
+            const res = await fetch('/api/performance');
+            if (res.ok) {
+                const json = await res.json();
+                setTradeHistory(json.history || []);
+                setPerfStats(json.stats || {});
+            }
+        } catch (e) { console.error("Perf fetch error", e); }
+    }, []);
+
+    useEffect(() => {
+        triggerPerformanceUpdate();
+        // Poll every 30s for performance updates
+        const interval = setInterval(triggerPerformanceUpdate, 30000);
+        return () => clearInterval(interval);
+    }, [triggerPerformanceUpdate]);
 
     // Notification Settings State
     const [showSettings, setShowSettings] = useState(false);
+    const [showStrategyModal, setShowStrategyModal] = useState(false);
     const [modalDimensions, setModalDimensions] = useState({ width: 500, height: 600 });
+    const [strategyModalDimensions, setStrategyModalDimensions] = useState({ width: 900, height: 800 });
 
-    const handleModalResize = (e: React.MouseEvent) => {
+    const handleModalResize = (e: React.MouseEvent, type: 'SETTINGS' | 'STRATEGY') => {
         e.preventDefault();
         const startX = e.clientX;
         const startY = e.clientY;
-        const startWidth = modalDimensions.width;
-        const startHeight = modalDimensions.height;
+        const startDims = type === 'SETTINGS' ? modalDimensions : strategyModalDimensions;
+        const startWidth = startDims.width;
+        const startHeight = startDims.height;
 
         const onMouseMove = (e: MouseEvent) => {
             const newWidth = startWidth + (e.clientX - startX);
             const newHeight = startHeight + (e.clientY - startY);
-            setModalDimensions({
-                width: Math.max(400, Math.min(1600, newWidth)),
-                height: Math.max(500, Math.min(1200, newHeight))
-            });
+            if (type === 'SETTINGS') {
+                setModalDimensions({
+                    width: Math.max(400, Math.min(1600, newWidth)),
+                    height: Math.max(500, Math.min(1200, newHeight))
+                });
+            } else {
+                setStrategyModalDimensions({
+                    width: Math.max(600, Math.min(1800, newWidth)),
+                    height: Math.max(600, Math.min(1400, newHeight))
+                });
+            }
         };
         const onMouseUp = () => {
             document.removeEventListener('mousemove', onMouseMove);
@@ -386,6 +420,54 @@ export default function App() {
 
     return (
         <div className="min-h-screen bg-gray-950 text-gray-200 font-sans p-4 md:p-8 relative pb-20">
+            {/* Strategy Modal */}
+            {showStrategyModal && (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                    <div
+                        style={{ width: `${strategyModalDimensions.width}px`, height: `${strategyModalDimensions.height}px` }}
+                        className="bg-gray-900 border border-purple-500/30 rounded-xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col relative"
+                    >
+                        <div
+                            className="absolute right-0 bottom-0 w-8 h-8 cursor-nwse-resize flex items-end justify-end p-1 z-50 hover:bg-gray-800 rounded-br-xl transition-colors"
+                            onMouseDown={(e) => handleModalResize(e, 'STRATEGY')}
+                        >
+                            <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 mr-1 mb-1"></div>
+                        </div>
+
+                        {/* Header */}
+                        <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gray-850">
+                            <div>
+                                <h3 className="font-bold text-white text-lg flex items-center gap-2">
+                                    <BarChart2 className="w-5 h-5 text-purple-500" /> Strategy Configuration
+                                </h3>
+                                <p className="text-xs text-gray-500">Fine-tune your edge. Changes affect Scan & Foretest immediately.</p>
+                            </div>
+                            <button onClick={() => setShowStrategyModal(false)} className="text-gray-500 hover:text-white transition-colors bg-gray-800 p-2 rounded-full hover:bg-gray-700">
+                                <X className="w-5 h-5" />
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 overflow-y-auto flex-1 custom-scrollbar bg-gray-950">
+                            <ConfigPanel
+                                onRunSimulation={triggerForetest}
+                                isSimulating={isSimulating}
+                            />
+                        </div>
+
+                        {/* Footer */}
+                        <div className="p-4 bg-gray-900 border-t border-gray-800 flex justify-end gap-3">
+                            <button
+                                onClick={() => setShowStrategyModal(false)}
+                                className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-lg flex items-center gap-2 transition-transform active:scale-95"
+                            >
+                                <Save className="w-4 h-4" /> Save & Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Settings Modal */}
             {showSettings && (
                 <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -395,7 +477,7 @@ export default function App() {
                     >
                         <div
                             className="absolute right-0 bottom-0 w-8 h-8 cursor-nwse-resize flex items-end justify-end p-1 z-50 hover:bg-gray-800 rounded-br-xl transition-colors"
-                            onMouseDown={handleModalResize}
+                            onMouseDown={(e) => handleModalResize(e, 'SETTINGS')}
                         >
                             <div className="w-3 h-3 border-r-2 border-b-2 border-gray-600 mr-1 mb-1"></div>
                         </div>
@@ -438,12 +520,6 @@ export default function App() {
                                 className={`flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors border-b-2 ${activeTab === 'LOGS' ? 'border-green-500 text-green-400 bg-green-900/10' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
                             >
                                 Sys Logs
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('STRATEGY')}
-                                className={`flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors border-b-2 ${activeTab === 'STRATEGY' ? 'border-yellow-500 text-yellow-400 bg-yellow-900/10' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
-                            >
-                                Strategy
                             </button>
                         </div>
 
@@ -761,24 +837,13 @@ export default function App() {
                         </button>
                     </div>
 
-                    {/* Timeframe Selector */}
-                    <div className="bg-gray-900 p-1 rounded-lg border border-gray-800 flex items-center">
-                        <span className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                            <BarChart2 className="w-3 h-3" /> Strategy:
-                        </span>
-                        {['1h', '4h', '1d'].map((tf) => (
-                            <button
-                                key={tf}
-                                onClick={() => handleTimeframeChange(tf)}
-                                className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${timeframe === tf
-                                    ? 'bg-blue-600 text-white shadow-md'
-                                    : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                                    }`}
-                            >
-                                {getTimeframeLabel(tf)}
-                            </button>
-                        ))}
-                    </div>
+                    {/* Strategy Config Button (Replaces Timeframe Selector) */}
+                    <button
+                        onClick={() => setShowStrategyModal(true)}
+                        className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-bold rounded-lg shadow-lg flex items-center gap-2 transition-all hover:scale-105 active:scale-95"
+                    >
+                        <Settings className="w-5 h-5" /> STRATEGY CONFIG
+                    </button>
 
                     {/* View Selector */}
                     <div className="bg-gray-900 p-1 rounded-lg border border-gray-800 flex items-center">
@@ -789,16 +854,25 @@ export default function App() {
                                 : 'text-gray-400 hover:text-white hover:bg-gray-800'
                                 }`}
                         >
-                            <Activity className="w-3 h-3" /> Scanner
+                            <Activity className="w-3 h-3" /> Market Scanner
                         </button>
                         <button
                             onClick={() => setMainView('PERFORMANCE')}
                             className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all flex items-center gap-2 ${mainView === 'PERFORMANCE'
-                                ? 'bg-purple-600 text-white shadow-md'
+                                ? 'bg-white text-purple-900 shadow-md'
                                 : 'text-gray-400 hover:text-white hover:bg-gray-800'
                                 }`}
                         >
-                            <CheckCircle2 className="w-3 h-3" /> Foretest
+                            <BarChart2 className="w-3 h-3" /> Backtest Results
+                        </button>
+                        <button
+                            onClick={() => setMainView('EXCHANGE')}
+                            className={`px-3 py-1.5 text-xs font-bold rounded-md transition-all ${mainView === 'EXCHANGE'
+                                ? 'bg-blue-600 text-white shadow-md'
+                                : 'text-gray-400 hover:text-white hover:bg-gray-800'
+                                }`}
+                        >
+                            <Wallet className="w-3 h-3" /> Live Exchange
                         </button>
                     </div>
 
@@ -906,10 +980,14 @@ export default function App() {
 
                 <div className="flex justify-between items-center">
                     <h2 className="text-lg font-semibold flex items-center gap-2">
-                        {mainView === 'SCANNER' ? (
+                        {mainView === 'SCANNER' && (
                             <><Activity className="w-5 h-5 text-green-400" /> Top Opportunities ({dataSource} • {timeframe.toUpperCase()})</>
-                        ) : (
+                        )}
+                        {mainView === 'PERFORMANCE' && (
                             <><CheckCircle2 className="w-5 h-5 text-purple-400" /> Forward Test Performance</>
+                        )}
+                        {mainView === 'EXCHANGE' && (
+                            <><Wallet className="w-5 h-5 text-blue-400" /> Live Exchange Overview</>
                         )}
                     </h2>
                     <div className="flex items-center gap-3">
@@ -924,7 +1002,7 @@ export default function App() {
                     </div>
                 </div>
 
-                {mainView === 'SCANNER' ? (
+                {mainView === 'SCANNER' && (
                     isScanning && data.length === 0 ? (
                         <div className="h-64 flex flex-col items-center justify-center border border-dashed border-gray-800 rounded-lg bg-gray-900/50">
                             <RefreshCw className="w-8 h-8 text-blue-500 animate-spin mb-4" />
@@ -936,8 +1014,16 @@ export default function App() {
                             activeExchange={settings.activeExchange}
                         />
                     )
-                ) : (
-                    <PerformancePanel />
+                )}
+
+                {mainView === 'PERFORMANCE' && (
+                    <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <PerformancePanel history={tradeHistory} stats={perfStats} />
+                    </div>
+                )}
+
+                {mainView === 'EXCHANGE' && (
+                    <ExchangePanel dataSource={dataSource} />
                 )}
 
             </main>

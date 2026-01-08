@@ -27,40 +27,94 @@ const getFutureOutcome = (candles, startIndex, entry, tp, sl, side, config) => {
         ? config.RISK.TIME_BASED_STOP_CANDLES
         : LOOKAHEAD;
 
+    let isFilled = false;
+    let fillIndex = -1;
+
     for (let i = startIndex + 1; i < Math.min(candles.length, startIndex + LOOKAHEAD); i++) {
         const c = candles[i];
-        const barsElapsed = i - startIndex;
 
-        // Check Hard TP/SL First
-        if (side === 'LONG') {
-            if (c.low <= sl) return { result: 'LOSS', pnl: (sl - entry) / entry, candles: barsElapsed };
-            if (c.high >= tp) return { result: 'WIN', pnl: (tp - entry) / entry, candles: barsElapsed };
-        } else {
-            if (c.high >= sl) return { result: 'LOSS', pnl: (entry - sl) / entry, candles: barsElapsed };
-            if (c.low <= tp) return { result: 'WIN', pnl: (entry - tp) / entry, candles: barsElapsed };
-        }
-
-        // Time-Based Stop
-        if (barsElapsed >= timeLimit) {
-            // Force Close at Close price
-            const exitPrice = c.close;
-            let pnlPct = 0;
-            let result = 'EXPIRED'; // Default if flat (should basically never happen with floating point)
+        // 1. Check for Fill (Limit Order Logic)
+        if (!isFilled) {
+            // Expiry Check (Signal Valid for X hours?)
+            // For now, let's say signal is valid for entire lookahead, but in reality tracker expires it.
+            // Tracker default is MAX_TRADE_AGE_HOURS. Let's assume 24h validity.
 
             if (side === 'LONG') {
-                pnlPct = (exitPrice - entry) / entry;
-            } else {
-                pnlPct = (entry - exitPrice) / entry;
+                if (c.low <= entry) {
+                    // POTENTIAL FILL
+                    if (config?.RISK?.ENTRY_ON_CANDLE_CLOSE) {
+                        // CONFIRMATION LOGIC: Wait for Close
+                        if (c.close <= sl) {
+                            // Invalidated! Wicks triggered entry but Close stopped out.
+                            // Do NOT enter. Treated as missed/cancelled trade.
+                            // console.log(`[DEBUG] Trade Invalidated at ${c.time} (Close < SL)`); 
+                        } else {
+                            // Confirmed! Enter at CLOSE (conservative).
+                            isFilled = true;
+                            fillIndex = i;
+                            entry = c.close; // Update entry to close price
+                        }
+                    } else {
+                        // CLASSIC LIMIT LOGIC (Instant Match)
+                        isFilled = true;
+                        fillIndex = i;
+                    }
+                }
+            } else { // SHORT
+                if (c.high >= entry) {
+                    // POTENTIAL FILL
+                    if (config?.RISK?.ENTRY_ON_CANDLE_CLOSE) {
+                        // CONFIRMATION LOGIC: Wait for Close
+                        if (c.close >= sl) {
+                            // Invalidated!
+                        } else {
+                            // Confirmed! Enter at CLOSE
+                            isFilled = true;
+                            fillIndex = i;
+                            entry = c.close; // Update entry to close price
+                        }
+                    } else {
+                        // CLASSIC LIMIT LOGIC
+                        isFilled = true;
+                        fillIndex = i;
+                    }
+                }
             }
 
+            // Check expiry if not filled logic could go here
+            // If we reach end of loop without fill -> NO TRADE
+            if (!isFilled && i === Math.min(candles.length, startIndex + LOOKAHEAD) - 1) {
+                return { result: 'EXPIRED', pnl: 0, candles: i - startIndex, meta: 'NEVER_FILLED' };
+            }
+
+            if (!isFilled) continue; // Keep looking for fill
+        }
+
+        // 2. If Filled, check TP/SL
+        const barsSinceFill = i - fillIndex;
+
+        // Crash Protection (Same candle as fill)
+        if (side === 'LONG') {
+            if (c.low <= sl) return { result: 'LOSS', pnl: (sl - entry) / entry, candles: barsSinceFill }; // Hit SL
+            if (c.high >= tp) return { result: 'WIN', pnl: (tp - entry) / entry, candles: barsSinceFill }; // Hit TP
+        } else {
+            if (c.high >= sl) return { result: 'LOSS', pnl: (entry - sl) / entry, candles: barsSinceFill }; // Hit SL
+            if (c.low <= tp) return { result: 'WIN', pnl: (entry - tp) / entry, candles: barsSinceFill }; // Hit TP
+        }
+
+        // Time-Based Stop (relative to Fill Time)
+        if (barsSinceFill >= timeLimit) {
+            const exitPrice = c.close;
+            let pnlPct = (side === 'LONG') ? (exitPrice - entry) / entry : (entry - exitPrice) / entry;
+
+            let result = 'EXPIRED';
             if (pnlPct > 0) result = 'WIN';
             else if (pnlPct < 0) result = 'LOSS';
-            else result = 'EXPIRED';
 
-            return { result, pnl: pnlPct, candles: barsElapsed, isTimeExit: true };
+            return { result, pnl: pnlPct, candles: barsSinceFill, isTimeExit: true };
         }
     }
-    return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD };
+    return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD, meta: 'TIMEOUT' };
 };
 
 export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12, onProgress: null }) => {
@@ -123,6 +177,10 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
             const eta = Math.round((ltfFiles.length - completed) * avgTime);
             options.onProgress(pct, eta);
         }
+
+        // UNBLOCK EVENT LOOP: Yield every iteration to allow server status checks to respond
+        await new Promise(resolve => setImmediate(resolve));
+
         const { source, symbol } = parseFilename(ltfFile);
         const htfFile = ltfFile.replace('_15m.json', '_4h.json');
 

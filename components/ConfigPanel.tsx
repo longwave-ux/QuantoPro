@@ -453,6 +453,28 @@ export const ConfigPanel: React.FC<ConfigPanelProps> = ({ onRunSimulation, isSim
                             </button>
                         </div>
 
+                        {/* TOGGLE: Confirm On Close */}
+                        <div className="flex items-center justify-between bg-gray-700/50 p-3 rounded-lg border border-gray-600 mb-2">
+                            <div>
+                                <div className="flex items-center space-x-2">
+                                    <span className="text-gray-200 font-medium">Confirm Entry on Close</span>
+                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${config.RISK.ENTRY_ON_CANDLE_CLOSE ? 'bg-orange-500/20 text-orange-400' : 'bg-gray-600 text-gray-400'}`}>
+                                        {config.RISK.ENTRY_ON_CANDLE_CLOSE ? 'ACTIVE' : 'DISABLED'}
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-400 mt-1 max-w-lg">
+                                    Wait for candle close to confirm entry level.
+                                    <br /> Prevents entering on wicks that crash through support.
+                                </p>
+                            </div>
+                            <button
+                                onClick={() => updateConfig(['RISK', 'ENTRY_ON_CANDLE_CLOSE'], !config.RISK.ENTRY_ON_CANDLE_CLOSE, true)}
+                                className={`w-14 h-7 rounded-full transition-colors duration-200 ease-in-out relative shrink-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-orange-500 ${config.RISK.ENTRY_ON_CANDLE_CLOSE ? 'bg-orange-600' : 'bg-gray-600'}`}
+                            >
+                                <span className={`absolute top-1 left-1 bg-white w-5 h-5 rounded-full transition-transform duration-200 shadow-sm ${config.RISK.ENTRY_ON_CANDLE_CLOSE ? 'translate-x-7' : 'translate-x-0'}`} />
+                            </button>
+                        </div>
+
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
                             <ConfigInput label="ATR Mult (SL)" path={['RISK', 'ATR_MULTIPLIER']} tooltip="Stop Loss distance." minRec={1.5} maxRec={3.5} type="number" step={0.1} config={config} updateConfig={updateConfig} />
                             <ConfigInput label="Buffer (Low)" path={['RISK', 'SL_BUFFER']} tooltip="Swing Low Buffer." minRec={0.001} maxRec={0.02} type="number" step={0.001} config={config} updateConfig={updateConfig} />

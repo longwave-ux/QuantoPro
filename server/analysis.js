@@ -169,11 +169,6 @@ export const AnalysisEngine = {
         const currentPrice = ltfData[ltfData.length - 1].close;
         const atr = calculateATR(ltfData, 14);
 
-        // DEBUG: Trace Config Propagation
-        if (Math.random() < 0.01) { // Log 1% of the time to avoid spamming
-            console.log(`[ANALYSIS DEBUG] Using ATR Multiplier: ${config?.RISK?.ATR_MULTIPLIER}, Buffer: ${config?.RISK?.SL_BUFFER}`);
-        }
-
         // ADAPTIVE LOGIC: Adjust Confirmation Window based on Trend Strength
         // Only active if ENABLE_ADAPTIVE is true
         let lookbackWindow = 50;
@@ -291,8 +286,15 @@ export const AnalysisEngine = {
             if (setup.confluenceType === 'FIB_STRUCTURE') structureScore = config.SCORING.STRUCTURE.FIB;
             else if (setup.confluenceType === 'STRUCTURE_ONLY') structureScore = config.SCORING.STRUCTURE.LEVEL;
 
-            if (setup.rr < 1.0) structureScore -= config.SCORING.STRUCTURE.POOR_RR_PENALTY;
-            else if (setup.rr < 1.5) structureScore -= config.SCORING.STRUCTURE.MED_RR_PENALTY;
+            // Dynamic RR Check
+            const minRR = config.RISK.TP_RR_MIN || 1.5;
+            if (setup.rr < minRR) {
+                // Heavy Penalty if below user threshold
+                structureScore -= 50;
+            } else if (setup.rr < minRR * 1.2) {
+                // Slight penalty if barely meeting it
+                structureScore -= config.SCORING.STRUCTURE.POOR_RR_PENALTY;
+            }
         }
 
         if (bias === 'LONG') {

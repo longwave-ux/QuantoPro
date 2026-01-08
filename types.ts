@@ -140,6 +140,7 @@ export interface Config {
     ATR_MULTIPLIER: number;
     SL_BUFFER: number;
     TP_RR_MIN: number;
+    ENTRY_ON_CANDLE_CLOSE?: boolean;
     ENABLE_TIME_BASED_STOP?: boolean;
     TIME_BASED_STOP_CANDLES?: number;
   };
