@@ -126,7 +126,8 @@ const Adapters = {
 
             // Derive Wallet Address
             const wallet = new ethers.Wallet(settings.hyperliquidPrivateKey);
-            const address = wallet.address;
+            // Use Master Address if provided (Agent Key mode), otherwise use Signer Address
+            const address = settings.hyperliquidMasterAddress || wallet.address;
 
             const body = {
                 type: 'clearinghouseState',
@@ -154,10 +155,10 @@ const Adapters = {
             })).filter(p => p.size !== 0);
 
             return {
-                balance: parseFloat(marginSummary.accountValue), // Total Equity
-                totalEquity: parseFloat(marginSummary.accountValue),
+                balance: parseFloat(marginSummary.accountValue) || 0, // Total Equity
+                totalEquity: parseFloat(marginSummary.accountValue) || 0,
                 unrealizedPnL: positions.reduce((sum, p) => sum + p.pnl, 0),
-                marginUsage: (parseFloat(marginSummary.totalMarginUsed) / parseFloat(marginSummary.accountValue)) * 100,
+                marginUsage: ((parseFloat(marginSummary.totalMarginUsed) || 0) / (parseFloat(marginSummary.accountValue) || 1)) * 100,
                 positions
             };
         }

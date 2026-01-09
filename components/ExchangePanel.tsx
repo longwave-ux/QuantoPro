@@ -131,10 +131,10 @@ export const ExchangePanel: React.FC<ExchangePanelProps> = ({ dataSource }) => {
                     </div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Total Equity (USDT)</p>
                     <h3 className="text-2xl font-bold text-white tracking-tight">
-                        ${data?.totalEquity.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        ${(data?.totalEquity || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </h3>
                     <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
-                        <Wallet className="w-3 h-3" /> Available: ${data?.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        <Wallet className="w-3 h-3" /> Available: ${(data?.balance || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </div>
                 </div>
 
@@ -146,7 +146,7 @@ export const ExchangePanel: React.FC<ExchangePanelProps> = ({ dataSource }) => {
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Unrealized PnL</p>
                     <h3 className={`text-2xl font-bold tracking-tight ${data?.unrealizedPnL && data.unrealizedPnL >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                         {data?.unrealizedPnL && data.unrealizedPnL > 0 ? '+' : ''}
-                        ${data?.unrealizedPnL.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                        ${(data?.unrealizedPnL || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                     </h3>
                     <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
                         Today's Delta: <span className="text-gray-300">--</span>
@@ -160,10 +160,10 @@ export const ExchangePanel: React.FC<ExchangePanelProps> = ({ dataSource }) => {
                     </div>
                     <p className="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1">Margin Usage</p>
                     <h3 className={`text-2xl font-bold tracking-tight ${data?.marginUsage && data.marginUsage > 80 ? 'text-red-500' : 'text-white'}`}>
-                        {data?.marginUsage.toFixed(2)}%
+                        {(data?.marginUsage || 0).toFixed(2)}%
                     </h3>
                     <div className="flex items-center gap-1 mt-2 text-xs text-gray-400">
-                        {100 - (data?.marginUsage || 0).toFixed(2)}% Free
+                        {(100 - (data?.marginUsage || 0)).toFixed(2)}% Free
                     </div>
                 </div>
 

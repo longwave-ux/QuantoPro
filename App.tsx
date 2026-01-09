@@ -672,7 +672,7 @@ export default function App() {
                                             </p>
 
                                             <div className="space-y-2">
-                                                <label className="text-xs uppercase font-bold text-gray-500">Wallet Private Key</label>
+                                                <label className="text-xs uppercase font-bold text-gray-500">Wallet Private Key (Agent)</label>
                                                 <input
                                                     type="password"
                                                     value={settings.hyperliquidPrivateKey || ''}
@@ -683,10 +683,23 @@ export default function App() {
                                                 />
                                             </div>
 
+                                            <div className="space-y-2">
+                                                <label className="text-xs uppercase font-bold text-gray-500 flex items-center gap-2">
+                                                    Main Account Address <span className="text-gray-600 text-[9px]">(Optional)</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    value={settings.hyperliquidMasterAddress || ''}
+                                                    onChange={(e) => setSettings({ ...settings, hyperliquidMasterAddress: e.target.value })}
+                                                    placeholder="0x... (If using Agent Key)"
+                                                    autoComplete="off"
+                                                    className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-sm focus:border-cyan-500 focus:outline-none placeholder-gray-700 font-mono"
+                                                />
+                                            </div>
+
                                             <div className="p-3 bg-cyan-900/10 border border-cyan-900/30 rounded text-[10px] text-cyan-300/80">
-                                                <strong className="block mb-1 text-cyan-400">Security Note:</strong>
-                                                It is recommended to use a dedicated sub-account or wallet with limited funds for this bot.
-                                                Your private key is stored in `settings.json` on your server.
+                                                <strong className="block mb-1 text-cyan-400">Agent Key Mode:</strong>
+                                                If using an Agent Key (0 balance), enter your Main Account Address above to view your actual portfolio balance.
                                             </div>
                                         </>
                                     )}

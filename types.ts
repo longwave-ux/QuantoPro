@@ -90,6 +90,7 @@ export interface NotificationSettings {
   mexcApiKey?: string;
   mexcApiSecret?: string;
   hyperliquidPrivateKey?: string; // Added for Hyperliquid
+  hyperliquidMasterAddress?: string; // Added for Agent Key support
   activeExchange?: 'MEXC' | 'HYPERLIQUID'; // Preferred execution venue
   geminiLLMApiKey?: string;
 }
