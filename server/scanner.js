@@ -1,3 +1,8 @@
+import { execFile } from 'child_process';
+import util from 'util';
+const execFilePromise = util.promisify(execFile);
+
+// ... existing imports ...
 import fetch from 'node-fetch';
 import fs from 'fs/promises';
 import path from 'path';
@@ -89,11 +94,10 @@ const appendSignalLog = async (results) => {
     }
 };
 
-
-
 // ==========================================
 // WORKFLOW
 // ==========================================
+
 const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) => {
     const promises = pairs.map(async (symbol) => {
         const [htfData, ltfData] = await Promise.all([
@@ -104,7 +108,53 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
         if (htfData.length === 0 || ltfData.length === 0) return null;
 
         const mcap = McapService.getMcap(symbol);
-        const resultBase = AnalysisEngine.analyzePair(symbol, htfData, ltfData, htf, ltf, now, source, CONFIG, { mcap });
+        // --- LIVE MODE: PYTHON ---
+        // We need the filename of the 15m data (LTF)
+        // Format: data/{SOURCE}_{SYMBOL}_{INTERVAL}.json
+        const ltfFilename = `${source}_${symbol}_${ltf}.json`;
+        const ltfFilePath = path.join(DATA_DIR, ltfFilename);
+
+        // Serialize Current Config for Python
+        const configStr = JSON.stringify(CONFIG);
+
+        let resultBase = null;
+
+        try {
+            const pythonScript = path.join(process.cwd(), 'market_scanner.py');
+            const venvPython = path.join(process.cwd(), 'venv/bin/python');
+
+            // Execute Python Script
+            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', 'legacy', '--config', configStr]);
+
+            try {
+                // Parse Python Output
+                const pyResult = JSON.parse(stdout);
+
+                // Map Python Result to JS Structure (if needed, but structure should be identical)
+                resultBase = {
+                    ...pyResult,
+                    timestamp: now,
+                    source: source,
+                    // Ensure meta is preserved if python didn't send it fully
+                    meta: { htfInterval: htf, ltfInterval: ltf },
+                    // Ensure mcap is passed through if missing
+                    details: { ...pyResult.details, mcap: mcap }
+                };
+
+                console.log(`[PYTHON-LIVE] ${symbol} | Score: ${resultBase.score.toFixed(1)} | Bias: ${resultBase.htf.bias}`);
+
+            } catch (jsonErr) {
+                console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
+                return null; // Skip if parse fails
+            }
+
+        } catch (pyErr) {
+            console.error(`[PYTHON EXEC ERROR] ${symbol}`, pyErr.message);
+            return null; // Skip if exec fails
+        }
+
+        if (!resultBase) return null;
+        // ---------------------------
 
         let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
 

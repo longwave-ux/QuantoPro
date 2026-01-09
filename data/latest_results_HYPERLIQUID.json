@@ -1,1 +1,1162 @@
-[]
+[
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ONDOUSDT",
+    "price": 0.4029,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.56,
+    "entry": 0.4029,
+    "stop_loss": 0.40506525,
+    "take_profit": 0.39736,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.4029,
+      "tp": 0.39736,
+      "sl": 0.40506525,
+      "rr": 2.56
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 1272423847.366956,
+      "vol24h": 1151103.8798000002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 33.46214963592959,
+      "ema50": 0.41786650173285755,
+      "ema200": 0.42992202369219884
+    },
+    "ltf": {
+      "rsi": 51.53722998208036,
+      "adx": 33.46214963592959,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.41189591078066784,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "BERAUSDT",
+    "price": 0.5911,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.54,
+    "entry": 0.5911,
+    "stop_loss": 0.5947389,
+    "take_profit": 0.58186,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.5911,
+      "tp": 0.58186,
+      "sl": 0.5947389,
+      "rr": 2.54
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 82126871.8724277,
+      "vol24h": 552319.436761
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 27.911795834041147,
+      "ema50": 0.626399784573885,
+      "ema200": 0.7178220511340282
+    },
+    "ltf": {
+      "rsi": 50.37579325981793,
+      "adx": 27.911795834041147,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.35681557846505996,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ENSUSDT",
+    "price": 10.44,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 3.7,
+    "entry": 10.44,
+    "stop_loss": 10.514309999999998,
+    "take_profit": 10.165,
+    "setup": {
+      "side": "SHORT",
+      "entry": 10.44,
+      "tp": 10.165,
+      "sl": 10.514309999999998,
+      "rr": 3.7
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 396626999.9612595,
+      "vol24h": 367813.80242
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 28.523106674080605,
+      "ema50": 10.441473436778963,
+      "ema200": 10.460560907188238
+    },
+    "ltf": {
+      "rsi": 54.34264250487057,
+      "adx": 28.523106674080605,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6093189964157706,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "IOUSDT",
+    "price": 0.15896,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.17,
+    "entry": 0.15896,
+    "stop_loss": 0.16078995,
+    "take_profit": 0.15498,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.15896,
+      "tp": 0.15498,
+      "sl": 0.16078995,
+      "rr": 2.17
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 42100891.36764423,
+      "vol24h": 193082.318799
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 36.25025263794264,
+      "ema50": 0.1651400050769197,
+      "ema200": 0.1734728606445997
+    },
+    "ltf": {
+      "rsi": 53.978785601782924,
+      "adx": 36.25025263794264,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.723938223938222,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ALGOUSDT",
+    "price": 0.13389,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 2.44,
+    "entry": 0.13389,
+    "stop_loss": 0.13308125,
+    "take_profit": 0.13586,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.13389,
+      "tp": 0.13586,
+      "sl": 0.13308125,
+      "rr": 2.44
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 1180170798.0041816,
+      "vol24h": 184231.80558000001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 29.33734306313581,
+      "ema50": 0.13218611834779342,
+      "ema200": 0.1282802402936001
+    },
+    "ltf": {
+      "rsi": 51.46816948400889,
+      "adx": 29.33734306313581,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5502793296089384,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 64.7,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "BIOUSDT",
+    "price": 0.044696,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 1.44,
+    "entry": 0.044696,
+    "stop_loss": 0.04506419999999999,
+    "take_profit": 0.044166,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.044696,
+      "tp": 0.044166,
+      "sl": 0.04506419999999999,
+      "rr": 1.44
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 86032757.04192756,
+      "vol24h": 126039.59134999997
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 31.85789599350331,
+      "ema50": 0.04730679521742117,
+      "ema200": 0.048765349910870164
+    },
+    "ltf": {
+      "rsi": 47.75899584072127,
+      "adx": 31.85789599350331,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3100944081336224,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "YGGUSDT",
+    "price": 0.068535,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 3.7,
+    "entry": 0.068535,
+    "stop_loss": 0.06899526,
+    "take_profit": 0.066832,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.068535,
+      "tp": 0.066832,
+      "sl": 0.06899526,
+      "rr": 3.7
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 46820228.00105825,
+      "vol24h": 113362.05980700001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 27.77082454121462,
+      "ema50": 0.06981276933995618,
+      "ema200": 0.07195168254694646
+    },
+    "ltf": {
+      "rsi": 55.986713631898354,
+      "adx": 27.77082454121462,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6333180357962331,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "SUPERUSDT",
+    "price": 0.21774,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.88,
+    "entry": 0.21774,
+    "stop_loss": 0.21994424999999995,
+    "take_profit": 0.21139,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.21774,
+      "tp": 0.21139,
+      "sl": 0.21994424999999995,
+      "rr": 2.88
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 138963110.70293725,
+      "vol24h": 75395.20885000001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 34.241775230734405,
+      "ema50": 0.2219601287164891,
+      "ema200": 0.23117261903985448
+    },
+    "ltf": {
+      "rsi": 48.771669496800584,
+      "adx": 34.241775230734405,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.39892904953145664,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "SOLUSDT",
+    "price": 138.62,
+    "score": 75,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.08,
+    "entry": 138.62,
+    "stop_loss": 137.79755,
+    "take_profit": 141.15,
+    "setup": {
+      "side": "LONG",
+      "entry": 138.62,
+      "tp": 141.15,
+      "sl": 137.79755,
+      "rr": 3.08
+    },
+    "details": {
+      "total": 75,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 78001115939.33064,
+      "vol24h": 772298563.2052
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 18.93219718979235,
+      "ema50": 134.79350222045713,
+      "ema200": 132.49492360969145
+    },
+    "ltf": {
+      "rsi": 49.61811008828652,
+      "adx": 18.93219718979235,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5572687224669616,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 75,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "EIGENUSDT",
+    "price": 0.4072,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 5.07,
+    "entry": 0.4072,
+    "stop_loss": 0.4100399999999999,
+    "take_profit": 0.3928,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.4072,
+      "tp": 0.3928,
+      "sl": 0.4100399999999999,
+      "rr": 5.07
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 221571464.26360002,
+      "vol24h": 7060351.592414
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 15.196414087324968,
+      "ema50": 0.4114123471553945,
+      "ema200": 0.44400400274264384
+    },
+    "ltf": {
+      "rsi": 50.49976381492597,
+      "adx": 15.196414087324968,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.42857142857142855,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ASTERUSDT",
+    "price": 0.71235,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.38,
+    "entry": 0.71235,
+    "stop_loss": 0.7172483999999999,
+    "take_profit": 0.70071,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.71235,
+      "tp": 0.70071,
+      "sl": 0.7172483999999999,
+      "rr": 2.38
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 1780350123.2110798,
+      "vol24h": 6056206.5355899995
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 24.42540249507124,
+      "ema50": 0.738300530821817,
+      "ema200": 0.7994807593336423
+    },
+    "ltf": {
+      "rsi": 46.6922856318044,
+      "adx": 24.42540249507124,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3331603528801292,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "BCHUSDT",
+    "price": 630.49,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.44,
+    "entry": 630.49,
+    "stop_loss": 626.93955,
+    "take_profit": 642.71,
+    "setup": {
+      "side": "LONG",
+      "entry": 630.49,
+      "tp": 642.71,
+      "sl": 626.93955,
+      "rr": 3.44
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 12610646167.211773,
+      "vol24h": 4495593.11846
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 20.93874310208808,
+      "ema50": 628.7726459041676,
+      "ema200": 597.686908443425
+    },
+    "ltf": {
+      "rsi": 43.6639229123775,
+      "adx": 20.93874310208808,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6983646274984845,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ZKUSDT",
+    "price": 0.033759,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.57,
+    "entry": 0.033759,
+    "stop_loss": 0.033590205,
+    "take_profit": 0.034362,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.033759,
+      "tp": 0.034362,
+      "sl": 0.033590205,
+      "rr": 3.57
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 357979187.1637643,
+      "vol24h": 436381.63202499994
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 16.974444639491267,
+      "ema50": 0.033236202146650747,
+      "ema200": 0.032714324666416966
+    },
+    "ltf": {
+      "rsi": 55.54738815015495,
+      "adx": 16.974444639491267,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.491442542787286,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "SYRUPUSDT",
+    "price": 0.39268,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.99,
+    "entry": 0.39268,
+    "stop_loss": 0.39071659999999997,
+    "take_profit": 0.40052,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.39268,
+      "tp": 0.40052,
+      "sl": 0.39071659999999997,
+      "rr": 3.99
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 458755007.01945865,
+      "vol24h": 384836.69937999995
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 19.590645379006993,
+      "ema50": 0.36843555909619874,
+      "ema200": 0.33634111034058056
+    },
+    "ltf": {
+      "rsi": 48.35821670389607,
+      "adx": 19.590645379006993,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.4176877996803415,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "BRETTUSDT",
+    "price": 0.017863,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 4.9,
+    "entry": 0.017863,
+    "stop_loss": 0.017773685,
+    "take_profit": 0.018301,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.017863,
+      "tp": 0.018301,
+      "sl": 0.017773685,
+      "rr": 4.9
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 176262253.3749149,
+      "vol24h": 297829.823486
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 22.68657182350306,
+      "ema50": 0.01754785749987871,
+      "ema200": 0.01668644811745535
+    },
+    "ltf": {
+      "rsi": 53.269712416678736,
+      "adx": 22.68657182350306,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.47660500544069756,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "PNUTUSDT",
+    "price": 0.0861,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.41,
+    "entry": 0.0861,
+    "stop_loss": 0.08565955,
+    "take_profit": 0.0876,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.0861,
+      "tp": 0.0876,
+      "sl": 0.08565955,
+      "rr": 3.41
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 86175708.23644428,
+      "vol24h": 294632.136455
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 21.97193073533102,
+      "ema50": 0.08590531769772639,
+      "ema200": 0.08264505266962924
+    },
+    "ltf": {
+      "rsi": 47.54871511700118,
+      "adx": 21.97193073533102,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5597014925373135,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "ZEREBROUSDT",
+    "price": 0.027923,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 3.53,
+    "entry": 0.027923,
+    "stop_loss": 0.028211354999999997,
+    "take_profit": 0.026905,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.027923,
+      "tp": 0.026905,
+      "sl": 0.028211354999999997,
+      "rr": 3.53
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 27689314.32550951,
+      "vol24h": 170370.53736000002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 14.765199647033665,
+      "ema50": 0.02799794230496165,
+      "ema200": 0.02844306177571647
+    },
+    "ltf": {
+      "rsi": 49.43250327492029,
+      "adx": 14.765199647033665,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3421851289833081,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "SANDUSDT",
+    "price": 0.11877,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 6.47,
+    "entry": 0.11877,
+    "stop_loss": 0.11936385,
+    "take_profit": 0.11493,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.11877,
+      "tp": 0.11493,
+      "sl": 0.11936385,
+      "rr": 6.47
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 314469360.8229648,
+      "vol24h": 142847.59555000003
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 22.455408244662053,
+      "ema50": 0.1198135926270471,
+      "ema200": 0.12622458647985815
+    },
+    "ltf": {
+      "rsi": 58.18282666986543,
+      "adx": 22.455408244662053,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.75968992248062,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "SAGAUSDT",
+    "price": 0.05901,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 3.66,
+    "entry": 0.05901,
+    "stop_loss": 0.05949599999999999,
+    "take_profit": 0.05723,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.05901,
+      "tp": 0.05723,
+      "sl": 0.05949599999999999,
+      "rr": 3.66
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 20245275.909811918,
+      "vol24h": 132228.579669
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 22.778114844078367,
+      "ema50": 0.06119106782251076,
+      "ema200": 0.06507158341945533
+    },
+    "ltf": {
+      "rsi": 47.55992718977348,
+      "adx": 22.778114844078367,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3648648648648641,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "QuantProLegacy",
+    "symbol": "USUALUSDT",
+    "price": 0.02807,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 6.2,
+    "entry": 0.02807,
+    "stop_loss": 0.02792965,
+    "take_profit": 0.02894,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.02807,
+      "tp": 0.02894,
+      "sl": 0.02792965,
+      "rr": 6.2
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 45099293.0204624,
+      "vol24h": 126169.93251099999
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 24.703647056200463,
+      "ema50": 0.027512423620373656,
+      "ema200": 0.0266185670237496
+    },
+    "ltf": {
+      "rsi": 41.09726984196078,
+      "adx": 24.703647056200463,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7981651376146777,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767967447569,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  }
+]
