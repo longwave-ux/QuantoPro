@@ -1,51 +1,51 @@
 [
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "FARTCOINUSDTM",
-    "price": 0.4035,
-    "score": 89.7,
+    "strategy_name": "Legacy",
+    "symbol": "TAOUSDTM",
+    "price": 285.8,
+    "score": 94.7,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 5.68,
-    "entry": 0.4035,
-    "stop_loss": 0.4012835,
-    "take_profit": 0.4161,
+    "rr": 10.22,
+    "entry": 285.8,
+    "stop_loss": 284.37100000000004,
+    "take_profit": 300.4,
     "setup": {
       "side": "LONG",
-      "entry": 0.4035,
-      "tp": 0.4161,
-      "sl": 0.4012835,
-      "rr": 5.68
+      "entry": 285.8,
+      "tp": 300.4,
+      "sl": 284.37100000000004,
+      "rr": 10.22
     },
     "details": {
-      "total": 89.7,
+      "total": 94.7,
       "trendScore": 37.5,
       "structureScore": 20,
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 6096924.2212000005
+      "vol24h": 753153437.9000001
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 25.74018555689539,
-      "ema50": 0.3821256577074871,
-      "ema200": 0.3348054999999999
+      "adx": 42.98186370489903,
+      "ema50": 266.60778791654457,
+      "ema200": 252.765
     },
     "ltf": {
-      "rsi": 48.14677029509957,
-      "adx": 25.74018555689539,
+      "rsi": 49.38652566621863,
+      "adx": 42.98186370489903,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5228215767634853,
+      "pullbackDepth": 0.4598930481283407,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -58,22 +58,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "WLDUSDTM",
-    "price": 0.5821,
+    "strategy_name": "Legacy",
+    "symbol": "BEATUSDTM",
+    "price": 0.47559,
     "score": 89.7,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 2.72,
-    "entry": 0.5821,
-    "stop_loss": 0.5787915,
-    "take_profit": 0.5911,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.35,
+    "entry": 0.47559,
+    "stop_loss": 0.48287234999999995,
+    "take_profit": 0.45849,
     "setup": {
-      "side": "LONG",
-      "entry": 0.5821,
-      "tp": 0.5911,
-      "sl": 0.5787915,
-      "rr": 2.72
+      "side": "SHORT",
+      "entry": 0.47559,
+      "tp": 0.45849,
+      "sl": 0.48287234999999995,
+      "rr": 2.35
     },
     "details": {
       "total": 89.7,
@@ -82,28 +82,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 2250885.7721999995
+      "vol24h": 988884.0267399999
     },
     "htf": {
       "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 31.271826985816297,
-      "ema50": 0.5799302751451435,
-      "ema200": 0.546087
+      "bias": "SHORT",
+      "adx": 36.49679504588192,
+      "ema50": 0.8097357837468083,
+      "ema200": 1.82833995
     },
     "ltf": {
-      "rsi": 53.82747939308304,
-      "adx": 31.271826985816297,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
+      "rsi": 50.067164588074235,
+      "adx": 36.49679504588192,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5345911949685566,
+      "pullbackDepth": 0.33107454017424964,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -116,22 +116,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "DEEPUSDTM",
-    "price": 0.05432,
+    "strategy_name": "Legacy",
+    "symbol": "STRKUSDTM",
+    "price": 0.08335,
     "score": 89.7,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.69,
-    "entry": 0.05432,
-    "stop_loss": 0.05352105,
-    "take_profit": 0.05727,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.5,
+    "entry": 0.08335,
+    "stop_loss": 0.08399789999999999,
+    "take_profit": 0.08173,
     "setup": {
-      "side": "LONG",
-      "entry": 0.05432,
-      "tp": 0.05727,
-      "sl": 0.05352105,
-      "rr": 3.69
+      "side": "SHORT",
+      "entry": 0.08335,
+      "tp": 0.08173,
+      "sl": 0.08399789999999999,
+      "rr": 2.5
     },
     "details": {
       "total": 89.7,
@@ -140,28 +140,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 176938.9814
+      "vol24h": 1791553.4598
     },
     "htf": {
       "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 45.46307670027003,
-      "ema50": 0.044055778202045696,
-      "ema200": 0.03854104999999999
+      "bias": "SHORT",
+      "adx": 34.95114297587236,
+      "ema50": 0.08605342847410175,
+      "ema200": 0.08998155000000001
     },
     "ltf": {
-      "rsi": 56.849933951970314,
-      "adx": 45.46307670027003,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
+      "rsi": 52.13219719286438,
+      "adx": 34.95114297587236,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.37153652392947106,
+      "pullbackDepth": 0.5624999999999973,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -174,22 +174,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "TAUSDTM",
-    "price": 0.0428,
+    "strategy_name": "Legacy",
+    "symbol": "VELVETUSDTM",
+    "price": 0.13655,
     "score": 89.7,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 11.38,
-    "entry": 0.0428,
-    "stop_loss": 0.042267599999999995,
-    "take_profit": 0.04886,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 7.89,
+    "entry": 0.13655,
+    "stop_loss": 0.13723275,
+    "take_profit": 0.13116,
     "setup": {
-      "side": "LONG",
-      "entry": 0.0428,
-      "tp": 0.04886,
-      "sl": 0.042267599999999995,
-      "rr": 11.38
+      "side": "SHORT",
+      "entry": 0.13655,
+      "tp": 0.13116,
+      "sl": 0.13723275,
+      "rr": 7.89
     },
     "details": {
       "total": 89.7,
@@ -198,28 +198,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 141416.84389000002
+      "vol24h": 132653.96977
     },
     "htf": {
       "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 63.7776766846083,
-      "ema50": 0.0337427546859946,
-      "ema200": 0.025891449999999996
+      "bias": "SHORT",
+      "adx": 25.107036348125888,
+      "ema50": 0.1459484377193203,
+      "ema200": 0.17359249999999998
     },
     "ltf": {
-      "rsi": 33.91200621571839,
-      "adx": 63.7776766846083,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
+      "rsi": 50.89346605127018,
+      "adx": 25.107036348125888,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.7803571428571435,
+      "pullbackDepth": 0.6267441860465126,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -232,21 +232,21 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "VINEUSDTM",
-    "price": 0.03165,
+    "strategy_name": "Legacy",
+    "symbol": "1000000MOGUSDTM",
+    "price": 0.3165,
     "score": 89.7,
     "bias": "LONG",
     "action": "LONG",
     "rr": 6.57,
-    "entry": 0.03165,
-    "stop_loss": 0.03149175,
-    "take_profit": 0.03269,
+    "entry": 0.3165,
+    "stop_loss": 0.3147185,
+    "take_profit": 0.3282,
     "setup": {
       "side": "LONG",
-      "entry": 0.03165,
-      "tp": 0.03269,
-      "sl": 0.03149175,
+      "entry": 0.3165,
+      "tp": 0.3282,
+      "sl": 0.3147185,
       "rr": 6.57
     },
     "details": {
@@ -256,28 +256,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 138913.63292
+      "vol24h": 1036166.9047000001
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "adx": 33.09552260698357,
-      "ema50": 0.03065657520595895,
-      "ema200": 0.02908325
+      "adx": 32.85163718236311,
+      "ema50": 0.3074379184401529,
+      "ema200": 0.2589205
     },
     "ltf": {
-      "rsi": 54.42261412500842,
-      "adx": 33.09552260698357,
+      "rsi": 50.488273446022255,
+      "adx": 32.85163718236311,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5531914893617028,
+      "pullbackDepth": 0.49576271186440607,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -290,22 +290,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "ALGOUSDTM",
-    "price": 0.13363,
+    "strategy_name": "Legacy",
+    "symbol": "BABYUSDTM",
+    "price": 0.01948,
     "score": 89.7,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 3.55,
-    "entry": 0.13363,
-    "stop_loss": 0.13296185,
-    "take_profit": 0.136,
+    "rr": 8.42,
+    "entry": 0.01948,
+    "stop_loss": 0.0193826,
+    "take_profit": 0.0203,
     "setup": {
       "side": "LONG",
-      "entry": 0.13363,
-      "tp": 0.136,
-      "sl": 0.13296185,
-      "rr": 3.55
+      "entry": 0.01948,
+      "tp": 0.0203,
+      "sl": 0.0193826,
+      "rr": 8.42
     },
     "details": {
       "total": 89.7,
@@ -314,28 +314,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 957942.14108
+      "vol24h": 83839.07359
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "adx": 29.4563776864142,
-      "ema50": 0.13222115493209477,
-      "ema200": 0.12265145000000001
+      "adx": 43.19710406362692,
+      "ema50": 0.01840004179859881,
+      "ema200": 0.017729400000000003
     },
     "ltf": {
-      "rsi": 48.48884898531599,
-      "adx": 29.4563776864142,
+      "rsi": 47.89119175736536,
+      "adx": 43.19710406362692,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5984848484848484,
+      "pullbackDepth": 0.5256410256410247,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -348,22 +348,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "SWARMSUSDTM",
-    "price": 0.01463,
+    "strategy_name": "Legacy",
+    "symbol": "PROMPTUSDTM",
+    "price": 0.05987,
     "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 6.24,
-    "entry": 0.01463,
-    "stop_loss": 0.014753399999999998,
-    "take_profit": 0.01386,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 6.11,
+    "entry": 0.05987,
+    "stop_loss": 0.05957065,
+    "take_profit": 0.0617,
     "setup": {
-      "side": "SHORT",
-      "entry": 0.01463,
-      "tp": 0.01386,
-      "sl": 0.014753399999999998,
-      "rr": 6.24
+      "side": "LONG",
+      "entry": 0.05987,
+      "tp": 0.0617,
+      "sl": 0.05957065,
+      "rr": 6.11
     },
     "details": {
       "total": 89.7,
@@ -372,86 +372,28 @@
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 95042.04452
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 32.22835165570878,
-      "ema50": 0.0150105576366339,
-      "ema200": 0.01507155
-    },
-    "ltf": {
-      "rsi": 52.81610794206406,
-      "adx": 32.22835165570878,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6969696969696983,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767967447451,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "SOLUSDTM",
-    "price": 138.561,
-    "score": 75,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.03,
-    "entry": 138.561,
-    "stop_loss": 137.69606000000002,
-    "take_profit": 141.183,
-    "setup": {
-      "side": "LONG",
-      "entry": 138.561,
-      "tp": 141.183,
-      "sl": 137.69606000000002,
-      "rr": 3.03
-    },
-    "details": {
-      "total": 75,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 1203779965.629
+      "vol24h": 83058.13515999999
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "adx": 18.769008370479167,
-      "ema50": 134.81181537154544,
-      "ema200": 129.48522499999999
+      "adx": 26.727692655381148,
+      "ema50": 0.059560001249737926,
+      "ema200": 0.05391050000000001
     },
     "ltf": {
-      "rsi": 49.279028570950274,
-      "adx": 18.769008370479167,
+      "rsi": 45.582644000434904,
+      "adx": 26.727692655381148,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6302884615384586,
+      "pullbackDepth": 0.635416666666666,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -464,22 +406,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "ADAUSDTM",
-    "price": 0.39431,
+    "strategy_name": "Legacy",
+    "symbol": "TIAUSDTM",
+    "price": 0.5651,
     "score": 70,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 3.25,
-    "entry": 0.39431,
-    "stop_loss": 0.39233845,
-    "take_profit": 0.40071,
+    "rr": 3.08,
+    "entry": 0.5651,
+    "stop_loss": 0.560583,
+    "take_profit": 0.579,
     "setup": {
       "side": "LONG",
-      "entry": 0.39431,
-      "tp": 0.40071,
-      "sl": 0.39233845,
-      "rr": 3.25
+      "entry": 0.5651,
+      "tp": 0.579,
+      "sl": 0.560583,
+      "rr": 3.08
     },
     "details": {
       "total": 70,
@@ -488,86 +430,28 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 1479192.66246
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 21.721636180702358,
-      "ema50": 0.3935499012137738,
-      "ema200": 0.38686155
-    },
-    "ltf": {
-      "rsi": 52.17185584361943,
-      "adx": 21.721636180702358,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "BULLISH",
-      "isPullback": true,
-      "pullbackDepth": 0.5776173285198554,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767967447451,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "MUSDTM",
-    "price": 1.64003,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 5.81,
-    "entry": 1.64003,
-    "stop_loss": 1.6318298500000001,
-    "take_profit": 1.68767,
-    "setup": {
-      "side": "LONG",
-      "entry": 1.64003,
-      "tp": 1.68767,
-      "sl": 1.6318298500000001,
-      "rr": 5.81
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 360874.67886824184,
-      "vol24h": 700514.9341600001
+      "vol24h": 2323527.6351
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 21.371648180713503,
-      "ema50": 1.6005133474538151,
-      "ema200": 1.5170845000000002
+      "adx": 21.035068244390533,
+      "ema50": 0.5474764361810845,
+      "ema200": 0.5171285
     },
     "ltf": {
-      "rsi": 57.3258585854819,
-      "adx": 21.371648180713503,
+      "rsi": 56.142385805147285,
+      "adx": 21.035068244390533,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.347375573297093,
+      "pullbackDepth": 0.377717391304346,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -580,22 +464,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "IDOLUSDTM",
-    "price": 0.02961,
+    "strategy_name": "Legacy",
+    "symbol": "SPXUSDTM",
+    "price": 0.5957,
     "score": 70,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 2.74,
-    "entry": 0.02961,
-    "stop_loss": 0.02944205,
-    "take_profit": 0.03007,
+    "rr": 5.91,
+    "entry": 0.5957,
+    "stop_loss": 0.5927215,
+    "take_profit": 0.6133,
     "setup": {
       "side": "LONG",
-      "entry": 0.02961,
-      "tp": 0.03007,
-      "sl": 0.02944205,
-      "rr": 2.74
+      "entry": 0.5957,
+      "tp": 0.6133,
+      "sl": 0.5927215,
+      "rr": 5.91
     },
     "details": {
       "total": 70,
@@ -604,28 +488,28 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 64282.28847
+      "vol24h": 1945549.8911
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "adx": 22.2697719994001,
-      "ema50": 0.029411318688788386,
-      "ema200": 0.02923115
+      "adx": 23.705040272012692,
+      "ema50": 0.5846790225053741,
+      "ema200": 0.546697
     },
     "ltf": {
-      "rsi": 54.4763908952366,
-      "adx": 22.2697719994001,
+      "rsi": 52.978378468328906,
+      "adx": 23.705040272012692,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5348837209302312,
+      "pullbackDepth": 0.3555555555555546,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -638,22 +522,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "LYNUSDTM",
-    "price": 0.14226,
+    "strategy_name": "Legacy",
+    "symbol": "GOATUSDTM",
+    "price": 0.04029,
     "score": 70,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 7.77,
-    "entry": 0.14226,
-    "stop_loss": 0.1411905,
-    "take_profit": 0.15057,
+    "rr": 2.94,
+    "entry": 0.04029,
+    "stop_loss": 0.04004875,
+    "take_profit": 0.041,
     "setup": {
       "side": "LONG",
-      "entry": 0.14226,
-      "tp": 0.15057,
-      "sl": 0.1411905,
-      "rr": 7.77
+      "entry": 0.04029,
+      "tp": 0.041,
+      "sl": 0.04004875,
+      "rr": 2.94
     },
     "details": {
       "total": 70,
@@ -662,28 +546,28 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 413926.96228
+      "vol24h": 1656667.28529
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "adx": 12.068970170062387,
-      "ema50": 0.14071097284361647,
-      "ema200": 0.10756150000000002
+      "adx": 16.91198398278028,
+      "ema50": 0.0394293832832642,
+      "ema200": 0.036228949999999996
     },
     "ltf": {
-      "rsi": 54.22956133325959,
-      "adx": 12.068970170062387,
+      "rsi": 53.39046994201617,
+      "adx": 16.91198398278028,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.31382175226586145,
+      "pullbackDepth": 0.36224489795918424,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -696,22 +580,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "AINUSDTM",
-    "price": 0.05337,
+    "strategy_name": "Legacy",
+    "symbol": "FOLKSUSDTM",
+    "price": 3.563,
     "score": 70,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 5.38,
-    "entry": 0.05337,
-    "stop_loss": 0.05381775,
-    "take_profit": 0.05096,
+    "rr": 5.99,
+    "entry": 3.563,
+    "stop_loss": 3.60192,
+    "take_profit": 3.33,
     "setup": {
       "side": "SHORT",
-      "entry": 0.05337,
-      "tp": 0.05096,
-      "sl": 0.05381775,
-      "rr": 5.38
+      "entry": 3.563,
+      "tp": 3.33,
+      "sl": 3.60192,
+      "rr": 5.99
     },
     "details": {
       "total": 70,
@@ -720,28 +604,28 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 185326.50166999997
+      "vol24h": 1366041.746
     },
     "htf": {
-      "trend": "UP",
+      "trend": "DOWN",
       "bias": "SHORT",
-      "adx": 18.840767711375424,
-      "ema50": 0.05338804336942892,
-      "ema200": 0.054698949999999996
+      "adx": 21.890282437121957,
+      "ema50": 3.863317932185987,
+      "ema200": 8.189275
     },
     "ltf": {
-      "rsi": 61.204889830125175,
-      "adx": 18.840767711375424,
+      "rsi": 49.31483559240671,
+      "adx": 21.890282437121957,
       "bias": "SHORT",
       "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6163682864450128,
+      "pullbackDepth": 0.5702811244979931,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -754,22 +638,22 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "OPUSDTM",
-    "price": 0.3145,
+    "strategy_name": "Legacy",
+    "symbol": "HIPPOUSDTM",
+    "price": 0.0011958,
     "score": 70,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 3.47,
-    "entry": 0.3145,
-    "stop_loss": 0.312629,
-    "take_profit": 0.321,
+    "rr": 6.66,
+    "entry": 0.0011958,
+    "stop_loss": 0.001189821,
+    "take_profit": 0.0012356,
     "setup": {
       "side": "LONG",
-      "entry": 0.3145,
-      "tp": 0.321,
-      "sl": 0.312629,
-      "rr": 3.47
+      "entry": 0.0011958,
+      "tp": 0.0012356,
+      "sl": 0.001189821,
+      "rr": 6.66
     },
     "details": {
       "total": 70,
@@ -778,86 +662,28 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 1548658.7010999997
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 22.429734631022946,
-      "ema50": 0.31049895501084573,
-      "ema200": 0.2936875
-    },
-    "ltf": {
-      "rsi": 48.54913953844423,
-      "adx": 22.429734631022946,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767967447451,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "ZROUSDTM",
-    "price": 1.4548,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 2.57,
-    "entry": 1.4548,
-    "stop_loss": 1.447128,
-    "take_profit": 1.4745,
-    "setup": {
-      "side": "LONG",
-      "entry": 1.4548,
-      "tp": 1.4745,
-      "sl": 1.447128,
-      "rr": 2.57
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 973815.0800000001
+      "vol24h": 11973.103663
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 24.722743632816776,
-      "ema50": 1.3840430404202515,
-      "ema200": 1.3550875
+      "adx": 13.35201689077453,
+      "ema50": 0.0011775710561985901,
+      "ema200": 0.001094308
     },
     "ltf": {
-      "rsi": 51.16282186171685,
-      "adx": 24.722743632816776,
+      "rsi": 49.24719071915212,
+      "adx": 13.35201689077453,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.3408304498269875,
+      "pullbackDepth": 0.4422442244224434,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -870,22 +696,138 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
+    "strategy_name": "Legacy",
+    "symbol": "OMUSDTM",
+    "price": 0.07823,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.14,
+    "entry": 0.07823,
+    "stop_loss": 0.07782889999999999,
+    "take_profit": 0.07949,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.07823,
+      "tp": 0.07949,
+      "sl": 0.07782889999999999,
+      "rr": 3.14
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 109345.21516999998
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 21.556899443750982,
+      "ema50": 0.07790838179873903,
+      "ema200": 0.07351765
+    },
+    "ltf": {
+      "rsi": 47.38879922220482,
+      "adx": 21.556899443750982,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5316455696202554,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767978743743,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "MASKUSDTM",
+    "price": 0.6709,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 2.5,
+    "entry": 0.6709,
+    "stop_loss": 0.6675455,
+    "take_profit": 0.6793,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.6709,
+      "tp": 0.6793,
+      "sl": 0.6675455,
+      "rr": 2.5
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 8610794.549899999
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 21.349078816699492,
+      "ema50": 0.6552650017931058,
+      "ema200": 0.6111045
+    },
+    "ltf": {
+      "rsi": 51.43626833836865,
+      "adx": 21.349078816699492,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.32941176470588135,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767978743743,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
     "symbol": "QUSDTM",
-    "price": 0.018106,
+    "price": 0.018203,
     "score": 70,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 8.7,
-    "entry": 0.018106,
-    "stop_loss": 0.01798164,
+    "rr": 5.64,
+    "entry": 0.018203,
+    "stop_loss": 0.018028405,
     "take_profit": 0.019188,
     "setup": {
       "side": "LONG",
-      "entry": 0.018106,
+      "entry": 0.018203,
       "tp": 0.019188,
-      "sl": 0.01798164,
-      "rr": 8.7
+      "sl": 0.018028405,
+      "rr": 5.64
     },
     "details": {
       "total": 70,
@@ -894,138 +836,138 @@
       "moneyFlowScore": 25,
       "timingScore": 5,
       "mcap": 0,
-      "vol24h": 9113.859967
+      "vol24h": 8566.985349999999
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 17.193411853722345,
+      "ema50": 0.017408451757015924,
+      "ema200": 0.01488254
+    },
+    "ltf": {
+      "rsi": 47.61469985673717,
+      "adx": 17.193411853722345,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6218434343434347,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767978743743,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "AUCTIONUSDTM",
+    "price": 5.422,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 3.69,
+    "entry": 5.422,
+    "stop_loss": 5.394889999999999,
+    "take_profit": 5.522,
+    "setup": {
+      "side": "LONG",
+      "entry": 5.422,
+      "tp": 5.522,
+      "sl": 5.394889999999999,
+      "rr": 3.69
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 8470303.206999999
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 23.723525711759542,
+      "ema50": 5.40202220254188,
+      "ema200": 5.204204999999999
+    },
+    "ltf": {
+      "rsi": 47.551953180552275,
+      "adx": 23.723525711759542,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5158730158730176,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767978743743,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "SHIBUSDTM",
+    "price": 0.000008779,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 85.831128752
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 17.50055205641863,
-      "ema50": 0.017373833574067094,
-      "ema200": 0.014849855
+      "adx": 29.31795606865661,
+      "ema50": 0.000008525544711687747,
+      "ema200": 0.000007892405
     },
     "ltf": {
-      "rsi": 43.87972478870711,
-      "adx": 17.50055205641863,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.454049517415023,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767967447451,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "LDOUSDTM",
-    "price": 0.6318,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.26,
-    "entry": 0.6318,
-    "stop_loss": 0.628641,
-    "take_profit": 0.6421,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.6318,
-      "tp": 0.6421,
-      "sl": 0.628641,
-      "rr": 3.26
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 8828510.9445
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 21.7991963636845,
-      "ema50": 0.6271012946923004,
-      "ema200": 0.5852395
-    },
-    "ltf": {
-      "rsi": 46.53718089868325,
-      "adx": 21.7991963636845,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6397515527950294,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767967447451,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "QuantProLegacy",
-    "symbol": "SUIUSDTM",
-    "price": 1.8091,
-    "score": 64.7,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 18629673.516500004
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 25.23296272742079,
-      "ema50": 1.7403022000956738,
-      "ema200": 1.5510145
-    },
-    "ltf": {
-      "rsi": 57.79333470578449,
-      "adx": 25.23296272742079,
+      "rsi": 53.59536102583061,
+      "adx": 29.31795606865661,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.41007194244604334,
+      "pullbackDepth": 0.3701067615658346,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -1038,9 +980,9 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
+    "strategy_name": "Legacy",
     "symbol": "JASMYUSDTM",
-    "price": 0.009155,
+    "price": 0.009275,
     "score": 64.7,
     "bias": "LONG",
     "action": "WAIT",
@@ -1056,28 +998,28 @@
       "moneyFlowScore": 0,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 653183.075507
+      "vol24h": 654349.6279160001
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "adx": 50.75611538026936,
-      "ema50": 0.00785036563313787,
-      "ema200": 0.006589724999999999
+      "adx": 51.20139451794074,
+      "ema50": 0.00791750096494522,
+      "ema200": 0.006603815
     },
     "ltf": {
-      "rsi": 53.937096195889175,
-      "adx": 50.75611538026936,
+      "rsi": 50.08195709266597,
+      "adx": 51.20139451794074,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6810154525386317,
+      "pullbackDepth": 0.5578378378378376,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -1090,9 +1032,9 @@
     }
   },
   {
-    "strategy_name": "QuantProLegacy",
+    "strategy_name": "Legacy",
     "symbol": "WIFUSDTM",
-    "price": 0.3843,
+    "price": 0.3915,
     "score": 64.7,
     "bias": "LONG",
     "action": "WAIT",
@@ -1108,28 +1050,80 @@
       "moneyFlowScore": 0,
       "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 725994.2703
+      "vol24h": 683202.5265
     },
     "htf": {
-      "trend": "DOWN",
+      "trend": "UP",
       "bias": "LONG",
-      "adx": 41.88693824932592,
-      "ema50": 0.3733032182412367,
-      "ema200": 0.35414949999999995
+      "adx": 40.64524634630701,
+      "ema50": 0.37405669743301784,
+      "ema200": 0.354244
     },
     "ltf": {
-      "rsi": 48.376987121172604,
-      "adx": 41.88693824932592,
+      "rsi": 57.59930423445616,
+      "adx": 40.64524634630701,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.37951807228915824,
+      "pullbackDepth": 0.31455399061032807,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767967447451,
+    "timestamp": 1767978743743,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "CLOUSDTM",
+    "price": 0.79201,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 578572.97712
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 47.57051583549701,
+      "ema50": 0.5227544538800747,
+      "ema200": 0.33415465
+    },
+    "ltf": {
+      "rsi": 45.55632297353863,
+      "adx": 47.57051583549701,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3427346198251692,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1767978743743,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",

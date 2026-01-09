@@ -1,11 +1,11 @@
-
 import sys
 import json
 import argparse
+import os
 import pandas as pd
 import numpy as np
 import pandas_ta as ta
-from strategies import QuantProLegacy
+from strategies import QuantProLegacy, QuantProBreakout
 
 def load_data(filename):
     with open(filename, 'r') as f:
@@ -47,18 +47,116 @@ def clean_nans(obj):
 
 def main():
     parser = argparse.ArgumentParser(description='QuantPro Market Scanner')
-    parser.add_argument('file', help='JSON Data file path')
-    parser.add_argument('--strategy', default='legacy', help='Strategy name (default: legacy)')
+    parser.add_argument('file', help='Input JSON data file')
+    parser.add_argument('--strategy', default='all', help='Strategy name (default: all)')
     parser.add_argument('--config', help='JSON Configuration string', default='{}')
     parser.add_argument('--backtest', action='store_true', help='Run in backtest mode')
+    parser.add_argument('--plot', action='store_true', help='Generate debug plots (Breakout strategy)')
+    parser.add_argument('--limit', type=int, help='Limit data rows (backtest only)', default=0)
     
     args = parser.parse_args()
     
     try:
+        # Check if batch mode (text file with list of symbols)
+        if args.file.endswith('.txt'):
+            with open(args.file, 'r') as f:
+                symbols = [line.strip() for line in f if line.strip()]
+            
+            all_batch_results = []
+            
+            for symbol in symbols:
+                try:
+                    # Construct expected data path
+                    # Try both current dir and data/ dir
+                    candidates = [
+                        f"data/HYPERLIQUID_{symbol}_15m.json",
+                        f"HYPERLIQUID_{symbol}_15m.json"
+                    ]
+                    
+                    data_file = None
+                    for c in candidates:
+                         if os.path.exists(c):
+                             data_file = c
+                             break
+                    
+                    if not data_file:
+                        continue # Skip if no data found
+                        
+                    # Process this file
+                    df = load_data(data_file)
+                    # No limit for batch scan typically, or apply same limit
+                    
+                    # HTF loading
+                    htf_filename = data_file.replace('15m.json', '4h.json')
+                    df_htf = None
+                    if os.path.exists(htf_filename):
+                         try:
+                             df_htf = load_data(htf_filename)
+                             if len(df_htf) < 50: df_htf = None
+                         except: pass
+                    
+                    df['symbol'] = symbol
+                    
+                    # Config/Strategy Setup (Reusable)
+                    config = {}
+                    if args.config:
+                        try:
+                            config = json.loads(args.config)
+                        except: pass
+                    
+                    strategies_to_run = []
+                    if args.strategy.lower() == 'all':
+                         strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config)]
+                    elif args.strategy.lower() == 'legacy':
+                        strategies_to_run = [QuantProLegacy(config)]
+                    elif args.strategy.lower() == 'breakout':
+                        strategies_to_run = [QuantProBreakout(config)]
+                    
+                    # Analyze
+                    # Assume LIVE mode for batch typically
+                    batch_res = []
+                    for stra in strategies_to_run:
+                        r = stra.analyze(df, df_htf, mcap=0) # mcap ignored for now
+                        r['symbol'] = symbol
+                        
+                        # FORCE Name Injection
+                        if isinstance(stra, QuantProLegacy):
+                            r['strategy_name'] = "Legacy"
+                        elif isinstance(stra, QuantProBreakout):
+                            r['strategy_name'] = "Breakout"
+                        else:
+                            r['strategy_name'] = stra.name()
+                            
+                        batch_res.append(r)
+                    
+                    # Filter: Keep all valid Signals (RR>=2) and all WAITs
+                    for r in batch_res:
+                        if r['action'] != 'WAIT':
+                            # Check RR
+                            if (r.get('rr', 0) or 0) >= 2.0:
+                                all_batch_results.append(r)
+                        else:
+                            # Keep WAITs
+                            all_batch_results.append(r)
+                    
+                except Exception as e:
+                    # print(f"Error processing {symbol}: {e}", file=sys.stderr)
+                    pass
+            
+            # Print Final Array
+            print(json.dumps(clean_nans(all_batch_results), indent=2))
+            return
+
+        # Normal Single File Mode
         df = load_data(args.file)
         
+        # Apply Limit if Backtest and Limit > 0
+        if args.backtest and args.limit > 0:
+             if len(df) > args.limit + 200: # Ensure warm-up if possible, or just exact tail?
+                 # User asked for "Last 1000 candles".
+                 df = df.iloc[-args.limit:]
+        
         # Extract symbol
-        import os
         filename = os.path.basename(args.file)
         parts = filename.split('_')
         symbol = "UNKNOWN"
@@ -76,6 +174,9 @@ def main():
                     df_htf = None
             except Exception:
                 pass 
+        
+        # Inject symbol for strategy use (plotting)
+        df['symbol'] = symbol
 
         # Load Mcap
         mcap = 0
@@ -99,22 +200,66 @@ def main():
                 config = json.loads(args.config)
             except Exception:
                 pass
+        
+        if args.plot:
+            config['plot'] = True
 
-        strategy = None
-        if args.strategy.lower() == 'legacy':
-            strategy = QuantProLegacy(config)
+        if args.plot:
+            config['plot'] = True
+
+        strategies_to_run = []
+        if args.strategy.lower() == 'all':
+             strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config)]
+        elif args.strategy.lower() == 'legacy':
+            strategies_to_run = [QuantProLegacy(config)]
+        elif args.strategy.lower() == 'breakout':
+            strategies_to_run = [QuantProBreakout(config)]
         else:
             raise ValueError(f"Unknown strategy: {args.strategy}")
             
         if args.backtest:
-            # BACKTEST MODE
-            signals = strategy.backtest(df, df_htf, mcap=mcap)
-            print(json.dumps(clean_nans(signals), indent=2))
+            # BACKTEST MODE -> Accumulate all
+            all_signals = []
+            for stra in strategies_to_run:
+                 sigs = stra.backtest(df, df_htf, mcap=mcap)
+                 # Inject strategy name
+                 for s in sigs: s['strategy_name'] = stra.name()
+                 all_signals.extend(sigs)
+            
+            # Quality Control: Filter Low RR
+            # Only apply to active signals. WAITs have RR=0 usually.
+            filtered_signals = [s for s in all_signals if s['action'] == 'WAIT' or (s.get('rr', 0) or 0) >= 2.0]
+            
+            print(json.dumps(clean_nans(filtered_signals), indent=2))
         else:
             # LIVE MODE
-            result = strategy.analyze(df, df_htf, mcap=mcap)
-            result['symbol'] = symbol
-            print(json.dumps(clean_nans(result), indent=2))
+            results = []
+            for stra in strategies_to_run:
+                r = stra.analyze(df, df_htf, mcap=mcap)
+                r['symbol'] = symbol
+                
+                # FORCE Name Injection
+                if isinstance(stra, QuantProLegacy):
+                    r['strategy_name'] = "Legacy"
+                elif isinstance(stra, QuantProBreakout):
+                    r['strategy_name'] = "Breakout"
+                else:
+                    r['strategy_name'] = stra.name()
+
+                results.append(r)
+            
+            # Filter: Keep all valid Signals (RR>=2) and all WAITs
+            # Note: For single file mode which feeds the server loop, 
+            # returning ALL results (array) is safer so Server can log them.
+            final_res = []
+            for r in results:
+                if r['action'] != 'WAIT':
+                    if (r.get('rr', 0) or 0) >= 2.0:
+                        final_res.append(r)
+                else:
+                    final_res.append(r)
+
+            print(json.dumps(clean_nans(final_res), indent=2))
         
     except Exception as e:
         import traceback

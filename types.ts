@@ -33,6 +33,8 @@ export type DataSource = 'KUCOIN' | 'MEXC' | 'HYPERLIQUID';
 export interface AnalysisResult {
   symbol: string;
   source: DataSource; // Added source
+  strategy_name?: string; // Multi-Strategy Support
+  bias?: string; // Root level bias
   price: number;
   score: number;
   setup: TradeSetup | null;

@@ -2,6 +2,9 @@
 import pandas as pd
 import pandas_ta as ta
 import numpy as np
+from scipy.signal import find_peaks, argrelextrema
+import matplotlib.pyplot as plt
+plt.switch_backend('Agg')
 from abc import ABC, abstractmethod
 
 class Strategy(ABC):
@@ -48,7 +51,7 @@ class QuantProLegacy(Strategy):
         self.kv_money_obv = scoring.get('MONEY_FLOW', {}).get('OBV', 25)
         
     def name(self):
-        return "QuantProLegacy"
+        return "Legacy"
 
     def analyze(self, df, df_htf=None, mcap=0):
         # 1. Calculate Indicators
@@ -622,3 +625,638 @@ class QuantProLegacy(Strategy):
                 results.append(signal)
 
         return results
+
+from data_fetcher import CoinalyzeClient
+
+class QuantProBreakout(Strategy):
+    """
+    RSI Trendline Breakout Strategy:
+    - Identifies geometric trendlines on RSI (Support/Resistance).
+    - Triggers on breakout of these trendlines.
+    - Confirms with OBV and structural targets.
+    """
+    
+    def __init__(self, config=None):
+        self.config = config or {}
+        self.rsi_len = 14
+        self.breakout_threshold = self.config.get('breakout_threshold', 2.0)
+        self.coinalyze = CoinalyzeClient(api_key="5019d4cc-a330-4132-bac0-18d2b0a1ee38")
+        
+    def check_coinalyze_confirmation(self, symbol, side):
+        """
+        Verify breakout with Open Interest Delta & Liquidations.
+        Returns: (passed: bool, score_bonus: int, metadata: dict)
+        """
+        score_bonus = 0
+        metadata = {
+            "oi_delta_pct": None,
+            "liquidation_longs": 0,
+            "liquidation_shorts": 0,
+            "liquidation_ratio": 0.0,
+            "squeeze_detected": False
+        }
+        
+        try:
+            # 1. Open Interest Check
+            delta = self.coinalyze.get_open_interest_delta(symbol)
+            metadata['oi_delta_pct'] = delta
+            
+            oi_passed = True
+            if delta is not None:
+                if side == 'LONG' and delta <= 0: oi_passed = False
+                elif side == 'SHORT' and delta <= 0: oi_passed = False
+            
+            if not oi_passed:
+                return (False, 0, metadata) # Basic filter failed
+
+            # 2. Liquidation Check (Bonus)
+            liqs = self.coinalyze.get_liquidation_history(symbol)
+            if liqs:
+                longs = liqs['longs']
+                shorts = liqs['shorts']
+                metadata['liquidation_longs'] = longs
+                metadata['liquidation_shorts'] = shorts
+                
+                # Squeeze Logic:
+                if side == 'LONG':
+                    ratio = shorts / longs if longs > 0 else 0
+                    metadata['liquidation_ratio'] = round(ratio, 2)
+                    if shorts > (longs * 2.0) and shorts > 1000:
+                        score_bonus += 15
+                        metadata['squeeze_detected'] = True
+                
+                elif side == 'SHORT':
+                    ratio = longs / shorts if shorts > 0 else 0
+                    metadata['liquidation_ratio'] = round(ratio, 2)
+                    if longs > (shorts * 2.0) and longs > 1000:
+                        score_bonus += 15
+                        metadata['squeeze_detected'] = True
+
+            return (True, score_bonus, metadata)
+            
+        except Exception as e:
+            # Log error?
+            return (True, 0, metadata) # Fail Open
+            
+    def detect_divergence(self, df, rsi_series, side):
+        """
+        Detects RSI Divergence.
+        LONG (Bullish): Price Lows Lower, RSI Lows Higher.
+        SHORT (Bearish): Price Highs Higher, RSI Highs Lower.
+        Returns: (has_divergence, is_extreme)
+        """
+        # Lookback window for pivots
+        window = 60
+        if len(rsi_series) < window: return False, False
+        
+        rsi_slice = rsi_series.iloc[-window:]
+        price_highs = df['high'].iloc[-window:]
+        price_lows = df['low'].iloc[-window:]
+        
+        # Use underlying numpy array for finding peaks to avoid index confusion
+        rsi_vals = rsi_slice.values
+        w_len = len(rsi_slice)
+        
+        if side == 'LONG':
+            # Bullish Divergence -> Find Valleys (Lows)
+            # Invert for find_peaks
+            pivots, _ = find_peaks(-rsi_vals, distance=10)
+            if len(pivots) < 2: return False, False
+            
+            # Get last 2 pivots indices (relative to slice)
+            idx2 = pivots[-1] # Most recent
+            idx1 = pivots[-2] # Previous
+            
+            # RSI values
+            rsi2 = rsi_vals[idx2]
+            rsi1 = rsi_vals[idx1]
+            
+            # Map indices to DF slice to get Price
+            # Slice indices are 0..N-1. iloc works.
+            
+            # Robust Price Low search (Min in +/- 1 candle window)
+            # Ensure boundaries
+            w_len = len(rsi_slice)
+            
+            def get_local_min(idx):
+                start = max(0, idx - 1)
+                end = min(w_len, idx + 2)
+                return price_lows.iloc[start:end].min()
+            
+            p2_low = get_local_min(idx2)
+            p1_low = get_local_min(idx1)
+
+            # Condition: Price Lower, RSI Higher
+            # Also ensure RSI lows are actually "low" (e.g. < 50) to filter range noise?
+            # User requirement: "RSI Low_1 in Oversold < 30" is bonus.
+            # Base divergence just needs direction.
+            
+            if p2_low < p1_low and rsi2 > rsi1:
+                 is_extreme = rsi1 < 30
+                 return True, is_extreme
+                 
+        elif side == 'SHORT':
+            # Bearish Divergence -> Find Peaks (Highs)
+            pivots, _ = find_peaks(rsi_vals, distance=10)
+            if len(pivots) < 2: return False, False
+            
+            idx2 = pivots[-1]
+            idx1 = pivots[-2]
+            
+            rsi2 = rsi_vals[idx2]
+            rsi1 = rsi_vals[idx1]
+            
+            def get_local_max(idx):
+                start = max(0, idx - 1)
+                end = min(w_len, idx + 2)
+                return price_highs.iloc[start:end].max()
+            
+            p2_high = get_local_max(idx2)
+            p1_high = get_local_max(idx1)
+            
+            # Condition: Price Higher, RSI Lower
+            if p2_high > p1_high and rsi2 < rsi1:
+                is_extreme = rsi1 > 70
+                return True, is_extreme
+
+        return False, False
+        
+    def name(self):
+        return "Breakout"
+
+    def find_trendlines(self, rsi_series, direction='RESISTANCE'):
+        """
+        Identify valid trendlines on RSI.
+        direction: 'RESISTANCE' (connecting highs) or 'SUPPORT' (connecting lows)
+        """
+        rsi = rsi_series.values
+        if len(rsi) < 50: return None
+        
+        # 1. Find Pivots
+        if direction == 'RESISTANCE':
+            peaks, _ = find_peaks(rsi, distance=10)
+            pivots = peaks
+            # We need at least 3 pivots
+            if len(pivots) < 3: return None
+        else:
+            # Find valleys by inverting
+            peaks, _ = find_peaks(-rsi, distance=10)
+            pivots = peaks
+            if len(pivots) < 3: return None
+            
+        # 2. Geometric Trendline Logic
+        # Try to connect the last pivot with previous ones
+        # We prioritize the most recent structure
+        
+        last_pivot_idx = pivots[-1] # The most recent peak/valley
+        
+        # Iterate backwards to find a valid line creator
+        best_line = None
+        
+        # We need to find a line that touches at least 3 points (approximated)
+        # Equation: y = mx + c
+        
+        for i in range(len(pivots)-2, -1, -1):
+            p1_idx = pivots[i]
+            p2_idx = last_pivot_idx
+            
+            x1, y1 = p1_idx, rsi[p1_idx]
+            x2, y2 = p2_idx, rsi[p2_idx]
+            
+            if x2 == x1: continue
+            m = (y2 - y1) / (x2 - x1)
+            c = y1 - m * x1
+            
+            # Constraint: Slope
+            if direction == 'RESISTANCE' and m > 0.1: continue # Resistance shouldn't slope up too steep
+            if direction == 'SUPPORT' and m < -0.1: continue # Support shouldn't slope down too steep
+            
+            # Constraint: Steepness (Vertical Noise Filter)
+            if abs(m) > 1.5: continue
+            
+            # 3. Validation: Check touches and violations
+            touches = 0
+            violation = False
+            
+            # Check all points between p1 and current (end of series)
+            # Actually we check ideally from start of trendline
+            
+            for k in range(p1_idx, len(rsi)):
+                model_y = m * k + c
+                actual_y = rsi[k]
+                
+                # Check for Violations
+                if direction == 'RESISTANCE':
+                    if actual_y > model_y + 1.0: # Tolerance
+                        # If a point breaks the line significantly before the breakout, it's invalid
+                        # But wait, we are looking for the breakout AT the end.
+                        # So violations are only allowed at the very end (current candle)
+                        if k < len(rsi) - 1:
+                            violation = True
+                            break
+                else: # SUPPORT
+                    if actual_y < model_y - 1.0:
+                        if k < len(rsi) - 1:
+                            violation = True
+                            break
+
+                # Check for Touches (Near the line)
+                if abs(actual_y - model_y) < 2.0:
+                    # Ensure it's a peak/valley or close to it
+                    touches += 1
+            
+            if not violation and touches >= 3:
+                best_line = {'m': float(m), 'c': float(c), 'touches': int(touches), 'start': int(p1_idx)}
+                # prioritize the one with most touches or longest duration?
+                # For now take the first valid one found from backwards search (most recent trend)
+                break
+                
+        return best_line
+
+    def analyze(self, df, df_htf=None, mcap=0):
+        # Metrics
+        df['rsi'] = df.ta.rsi(length=self.rsi_len)
+        df['obv'] = df.ta.obv()
+        df['mfi'] = df.ta.mfi(length=14)
+
+        
+        # Data prep
+        rsi_series = df['rsi'].dropna()
+        if len(rsi_series) < 50:
+            return self.empty_result(df)
+            
+        current_rsi = rsi_series.iloc[-1]
+        prev_rsi = rsi_series.iloc[-2]
+        
+        bias = 'NONE'
+        score = 0
+        action = 'WAIT'
+        analysis_metadata = {}
+        
+        # Check Resistance Breakout (LONG)
+        trendline_info = None
+        res_line = self.find_trendlines(rsi_series[:-1], 'RESISTANCE') # Check trendline formed UP TO prev candle
+        if res_line:
+            # Check if current RSI crossed above logic model
+            # Re-eval slope/intercept at current index
+            curr_idx = len(df) - 1
+            threshold = res_line['m'] * curr_idx + res_line['c']
+            
+            # Breakout Condition: Prev was below, Current is Above
+            # Or just Current is significantly above after respecting it
+            # Breakout Condition: Current > Model + Threshold
+            if prev_rsi <= (threshold + self.breakout_threshold) and current_rsi > (threshold + self.breakout_threshold):
+                # MFI Filter
+                mfi_curr = df['mfi'].iloc[-1]
+                mfi_prev = df['mfi'].iloc[-2]
+                
+                # Condition: Not OB (80) OR Trending UP
+                # Warning if MFI is dropping while we breakout
+                mfi_pass = (mfi_curr <= 80) or (mfi_curr > mfi_prev)
+                
+                if mfi_pass:
+                    passed, bonus, meta = self.check_coinalyze_confirmation(df['symbol'].iloc[0] if 'symbol' in df else 'UNKNOWN', 'LONG')
+                    analysis_metadata.update(meta)
+                    analysis_metadata['mfi'] = mfi_curr
+                    
+                    if passed:
+                        bias = 'LONG'
+                        action = 'BUY'
+                        score = 80 + bonus # Base + Bonus
+                        
+                        # Divergence Check
+                        has_div, is_extreme = self.detect_divergence(df, rsi_series, 'LONG')
+                        if has_div:
+                            score += 20
+                            analysis_metadata['divergence'] = True
+                            if is_extreme:
+                                score += 10
+                                analysis_metadata['divergence_extreme'] = True
+                        else:
+                            analysis_metadata['divergence'] = False
+                            
+                        trendline_info = res_line
+                
+        # Check Support Breakout (SHORT)
+        if bias == 'NONE':
+            sup_line = self.find_trendlines(rsi_series[:-1], 'SUPPORT')
+            if sup_line:
+                curr_idx = len(df) - 1
+                threshold = sup_line['m'] * curr_idx + sup_line['c']
+                
+                # Breakout Condition: Current < Model - Threshold
+                if prev_rsi >= (threshold - self.breakout_threshold) and current_rsi < (threshold - self.breakout_threshold):
+                    # MFI Filter
+                    mfi_curr = df['mfi'].iloc[-1]
+                    mfi_prev = df['mfi'].iloc[-2]
+                    
+                    # Condition: Not OS (20) OR Trending DOWN
+                    mfi_pass = (mfi_curr >= 20) or (mfi_curr < mfi_prev)
+                    
+                    if mfi_pass:
+                        passed, bonus, meta = self.check_coinalyze_confirmation(df['symbol'].iloc[0] if 'symbol' in df else 'UNKNOWN', 'SHORT')
+                        analysis_metadata.update(meta)
+                        analysis_metadata['mfi'] = mfi_curr
+                        
+                        if passed:
+                            bias = 'SHORT'
+                            action = 'SELL'
+                            score = 80 + bonus
+                            
+                            # Divergence Check
+                            has_div, is_extreme = self.detect_divergence(df, rsi_series, 'SHORT')
+                            if has_div:
+                                score += 20
+                                analysis_metadata['divergence'] = True
+                                if is_extreme:
+                                    score += 10
+                                    analysis_metadata['divergence_extreme'] = True
+                            else:
+                                analysis_metadata['divergence'] = False
+                                
+                            trendline_info = sup_line
+
+        # Confirmation (OBV)
+        if bias == 'LONG':
+            # OBV should be rising
+            if df['obv'].iloc[-1] < df['obv'].iloc[-5]:
+                score -= 20 # Divergence penalty
+        elif bias == 'SHORT':
+             if df['obv'].iloc[-1] > df['obv'].iloc[-5]:
+                score -= 20
+
+        # Plotting (Triggered via Config)
+        # Plot if we found ANY trendline for debug, even if no breakout
+        debug_trendline = trendline_info or res_line or sup_line
+        if self.config.get('plot', False) and debug_trendline:
+             side_plot = 'LONG' if res_line else ('SHORT' if sup_line else 'NONE')
+             if trendline_info and bias == 'SHORT': side_plot = 'SHORT' # Override if we actually triggered
+             
+             symbol_str = 'DEBUG'
+             if 'symbol' in df:
+                  val = df['symbol'].iloc[0] if hasattr(df['symbol'], 'iloc') else df['symbol']
+                  symbol_str = str(val)
+                  
+             self.plot_debug_chart(df, rsi_series, debug_trendline, side_plot, symbol_str)
+
+        # Construct Result
+        return self.build_result(df, bias, action, score, mcap, trendline_info, analysis_metadata)
+
+    def plot_debug_chart(self, df, rsi_series, trendline, side, symbol):
+        try:
+            plt.figure(figsize=(12, 6))
+            plt.plot(rsi_series.index[-100:], rsi_series.values[-100:], label='RSI', color='blue')
+            plt.axhline(70, linestyle='--', color='gray', alpha=0.5)
+            plt.axhline(30, linestyle='--', color='gray', alpha=0.5)
+            
+            # Plot Trendline
+            # Equation: y = mx + c (Indices are relative to rsi_series start)
+            # We need to map relative indices to global plot indices
+            m = trendline['m']
+            c = trendline['c']
+            start_idx = trendline['start'] 
+            
+            # rsi_series is a slice or full series?
+            # analyze calls passing rsi_series. 
+            # We need to correctly plot the line.
+            # Let's project from start_idx to end
+            
+            # Create x points for the line from start_idx to current (end)
+            # Note: rsi_series indices might be RangeIndex or Datetime.
+            # Using integer indexing for simplicity
+            
+            x_vals = np.arange(start_idx, len(rsi_series))
+            y_vals = m * x_vals + c
+            
+            # We need to align these x_vals with the plot's x-axis (which is rsi_series.index)
+            # rsi_series length N. Index 0..N-1.
+            plot_indices = rsi_series.index[x_vals]
+            
+            color = 'red' if side == 'LONG' else 'green' # Resistance=Red, Support=Green
+            plt.plot(plot_indices, y_vals, color=color, linewidth=2, label=f'Trendline ({side})')
+            
+            # Highlight Pivots?
+            # Requires re-running find_peaks or passing them? 
+            # For simplicity just marking the trendline is enough visual proof.
+            
+            plt.title(f"RSI Breakout: {symbol} | {side}")
+            plt.legend()
+            plt.savefig(f"debug_breakout_{symbol}.png")
+            plt.close()
+        except Exception as e:
+            print(f"Plot Error: {e}")
+
+    def backtest(self, df, df_htf=None, mcap=0):
+        # Rolling Window Backtest
+        df['rsi'] = df.ta.rsi(length=self.rsi_len)
+        df['obv'] = df.ta.obv()
+        df['mfi'] = df.ta.mfi(length=14)
+        df['swing_high_100'] = df['high'].rolling(100).max()
+        df['swing_low_100'] = df['low'].rolling(100).min()
+        
+        results = []
+        
+        # We need at least 100 candles for lookback + 50 for trendlines
+        if len(df) < 150: return []
+        
+        # Optimization: Only check every 15 minutes (since we are on 15m candles)
+        # But we iterate row by row.
+        
+        # Iterating over every single candle and running geometric find_trendlines (O(N*M)) 
+        # might be slow for 1500 candles.
+        # However, for verification we will do it.
+        
+        for i in range(150, len(df)):
+            # Current Slice
+            # Window of last 100 candles ending at i
+            # We want to detect breakout AT candle i
+            
+            # Helper to get slice
+            rsi_slice = df['rsi'].iloc[i-100 : i+1] # 101 points: 0..99 is past, 100 is current
+            
+            if len(rsi_slice) < 50: continue
+            
+            current_rsi = rsi_slice.iloc[-1]
+            prev_rsi = rsi_slice.iloc[-2]
+            
+            # Reuse logic
+            bias = 'NONE'
+            action = 'WAIT'
+            score = 0
+            
+            # Resistance
+            trendline_info = None
+            res_line = self.find_trendlines(rsi_slice[:-1], 'RESISTANCE')
+            if res_line:
+                # Calc threshold at current index (relative to slice start)
+                # find_trendlines returns calculated on slice[:-1], so 'current' is i-1 in global, or last in sub-slice
+                # res_line['start'] is relative to slice start.
+                
+                # Careful with indices.
+                # rsi_slice[:-1] has length 100. Indices 0..99.
+                # Trendline is fit on 0..99.
+                # We want to project to index 100 (current).
+                
+                # Slope m is per index unit.
+                # Last known point was index 99. Protocol: m * k + c.
+                # If we project 1 step forward:
+                
+                # Re-eval:
+                # The line equation y = mx + c is based on the indices passed to find_trendlines.
+                # If we passed slice[:-1], indices are 0 to 99.
+                # Breakout check is at index 100.
+                
+                threshold = res_line['m'] * 100 + res_line['c']
+                
+                # Breakout Condition
+                if prev_rsi <= (threshold + self.breakout_threshold) and current_rsi > (threshold + self.breakout_threshold):
+                    # MFI Filter
+                    mfi_curr = df['mfi'].iloc[i]
+                    mfi_prev = df['mfi'].iloc[i-1]
+                    if (mfi_curr <= 80) or (mfi_curr > mfi_prev):
+                         bias = 'LONG'
+                         action = 'BUY'
+                         score = 80
+                         
+                         has_div, is_extreme = self.detect_divergence(df.iloc[:i+1], df['rsi'].iloc[:i+1], 'LONG')
+                         if has_div:
+                             score += 20
+                             if is_extreme: score += 10
+                         
+                         trendline_info = res_line
+            
+            # Support
+            if bias == 'NONE':
+                sup_line = self.find_trendlines(rsi_slice[:-1], 'SUPPORT')
+                if sup_line:
+                    threshold = sup_line['m'] * 100 + sup_line['c']
+                    if prev_rsi >= (threshold - self.breakout_threshold) and current_rsi < (threshold - self.breakout_threshold):
+                        # MFI Filter
+                        mfi_curr = df['mfi'].iloc[i]
+                        mfi_prev = df['mfi'].iloc[i-1]
+                        if (mfi_curr >= 20) or (mfi_curr < mfi_prev):
+                            bias = 'SHORT'
+                            action = 'SELL'
+                            score = 80
+                            
+                            has_div, is_extreme = self.detect_divergence(df.iloc[:i+1], df['rsi'].iloc[:i+1], 'SHORT')
+                            if has_div:
+                                score += 20
+                                if is_extreme: score += 10
+                            
+                            trendline_info = sup_line
+            
+            if score > 0:
+                 # Generate signal
+                 # Need row data
+                 row = df.iloc[i]
+                 # Build a temporary DF of just this row to reuse build_result? 
+                 # Or just extract vals. build_result uses tail(100) for targets.
+                 
+                 # Construct Setup
+                 setup = None
+                 swing_high = df['swing_high_100'].iloc[i]
+                 swing_low = df['swing_low_100'].iloc[i]
+                 close = row['close']
+                 
+                 if bias == 'LONG':
+                     sl = float(row['low'] * 0.99)
+                     tp = float(swing_high) if pd.notna(swing_high) else close * 1.05
+                     risk = close - sl
+                     if risk > 0:
+                        if (tp - close) / risk < 1: tp = close + (risk * 2.0)
+                        rr = round((tp - close) / risk, 2)
+                        setup = {"side": "LONG", "entry": float(close), "tp": tp, "sl": sl, "rr": rr}
+                 
+                 elif bias == 'SHORT':
+                     sl = float(row['high'] * 1.01)
+                     tp = float(swing_low) if pd.notna(swing_low) else close * 0.95
+                     risk = sl - close
+                     if risk > 0:
+                        if (close - tp) / risk < 1: tp = close - (risk * 2.0)
+                        rr = round((close - tp) / risk, 2)
+                        setup = {"side": "SHORT", "entry": float(close), "tp": tp, "sl": sl, "rr": rr}
+
+                 if setup and trendline_info:
+                     setup['trendline'] = trendline_info
+
+                 # Add to results
+                 results.append({
+                    "timestamp": int(row['timestamp']),
+                    "price": float(close),
+                    "score": float(score),
+                    "bias": bias,
+                    "action": action,
+                    "rr": float(setup['rr']) if setup else 0.0,
+                    "entry": float(setup['entry']) if setup else None,
+                    "stop_loss": float(setup['sl']) if setup else None,
+                    "take_profit": float(setup['tp']) if setup else None,
+                    "setup": setup,
+                    "details": {"total": score},
+                    "htf": {}, "ltf": {"rsi": float(row['rsi'])}
+                 })
+                 
+        return results
+
+    def empty_result(self, df):
+        last_row = df.iloc[-1]
+        return {
+            "strategy_name": self.name(),
+            "symbol": "UNKNOWN",
+            "price": float(last_row['close']),
+            "score": 0.0,
+            "bias": "NONE",
+            "action": "WAIT",
+            "rr": 0.0,
+            "entry": None, "stop_loss": None, "take_profit": None,
+            "setup": None,
+            "details": {"total": 0},
+            "htf": {}, "ltf": {}
+        }
+        
+    def build_result(self, df, bias, action, score, mcap, trendline_info=None, metadata=None):
+        last_row = df.iloc[-1]
+        close = float(last_row['close'])
+        
+        setup = None
+        swing_high = df['high'].tail(100).max()
+        swing_low = df['low'].tail(100).min()
+        
+        if score > 0 and 'BUY' in action:
+            sl = float(last_row['low'] * 0.99) # Tight SL below candle
+            tp = float(swing_high)
+            risk = close - sl
+            if risk > 0:
+                reward = tp - close
+                if reward / risk < 1: tp = close + (risk * 2.0)
+                rr = round((tp - close) / risk, 2)
+                setup = {"side": "LONG", "entry": close, "tp": tp, "sl": sl, "rr": rr}
+        elif score > 0 and 'SELL' in action:
+            sl = float(last_row['high'] * 1.01)
+            tp = float(swing_low)
+            risk = sl - close
+            if risk > 0:
+                reward = close - tp
+                if reward / risk < 1: tp = close - (risk * 2.0)
+                rr = round((close - tp) / risk, 2)
+                setup = {"side": "SHORT", "entry": close, "tp": tp, "sl": sl, "rr": rr}
+        
+        if setup and trendline_info:
+            setup['trendline'] = trendline_info
+            
+        return {
+            "strategy_name": self.name(),
+            "symbol": "UNKNOWN",
+            "price": close,
+            "score": float(score),
+            "bias": bias,
+            "action": action,
+            "rr": float(setup['rr']) if setup else 0.0,
+            "entry": float(setup['entry']) if setup else None,
+            "stop_loss": float(setup['sl']) if setup else None,
+            "take_profit": float(setup['tp']) if setup else None,
+            "setup": setup,
+            "analysis": metadata if metadata else {},
+            "details": {"total": score},
+            "htf": {}, "ltf": {"rsi": float(last_row['rsi']) if pd.notna(last_row['rsi']) else 0}
+        }

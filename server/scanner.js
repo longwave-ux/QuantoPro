@@ -124,24 +124,29 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
             const venvPython = path.join(process.cwd(), 'venv/bin/python');
 
             // Execute Python Script
-            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', 'legacy', '--config', configStr]);
+            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', 'all', '--config', configStr]);
 
             try {
                 // Parse Python Output
                 const pyResult = JSON.parse(stdout);
 
-                // Map Python Result to JS Structure (if needed, but structure should be identical)
-                resultBase = {
-                    ...pyResult,
+                // Handle Array (Multi-Strategy) or Object (Single)
+                const pyResArray = Array.isArray(pyResult) ? pyResult : [pyResult];
+
+                // Map Python Results to JS Structure
+                resultBase = pyResArray.map(res => ({
+                    ...res,
+                    strategy_name: res.strategy_name || 'Legacy', // Explicit Fallback
                     timestamp: now,
                     source: source,
-                    // Ensure meta is preserved if python didn't send it fully
                     meta: { htfInterval: htf, ltfInterval: ltf },
-                    // Ensure mcap is passed through if missing
-                    details: { ...pyResult.details, mcap: mcap }
-                };
+                    details: { ...res.details, mcap: mcap }
+                }));
 
-                console.log(`[PYTHON-LIVE] ${symbol} | Score: ${resultBase.score.toFixed(1)} | Bias: ${resultBase.htf.bias}`);
+                // Log first result for debug
+                if (resultBase.length > 0) {
+                    console.log(`[PYTHON-LIVE] ${symbol} | Score: ${resultBase[0].score?.toFixed(1)} | Bias: ${resultBase[0].htf?.bias}`);
+                }
 
             } catch (jsonErr) {
                 console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
@@ -153,57 +158,66 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
             return null; // Skip if exec fails
         }
 
-        if (!resultBase) return null;
-        // ---------------------------
+        if (!resultBase) return [];
 
-        let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
+        const resultsArray = Array.isArray(resultBase) ? resultBase : [resultBase];
+        const processedResults = [];
 
-        if (history[symbol]) {
-            const prev = history[symbol];
-            const isRecent = (now - prev.timestamp) < (45 * 60 * 1000);
+        resultsArray.forEach(res => {
+            // History Logic per result?
+            // Note: History is keyed by Symbol. If multiple strategies for same symbol, 
+            // they share/overwrite history. This is acceptable for now.
+            // Ideally unique key like "Symbol-Strategy" but sticking to user request.
 
-            if (isRecent) {
-                let status = 'STABLE';
-                if (resultBase.score > prev.score + 5) status = 'STRENGTHENING';
-                else if (resultBase.score < prev.score - 5) status = 'WEAKENING';
+            let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
 
-                historyEntry = {
-                    consecutiveScans: prev.consecutiveScans + 1,
-                    prevScore: prev.score,
-                    status
-                };
-            }
-        }
-
-        if (resultBase.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || (history[symbol] && resultBase.score > CONFIG.THRESHOLDS.MIN_SCORE_TO_SAVE)) {
-            // PRO TRADER LOGIC:
-            // If score > 50: Trend is active, increment consistency (prev + 1).
-            // If score 30-50: Trend is consolidating/pulling back. PAUSE consistency (keep prev), don't reset.
-            // This allows a trend to breathe without losing its "seniority".
-            let nextConsecutive = 1;
             if (history[symbol]) {
-                if (resultBase.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING) {
-                    nextConsecutive = historyEntry.consecutiveScans; // Already incremented above
-                } else {
-                    nextConsecutive = history[symbol].consecutiveScans; // Pause (no increment)
+                const prev = history[symbol];
+                const isRecent = (now - prev.timestamp) < (45 * 60 * 1000);
+
+                if (isRecent) {
+                    let status = 'STABLE';
+                    if (res.score > prev.score + 5) status = 'STRENGTHENING';
+                    else if (res.score < prev.score - 5) status = 'WEAKENING';
+
+                    historyEntry = {
+                        consecutiveScans: prev.consecutiveScans + 1,
+                        prevScore: prev.score,
+                        status
+                    };
                 }
             }
 
-            nextHistory[symbol] = {
-                score: resultBase.score,
-                timestamp: now,
-                consecutiveScans: nextConsecutive
-            };
-        }
+            if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || (history[symbol] && res.score > CONFIG.THRESHOLDS.MIN_SCORE_TO_SAVE)) {
+                let nextConsecutive = 1;
+                if (history[symbol]) {
+                    if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING) {
+                        nextConsecutive = historyEntry.consecutiveScans;
+                    } else {
+                        nextConsecutive = history[symbol].consecutiveScans;
+                    }
+                }
 
-        return {
-            ...resultBase,
-            history: historyEntry
-        };
+                // Warn: Overwrite risk for same symbol
+                nextHistory[symbol] = {
+                    score: res.score,
+                    timestamp: now,
+                    consecutiveScans: nextConsecutive
+                };
+            }
+
+            processedResults.push({
+                ...res,
+                history: historyEntry
+            });
+        });
+
+        return processedResults;
     });
 
     const results = await Promise.all(promises);
-    return results.filter(r => r !== null);
+    // Each promise now returns Array or Null
+    return results.filter(r => r !== null).flat();
 };
 
 export const runServerScan = async (source = 'KUCOIN') => {
@@ -229,7 +243,13 @@ export const runServerScan = async (source = 'KUCOIN') => {
     for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
         const batchPairs = topPairs.slice(i, i + BATCH_SIZE);
         const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory);
-        results.push(...batchResults);
+        // batchResults is Array of Arrays of Objects (since we now return processedResults array)
+        // Flatten 1 level (promises) -> Array of (Array|Null)
+        // Filter Nulls (processed in processBatch usually returns null if error)
+        // Actually processBatch returns results.filter(r => r!== null) at line 206.
+        // Wait, line 206 inside processBatch needs update too!
+
+        results.push(...batchResults.flat());
 
         if (i + BATCH_SIZE < topPairs.length) {
             await new Promise(r => setTimeout(r, 1000));

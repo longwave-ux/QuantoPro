@@ -1,0 +1,2914 @@
+[
+  {
+    "timestamp": 1767213000000,
+    "price": 123.74,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 123.74,
+    "stop_loss": 125.9167,
+    "take_profit": 119.38659999999997,
+    "setup": {
+      "side": "SHORT",
+      "entry": 123.74,
+      "tp": 119.38659999999997,
+      "sl": 125.9167,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.23512162400896916,
+        "c": 11.61853431385266,
+        "touches": 3,
+        "start": 84
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 31.61397208844356
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767213900000,
+    "price": 124.22,
+    "score": 100.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.72,
+    "entry": 124.22,
+    "stop_loss": 122.4036,
+    "take_profit": 127.35,
+    "setup": {
+      "side": "LONG",
+      "entry": 124.22,
+      "tp": 127.35,
+      "sl": 122.4036,
+      "rr": 1.72,
+      "trendline": {
+        "m": -1.0917098219535015,
+        "c": 147.0539825838124,
+        "touches": 4,
+        "start": 73
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 40.11827652903284
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767216600000,
+    "price": 124.19,
+    "score": 100.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.21,
+    "entry": 124.19,
+    "stop_loss": 122.76,
+    "take_profit": 127.35,
+    "setup": {
+      "side": "LONG",
+      "entry": 124.19,
+      "tp": 127.35,
+      "sl": 122.76,
+      "rr": 2.21,
+      "trendline": {
+        "m": -0.8681822078964402,
+        "c": 124.33195069498754,
+        "touches": 5,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 40.454519694861766
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767226500000,
+    "price": 125.13,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.39,
+    "entry": 125.13,
+    "stop_loss": 123.5322,
+    "take_profit": 127.35,
+    "setup": {
+      "side": "LONG",
+      "entry": 125.13,
+      "tp": 127.35,
+      "sl": 123.5322,
+      "rr": 1.39,
+      "trendline": {
+        "m": -0.37380368689640486,
+        "c": 89.41358310809466,
+        "touches": 4,
+        "start": 59
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.50376792192456
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767229200000,
+    "price": 125.62,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 125.62,
+    "stop_loss": 123.84899999999999,
+    "take_profit": 129.16200000000003,
+    "setup": {
+      "side": "LONG",
+      "entry": 125.62,
+      "tp": 129.16200000000003,
+      "sl": 123.84899999999999,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.28915604047029764,
+        "c": 83.55190384754343,
+        "touches": 4,
+        "start": 56
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 62.361425031874134
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767240000000,
+    "price": 124.95,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 124.95,
+    "stop_loss": 126.4722,
+    "take_profit": 121.9056,
+    "setup": {
+      "side": "SHORT",
+      "entry": 124.95,
+      "tp": 121.9056,
+      "sl": 126.4722,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.6860373595361509,
+        "c": -16.408643079087,
+        "touches": 3,
+        "start": 70
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 48.27873410645144
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767241800000,
+    "price": 124.77,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 124.77,
+    "stop_loss": 126.36110000000001,
+    "take_profit": 121.58779999999997,
+    "setup": {
+      "side": "SHORT",
+      "entry": 124.77,
+      "tp": 121.58779999999997,
+      "sl": 126.36110000000001,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.056222112149922766,
+        "c": 42.27661915213206,
+        "touches": 3,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 45.05870862811476
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767246300000,
+    "price": 125.26,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.52,
+    "entry": 125.26,
+    "stop_loss": 123.8886,
+    "take_profit": 127.35,
+    "setup": {
+      "side": "LONG",
+      "entry": 125.26,
+      "tp": 127.35,
+      "sl": 123.8886,
+      "rr": 1.52,
+      "trendline": {
+        "m": -0.521517064496799,
+        "c": 104.60430725611485,
+        "touches": 3,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.165598138235666
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767251700000,
+    "price": 124.5,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 124.5,
+    "stop_loss": 126.1187,
+    "take_profit": 121.26259999999999,
+    "setup": {
+      "side": "SHORT",
+      "entry": 124.5,
+      "tp": 121.26259999999999,
+      "sl": 126.1187,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.0932579793768971,
+        "c": 53.3586687926586,
+        "touches": 5,
+        "start": 70
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 37.972718050553624
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767261600000,
+    "price": 125.18,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.48,
+    "entry": 125.18,
+    "stop_loss": 123.71039999999999,
+    "take_profit": 127.35,
+    "setup": {
+      "side": "LONG",
+      "entry": 125.18,
+      "tp": 127.35,
+      "sl": 123.71039999999999,
+      "rr": 1.48,
+      "trendline": {
+        "m": -0.05753512716019671,
+        "c": 61.4038537967607,
+        "touches": 4,
+        "start": 74
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 59.43657433593611
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767271500000,
+    "price": 124.98,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 124.98,
+    "stop_loss": 126.3813,
+    "take_profit": 122.17740000000002,
+    "setup": {
+      "side": "SHORT",
+      "entry": 124.98,
+      "tp": 122.17740000000002,
+      "sl": 126.3813,
+      "rr": 2.0,
+      "trendline": {
+        "m": 1.1112645612260457,
+        "c": -55.78685550560078,
+        "touches": 5,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 51.297790607445435
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767276900000,
+    "price": 124.47,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 124.47,
+    "stop_loss": 126.01769999999999,
+    "take_profit": 121.37460000000002,
+    "setup": {
+      "side": "SHORT",
+      "entry": 124.47,
+      "tp": 121.37460000000002,
+      "sl": 126.01769999999999,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.3880087662712543,
+        "c": 4.401660688410047,
+        "touches": 3,
+        "start": 74
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 37.132287268271185
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767287700000,
+    "price": 124.93,
+    "score": 100.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 124.93,
+    "stop_loss": 123.3936,
+    "take_profit": 128.0028,
+    "setup": {
+      "side": "LONG",
+      "entry": 124.93,
+      "tp": 128.0028,
+      "sl": 123.3936,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.18204222697308126,
+        "c": 68.555503418363,
+        "touches": 4,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 54.98162484477003
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767295800000,
+    "price": 125.56,
+    "score": 100.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 125.56,
+    "stop_loss": 123.9777,
+    "take_profit": 128.7246,
+    "setup": {
+      "side": "LONG",
+      "entry": 125.56,
+      "tp": 128.7246,
+      "sl": 123.9777,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.06778673723597523,
+        "c": 55.233796627305644,
+        "touches": 6,
+        "start": 62
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 67.20525388611999
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767303000000,
+    "price": 125.35,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.17,
+    "entry": 125.35,
+    "stop_loss": 126.8156,
+    "take_profit": 123.64,
+    "setup": {
+      "side": "SHORT",
+      "entry": 125.35,
+      "tp": 123.64,
+      "sl": 126.8156,
+      "rr": 1.17,
+      "trendline": {
+        "m": 1.0899497569825027,
+        "c": -49.0590267549203,
+        "touches": 3,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 54.26938846064041
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767309300000,
+    "price": 126.83,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 126.83,
+    "stop_loss": 124.88850000000001,
+    "take_profit": 130.71299999999997,
+    "setup": {
+      "side": "LONG",
+      "entry": 126.83,
+      "tp": 130.71299999999997,
+      "sl": 124.88850000000001,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.09175846072764861,
+        "c": 61.35208196387,
+        "touches": 6,
+        "start": 11
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 80.4201696445312
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767313800000,
+    "price": 126.44,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.36,
+    "entry": 126.44,
+    "stop_loss": 128.1589,
+    "take_profit": 124.11,
+    "setup": {
+      "side": "SHORT",
+      "entry": 126.44,
+      "tp": 124.11,
+      "sl": 128.1589,
+      "rr": 1.36,
+      "trendline": {
+        "m": 1.3203473005337691,
+        "c": -61.921173986331276,
+        "touches": 6,
+        "start": 88
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 62.52237948379298
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767316500000,
+    "price": 126.24,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.28,
+    "entry": 126.24,
+    "stop_loss": 127.9064,
+    "take_profit": 124.11,
+    "setup": {
+      "side": "SHORT",
+      "entry": 126.24,
+      "tp": 124.11,
+      "sl": 127.9064,
+      "rr": 1.28,
+      "trendline": {
+        "m": 0.6877492519293812,
+        "c": -4.189297953356991,
+        "touches": 4,
+        "start": 85
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 54.71428822602863
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767319200000,
+    "price": 125.96,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.27,
+    "entry": 125.96,
+    "stop_loss": 127.4115,
+    "take_profit": 124.11,
+    "setup": {
+      "side": "SHORT",
+      "entry": 125.96,
+      "tp": 124.11,
+      "sl": 127.4115,
+      "rr": 1.27,
+      "trendline": {
+        "m": 0.369966700756167,
+        "c": 15.919001413023892,
+        "touches": 3,
+        "start": 63
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 48.67032661942623
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767339000000,
+    "price": 126.92,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.87,
+    "entry": 126.92,
+    "stop_loss": 128.4215,
+    "take_profit": 124.11,
+    "setup": {
+      "side": "SHORT",
+      "entry": 126.92,
+      "tp": 124.11,
+      "sl": 128.4215,
+      "rr": 1.87,
+      "trendline": {
+        "m": 0.37807799086008487,
+        "c": 18.16819367301106,
+        "touches": 3,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50.27566394297266
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767341700000,
+    "price": 127.54,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 127.54,
+    "stop_loss": 126.04679999999999,
+    "take_profit": 130.52640000000002,
+    "setup": {
+      "side": "LONG",
+      "entry": 127.54,
+      "tp": 130.52640000000002,
+      "sl": 126.04679999999999,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.6138132824682062,
+        "c": 119.86832216445,
+        "touches": 6,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 61.116606298901196
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767356100000,
+    "price": 128.02,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.51,
+    "entry": 128.02,
+    "stop_loss": 129.5325,
+    "take_profit": 124.22,
+    "setup": {
+      "side": "SHORT",
+      "entry": 128.02,
+      "tp": 124.22,
+      "sl": 129.5325,
+      "rr": 2.51,
+      "trendline": {
+        "m": 0.1190491744579103,
+        "c": 40.632680811881926,
+        "touches": 4,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 49.83740737120887
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767362400000,
+    "price": 127.98,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.96,
+    "entry": 127.98,
+    "stop_loss": 129.89610000000002,
+    "take_profit": 124.22,
+    "setup": {
+      "side": "SHORT",
+      "entry": 127.98,
+      "tp": 124.22,
+      "sl": 129.89610000000002,
+      "rr": 1.96,
+      "trendline": {
+        "m": 0.04502631050627759,
+        "c": 45.649960494125054,
+        "touches": 3,
+        "start": 53
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 46.70144674887227
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767391200000,
+    "price": 132.34,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 132.34,
+    "stop_loss": 130.5216,
+    "take_profit": 135.9768,
+    "setup": {
+      "side": "LONG",
+      "entry": 132.34,
+      "tp": 135.9768,
+      "sl": 130.5216,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.5484305059347298,
+        "c": 119.35276017427914,
+        "touches": 5,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 68.08420398269034
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767396600000,
+    "price": 132.18,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 4.02,
+    "entry": 132.18,
+    "stop_loss": 133.8048,
+    "take_profit": 125.65,
+    "setup": {
+      "side": "SHORT",
+      "entry": 132.18,
+      "tp": 125.65,
+      "sl": 133.8048,
+      "rr": 4.02,
+      "trendline": {
+        "m": 0.571746673167138,
+        "c": 5.0997340890652865,
+        "touches": 4,
+        "start": 63
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 59.638577488132185
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767405600000,
+    "price": 132.25,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.89,
+    "entry": 132.25,
+    "stop_loss": 133.8957,
+    "take_profit": 125.85,
+    "setup": {
+      "side": "SHORT",
+      "entry": 132.25,
+      "tp": 125.85,
+      "sl": 133.8957,
+      "rr": 3.89,
+      "trendline": {
+        "m": 0.04440092035095154,
+        "c": 52.4775152932154,
+        "touches": 4,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 53.114640915097674
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767408300000,
+    "price": 132.8,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 132.8,
+    "stop_loss": 131.4126,
+    "take_profit": 135.57480000000004,
+    "setup": {
+      "side": "LONG",
+      "entry": 132.8,
+      "tp": 135.57480000000004,
+      "sl": 131.4126,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.8737066942070385,
+        "c": 145.27742143582446,
+        "touches": 7,
+        "start": 83
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 60.21524009095608
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767410100000,
+    "price": 132.36,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.88,
+    "entry": 132.36,
+    "stop_loss": 134.0169,
+    "take_profit": 125.93,
+    "setup": {
+      "side": "SHORT",
+      "entry": 132.36,
+      "tp": 125.93,
+      "sl": 134.0169,
+      "rr": 3.88,
+      "trendline": {
+        "m": 0.2552099237553765,
+        "c": 28.869698158336906,
+        "touches": 3,
+        "start": 48
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 52.28426428799042
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767414600000,
+    "price": 132.2,
+    "score": 100.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.26,
+    "entry": 132.2,
+    "stop_loss": 133.87550000000002,
+    "take_profit": 126.73,
+    "setup": {
+      "side": "SHORT",
+      "entry": 132.2,
+      "tp": 126.73,
+      "sl": 133.87550000000002,
+      "rr": 3.26,
+      "trendline": {
+        "m": 0.19013354107741248,
+        "c": 32.94403223226624,
+        "touches": 4,
+        "start": 43
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 48.075835726054535
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767418200000,
+    "price": 131.65,
+    "score": 100.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.73,
+    "entry": 131.65,
+    "stop_loss": 133.4513,
+    "take_profit": 126.73,
+    "setup": {
+      "side": "SHORT",
+      "entry": 131.65,
+      "tp": 126.73,
+      "sl": 133.4513,
+      "rr": 2.73,
+      "trendline": {
+        "m": 0.12203616188525539,
+        "c": 36.36036418507002,
+        "touches": 5,
+        "start": 39
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 39.751782587021935
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767429000000,
+    "price": 130.84,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.35,
+    "entry": 130.84,
+    "stop_loss": 129.1059,
+    "take_profit": 133.18,
+    "setup": {
+      "side": "LONG",
+      "entry": 130.84,
+      "tp": 133.18,
+      "sl": 129.1059,
+      "rr": 1.35,
+      "trendline": {
+        "m": -1.0210856508334012,
+        "c": 140.42507058163625,
+        "touches": 4,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 42.6302690578697
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767431700000,
+    "price": 130.72,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.45,
+    "entry": 130.72,
+    "stop_loss": 129.0267,
+    "take_profit": 133.18,
+    "setup": {
+      "side": "LONG",
+      "entry": 130.72,
+      "tp": 133.18,
+      "sl": 129.0267,
+      "rr": 1.45,
+      "trendline": {
+        "m": -0.5897092948760438,
+        "c": 99.83207066084594,
+        "touches": 3,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 43.00170247503216
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767444300000,
+    "price": 130.86,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.48,
+    "entry": 130.86,
+    "stop_loss": 129.29399999999998,
+    "take_profit": 133.18,
+    "setup": {
+      "side": "LONG",
+      "entry": 130.86,
+      "tp": 133.18,
+      "sl": 129.29399999999998,
+      "rr": 1.48,
+      "trendline": {
+        "m": -0.41032432927628676,
+        "c": 87.2088184891175,
+        "touches": 4,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 48.54144115754177
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767448800000,
+    "price": 131.29,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.24,
+    "entry": 131.29,
+    "stop_loss": 129.7692,
+    "take_profit": 133.18,
+    "setup": {
+      "side": "LONG",
+      "entry": 131.29,
+      "tp": 133.18,
+      "sl": 129.7692,
+      "rr": 1.24,
+      "trendline": {
+        "m": -0.12376232097812534,
+        "c": 65.91643313169541,
+        "touches": 5,
+        "start": 58
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 56.07184733203685
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767459600000,
+    "price": 131.6,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.32,
+    "entry": 131.6,
+    "stop_loss": 133.1887,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 131.6,
+      "tp": 129.51,
+      "sl": 133.1887,
+      "rr": 1.32,
+      "trendline": {
+        "m": 0.73074206494048,
+        "c": -16.088461251775634,
+        "touches": 4,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 53.928444087739436
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767466800000,
+    "price": 131.62,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.32,
+    "entry": 131.62,
+    "stop_loss": 133.219,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 131.62,
+      "tp": 129.51,
+      "sl": 133.219,
+      "rr": 1.32,
+      "trendline": {
+        "m": 0.42503494859662033,
+        "c": 11.768387644506099,
+        "touches": 3,
+        "start": 72
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50.34570738007097
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767470400000,
+    "price": 131.37,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.1,
+    "entry": 131.37,
+    "stop_loss": 133.0574,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 131.37,
+      "tp": 129.51,
+      "sl": 133.0574,
+      "rr": 1.1,
+      "trendline": {
+        "m": 0.28481440845029304,
+        "c": 23.003524168842837,
+        "touches": 4,
+        "start": 68
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 44.388784310438325
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767480300000,
+    "price": 133.42,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 133.42,
+    "stop_loss": 131.67,
+    "take_profit": 136.92,
+    "setup": {
+      "side": "LONG",
+      "entry": 133.42,
+      "tp": 136.92,
+      "sl": 131.67,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.07391738546471882,
+        "c": 63.06177286352855,
+        "touches": 5,
+        "start": 13
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 74.55685537235722
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767484800000,
+    "price": 134.51,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.51,
+    "stop_loss": 131.9769,
+    "take_profit": 139.57619999999997,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.51,
+      "tp": 139.57619999999997,
+      "sl": 131.9769,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.09512796696499887,
+        "c": 65.51969851068233,
+        "touches": 4,
+        "start": 5
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 77.2668786026463
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767489300000,
+    "price": 133.84,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.05,
+    "entry": 133.84,
+    "stop_loss": 135.95610000000002,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.84,
+      "tp": 129.51,
+      "sl": 135.95610000000002,
+      "rr": 2.05,
+      "trendline": {
+        "m": 1.2592612726212895,
+        "c": -55.09285622664355,
+        "touches": 5,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 59.466986988865656
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767492000000,
+    "price": 133.63,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.47,
+    "entry": 133.63,
+    "stop_loss": 135.2996,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.63,
+      "tp": 129.51,
+      "sl": 135.2996,
+      "rr": 2.47,
+      "trendline": {
+        "m": 0.5596789669584232,
+        "c": 1.8531828215981605,
+        "touches": 3,
+        "start": 76
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.36088343962587
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767503700000,
+    "price": 134.45,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.45,
+    "stop_loss": 132.8976,
+    "take_profit": 137.55479999999994,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.45,
+      "tp": 137.55479999999994,
+      "sl": 132.8976,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.9196671179997992,
+        "c": 149.92058092463043,
+        "touches": 6,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 60.70675528219733
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767504600000,
+    "price": 134.27,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.08,
+    "entry": 134.27,
+    "stop_loss": 135.8147,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.27,
+      "tp": 129.51,
+      "sl": 135.8147,
+      "rr": 3.08,
+      "trendline": {
+        "m": 0.40426689077095357,
+        "c": 19.324237082639204,
+        "touches": 9,
+        "start": 62
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 57.06275060790319
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767508200000,
+    "price": 133.83,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.11,
+    "entry": 133.83,
+    "stop_loss": 135.8753,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.83,
+      "tp": 129.51,
+      "sl": 135.8753,
+      "rr": 2.11,
+      "trendline": {
+        "m": 0.18025226145167275,
+        "c": 39.758533508542605,
+        "touches": 7,
+        "start": 84
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 47.4324704525516
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767513600000,
+    "price": 133.46,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.27,
+    "entry": 133.46,
+    "stop_loss": 135.19860000000003,
+    "take_profit": 129.51,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.46,
+      "tp": 129.51,
+      "sl": 135.19860000000003,
+      "rr": 2.27,
+      "trendline": {
+        "m": 0.023293117913797932,
+        "c": 43.17754217892083,
+        "touches": 3,
+        "start": 52
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 41.91504180370721
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767519000000,
+    "price": 134.23,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.23,
+    "stop_loss": 132.58079999999998,
+    "take_profit": 137.5284,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.23,
+      "tp": 137.5284,
+      "sl": 132.58079999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.6951196158759133,
+        "c": 120.36429478695293,
+        "touches": 8,
+        "start": 62
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.9882536366859
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767529800000,
+    "price": 134.16,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.86,
+    "entry": 134.16,
+    "stop_loss": 136.1581,
+    "take_profit": 130.44,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.16,
+      "tp": 130.44,
+      "sl": 136.1581,
+      "rr": 1.86,
+      "trendline": {
+        "m": 0.8913020887056484,
+        "c": -32.51897312745544,
+        "touches": 3,
+        "start": 83
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 49.095000613897064
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767532500000,
+    "price": 133.95,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.14,
+    "entry": 133.95,
+    "stop_loss": 135.5521,
+    "take_profit": 130.52,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.95,
+      "tp": 130.52,
+      "sl": 135.5521,
+      "rr": 2.14,
+      "trendline": {
+        "m": 0.4491706105166871,
+        "c": 5.525451393778411,
+        "touches": 4,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 44.79762652659005
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767537900000,
+    "price": 134.9,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.9,
+    "stop_loss": 133.1253,
+    "take_profit": 138.4494,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.9,
+      "tp": 138.4494,
+      "sl": 133.1253,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.3345483804642356,
+        "c": 90.98336220167997,
+        "touches": 5,
+        "start": 41
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 61.243238193953914
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767546000000,
+    "price": 134.92,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.15,
+    "entry": 134.92,
+    "stop_loss": 136.6025,
+    "take_profit": 131.3,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.92,
+      "tp": 131.3,
+      "sl": 136.6025,
+      "rr": 2.15,
+      "trendline": {
+        "m": 0.8577278897303527,
+        "c": -28.10924410048993,
+        "touches": 3,
+        "start": 85
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.4006541945859
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767553200000,
+    "price": 133.3,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 133.3,
+    "stop_loss": 135.4915,
+    "take_profit": 128.91700000000003,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.3,
+      "tp": 128.91700000000003,
+      "sl": 135.4915,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.01896584038447884,
+        "c": 42.540153137028675,
+        "touches": 3,
+        "start": 57
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 31.17216220056019
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767560400000,
+    "price": 134.28,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.28,
+    "stop_loss": 132.4422,
+    "take_profit": 137.95559999999998,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.28,
+      "tp": 137.95559999999998,
+      "sl": 132.4422,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.894548960716737,
+        "c": 133.49427119210316,
+        "touches": 8,
+        "start": 76
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 51.31187035145569
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767566700000,
+    "price": 134.1,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.1,
+    "stop_loss": 132.5214,
+    "take_profit": 137.25719999999998,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.1,
+      "tp": 137.25719999999998,
+      "sl": 132.5214,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.5915283260906437,
+        "c": 106.32400467788554,
+        "touches": 5,
+        "start": 69
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 49.837477783499416
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767573000000,
+    "price": 134.71,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 134.71,
+    "stop_loss": 132.7293,
+    "take_profit": 138.67140000000003,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.71,
+      "tp": 138.67140000000003,
+      "sl": 132.7293,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.22781887555652525,
+        "c": 79.6333204621357,
+        "touches": 3,
+        "start": 62
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 58.9829872718138
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767576600000,
+    "price": 137.01,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 137.01,
+    "stop_loss": 134.70929999999998,
+    "take_profit": 141.6114,
+    "setup": {
+      "side": "LONG",
+      "entry": 137.01,
+      "tp": 141.6114,
+      "sl": 134.70929999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.031021608455691834,
+        "c": 70.79427054478957,
+        "touches": 3,
+        "start": 1
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 76.07962099326305
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767591900000,
+    "price": 134.99,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 134.99,
+    "stop_loss": 137.3398,
+    "take_profit": 130.29040000000003,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.99,
+      "tp": 130.29040000000003,
+      "sl": 137.3398,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.3732166315112813,
+        "c": 9.898814204417157,
+        "touches": 3,
+        "start": 57
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 43.149668826671906
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767603600000,
+    "price": 134.76,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.03,
+    "entry": 134.76,
+    "stop_loss": 136.6025,
+    "take_profit": 132.86,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.76,
+      "tp": 132.86,
+      "sl": 136.6025,
+      "rr": 1.03,
+      "trendline": {
+        "m": 0.02693488955016544,
+        "c": 40.80633343580751,
+        "touches": 3,
+        "start": 54
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 41.27976499472289
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767618900000,
+    "price": 134.28,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 134.28,
+    "stop_loss": 136.4409,
+    "take_profit": 129.9582,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.28,
+      "tp": 129.9582,
+      "sl": 136.4409,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.10361264471592488,
+        "c": 32.67991548330112,
+        "touches": 3,
+        "start": 83
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 35.850571824042724
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767627000000,
+    "price": 136.05,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 136.05,
+    "stop_loss": 133.452,
+    "take_profit": 141.24600000000004,
+    "setup": {
+      "side": "LONG",
+      "entry": 136.05,
+      "tp": 141.24600000000004,
+      "sl": 133.452,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.16049092552280872,
+        "c": 66.63546671828726,
+        "touches": 7,
+        "start": 78
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 61.27230274271569
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767668400000,
+    "price": 137.94,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.01,
+    "entry": 137.94,
+    "stop_loss": 136.1151,
+    "take_profit": 139.79,
+    "setup": {
+      "side": "LONG",
+      "entry": 137.94,
+      "tp": 139.79,
+      "sl": 136.1151,
+      "rr": 1.01,
+      "trendline": {
+        "m": -1.1233726518178528,
+        "c": 160.1189084225474,
+        "touches": 5,
+        "start": 73
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 52.96071656337184
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767677400000,
+    "price": 138.8,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 138.8,
+    "stop_loss": 137.2041,
+    "take_profit": 141.9918,
+    "setup": {
+      "side": "LONG",
+      "entry": 138.8,
+      "tp": 141.9918,
+      "sl": 137.2041,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.5612809590284825,
+        "c": 113.47340525863856,
+        "touches": 5,
+        "start": 63
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 60.43324315541274
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767708000000,
+    "price": 140.93,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 140.93,
+    "stop_loss": 137.67929999999998,
+    "take_profit": 147.43140000000005,
+    "setup": {
+      "side": "LONG",
+      "entry": 140.93,
+      "tp": 147.43140000000005,
+      "sl": 137.67929999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.08762325884310822,
+        "c": 72.92221208116362,
+        "touches": 3,
+        "start": 67
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 72.56115390702864
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767715200000,
+    "price": 140.67,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.36,
+    "entry": 140.67,
+    "stop_loss": 143.3796,
+    "take_profit": 134.28,
+    "setup": {
+      "side": "SHORT",
+      "entry": 140.67,
+      "tp": 134.28,
+      "sl": 143.3796,
+      "rr": 2.36,
+      "trendline": {
+        "m": 0.8830017677212596,
+        "c": -25.315880448992353,
+        "touches": 4,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 53.44264491203957
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767720600000,
+    "price": 138.06,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.79,
+    "entry": 138.06,
+    "stop_loss": 140.1678,
+    "take_profit": 134.28,
+    "setup": {
+      "side": "SHORT",
+      "entry": 138.06,
+      "tp": 134.28,
+      "sl": 140.1678,
+      "rr": 1.79,
+      "trendline": {
+        "m": -0.01406582256111538,
+        "c": 42.09832369259008,
+        "touches": 6,
+        "start": 61
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 38.659688509833224
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767733200000,
+    "price": 139.63,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.58,
+    "entry": 139.63,
+    "stop_loss": 137.2635,
+    "take_profit": 143.36,
+    "setup": {
+      "side": "LONG",
+      "entry": 139.63,
+      "tp": 143.36,
+      "sl": 137.2635,
+      "rr": 1.58,
+      "trendline": {
+        "m": -1.0748229815938024,
+        "c": 158.41720629280076,
+        "touches": 4,
+        "start": 73
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 58.111156349475664
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767748500000,
+    "price": 139.64,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.9,
+    "entry": 139.64,
+    "stop_loss": 141.48080000000002,
+    "take_profit": 136.15,
+    "setup": {
+      "side": "SHORT",
+      "entry": 139.64,
+      "tp": 136.15,
+      "sl": 141.48080000000002,
+      "rr": 1.9,
+      "trendline": {
+        "m": 0.6160851782207912,
+        "c": -11.45412437460115,
+        "touches": 3,
+        "start": 70
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 46.90272251456649
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767761100000,
+    "price": 138.75,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.46,
+    "entry": 138.75,
+    "stop_loss": 140.5314,
+    "take_profit": 136.15,
+    "setup": {
+      "side": "SHORT",
+      "entry": 138.75,
+      "tp": 136.15,
+      "sl": 140.5314,
+      "rr": 1.46,
+      "trendline": {
+        "m": 0.27789562132732315,
+        "c": 16.10968330652414,
+        "touches": 6,
+        "start": 56
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 39.03536132640774
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767764700000,
+    "price": 138.47,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.34,
+    "entry": 138.47,
+    "stop_loss": 140.1981,
+    "take_profit": 136.15,
+    "setup": {
+      "side": "SHORT",
+      "entry": 138.47,
+      "tp": 136.15,
+      "sl": 140.1981,
+      "rr": 1.34,
+      "trendline": {
+        "m": 0.14974642419919632,
+        "c": 23.885024042496028,
+        "touches": 4,
+        "start": 52
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 36.66326244954218
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767769200000,
+    "price": 139.02,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.59,
+    "entry": 139.02,
+    "stop_loss": 137.34269999999998,
+    "take_profit": 143.36,
+    "setup": {
+      "side": "LONG",
+      "entry": 139.02,
+      "tp": 143.36,
+      "sl": 137.34269999999998,
+      "rr": 2.59,
+      "trendline": {
+        "m": -0.8308405294224558,
+        "c": 124.7206247438997,
+        "touches": 4,
+        "start": 85
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 47.24794563374343
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767791700000,
+    "price": 138.15,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.64,
+    "entry": 138.15,
+    "stop_loss": 136.17450000000002,
+    "take_profit": 143.36,
+    "setup": {
+      "side": "LONG",
+      "entry": 138.15,
+      "tp": 143.36,
+      "sl": 136.17450000000002,
+      "rr": 2.64,
+      "trendline": {
+        "m": -0.5449677986921591,
+        "c": 98.14320645095964,
+        "touches": 4,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50.328591527388404
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767798000000,
+    "price": 136.8,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 136.8,
+    "stop_loss": 139.45069999999998,
+    "take_profit": 131.49860000000007,
+    "setup": {
+      "side": "SHORT",
+      "entry": 136.8,
+      "tp": 131.49860000000007,
+      "sl": 139.45069999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.7289234633556538,
+        "c": -32.65052468205312,
+        "touches": 4,
+        "start": 78
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 37.38750846048136
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767812400000,
+    "price": 134.78,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 134.78,
+    "stop_loss": 136.8247,
+    "take_profit": 130.6906,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.78,
+      "tp": 130.6906,
+      "sl": 136.8247,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.22152660893545117,
+        "c": 10.470855705689912,
+        "touches": 6,
+        "start": 62
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 30.32397557899311
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767817800000,
+    "price": 135.7,
+    "score": 110.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 3.46,
+    "entry": 135.7,
+    "stop_loss": 133.88760000000002,
+    "take_profit": 141.97,
+    "setup": {
+      "side": "LONG",
+      "entry": 135.7,
+      "tp": 141.97,
+      "sl": 133.88760000000002,
+      "rr": 3.46,
+      "trendline": {
+        "m": -0.2724749325175185,
+        "c": 71.03846365059422,
+        "touches": 4,
+        "start": 72
+      }
+    },
+    "details": {
+      "total": 110
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 46.45553902724135
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767825000000,
+    "price": 136.35,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 3.28,
+    "entry": 136.35,
+    "stop_loss": 134.8281,
+    "take_profit": 141.34,
+    "setup": {
+      "side": "LONG",
+      "entry": 136.35,
+      "tp": 141.34,
+      "sl": 134.8281,
+      "rr": 3.28,
+      "trendline": {
+        "m": 0.03943319089720723,
+        "c": 48.896544291911624,
+        "touches": 7,
+        "start": 64
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 54.89476660262547
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767829500000,
+    "price": 136.34,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.32,
+    "entry": 136.34,
+    "stop_loss": 137.8347,
+    "take_profit": 134.36,
+    "setup": {
+      "side": "SHORT",
+      "entry": 136.34,
+      "tp": 134.36,
+      "sl": 137.8347,
+      "rr": 1.32,
+      "trendline": {
+        "m": 1.357944993265377,
+        "c": -79.66956887550243,
+        "touches": 4,
+        "start": 81
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 52.71189627950558
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767834900000,
+    "price": 137.19,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.99,
+    "entry": 137.19,
+    "stop_loss": 135.2934,
+    "take_profit": 140.96,
+    "setup": {
+      "side": "LONG",
+      "entry": 137.19,
+      "tp": 140.96,
+      "sl": 135.2934,
+      "rr": 1.99,
+      "trendline": {
+        "m": 0.08974455894901948,
+        "c": 53.02224503560274,
+        "touches": 4,
+        "start": 12
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 64.20786139275734
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767842100000,
+    "price": 137.06,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.32,
+    "entry": 137.06,
+    "stop_loss": 139.10729999999998,
+    "take_profit": 134.36,
+    "setup": {
+      "side": "SHORT",
+      "entry": 137.06,
+      "tp": 134.36,
+      "sl": 139.10729999999998,
+      "rr": 1.32,
+      "trendline": {
+        "m": 0.9485821621995774,
+        "c": -33.23102928837858,
+        "touches": 5,
+        "start": 67
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 53.443865606526025
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767850200000,
+    "price": 136.75,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.28,
+    "entry": 136.75,
+    "stop_loss": 138.6225,
+    "take_profit": 134.36,
+    "setup": {
+      "side": "SHORT",
+      "entry": 136.75,
+      "tp": 134.36,
+      "sl": 138.6225,
+      "rr": 1.28,
+      "trendline": {
+        "m": 0.06934942829068423,
+        "c": 41.76485551782974,
+        "touches": 3,
+        "start": 70
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 46.327433488849046
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767863700000,
+    "price": 134.43,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 134.43,
+    "stop_loss": 136.52169999999998,
+    "take_profit": 130.24660000000006,
+    "setup": {
+      "side": "SHORT",
+      "entry": 134.43,
+      "tp": 130.24660000000006,
+      "sl": 136.52169999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.6812564739019067,
+        "c": -29.25908660728978,
+        "touches": 4,
+        "start": 88
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 33.25148889832571
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767879900000,
+    "price": 134.4,
+    "score": 100.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.98,
+    "entry": 134.4,
+    "stop_loss": 132.3036,
+    "take_profit": 138.56,
+    "setup": {
+      "side": "LONG",
+      "entry": 134.4,
+      "tp": 138.56,
+      "sl": 132.3036,
+      "rr": 1.98,
+      "trendline": {
+        "m": -0.43358707555427856,
+        "c": 82.36421127370227,
+        "touches": 4,
+        "start": 88
+      }
+    },
+    "details": {
+      "total": 100
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 44.55061762638057
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767882600000,
+    "price": 133.17,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.0,
+    "entry": 133.17,
+    "stop_loss": 135.57229999999998,
+    "take_profit": 128.3654,
+    "setup": {
+      "side": "SHORT",
+      "entry": 133.17,
+      "tp": 128.3654,
+      "sl": 135.57229999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": 0.3222514499249254,
+        "c": 6.1044408960345145,
+        "touches": 7,
+        "start": 82
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 31.120452596252044
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767884400000,
+    "price": 135.09,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.03,
+    "entry": 135.09,
+    "stop_loss": 132.0363,
+    "take_profit": 138.24,
+    "setup": {
+      "side": "LONG",
+      "entry": 135.09,
+      "tp": 138.24,
+      "sl": 132.0363,
+      "rr": 1.03,
+      "trendline": {
+        "m": 0.028505750121234758,
+        "c": 41.84257136486327,
+        "touches": 4,
+        "start": 83
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.68360995049765
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767901500000,
+    "price": 137.59,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.56,
+    "entry": 137.59,
+    "stop_loss": 139.5113,
+    "take_profit": 132.67,
+    "setup": {
+      "side": "SHORT",
+      "entry": 137.59,
+      "tp": 132.67,
+      "sl": 139.5113,
+      "rr": 2.56,
+      "trendline": {
+        "m": 1.3412351454302167,
+        "c": -74.83712389273506,
+        "touches": 3,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 55.3313290784656
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767915900000,
+    "price": 138.37,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.02,
+    "entry": 138.37,
+    "stop_loss": 140.2587,
+    "take_profit": 132.67,
+    "setup": {
+      "side": "SHORT",
+      "entry": 138.37,
+      "tp": 132.67,
+      "sl": 140.2587,
+      "rr": 3.02,
+      "trendline": {
+        "m": 0.7046382146590934,
+        "c": -12.21837080884658,
+        "touches": 5,
+        "start": 86
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 52.28026533315001
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767921300000,
+    "price": 139.39,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 139.39,
+    "stop_loss": 136.81799999999998,
+    "take_profit": 144.534,
+    "setup": {
+      "side": "LONG",
+      "entry": 139.39,
+      "tp": 144.534,
+      "sl": 136.81799999999998,
+      "rr": 2.0,
+      "trendline": {
+        "m": -1.0126151636030913,
+        "c": 157.95951961450575,
+        "touches": 4,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 60.417166324530946
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767922200000,
+    "price": 137.83,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 1.64,
+    "entry": 137.83,
+    "stop_loss": 140.97580000000002,
+    "take_profit": 132.67,
+    "setup": {
+      "side": "SHORT",
+      "entry": 137.83,
+      "tp": 132.67,
+      "sl": 140.97580000000002,
+      "rr": 1.64,
+      "trendline": {
+        "m": 0.2785535486653257,
+        "c": 26.37478530727472,
+        "touches": 4,
+        "start": 79
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 45.05537064231475
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767927600000,
+    "price": 139.8,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 139.8,
+    "stop_loss": 137.511,
+    "take_profit": 144.37800000000004,
+    "setup": {
+      "side": "LONG",
+      "entry": 139.8,
+      "tp": 144.37800000000004,
+      "sl": 137.511,
+      "rr": 2.0,
+      "trendline": {
+        "m": -0.726525696654297,
+        "c": 127.98405611338057,
+        "touches": 5,
+        "start": 80
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 60.22352318384849
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767935700000,
+    "price": 139.58,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 3.6,
+    "entry": 139.58,
+    "stop_loss": 141.501,
+    "take_profit": 132.67,
+    "setup": {
+      "side": "SHORT",
+      "entry": 139.58,
+      "tp": 132.67,
+      "sl": 141.501,
+      "rr": 3.6,
+      "trendline": {
+        "m": 0.7985162692703707,
+        "c": -22.81851224566676,
+        "touches": 4,
+        "start": 85
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 52.56849372859988
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767952800000,
+    "price": 138.97,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 2.0,
+    "entry": 138.97,
+    "stop_loss": 136.7388,
+    "take_profit": 143.4324,
+    "setup": {
+      "side": "LONG",
+      "entry": 138.97,
+      "tp": 143.4324,
+      "sl": 136.7388,
+      "rr": 2.0,
+      "trendline": {
+        "m": -1.3257778806021343,
+        "c": 176.87428881948603,
+        "touches": 4,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 48.080930963947665
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767960000000,
+    "price": 138.21,
+    "score": 80.0,
+    "bias": "SHORT",
+    "action": "SELL",
+    "rr": 2.97,
+    "entry": 138.21,
+    "stop_loss": 140.0769,
+    "take_profit": 132.67,
+    "setup": {
+      "side": "SHORT",
+      "entry": 138.21,
+      "tp": 132.67,
+      "sl": 140.0769,
+      "rr": 2.97,
+      "trendline": {
+        "m": 0.5811048979135923,
+        "c": -14.932113635493394,
+        "touches": 3,
+        "start": 87
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 41.02033439016818
+    },
+    "strategy_name": "Breakout"
+  },
+  {
+    "timestamp": 1767963600000,
+    "price": 138.36,
+    "score": 80.0,
+    "bias": "LONG",
+    "action": "BUY",
+    "rr": 1.37,
+    "entry": 138.36,
+    "stop_loss": 136.32299999999998,
+    "take_profit": 141.15,
+    "setup": {
+      "side": "LONG",
+      "entry": 138.36,
+      "tp": 141.15,
+      "sl": 136.32299999999998,
+      "rr": 1.37,
+      "trendline": {
+        "m": -0.9618297195011255,
+        "c": 133.66884216968475,
+        "touches": 13,
+        "start": 75
+      }
+    },
+    "details": {
+      "total": 80
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 46.09512711711903
+    },
+    "strategy_name": "Breakout"
+  }
+]
