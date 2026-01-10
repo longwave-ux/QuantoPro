@@ -98,7 +98,7 @@ const appendSignalLog = async (results) => {
 // WORKFLOW
 // ==========================================
 
-const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) => {
+const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, strategy = 'all') => {
     const promises = pairs.map(async (symbol) => {
         const [htfData, ltfData] = await Promise.all([
             fetchCandles(symbol, htf, source),
@@ -108,13 +108,8 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
         if (htfData.length === 0 || ltfData.length === 0) return null;
 
         const mcap = McapService.getMcap(symbol);
-        // --- LIVE MODE: PYTHON ---
-        // We need the filename of the 15m data (LTF)
-        // Format: data/{SOURCE}_{SYMBOL}_{INTERVAL}.json
         const ltfFilename = `${source}_${symbol}_${ltf}.json`;
         const ltfFilePath = path.join(DATA_DIR, ltfFilename);
-
-        // Serialize Current Config for Python
         const configStr = JSON.stringify(CONFIG);
 
         let resultBase = null;
@@ -123,39 +118,34 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
             const pythonScript = path.join(process.cwd(), 'market_scanner.py');
             const venvPython = path.join(process.cwd(), 'venv/bin/python');
 
-            // Execute Python Script
-            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', 'all', '--config', configStr]);
+            // Pass the requested strategy to Python
+            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--config', configStr]);
 
             try {
-                // Parse Python Output
                 const pyResult = JSON.parse(stdout);
-
-                // Handle Array (Multi-Strategy) or Object (Single)
                 const pyResArray = Array.isArray(pyResult) ? pyResult : [pyResult];
 
-                // Map Python Results to JS Structure
                 resultBase = pyResArray.map(res => ({
                     ...res,
-                    strategy_name: res.strategy_name || 'Legacy', // Explicit Fallback
+                    strategy_name: res.strategy_name || 'Legacy',
                     timestamp: now,
                     source: source,
                     meta: { htfInterval: htf, ltfInterval: ltf },
                     details: { ...res.details, mcap: mcap }
                 }));
 
-                // Log first result for debug
                 if (resultBase.length > 0) {
-                    console.log(`[PYTHON-LIVE] ${symbol} | Score: ${resultBase[0].score?.toFixed(1)} | Bias: ${resultBase[0].htf?.bias}`);
+                    console.log(`[PYTHON-LIVE] ${symbol} (${strategy}) | Score: ${resultBase[0].score?.toFixed(1)}`);
                 }
 
             } catch (jsonErr) {
                 console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
-                return null; // Skip if parse fails
+                return null;
             }
 
         } catch (pyErr) {
             console.error(`[PYTHON EXEC ERROR] ${symbol}`, pyErr.message);
-            return null; // Skip if exec fails
+            return null;
         }
 
         if (!resultBase) return [];
@@ -164,11 +154,6 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
         const processedResults = [];
 
         resultsArray.forEach(res => {
-            // History Logic per result?
-            // Note: History is keyed by Symbol. If multiple strategies for same symbol, 
-            // they share/overwrite history. This is acceptable for now.
-            // Ideally unique key like "Symbol-Strategy" but sticking to user request.
-
             let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
 
             if (history[symbol]) {
@@ -197,8 +182,6 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
                         nextConsecutive = history[symbol].consecutiveScans;
                     }
                 }
-
-                // Warn: Overwrite risk for same symbol
                 nextHistory[symbol] = {
                     score: res.score,
                     timestamp: now,
@@ -216,12 +199,11 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory) 
     });
 
     const results = await Promise.all(promises);
-    // Each promise now returns Array or Null
     return results.filter(r => r !== null).flat();
 };
 
-export const runServerScan = async (source = 'KUCOIN') => {
-    Logger.info(`[SERVER SCAN] Starting scan for ${source}...`);
+export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
+    Logger.info(`[SERVER SCAN] Starting scan for ${source} (Strategy: ${strategy})...`);
 
     // 1. Update outcomes of previous signals (Foretesting)
     await updateOutcomes();
@@ -242,13 +224,7 @@ export const runServerScan = async (source = 'KUCOIN') => {
     const BATCH_SIZE = CONFIG.SYSTEM.BATCH_SIZE;
     for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
         const batchPairs = topPairs.slice(i, i + BATCH_SIZE);
-        const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory);
-        // batchResults is Array of Arrays of Objects (since we now return processedResults array)
-        // Flatten 1 level (promises) -> Array of (Array|Null)
-        // Filter Nulls (processed in processBatch usually returns null if error)
-        // Actually processBatch returns results.filter(r => r!== null) at line 206.
-        // Wait, line 206 inside processBatch needs update too!
-
+        const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory, strategy);
         results.push(...batchResults.flat());
 
         if (i + BATCH_SIZE < topPairs.length) {
@@ -258,8 +234,7 @@ export const runServerScan = async (source = 'KUCOIN') => {
 
     await saveScanHistory(nextHistory);
 
-    // --- PERSISTENCE LOGIC START ---
-    // Load Previous Results to find "Sticky" signals (Breakout > 80, < 24h old)
+    // --- PERSISTENCE & MERGE LOGIC ---
     let previousResults = [];
     try {
         const prevFile = path.join(DATA_DIR, `latest_results_${source}.json`);
@@ -269,7 +244,28 @@ export const runServerScan = async (source = 'KUCOIN') => {
         // Ignore file not found
     }
 
-    // Filter for Sticky Signals
+    const resultMap = new Map();
+
+    // 0. Preserve OTHER strategies if we are doing a partial update
+    if (strategy !== 'all') {
+        const preserved = previousResults.filter(r => r.strategy_name.toLowerCase() !== strategy.toLowerCase());
+        preserved.forEach(r => {
+            const key = `${r.symbol}_${r.strategy_name}`;
+            resultMap.set(key, r);
+        });
+        Logger.info(`[SERVER SCAN] Preserved ${preserved.length} results from other strategies.`);
+    }
+
+    // 1. Add All New Results
+    results.forEach(r => {
+        const key = `${r.symbol}_${r.strategy_name}`;
+        resultMap.set(key, r);
+    });
+
+    // 2. Merge Sticky Signals (Breakout > 80, < 24h)
+    // Only if we are running Breakout or All? Or always check sticky?
+    // Always check sticky from previousResults to ensure they persist.
+
     const STICKY_THRESHOLD = 80;
     const STICKY_DURATION = 24 * 60 * 60 * 1000; // 24 Hours
     const stickySignals = previousResults.filter(r => {
@@ -279,37 +275,14 @@ export const runServerScan = async (source = 'KUCOIN') => {
         return age < STICKY_DURATION;
     });
 
-    Logger.info(`[SERVER SCAN] Found ${stickySignals.length} sticky signals to preserve.`);
-
-    // Merge Logic:
-    // 1. Create a Map of New Results key = Symbol + Strategy
-    // 2. Add Sticky Signals if they aren't in New Results (or if New Result score is lower? User wants display)
-    // POLICY: If Sticky exists, we keep the Sticky version? Or just ensure it's in the list?
-    // User said: "displayed for 24h".
-    // Let's add them to the pool. If duplicate (Symbol+Strategy), use the Higher Score one?
-    // Actually, if New Scan says Score 0 (Wait), but Old was 95, we want to see the 95.
-    // So Max(Old, New) seems appropriate for visibility.
-
-    const resultMap = new Map();
-
-    // 1. Add All New Results
-    results.forEach(r => {
-        const key = `${r.symbol}_${r.strategy_name}`;
-        resultMap.set(key, r);
-    });
-
-    // 2. Merge Sticky
     stickySignals.forEach(s => {
         const key = `${s.symbol}_${s.strategy_name}`;
         const existing = resultMap.get(key);
 
         if (!existing) {
-            // New scan didn't find this (was filtered out or failed), restore sticky
             resultMap.set(key, s);
         } else {
-            // Conflict. Existing is New Scan. Sticky is Old.
-            // If New Scan score < Sticky, revert to Sticky to keep it visible?
-            // "displayed for 24h" implies we show the signal.
+            // Keep the one with higher score (Max Visibility)
             if (existing.score < s.score) {
                 resultMap.set(key, s);
             }
@@ -317,52 +290,27 @@ export const runServerScan = async (source = 'KUCOIN') => {
     });
 
     const mergedResults = Array.from(resultMap.values());
-    // --- PERSISTENCE LOGIC END ---
 
     await saveScanHistory(nextHistory);
 
-    // --- QUOTA LOGIC START ---
-    // User Requirement: "Keep top 10 Legacy and top 5 Breakout"
-    // Plus: "Breakout > 80 displayed for 24h" (Sticky)
-
-    // 1. Separate by Strategy
+    // --- QUOTA LOGIC ---
     const legacyAll = mergedResults.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
     const breakoutAll = mergedResults.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
 
-    // 2. Select Legacy (Top 20)
     const legacySelected = legacyAll.slice(0, 20);
-
-    // 3. Select Breakout (Top 20 + All Sticky > 80)
-    // Sticky signals are already in 'mergedResults' due to previous step.
-    // We just need to ensure we select:
-    //  a) The Top 20 (regardless of score)
-    //  b) Any others with Score > 80 (which are effectively "Sticky" high quality)
-
     const breakoutSelected = breakoutAll.filter((r, index) => {
         const isTop20 = index < 20;
         const isHighValue = r.score > 80;
         return isTop20 || isHighValue;
     });
 
-    // 4. Combine & Final Sort
     const finalResults = [...legacySelected, ...breakoutSelected].sort((a, b) => b.score - a.score);
 
-    // Safety Limit: If for some reason we have 1000 > 80 score breakouts (unlikely), 
-    // we might want a hard cap, but 50 is safe for the UI.
-    // finalResults is effectively Limited by (10 + max(5, count(>80))).
-    // --- QUOTA LOGIC END ---
-
     await saveLatestResults(finalResults, source);
-
-    // Log high-quality signals for historical consistency analysis
     await appendSignalLog(finalResults);
-
-    // Register for Foretesting
     await registerSignals(finalResults);
-
-    // Send Telegram Alerts
     await sendTelegramAlert(finalResults);
 
-    Logger.info(`[SERVER SCAN] Complete. Found ${finalResults.length} results.`);
+    Logger.info(`[SERVER SCAN] Complete. Saved ${finalResults.length} results.`);
     return finalResults;
 };

@@ -60,19 +60,28 @@ app.use(express.static(path.join(__dirname, 'dist')));
 const startScannerLoop = () => {
     console.log('[SYSTEM] Starting 24/7 Scanner Loop...');
 
-    // Run immediately on start
-    runServerScan('HYPERLIQUID').catch(e => console.error('[SCAN ERROR]', e));
-    runServerScan('MEXC').catch(e => console.error('[SCAN ERROR]', e));
-    runServerScan('KUCOIN').catch(e => console.error('[SCAN ERROR]', e));
+    // Run ALL immediately on start to populate
+    runServerScan('HYPERLIQUID', 'all').catch(e => console.error('[SCAN ERROR]', e));
+    runServerScan('MEXC', 'all').catch(e => console.error('[SCAN ERROR]', e));
+    runServerScan('KUCOIN', 'all').catch(e => console.error('[SCAN ERROR]', e));
 
-    // 1. Market Scanner
+    // 1. Legacy Strategy Scanner (Fast: 15m)
+    // Uses existing SCAN_INTERVAL from config (default 15m)
     setInterval(() => {
-        runServerScan('HYPERLIQUID').catch(e => console.error('[SCAN ERROR]', e));
-        runServerScan('MEXC').catch(e => console.error('[SCAN ERROR]', e));
-        runServerScan('KUCOIN').catch(e => console.error('[SCAN ERROR]', e));
+        runServerScan('HYPERLIQUID', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
+        runServerScan('MEXC', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
+        runServerScan('KUCOIN', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
     }, CONFIG.SYSTEM.SCAN_INTERVAL);
 
-    // 2. Trade Tracker & Alerts
+    // 2. Breakout Strategy Scanner (Slow: 4H)
+    const FOUR_HOURS = 4 * 60 * 60 * 1000;
+    setInterval(() => {
+        runServerScan('HYPERLIQUID', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
+        runServerScan('MEXC', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
+        runServerScan('KUCOIN', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
+    }, FOUR_HOURS);
+
+    // 3. Trade Tracker & Alerts
     setInterval(() => {
         updateOutcomes().catch(e => console.error('[TRACKER ERROR]', e));
     }, CONFIG.SYSTEM.TRACKER_INTERVAL);

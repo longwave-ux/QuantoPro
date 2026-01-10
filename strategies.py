@@ -56,38 +56,52 @@ class QuantProLegacy(Strategy):
         return "Legacy"
 
     def analyze(self, df, df_htf=None, mcap=0):
+        # Deduplicate columns to prevent pandas-ta errors
+        df = df.loc[:, ~df.columns.duplicated()]
+
         # 1. Calculate Indicators
         # EMA
-        df['ema_50'] = df.ta.ema(length=50)
-        df['ema_200'] = df.ta.ema(length=200)
+        res = df.ta.ema(length=50)
+        df['ema_50'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
+        
+        res = df.ta.ema(length=200)
+        df['ema_200'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
         
         # RSI
-        df['rsi'] = df.ta.rsi(length=self.rsi_len)
+        res = df.ta.rsi(length=self.rsi_len)
+        df['rsi'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
         
         # ADX
-        adx_df = df.ta.adx(length=self.adx_len)
-        if f'ADX_{self.adx_len}' in adx_df.columns:
-            df['adx'] = adx_df[f'ADX_{self.adx_len}']
+        res = df.ta.adx(length=self.adx_len)
+        # ADX returns DataFrame with ADX, DMP, DMN. We want ADX column specifically or first column if generic
+        if isinstance(res, pd.DataFrame):
+            col_name = f'ADX_{self.adx_len}'
+            if col_name in res.columns:
+                df['adx'] = res[col_name]
+            else:
+                df['adx'] = res.iloc[:, 0]
         else:
-            df['adx'] = adx_df.iloc[:, 0]
+            df['adx'] = res
             
         # ATR
-        df['atr'] = df.ta.atr(length=14)
+        res = df.ta.atr(length=14)
+        df['atr'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
         
         # OBV
-        df['obv'] = df.ta.obv()
+        res = df.ta.obv()
+        df['obv'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
         
         # Bollinger Bands
         bb = df.ta.bbands(length=self.bol_len, std=self.bol_std)
         
         # Fix for Column Names:
-        # pandas_ta column names depend on version/settings
-        # Typically: BBL_20_2.0, BBM_20_2.0, BBU_20_2.0
-        # But sometimes just BBL, BBM, BBU or different formatting
         # We'll use iloc to be safe: Lower=0, Mid=1, Upper=2
-        df['bb_lower'] = bb.iloc[:, 0]
-        # Mid is index 1
-        df['bb_upper'] = bb.iloc[:, 2]
+        if isinstance(bb, pd.DataFrame):
+            df['bb_lower'] = bb.iloc[:, 0]
+            df['bb_upper'] = bb.iloc[:, 2]
+        else:
+            # Fallback if somehow not DF (unlikely for bbands)
+            pass
 
         # Get the specific row to analyze 
         last_row = df.iloc[-1]
@@ -121,15 +135,24 @@ class QuantProLegacy(Strategy):
         h_ema200 = None
         
         if df_htf is not None and len(df_htf) >= 50:
+            # Deduplicate HTF columns
+            df_htf = df_htf.loc[:, ~df_htf.columns.duplicated()]
+
             # Calculate Indicators on HTF
-            df_htf['ema_50'] = df_htf.ta.ema(length=50)
-            df_htf['ema_200'] = df_htf.ta.ema(length=200)
+            res = df_htf.ta.ema(length=50)
+            df_htf['ema_50'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
             
-            htf_adx_df = df_htf.ta.adx(length=14)
-            if 'ADX_14' in htf_adx_df.columns:
-                df_htf['adx'] = htf_adx_df['ADX_14']
+            res = df_htf.ta.ema(length=200)
+            df_htf['ema_200'] = res.iloc[:, 0] if isinstance(res, pd.DataFrame) else res
+            
+            res = df_htf.ta.adx(length=14)
+            if isinstance(res, pd.DataFrame):
+                if 'ADX_14' in res.columns:
+                    df_htf['adx'] = res['ADX_14']
+                else:
+                    df_htf['adx'] = res.iloc[:, 0]
             else:
-                df_htf['adx'] = htf_adx_df.iloc[:, 0]
+                df_htf['adx'] = res
                 
             last_htf = df_htf.iloc[-1]
             h_close = last_htf['close']
@@ -786,12 +809,13 @@ class QuantProBreakout(Strategy):
 
         return False, False
         
+
 class QuantProBreakout(Strategy):
     """
-    RSI Trendline Breakout Strategy (Fixed & Optimized):
-    - Identifies geometric trendlines on RSI (Support/Resistance).
-    - Uses Strict Geometry (Slope & Origin rules) to filter noise.
-    - Uses Smart Persistence (Lookback 3 candles) to catch Retests.
+    RSI Trendline Breakout Strategy (Consensus & Smart Persistence):
+    - Uses "Best Fit" geometry (Consensus/RANSAC-style) to find structural trendlines.
+    - Decoupled from the last pivot to detect early breakouts.
+    - Smart Persistence: Tracks signals for 3 candles (12h on H4) to catch Retests.
     """
     
     def __init__(self, config=None):
@@ -803,13 +827,11 @@ class QuantProBreakout(Strategy):
         return "Breakout"
 
     def backtest(self, df, df_htf=None, mcap=0):
-        # Placeholder needed for Abstract Base Class compliance
         return []
 
     def find_trendlines(self, rsi_series, direction='RESISTANCE'):
         """
-        Identify valid trendlines on RSI using Strict Geometric Rules.
-        Delegates to the strict finder logic.
+        Identify valid trendlines on RSI using Consensus Rules.
         """
         rsi = rsi_series.values
         if len(rsi) < 50: return None
@@ -828,91 +850,101 @@ class QuantProBreakout(Strategy):
         return self._find_best_line_in_pivots(pivots, rsi, direction)
 
     def _find_best_line_in_pivots(self, pivots, rsi, direction):
-        last_pivot_idx = pivots[-1]
+        # Configuration for "Human-like" vision (Consensus Logic)
+        MIN_SLOPE = 0.015  # Avoid flat lines (drift)
+        MAX_SLOPE = 0.6    # Avoid vertical parabolic lines
+        ORIGIN_RES_MIN = 60 # Resistance must start high
+        ORIGIN_SUP_MAX = 40 # Support must start low
         
-        # Iterate from earliest pivot to find the LONGEST valid line (Major Structure)
-        for i in range(0, len(pivots)-1):
-            p1_idx = pivots[i]
-            p2_idx = last_pivot_idx
-            
-            # RULE 1: Min Duration (at least ~24 candles / 4 days)
-            if (p2_idx - p1_idx) < 24:
-                continue
-            
-            x1, y1 = p1_idx, rsi[p1_idx]
-            x2, y2 = p2_idx, rsi[p2_idx]
-            
-            if x2 == x1: continue
-            m = (y2 - y1) / (x2 - x1)
-            c = y1 - m * x1
-            
-            # RULE 2: Slope (Strict Direction)
-            if direction == 'RESISTANCE':
-                # Resistance MUST descend (Negative Slope)
-                if m >= 0: continue 
-            else: # SUPPORT
-                # Support MUST ascend (Positive Slope)
-                if m <= 0: continue
-            
-            # RULE 3: Origin (Must start from Extremes)
-            if direction == 'RESISTANCE':
-                if y1 < 65: continue # Must start high (Overbought area)
-            else: # SUPPORT
-                if y1 > 35: continue # Must start low (Oversold area)
+        best_line = None
+        best_score = -1
         
-            # Validation: Check touches and violations
-            touches = 0
-            violation = False
-            
-            for k in range(p1_idx, len(rsi)):
-                model_y = m * k + c
-                actual_y = rsi[k]
+        # Iterate all pairs (i, j) to find the master trendline
+        # This decouples the line from the "last pivot"
+        for i in range(len(pivots)):
+            for j in range(i + 1, len(pivots)):
+                p1_idx = pivots[i]
+                p2_idx = pivots[j]
                 
-                TOLERANCE = 1.0 # Strict tolerance
+                # 1. Duration Filter
+                if (p2_idx - p1_idx) < 20: continue
                 
+                x1, y1 = p1_idx, rsi[p1_idx]
+                x2, y2 = p2_idx, rsi[p2_idx]
+                
+                if x2 == x1: continue
+                m = (y2 - y1) / (x2 - x1)
+                c = y1 - m * x1
+                
+                # 2. Slope & Direction Filter
                 if direction == 'RESISTANCE':
-                    if actual_y > model_y + TOLERANCE:
-                        # Allow breakout only at the very end (last 3 candles)
-                        if k < len(rsi) - 3: 
-                            violation = True
-                            break
+                    if m >= 0: continue # Must descend
+                    if abs(m) < MIN_SLOPE or abs(m) > MAX_SLOPE: continue
+                    if y1 < ORIGIN_RES_MIN: continue 
                 else: # SUPPORT
-                    if actual_y < model_y - TOLERANCE:
-                        if k < len(rsi) - 3:
-                            violation = True
-                            break
+                    if m <= 0: continue # Must ascend
+                    if abs(m) < MIN_SLOPE or abs(m) > MAX_SLOPE: continue
+                    if y1 > ORIGIN_SUP_MAX: continue 
+
+                # 3. Validation & Consensus
+                touches = 0
+                valid_line = True
+                
+                # Integrity Check (P1 -> P2)
+                for k in range(p1_idx, p2_idx + 1):
+                    model_y = m * k + c
+                    actual_y = rsi[k]
+                    diff = actual_y - model_y
+                    
+                    if direction == 'RESISTANCE':
+                        if diff > 2.0: # Major violation up
+                            valid_line = False; break
+                    else: # SUPPORT
+                        if diff < -2.0: # Major violation down
+                            valid_line = False; break
                             
-                # Check for Touches
-                if abs(actual_y - model_y) < 2.5:
-                    touches += 1
-            
-            if not violation and touches >= 2:
-                # Capture Pivot Stats
-                segment = rsi[p1_idx:p2_idx+1]
-                return {
-                    'm': float(m), 
-                    'c': float(c), 
-                    'touches': int(touches), 
-                    'start_idx': int(p1_idx),
-                    'end_idx': int(p2_idx),
-                    'start_val': float(y1),
-                    'end_val': float(y2),
-                    'min_val_in_range': float(np.min(segment)) if len(segment)>0 else 0,
-                    'max_val_in_range': float(np.max(segment)) if len(segment)>0 else 100
-                }
-        return None
+                    if abs(diff) < 1.5: touches += 1
+                        
+                if not valid_line: continue
+                
+                # 4. Future Confirmation (Points after P2)
+                future_hits = 0
+                for k_idx in range(j + 1, len(pivots)):
+                    p_k = pivots[k_idx]
+                    model_k = m * p_k + c
+                    if abs(rsi[p_k] - model_k) < 2.5:
+                        future_hits += 1
+                
+                # Scoring: Touches + Future Hits + Duration
+                score = (touches * 1) + (future_hits * 15) + ((p2_idx - p1_idx) * 0.05)
+                
+                if score > best_score:
+                    best_score = score
+                    segment = rsi[p1_idx:p2_idx+1]
+                    best_line = {
+                        'm': float(m), 
+                        'c': float(c), 
+                        'touches': int(touches + future_hits), 
+                        'start_idx': int(p1_idx),
+                        'end_idx': int(p2_idx),
+                        'start_val': float(y1),
+                        'end_val': float(y2),
+                        'min_val_in_range': float(np.min(segment)) if len(segment)>0 else 0,
+                        'max_val_in_range': float(np.max(segment)) if len(segment)>0 else 100
+                    }
+                    
+        return best_line
 
     def analyze(self, df, df_htf=None, mcap=0):
-        # 1. Metrics Calculation
+        # 1. Metrics
         df['rsi'] = df.ta.rsi(length=self.rsi_len)
         df['obv'] = df.ta.obv()
         df['mfi'] = df.ta.mfi(length=14)
         
         rsi_series = df['rsi'].fillna(50)
-        
         if len(rsi_series) < 50: return self.empty_result(df)
 
-        # 2. SMART PERSISTENCE: Check last 3 candles for a valid breakout
+        # 2. Analysis Scope (Smart Persistence - Last 3 candles)
         curr_i = len(df) - 1
         latest_price = df['close'].iloc[-1]
         
@@ -923,82 +955,58 @@ class QuantProBreakout(Strategy):
         trendline_info = None
         details = {'total': 0}
 
-        # --- LONG LOGIC (Resistance Breakout) ---
+        # --- LONG LOGIC ---
         res_line = self.find_trendlines(rsi_series, 'RESISTANCE')
-        
         if res_line:
-            # Look back: 0 (now), 1 (prev), 2 (prev-prev)
             for offset in range(3):
                 scan_i = curr_i - offset
                 if scan_i < 50: continue
 
-                # Check Breakout Condition AT that historical moment
                 rsi_now = rsi_series.iloc[scan_i]
                 rsi_prev = rsi_series.iloc[scan_i-1]
-                
                 line_now = res_line['m'] * scan_i + res_line['c']
                 line_prev = res_line['m'] * (scan_i-1) + res_line['c']
                 
-                # FRESHNESS RULE: Valid crossing
-                is_breakout = rsi_prev <= line_prev and rsi_now > line_now
-                
-                if is_breakout:
-                    # VALIDITY CHECK: Is the trade still alive?
+                # Breakout Check (Strict Freshness)
+                if rsi_prev <= line_prev and rsi_now > line_now:
                     entry_price = df['close'].iloc[scan_i]
-                    
                     sl = df['low'].iloc[scan_i-5:scan_i].min()
                     if sl >= entry_price: sl = entry_price * 0.98
                     tp = entry_price * 1.05
                     
-                    # A. Dead Trade (Hit SL or TP)
-                    if latest_price >= tp or latest_price <= sl:
-                        continue 
-                        
-                    # B. Runaway (Too late, price moved > 3% from entry)
-                    if latest_price > entry_price * 1.03:
-                        continue 
+                    # Filters: Not Dead, Not Runaway
+                    if latest_price >= tp or latest_price <= sl: continue
+                    if latest_price > entry_price * 1.03: continue
                     
-                    # C. Valid Signal Found!
+                    # Valid Signal
                     score = 80
                     action = 'BUY_BREAKOUT' if offset == 0 else 'BUY_RETEST'
                     bias = 'LONG'
                     
-                    # Bonuses
                     duration = scan_i - res_line['start_idx']
                     dur_bonus = min(20, int(duration / 10))
                     score += dur_bonus
-                    
                     if res_line['start_val'] > 70: score += 10
                     if res_line['min_val_in_range'] < 30: score += 15
                     
                     breakout_score = min(100, score)
-                    
-                    setup = {
-                        'entry': entry_price, 
-                        'sl': sl, 
-                        'tp': tp, 
-                        'rr': 2.0, 
-                        'side': 'LONG'
-                    }
+                    setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'LONG'}
                     details = {'total': breakout_score, 'type': 'BREAKOUT', 'duration_bonus': dur_bonus}
                     trendline_info = res_line
-                    break # Stop looking back, we found the most recent valid one
+                    break 
             
-            # If no breakout, check TOUCH
+            # Touch Check
             if action == 'WAIT':
                 threshold = res_line['m'] * curr_i + res_line['c']
                 curr_rsi = rsi_series.iloc[curr_i]
-                dist = curr_rsi - threshold
-                is_touch = abs(dist) < 3.0 and curr_rsi < threshold
-                
-                if is_touch:
+                if abs(curr_rsi - threshold) < 3.0 and curr_rsi < threshold:
                     score = 50
                     action = 'WATCH'
                     bias = 'LONG'
                     trendline_info = res_line
                     details = {'total': 50, 'type': 'TOUCH'}
-                    
-        # --- SHORT LOGIC (Only if no Long) ---
+
+        # --- SHORT LOGIC ---
         if action == 'WAIT':
             sup_line = self.find_trendlines(rsi_series, 'SUPPORT')
             if sup_line:
@@ -1008,19 +1016,15 @@ class QuantProBreakout(Strategy):
                     
                     rsi_now = rsi_series.iloc[scan_i]
                     rsi_prev = rsi_series.iloc[scan_i-1]
-                    
                     line_now = sup_line['m'] * scan_i + sup_line['c']
                     line_prev = sup_line['m'] * (scan_i-1) + sup_line['c']
                     
-                    is_breakout = rsi_prev >= line_prev and rsi_now < line_now
-                    
-                    if is_breakout:
+                    if rsi_prev >= line_prev and rsi_now < line_now:
                         entry_price = df['close'].iloc[scan_i]
                         sl = df['high'].iloc[scan_i-5:scan_i].max()
                         if sl <= entry_price: sl = entry_price * 1.02
                         tp = entry_price * 0.95
                         
-                        # Validity Check
                         if latest_price <= tp or latest_price >= sl: continue
                         if latest_price < entry_price * 0.97: continue
                             
@@ -1030,12 +1034,10 @@ class QuantProBreakout(Strategy):
                         
                         duration = scan_i - sup_line['start_idx']
                         score += min(20, int(duration / 10))
-                        
                         if sup_line['start_val'] < 30: score += 10
                         if sup_line['max_val_in_range'] > 70: score += 15
                         
                         breakout_score = min(100, score)
-                        
                         setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'SHORT'}
                         details = {'total': breakout_score, 'type': 'BREAKOUT'}
                         trendline_info = sup_line
@@ -1044,17 +1046,14 @@ class QuantProBreakout(Strategy):
                 if action == 'WAIT':
                     threshold = sup_line['m'] * curr_i + sup_line['c']
                     curr_rsi = rsi_series.iloc[curr_i]
-                    dist = curr_rsi - threshold
-                    is_touch = abs(dist) < 3.0 and curr_rsi > threshold
-                    
-                    if is_touch:
+                    if abs(curr_rsi - threshold) < 3.0 and curr_rsi > threshold:
                         score = 50
                         action = 'WATCH'
                         bias = 'SHORT'
                         trendline_info = sup_line
                         details = {'total': 50, 'type': 'TOUCH'}
-                    
-        # Formatting Result
+
+        # Formatting
         final_score_details = {
             'geometryScore': int(breakout_score) if action != 'WAIT' else 0,
             'total': int(breakout_score) if action != 'WAIT' else 0,
@@ -1087,7 +1086,7 @@ class QuantProBreakout(Strategy):
             "take_profit": float(setup['tp']) if setup else None,
             "setup": setup,
             "details": final_score_details,
-            "htf": {'trend': bias, 'bias': bias}, 
+            "htf": {'trend': bias}, 
             "ltf": {'rsi': float(rsi_series.iloc[-1])},
             "timestamp": int(datetime.datetime.now().timestamp() * 1000)
         }
@@ -1095,7 +1094,7 @@ class QuantProBreakout(Strategy):
     def empty_result(self, df):
         last_row = df.iloc[-1]
         return {
-            "strategy_name": self.name,
+            "strategy_name": self.name(),
             "symbol": "UNKNOWN",
             "price": float(last_row['close']),
             "score": 0.0,
