@@ -13,15 +13,45 @@ const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
 // Cache to prevent duplicate alerts
 const sentAlertsCache = new Set();
 
+
 export const getSettings = async () => {
     try {
         const data = await fs.readFile(SETTINGS_FILE, 'utf-8');
         const settings = JSON.parse(data);
+
         // Default entryAlerts to true if not specified
         if (settings.entryAlerts === undefined) settings.entryAlerts = true;
+
+        // Ensure strategies config exists (Migration)
+        if (!settings.strategies) {
+            settings.strategies = {
+                "Legacy": {
+                    "enabled": true,
+                    "minScore": settings.minScore || 85
+                },
+                "Breakout": {
+                    "enabled": true,
+                    "minScore": 95 // Higher default for Breakout
+                }
+            };
+            // Async save back to persist migration
+            saveSettings(settings);
+        }
+
         return settings;
     } catch {
-        return { enabled: false, botToken: '', chatId: '', minScore: 85, entryAlerts: true };
+        // Fallback default
+        return {
+            enabled: false,
+            botToken: '',
+            chatId: '',
+            minScore: 85,
+            entryAlerts: true,
+            strategies: {
+                "Legacy": { "enabled": true, "minScore": 85 },
+                "Breakout": { "enabled": true, "minScore": 95 }
+            }
+        };
     }
 };
 
@@ -39,8 +69,19 @@ export const sendTelegramAlert = async (results) => {
 
     const opportunities = results.filter(r => {
         const uniqueId = `${r.symbol}_${r.timestamp}`;
-        // Check if score meets threshold AND not already sent
-        return r.score >= settings.minScore && !sentAlertsCache.has(uniqueId);
+        if (sentAlertsCache.has(uniqueId)) return false;
+
+        // Strategy-Specific Thresholds
+        const strategyName = r.strategy_name || 'Legacy';
+        // Normalize name title case
+        const stratKey = strategyName.charAt(0).toUpperCase() + strategyName.slice(1).toLowerCase();
+
+        // Fallback to "Legacy" config if unknown strategy
+        const stratConfig = settings.strategies[stratKey] || settings.strategies['Legacy'];
+
+        if (!stratConfig || !stratConfig.enabled) return false;
+
+        return r.score >= stratConfig.minScore;
     });
 
     if (opportunities.length === 0) return;
@@ -55,22 +96,31 @@ export const sendTelegramAlert = async (results) => {
             sentAlertsCache.delete(it.next().value);
         }
 
+        const strategyName = pair.strategy_name || 'Legacy';
+        const isBreakout = strategyName.toUpperCase() === 'BREAKOUT';
+
+        // Visual Styling
+        const header = isBreakout ? '🟣 <b>BREAKOUT SIGNAL</b> 🟣' : '🔵 <b>LEGACY PULLBACK</b> 🔵';
+        const stratKey = strategyName.charAt(0).toUpperCase() + strategyName.slice(1).toLowerCase();
+        const minScoreUsed = (settings.strategies[stratKey] || settings.strategies['Legacy']).minScore;
+
         const message = `
-🚨 <b>HIGH SCORE ALERT: ${pair.symbol}</b>
+${header}
+<b>Pair: ${pair.symbol}</b>
     
 <b>Score: ${pair.score}/100</b>
 Price: $${pair.price}
 Exchange: ${pair.source || 'Unknown'}
-Bias: ${pair.htf.bias}
-Timeframe: ${pair.meta.htfInterval}
+Bias: ${pair.htf?.bias || 'NONE'}
+Timeframe: ${pair.meta?.htfInterval || '4h'}
 
 <b>Setup Details:</b>
-• Entry: $${pair.setup?.entry.toFixed(4)}
-• TP: $${pair.setup?.tp.toFixed(4)}
-• SL: $${pair.setup?.sl.toFixed(4)}
-• RR: 1:${pair.setup?.rr}
+• Entry: $${pair.setup?.entry?.toFixed(4) || '0.0000'}
+• TP: $${pair.setup?.tp?.toFixed(4) || '0.0000'}
+• SL: $${pair.setup?.sl?.toFixed(4) || '0.0000'}
+• RR: 1:${pair.setup?.rr?.toFixed(2) || '0.00'}
 
-<i>Scores > ${settings.minScore}</i>
+<i>Threshold > ${minScoreUsed}</i>
 `;
 
         try {
@@ -84,7 +134,7 @@ Timeframe: ${pair.meta.htfInterval}
                     parse_mode: 'HTML'
                 })
             });
-            console.log(`[TELEGRAM] Sent alert for ${pair.symbol}`);
+            console.log(`[TELEGRAM] Sent alert for ${pair.symbol} (${strategyName})`);
         } catch (e) {
             console.error(`[TELEGRAM ERROR] Failed to send alert for ${pair.symbol}`, e);
         }

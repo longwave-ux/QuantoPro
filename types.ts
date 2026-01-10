@@ -52,6 +52,11 @@ export interface AnalysisResult {
     structureScore: number; // Max 25 (Fib + Support/Res)
     moneyFlowScore: number; // Max 40 (OBV [25] + Divergence [15]) - Heavy weighting
     timingScore: number;    // Max 10 (Pullback & Wick)
+    // Breakout Strategy Keys
+    geometry_score?: number;
+    momentum_score?: number;
+    divergence_score?: number;
+    structure_score?: number;
   };
   htf: {
     trend: 'UP' | 'DOWN';       // Close[-1] > Close[-3]
@@ -95,6 +100,10 @@ export interface NotificationSettings {
   hyperliquidMasterAddress?: string; // Added for Agent Key support
   activeExchange?: 'MEXC' | 'HYPERLIQUID'; // Preferred execution venue
   geminiLLMApiKey?: string;
+  strategies?: {
+    Legacy: { enabled: boolean; minScore: number; };
+    Breakout: { enabled: boolean; minScore: number; };
+  };
 }
 
 export interface Config {

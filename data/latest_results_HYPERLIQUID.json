@@ -1,75 +1,21 @@
 [
   {
-    "strategy_name": "Breakout",
-    "symbol": "SPXUSDT",
-    "price": 0.59497,
-    "score": 125,
-    "bias": "SHORT",
-    "action": "SELL",
-    "rr": 2.33,
-    "entry": 0.59497,
-    "stop_loss": 0.6083735,
-    "take_profit": 0.56376,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.59497,
-      "tp": 0.56376,
-      "sl": 0.6083735,
-      "rr": 2.33,
-      "trendline": {
-        "m": 0.8710953869852935,
-        "c": -934.8612264768371,
-        "touches": 5,
-        "start": 1123
-      }
-    },
-    "analysis": {
-      "oi_delta_pct": 0.22738721945286117,
-      "liquidation_longs": 22505,
-      "liquidation_shorts": 0,
-      "liquidation_ratio": 0,
-      "squeeze_detected": true,
-      "mfi": 40.938764001814526,
-      "divergence": true,
-      "divergence_extreme": true
-    },
-    "details": {
-      "total": 125,
-      "mcap": 555504645.1468551
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 52.49402006664503
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 125,
-      "status": "STABLE"
-    }
-  },
-  {
     "strategy_name": "Legacy",
-    "symbol": "RENDERUSDT",
-    "price": 2.3046,
+    "symbol": "GRASSUSDT",
+    "price": 0.36306,
     "score": 89.7,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 11.05,
-    "entry": 2.3046,
-    "stop_loss": 2.291684,
-    "take_profit": 2.4473,
+    "rr": 4.8,
+    "entry": 0.36306,
+    "stop_loss": 0.36017010000000005,
+    "take_profit": 0.37694,
     "setup": {
       "side": "LONG",
-      "entry": 2.3046,
-      "tp": 2.4473,
-      "sl": 2.291684,
-      "rr": 11.05
+      "entry": 0.36306,
+      "tp": 0.37694,
+      "sl": 0.36017010000000005,
+      "rr": 4.8
     },
     "details": {
       "total": 89.7,
@@ -77,57 +23,57 @@
       "structureScore": 20,
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
-      "mcap": 1245151047.6285188,
-      "vol24h": 1315069.7261100002
+      "mcap": 88251359.02783568,
+      "vol24h": 743978.313676
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 44.64310524587747,
-      "ema50": 2.0325697572569976,
-      "ema200": 1.7005261215035676
+      "adx": 31.949357383645882,
+      "ema50": 0.3327593896820417,
+      "ema200": 0.3210223121133009
     },
     "ltf": {
-      "rsi": 52.50373120167399,
-      "adx": 44.64310524587747,
+      "rsi": 48.8260409687236,
+      "adx": 31.949357383645882,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.5469528555001903,
+      "pullbackDepth": 0.5025125628140713,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
+      "consecutiveScans": 14,
       "prevScore": 89.7,
       "status": "STABLE"
     }
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "ONDOUSDT",
-    "price": 0.40784,
+    "symbol": "INITUSDT",
+    "price": 0.091376,
     "score": 89.7,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 2.03,
-    "entry": 0.40784,
-    "stop_loss": 0.4130047499999999,
-    "take_profit": 0.39736,
+    "rr": 2.28,
+    "entry": 0.091376,
+    "stop_loss": 0.09203990999999999,
+    "take_profit": 0.089865,
     "setup": {
       "side": "SHORT",
-      "entry": 0.40784,
-      "tp": 0.39736,
-      "sl": 0.4130047499999999,
-      "rr": 2.03
+      "entry": 0.091376,
+      "tp": 0.089865,
+      "sl": 0.09203990999999999,
+      "rr": 2.28
     },
     "details": {
       "total": 89.7,
@@ -135,29 +81,435 @@
       "structureScore": 20,
       "moneyFlowScore": 25,
       "timingScore": 7.199999999999999,
-      "mcap": 1290593391.9745917,
-      "vol24h": 1158836.8745499998
+      "mcap": 16229014.226877922,
+      "vol24h": 310816.34189300006
     },
     "htf": {
-      "trend": "UP",
+      "trend": "DOWN",
       "bias": "SHORT",
-      "adx": 31.56001612749241,
-      "ema50": 0.4176496377664018,
-      "ema200": 0.42974840587273244
+      "adx": 29.406502109920968,
+      "ema50": 0.09304812479478948,
+      "ema200": 0.0951017938587187
     },
     "ltf": {
-      "rsi": 54.851219060404354,
-      "adx": 31.56001612749241,
+      "rsi": 59.13083483589332,
+      "adx": 29.406502109920968,
       "bias": "SHORT",
       "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6525529265255279,
+      "pullbackDepth": 0.7689567430025459,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 7,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "CHILLGUYUSDT",
+    "price": 0.024001,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 8.4,
+    "entry": 0.024001,
+    "stop_loss": 0.023825275,
+    "take_profit": 0.025477,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.024001,
+      "tp": 0.025477,
+      "sl": 0.023825275,
+      "rr": 8.4
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 23824007.540282305,
+      "vol24h": 287360.00567999994
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 25.111708495561075,
+      "ema50": 0.02271104771196863,
+      "ema200": 0.019971434646675033
+    },
+    "ltf": {
+      "rsi": 47.4806924023068,
+      "adx": 25.111708495561075,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7055449330783929,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 22,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "LINEAUSDT",
+    "price": 0.006713,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.38,
+    "entry": 0.006713,
+    "stop_loss": 0.006762644999999999,
+    "take_profit": 0.006595,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.006713,
+      "tp": 0.006595,
+      "sl": 0.006762644999999999,
+      "rr": 2.38
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 103169635.4170103,
+      "vol24h": 143762.478082
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 28.841445548132363,
+      "ema50": 0.006913497557110783,
+      "ema200": 0.00742849780191155
+    },
+    "ltf": {
+      "rsi": 60.43420781559898,
+      "adx": 28.841445548132363,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7972972972972993,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 7,
+      "prevScore": 89.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "IOTAUSDT",
+    "price": 0.10268,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 11.67,
+    "entry": 0.10268,
+    "stop_loss": 0.10206710000000001,
+    "take_profit": 0.10983,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.10268,
+      "tp": 0.10983,
+      "sl": 0.10206710000000001,
+      "rr": 11.67
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 433886889.4111864,
+      "vol24h": 99199.40004000001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 48.488340219914896,
+      "ema50": 0.10174031697748116,
+      "ema200": 0.09822816919955392
+    },
+    "ltf": {
+      "rsi": 47.99842361347593,
+      "adx": 48.488340219914896,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7223587223587246,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 8,
+      "prevScore": 62.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "ENAUSDT",
+    "price": 0.23004,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.02,
+    "entry": 0.23004,
+    "stop_loss": 0.231753,
+    "take_profit": 0.22658,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.23004,
+      "tp": 0.22658,
+      "sl": 0.231753,
+      "rr": 2.02
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 1817949765.6721253,
+      "vol24h": 3883246.6657
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 18.063059468185024,
+      "ema50": 0.23433103230283087,
+      "ema200": 0.23646873341685076
+    },
+    "ltf": {
+      "rsi": 57.9216340073544,
+      "adx": 18.063059468185024,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.4505208333333326,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 4,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "SEIUSDT",
+    "price": 0.12112,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.7,
+    "entry": 0.12112,
+    "stop_loss": 0.12182609999999998,
+    "take_profit": 0.11921,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.12112,
+      "tp": 0.11921,
+      "sl": 0.12182609999999998,
+      "rr": 2.7
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 783247840.8326876,
+      "vol24h": 1629646.1289300001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 16.793806831856365,
+      "ema50": 0.12253778424052744,
+      "ema200": 0.12387108128512055
+    },
+    "ltf": {
+      "rsi": 58.61489377854171,
+      "adx": 16.793806831856365,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7431906614786019,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "IPUSDT",
+    "price": 1.9962,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.56,
+    "entry": 1.9962,
+    "stop_loss": 2.0090955,
+    "take_profit": 1.9632,
+    "setup": {
+      "side": "SHORT",
+      "entry": 1.9962,
+      "tp": 1.9632,
+      "sl": 2.0090955,
+      "rr": 2.56
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 680120725.2296281,
+      "vol24h": 788450.3019600001
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 20.604435259293307,
+      "ema50": 1.9967253330467596,
+      "ema200": 2.011893052499559
+    },
+    "ltf": {
+      "rsi": 55.674353793116296,
+      "adx": 20.604435259293307,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5481727574750814,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 6,
+      "prevScore": 70,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "SUSDT",
+    "price": 0.087866,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 2.45,
+    "entry": 0.087866,
+    "stop_loss": 0.08842392,
+    "take_profit": 0.086499,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.087866,
+      "tp": 0.086499,
+      "sl": 0.08842392,
+      "rr": 2.45
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 251064460.66409847,
+      "vol24h": 760290.865226
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 17.53699368936021,
+      "ema50": 0.08841535881433309,
+      "ema200": 0.08886685095473476
+    },
+    "ltf": {
+      "rsi": 58.51903728551786,
+      "adx": 17.53699368936021,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.38583121648320545,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
@@ -165,544 +517,27 @@
     },
     "history": {
       "consecutiveScans": 3,
-      "prevScore": 89.7,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "CAKEUSDT",
-    "price": 1.9583,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 3.56,
-    "entry": 1.9583,
-    "stop_loss": 1.9680914999999997,
-    "take_profit": 1.9234,
-    "setup": {
-      "side": "SHORT",
-      "entry": 1.9583,
-      "tp": 1.9234,
-      "sl": 1.9680914999999997,
-      "rr": 3.56
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 656280635.0861067,
-      "vol24h": 320388.65942000004
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 32.620113039837854,
-      "ema50": 1.9724603156960663,
-      "ema200": 2.0206472644928675
-    },
-    "ltf": {
-      "rsi": 54.38507911267832,
-      "adx": 32.620113039837854,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6938369781312111,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "IOUSDT",
-    "price": 0.16357,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 10.22,
-    "entry": 0.16357,
-    "stop_loss": 0.16438784999999997,
-    "take_profit": 0.15521,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.16357,
-      "tp": 0.15521,
-      "sl": 0.16438784999999997,
-      "rr": 10.22
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 43239415.38044484,
-      "vol24h": 264467.484565
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 33.19301846008291,
-      "ema50": 0.16518619480477598,
-      "ema200": 0.17340249926792267
-    },
-    "ltf": {
-      "rsi": 59.618446736728224,
-      "adx": 33.19301846008291,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7320490367775829,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "PROMPTUSDT",
-    "price": 0.060284,
-    "score": 89.7,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 4.95,
-    "entry": 0.060284,
-    "stop_loss": 0.059982579999999994,
-    "take_profit": 0.061777,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.060284,
-      "tp": 0.061777,
-      "sl": 0.059982579999999994,
-      "rr": 4.95
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 23917839.940829698,
-      "vol24h": 188463.557487
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 25.5127763656542,
-      "ema50": 0.059650569138138355,
-      "ema200": 0.056925951455096796
-    },
-    "ltf": {
-      "rsi": 49.09476738504132,
-      "adx": 25.5127763656542,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5349337155141527,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 64.7,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "INITUSDT",
-    "price": 0.092247,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.86,
-    "entry": 0.092247,
-    "stop_loss": 0.09304691999999999,
-    "take_profit": 0.089961,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.092247,
-      "tp": 0.089961,
-      "sl": 0.09304691999999999,
-      "rr": 2.86
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 16473765.228992274,
-      "vol24h": 178848.77835500002
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 29.560643989941237,
-      "ema50": 0.09343543091295986,
-      "ema200": 0.09527756403147519
-    },
-    "ltf": {
-      "rsi": 49.77874344002414,
-      "adx": 29.560643989941237,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5668237044383831,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "BIOUSDT",
-    "price": 0.044831,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.46,
-    "entry": 0.044831,
-    "stop_loss": 0.04517575499999999,
-    "take_profit": 0.043984,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.044831,
-      "tp": 0.043984,
-      "sl": 0.04517575499999999,
-      "rr": 2.46
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 86416120.086517,
-      "vol24h": 127192.686376
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 32.24066917863206,
-      "ema50": 0.04721426422465802,
-      "ema200": 0.048727394150761015
-    },
-    "ltf": {
-      "rsi": 49.46567262761066,
-      "adx": 32.24066917863206,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5525114155251146,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "SUPERUSDT",
-    "price": 0.21876,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.2,
-    "entry": 0.21876,
-    "stop_loss": 0.22057739999999998,
-    "take_profit": 0.21476,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.21876,
-      "tp": 0.21476,
-      "sl": 0.22057739999999998,
-      "rr": 2.2
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 139945033.4434075,
-      "vol24h": 90314.39379
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 33.1077629479994,
-      "ema50": 0.22188248429931035,
-      "ema200": 0.23106162146915027
-    },
-    "ltf": {
-      "rsi": 50.3609079659115,
-      "adx": 33.1077629479994,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5361930294906175,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 89.7,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "LAYERUSDT",
-    "price": 0.16784,
-    "score": 89.7,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 3.19,
-    "entry": 0.16784,
-    "stop_loss": 0.16979474999999997,
-    "take_profit": 0.16161,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.16784,
-      "tp": 0.16161,
-      "sl": 0.16979474999999997,
-      "rr": 3.19
-    },
-    "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 52593320.16624506,
-      "vol24h": 55775.56668
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 31.50848489420666,
-      "ema50": 0.17378102878187038,
-      "ema200": 0.18297245173430027
-    },
-    "ltf": {
-      "rsi": 50.86407721482815,
-      "adx": 31.50848489420666,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "BEARISH",
-      "isPullback": true,
-      "pullbackDepth": 0.6031746031746026,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "LAYERUSDT",
-    "price": 0.16784,
-    "score": 80,
-    "bias": "SHORT",
-    "action": "SELL",
-    "rr": 2.23,
-    "entry": 0.16784,
-    "stop_loss": 0.1706395,
-    "take_profit": 0.16161,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.16784,
-      "tp": 0.16161,
-      "sl": 0.1706395,
-      "rr": 2.23,
-      "trendline": {
-        "m": 0.5730379687637353,
-        "c": -804.6871359681821,
-        "touches": 3,
-        "start": 1475
-      }
-    },
-    "analysis": {
-      "oi_delta_pct": 1.055025959176434,
-      "liquidation_longs": 0,
-      "liquidation_shorts": 0,
-      "liquidation_ratio": 0,
-      "squeeze_detected": false,
-      "mfi": 30.72778417775002,
-      "divergence": false
-    },
-    "details": {
-      "total": 80,
-      "mcap": 52593320.16624506
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50.86407721482815
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 62.5,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "PUMPUSDT",
-    "price": 0.002238,
-    "score": 70,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 6.31,
-    "entry": 0.002238,
-    "stop_loss": 0.0022562249999999997,
-    "take_profit": 0.002123,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.002238,
-      "tp": 0.002123,
-      "sl": 0.0022562249999999997,
-      "rr": 6.31
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 783481688.0802042,
-      "vol24h": 31941470.025911
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 23.420905264407217,
-      "ema50": 0.002242341087557323,
-      "ema200": 0.0023325845232376958
-    },
-    "ltf": {
-      "rsi": 53.59233043673091,
-      "adx": 23.420905264407217,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6686046511627901,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
       "prevScore": 70,
       "status": "STABLE"
     }
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "YZYUSDT",
-    "price": 0.35728,
+    "symbol": "ETHFIUSDT",
+    "price": 0.74231,
     "score": 70,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 3.85,
-    "entry": 0.35728,
-    "stop_loss": 0.35906639999999995,
-    "take_profit": 0.3504,
+    "rr": 3.18,
+    "entry": 0.74231,
+    "stop_loss": 0.7467250499999999,
+    "take_profit": 0.72827,
     "setup": {
       "side": "SHORT",
-      "entry": 0.35728,
-      "tp": 0.3504,
-      "sl": 0.35906639999999995,
-      "rr": 3.85
+      "entry": 0.74231,
+      "tp": 0.72827,
+      "sl": 0.7467250499999999,
+      "rr": 3.18
     },
     "details": {
       "total": 70,
@@ -710,115 +545,57 @@
       "structureScore": 25,
       "moneyFlowScore": 25,
       "timingScore": 5,
-      "mcap": 107553467.25544392,
-      "vol24h": 651454.4584300001
+      "mcap": 482817101.9044009,
+      "vol24h": 489836.06926699996
     },
     "htf": {
       "trend": "DOWN",
       "bias": "SHORT",
-      "adx": 21.724998964732052,
-      "ema50": 0.36081954255714194,
-      "ema200": 0.36305737071405614
+      "adx": 23.49916212943782,
+      "ema50": 0.7528921899368689,
+      "ema200": 0.7615030184899697
     },
     "ltf": {
-      "rsi": 43.34881168643802,
-      "adx": 21.724998964732052,
+      "rsi": 62.861064315674234,
+      "adx": 23.49916212943782,
       "bias": "SHORT",
       "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.3510204081632651,
+      "pullbackDepth": 0.7358490566037769,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 70,
-      "status": "STABLE"
+      "consecutiveScans": 6,
+      "prevScore": 40,
+      "status": "STRENGTHENING"
     }
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "ZKUSDT",
-    "price": 0.033905,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.49,
-    "entry": 0.033905,
-    "stop_loss": 0.033735475,
-    "take_profit": 0.034497,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.033905,
-      "tp": 0.034497,
-      "sl": 0.033735475,
-      "rr": 3.49
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 361874072.57595557,
-      "vol24h": 382942.410245
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 16.770330203077368,
-      "ema50": 0.03327075631083438,
-      "ema200": 0.03272834930650261
-    },
-    "ltf": {
-      "rsi": 52.24637275274189,
-      "adx": 16.770330203077368,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.434654919236418,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "CELOUSDT",
-    "price": 0.12385,
+    "symbol": "REZUSDT",
+    "price": 0.005213,
     "score": 70,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 6.81,
-    "entry": 0.12385,
-    "stop_loss": 0.12452954999999999,
-    "take_profit": 0.11922,
+    "rr": 2.21,
+    "entry": 0.005213,
+    "stop_loss": 0.005245094999999999,
+    "take_profit": 0.005142,
     "setup": {
       "side": "SHORT",
-      "entry": 0.12385,
-      "tp": 0.11922,
-      "sl": 0.12452954999999999,
-      "rr": 6.81
+      "entry": 0.005213,
+      "tp": 0.005142,
+      "sl": 0.005245094999999999,
+      "rr": 2.21
     },
     "details": {
       "total": 70,
@@ -826,218 +603,44 @@
       "structureScore": 25,
       "moneyFlowScore": 25,
       "timingScore": 5,
-      "mcap": 72861341.097358,
-      "vol24h": 354352.33392
+      "mcap": 32113549.384773903,
+      "vol24h": 94647.42254599999
     },
     "htf": {
-      "trend": "UP",
+      "trend": "DOWN",
       "bias": "SHORT",
-      "adx": 22.560325300303244,
-      "ema50": 0.12420364871296859,
-      "ema200": 0.13496250089069123
+      "adx": 21.55197746531604,
+      "ema50": 0.0053049819151839706,
+      "ema200": 0.005371739864665146
     },
     "ltf": {
-      "rsi": 60.01979920866418,
-      "adx": 22.560325300303244,
+      "rsi": 53.15243071805214,
+      "adx": 21.55197746531604,
       "bias": "SHORT",
       "obvImbalance": "BEARISH",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.7665562913907272,
+      "pullbackDepth": 0.601694915254236,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
+      "consecutiveScans": 6,
+      "prevScore": 45,
+      "status": "STRENGTHENING"
     }
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "IMXUSDT",
-    "price": 0.27628,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.92,
-    "entry": 0.27628,
-    "stop_loss": 0.27489860000000005,
-    "take_profit": 0.28169,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.27628,
-      "tp": 0.28169,
-      "sl": 0.27489860000000005,
-      "rr": 3.92
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 550332146.4520316,
-      "vol24h": 267802.06432
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 21.490025165110165,
-      "ema50": 0.27036500739495,
-      "ema200": 0.2701661836970268
-    },
-    "ltf": {
-      "rsi": 57.87689134726136,
-      "adx": 21.490025165110165,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.35875331564986584,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "GALAUSDT",
-    "price": 0.007254,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 4.44,
-    "entry": 0.007254,
-    "stop_loss": 0.00721773,
-    "take_profit": 0.007415,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.007254,
-      "tp": 0.007415,
-      "sl": 0.00721773,
-      "rr": 4.44
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 343550254.551061,
-      "vol24h": 173960.22196499998
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 22.872004170488644,
-      "ema50": 0.007054886249323826,
-      "ema200": 0.006931983396331721
-    },
-    "ltf": {
-      "rsi": 53.696104997113615,
-      "adx": 22.872004170488644,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.42146596858638713,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "OMUSDT",
-    "price": 0.07831,
-    "score": 70,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 2.99,
-    "entry": 0.07831,
-    "stop_loss": 0.07791845,
-    "take_profit": 0.07948,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.07831,
-      "tp": 0.07948,
-      "sl": 0.07791845,
-      "rr": 2.99
-    },
-    "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 90788096.32043368,
-      "vol24h": 119943.453187
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 20.304198894287246,
-      "ema50": 0.07794369128272255,
-      "ema200": 0.07632444385806443
-    },
-    "ltf": {
-      "rsi": 47.30711966103846,
-      "adx": 20.304198894287246,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5223214285714262,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1767978742753,
-    "source": "HYPERLIQUID",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "kBONKUSDT",
-    "price": 0.011095,
+    "symbol": "POLUSDT",
+    "price": 0.16781,
     "score": 64.7,
     "bias": "LONG",
     "action": "WAIT",
@@ -1052,29 +655,29 @@
       "structureScore": 20,
       "moneyFlowScore": 0,
       "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 7982970.780361
+      "mcap": 1777004096.1010962,
+      "vol24h": 7279037.44534
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 29.27109249318409,
-      "ema50": 0.010649333462690877,
-      "ema200": 0.009597490340822289
+      "adx": 64.33482706210748,
+      "ema50": 0.1318395631790568,
+      "ema200": 0.12201891210612097
     },
     "ltf": {
-      "rsi": 54.84945964705339,
-      "adx": 29.27109249318409,
+      "rsi": 53.85707397756776,
+      "adx": 64.33482706210748,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.31611893583724476,
+      "pullbackDepth": 0.3313885647607937,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
@@ -1088,8 +691,8 @@
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "WLFIUSDT",
-    "price": 0.16711,
+    "symbol": "FETUSDT",
+    "price": 0.28217,
     "score": 64.7,
     "bias": "LONG",
     "action": "WAIT",
@@ -1104,29 +707,289 @@
       "structureScore": 20,
       "moneyFlowScore": 0,
       "timingScore": 7.199999999999999,
-      "mcap": 4495069132.314915,
-      "vol24h": 7888897.0540000005
+      "mcap": 646579194.5862043,
+      "vol24h": 3184727.9153899997
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "adx": 36.05065750245444,
-      "ema50": 0.16639469575521243,
-      "ema200": 0.15246476496708702
+      "adx": 27.360644582702363,
+      "ema50": 0.26855238833611444,
+      "ema200": 0.24573465219762008
     },
     "ltf": {
-      "rsi": 45.52523380184594,
-      "adx": 36.05065750245444,
+      "rsi": 56.49130232461554,
+      "adx": 27.360644582702363,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6369731800766271,
+      "pullbackDepth": 0.5765443151298143,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1767978742753,
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 8,
+      "prevScore": 89.7,
+      "status": "WEAKENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "VVVUSDT",
+    "price": 2.491,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 107887040.37020132,
+      "vol24h": 2931290.629252
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 53.18849788967686,
+      "ema50": 2.061741623681979,
+      "ema200": 1.622290260655707
+    },
+    "ltf": {
+      "rsi": 44.739831107078786,
+      "adx": 53.18849788967686,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7451159951159954,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 8,
+      "prevScore": 64.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "AVNTUSDT",
+    "price": 0.31708,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 82785582.02633731,
+      "vol24h": 2002662.4768599998
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 30.019634347640565,
+      "ema50": 0.3323494474236809,
+      "ema200": 0.34548641095995014
+    },
+    "ltf": {
+      "rsi": 39.14197009380399,
+      "adx": 30.019634347640565,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3845177664974614,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 8,
+      "prevScore": 64.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "TRXUSDT",
+    "price": 0.29799,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 28194920305.75523,
+      "vol24h": 1581186.0740800002
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 26.733433731946068,
+      "ema50": 0.2934438575936115,
+      "ema200": 0.28730960923736903
+    },
+    "ltf": {
+      "rsi": 46.46544460205786,
+      "adx": 26.733433731946068,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7019607843137318,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "POLYXUSDT",
+    "price": 0.065171,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 66189317.88346372,
+      "vol24h": 354018.545936
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 40.5855422137375,
+      "ema50": 0.06038723382049978,
+      "ema200": 0.05859664939411644
+    },
+    "ltf": {
+      "rsi": 52.1900095500438,
+      "adx": 40.5855422137375,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.4977134146341456,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 6,
+      "prevScore": 64.7,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "0GUSDT",
+    "price": 0.88508,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 189136664.66041666,
+      "vol24h": 223971.87593
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 32.536458289250625,
+      "ema50": 0.9398864680546305,
+      "ema200": 0.9799007118352355
+    },
+    "ltf": {
+      "rsi": 52.50187943691088,
+      "adx": 32.536458289250625,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.531103286384975,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
     "source": "HYPERLIQUID",
     "meta": {
       "htfInterval": "4h",
@@ -1136,6 +999,110 @@
       "consecutiveScans": 2,
       "prevScore": 64.7,
       "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "ZORAUSDT",
+    "price": 0.03862,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 171360200.9877967,
+      "vol24h": 182126.047167
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 27.77069720127212,
+      "ema50": 0.040418076323754305,
+      "ema200": 0.04359419333632363
+    },
+    "ltf": {
+      "rsi": 63.94811426548639,
+      "adx": 27.77069720127212,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7451487710219964,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 5,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "BIGTIMEUSDT",
+    "price": 0.02268,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 47115895.31280949,
+      "vol24h": 154746.458461
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 46.11938675437206,
+      "ema50": 0.021972609068249615,
+      "ema200": 0.02178545280546645
+    },
+    "ltf": {
+      "rsi": 54.34289499389976,
+      "adx": 46.11938675437206,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.34653465346535023,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768038816046,
+    "source": "HYPERLIQUID",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 6,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
     }
   }
 ]

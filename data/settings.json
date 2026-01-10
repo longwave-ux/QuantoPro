@@ -1,10 +1,20 @@
 {
-  "enabled": false,
-  "entryAlerts": true,
+  "enabled": true,
+  "entryAlerts": false,
   "botToken": "8396801498:AAH8OfNSQt-vP6TXzlAkEIQku-FzFx_wiMM",
   "chatId": "707642336",
   "minScore": 85,
   "activeExchange": "HYPERLIQUID",
+  "strategies": {
+    "Legacy": {
+      "enabled": false,
+      "minScore": 85
+    },
+    "Breakout": {
+      "enabled": true,
+      "minScore": 95
+    }
+  },
   "geminiLLMApiKey": "AIzaSyAZgxFbrQ35YB7w4-zHWYv3hy3IFOqD_2Y",
   "mexcApiSecret": "0cdcd88fcc034a67abcdbaf50b92c457",
   "mexcApiKey": "mx0vglcTsNXqp77qys",

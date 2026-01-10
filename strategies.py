@@ -3,6 +3,7 @@ import pandas as pd
 import pandas_ta as ta
 import numpy as np
 from scipy.signal import find_peaks, argrelextrema
+import datetime
 import matplotlib.pyplot as plt
 plt.switch_backend('Agg')
 from abc import ABC, abstractmethod
@@ -493,7 +494,7 @@ class QuantProLegacy(Strategy):
             if pd.notna(h_close) and pd.notna(h_ema50) and pd.notna(h_ema200):
                 if h_close > h_ema50 and h_ema50 > h_ema200:
                     bias = 'LONG'
-                elif h_close < h_ema50 and h_ema50 < h_ema_200: # Fix logic: h_ema50 > h_ema200 is LONG struct
+                elif h_close < h_ema50 and h_ema50 < h_ema200: # Fix logic: h_ema50 > h_ema200 is LONG struct
                     # Correct logic:
                     # LONG: Price > 50 > 200
                     # SHORT: Price < 50 < 200
@@ -619,7 +620,8 @@ class QuantProLegacy(Strategy):
                         "pullbackDepth": float(pullback_depth),
                         "volumeOk": bool(volume_ok),
                         "momentumOk": bool(30 < rsi_val < 70),
-                        "isOverextended": bool(is_overextended)
+                        "isOverextended": bool(is_overextended),
+                        "volume": float(row['volume'])
                     }
                 }
                 results.append(signal)
@@ -881,127 +883,157 @@ class QuantProBreakout(Strategy):
 
         
         # Data prep
-        rsi_series = df['rsi'].dropna()
+        rsi_series = df['rsi'].fillna(0)
         if len(rsi_series) < 50:
             return self.empty_result(df)
-            
-        current_rsi = rsi_series.iloc[-1]
-        prev_rsi = rsi_series.iloc[-2]
+
+        # Iterate backwards to find most recent valid Breakout (Lookback 6 candles ~ 24h)
+        # Prioritize most recent.
         
-        bias = 'NONE'
-        score = 0
-        action = 'WAIT'
-        analysis_metadata = {}
+        valid_breakout_found = False
+        breakout_idx = -1
+        breakout_bias = 'NONE'
+        breakout_meta = {}
+        breakout_score = 0
+        final_score_details = {}
         
-        # Check Resistance Breakout (LONG)
-        trendline_info = None
-        res_line = self.find_trendlines(rsi_series[:-1], 'RESISTANCE') # Check trendline formed UP TO prev candle
-        if res_line:
-            # Check if current RSI crossed above logic model
-            # Re-eval slope/intercept at current index
-            curr_idx = len(df) - 1
-            threshold = res_line['m'] * curr_idx + res_line['c']
+        # We need sufficient history for trendlines, so end loop safely
+        scan_end = len(df)
+        scan_start = max(50, scan_end - 6) 
+        
+        # Iterate backwards from current candle
+        for i in range(scan_end - 1, scan_start - 1, -1):
+            # Simulation Slice: Data available UP TO index i
+            # We must detect the breakout occuring AT candle i (using trendlines formed before i)
             
-            # Breakout Condition: Prev was below, Current is Above
-            # Or just Current is significantly above after respecting it
-            # Breakout Condition: Current > Model + Threshold
-            if prev_rsi <= (threshold + self.breakout_threshold) and current_rsi > (threshold + self.breakout_threshold):
-                # MFI Filter
-                mfi_curr = df['mfi'].iloc[-1]
-                mfi_prev = df['mfi'].iloc[-2]
+            curr_rsi = rsi_series.iloc[i] if i < len(rsi_series) else 0 # Safety
+            prev_rsi = rsi_series.iloc[i-1]
+            
+            # Check Resistance Breakout (LONG)
+            res_line = self.find_trendlines(rsi_series[:i], 'RESISTANCE') # formed by points < i
+            
+            if res_line:
+                # Re-eval slope/intercept at current index i
+                # Indicies in find_trendlines are 0-based relative to passed series
+                # rsi_series[:i] has length i. 
+                # The slope logic uses integer indices.
+                # Threshold at 'i' corresponds to extending the line by 1 step from the slice end?
+                # Actually find_trendlines returns m, c relative to the series index.
+                # So we just use 'i' as x.
                 
-                # Condition: Not OB (80) OR Trending UP
-                # Warning if MFI is dropping while we breakout
-                mfi_pass = (mfi_curr <= 80) or (mfi_curr > mfi_prev)
+                threshold = res_line['m'] * i + res_line['c']
                 
-                if mfi_pass:
-                    passed, bonus, meta = self.check_coinalyze_confirmation(df['symbol'].iloc[0] if 'symbol' in df else 'UNKNOWN', 'LONG')
-                    analysis_metadata.update(meta)
-                    analysis_metadata['mfi'] = mfi_curr
-                    
-                    if passed:
-                        bias = 'LONG'
-                        action = 'BUY'
-                        score = 80 + bonus # Base + Bonus
-                        
-                        # Divergence Check
-                        has_div, is_extreme = self.detect_divergence(df, rsi_series, 'LONG')
-                        if has_div:
-                            score += 20
-                            analysis_metadata['divergence'] = True
-                            if is_extreme:
-                                score += 10
-                                analysis_metadata['divergence_extreme'] = True
-                        else:
-                            analysis_metadata['divergence'] = False
-                            
-                        trendline_info = res_line
+                # Condition: Prev <= Thresh, Curr > Thresh + Buffer
+                # We need to check prev_rsi relative to line at i-1
+                threshold_prev = res_line['m'] * (i-1) + res_line['c']
                 
-        # Check Support Breakout (SHORT)
-        if bias == 'NONE':
-            sup_line = self.find_trendlines(rsi_series[:-1], 'SUPPORT')
-            if sup_line:
-                curr_idx = len(df) - 1
-                threshold = sup_line['m'] * curr_idx + sup_line['c']
-                
-                # Breakout Condition: Current < Model - Threshold
-                if prev_rsi >= (threshold - self.breakout_threshold) and current_rsi < (threshold - self.breakout_threshold):
-                    # MFI Filter
-                    mfi_curr = df['mfi'].iloc[-1]
-                    mfi_prev = df['mfi'].iloc[-2]
-                    
-                    # Condition: Not OS (20) OR Trending DOWN
-                    mfi_pass = (mfi_curr >= 20) or (mfi_curr < mfi_prev)
-                    
-                    if mfi_pass:
-                        passed, bonus, meta = self.check_coinalyze_confirmation(df['symbol'].iloc[0] if 'symbol' in df else 'UNKNOWN', 'SHORT')
-                        analysis_metadata.update(meta)
-                        analysis_metadata['mfi'] = mfi_curr
-                        
-                        if passed:
-                            bias = 'SHORT'
-                            action = 'SELL'
-                            score = 80 + bonus
-                            
-                            # Divergence Check
-                            has_div, is_extreme = self.detect_divergence(df, rsi_series, 'SHORT')
-                            if has_div:
-                                score += 20
-                                analysis_metadata['divergence'] = True
-                                if is_extreme:
-                                    score += 10
-                                    analysis_metadata['divergence_extreme'] = True
-                            else:
-                                analysis_metadata['divergence'] = False
-                                
-                            trendline_info = sup_line
+                if prev_rsi <= (threshold_prev + self.breakout_threshold) and curr_rsi > (threshold + self.breakout_threshold):
+                     # Breakout Detected at index i
+                     
+                     # Check MFI at that time
+                     mfi_curr = df['mfi'].iloc[i]
+                     mfi_prev = df['mfi'].iloc[i-1]
+                     mfi_pass = (mfi_curr <= 80) or (mfi_curr > mfi_prev)
+                     
+                     if mfi_pass:
+                         # VALID CANDIDATE using Historical Data
+                         # Now Check INVALIDATION: Has price hit SL since 'i'?
+                         # 1. Calc Setup at 'i'
+                         # Pivot Low Logic for SL
+                         
+                         # Determine SL from recent lowest low before i
+                         # Lookback 10 candles
+                         window_low = df['low'].iloc[max(0, i-10):i].min()
+                         entry_price_at_breakout = df['close'].iloc[i]
+                         sl_price = window_low
+                         
+                         if sl_price >= entry_price_at_breakout:
+                             sl_price = entry_price_at_breakout * 0.98 # Fallback 2%
+                             
+                         # Check subsequent candles for SL Hit
+                         is_invalidated = False
+                         for k in range(i + 1, scan_end):
+                             if df['low'].iloc[k] <= sl_price:
+                                 is_invalidated = True
+                                 break
+                                 
+                         if not is_invalidated:
+                             # FOUND VALID ACTIVE BREAKOUT
+                             valid_breakout_found = True
+                             breakout_idx = i
+                             breakout_bias = 'LONG'
+                             
+                             # Calculate Score based on THAT moment
+                             # Coinalyze (Live check, maybe slightly inaccurate for history but acceptable)
+                             passed, bonus, meta = self.check_coinalyze_confirmation(df['symbol'].iloc[0] if 'symbol' in df else 'UNKNOWN', 'LONG')
+                             breakout_meta.update(meta)
+                             breakout_meta['mfi'] = mfi_curr
+                             breakout_meta['breakout_age'] = (scan_end - 1) - i
+                             
+                             breakout_score = 80 + bonus
+                             final_score_details = {
+                                 'total': breakout_score,
+                                 'geometry_score': 40,
+                                 'momentum_score': 40,
+                                 'structure_score': bonus,
+                                 'divergence_score': 0
+                             }
+                             
+                             # Divergence Check at THAT moment (i)
+                             has_div, is_extreme = self.detect_divergence(df.iloc[:i+1], rsi_series[:i+1], 'LONG')
+                             if has_div:
+                                 breakout_score += 20
+                                 final_score_details['divergence_score'] += 20
+                                 breakout_meta['divergence'] = True
+                             
+                             # Construct Setup
+                             # Swing Target Logic
+                             swing_high = df['high'].iloc[max(0, i-20):i].max()
+                             tp = swing_high if swing_high > entry_price_at_breakout else entry_price_at_breakout * 1.05
+                             
+                             self.latest_setup = {
+                                 'entry': entry_price_at_breakout,
+                                 'sl': sl_price,
+                                 'tp': tp,
+                                 'rr': (tp - entry_price_at_breakout) / (entry_price_at_breakout - sl_price) if entry_price_at_breakout > sl_price else 0,
+                                 'side': 'LONG'
+                             }
+                             
+                             break # Stop looking, we found the most recent one
+                               
+            # Stop loop if found
+            if valid_breakout_found: break
 
-        # Confirmation (OBV)
-        if bias == 'LONG':
-            # OBV should be rising
-            if df['obv'].iloc[-1] < df['obv'].iloc[-5]:
-                score -= 20 # Divergence penalty
-        elif bias == 'SHORT':
-             if df['obv'].iloc[-1] > df['obv'].iloc[-5]:
-                score -= 20
-
-        # Plotting (Triggered via Config)
-        # Plot if we found ANY trendline for debug, even if no breakout
-        debug_trendline = trendline_info or res_line or sup_line
-        if self.config.get('plot', False) and debug_trendline:
-             side_plot = 'LONG' if res_line else ('SHORT' if sup_line else 'NONE')
-             if trendline_info and bias == 'SHORT': side_plot = 'SHORT' # Override if we actually triggered
-             
-             symbol_str = 'DEBUG'
-             if 'symbol' in df:
-                  val = df['symbol'].iloc[0] if hasattr(df['symbol'], 'iloc') else df['symbol']
-                  symbol_str = str(val)
-                  
-             self.plot_debug_chart(df, rsi_series, debug_trendline, side_plot, symbol_str)
-
-        # Construct Result
-        return self.build_result(df, bias, action, score, mcap, trendline_info, analysis_metadata)
-
+        # Return Result
+        if valid_breakout_found:
+             return {
+                'symbol': 'UNKNOWN', # Injected by caller
+                'score': min(100, breakout_score),
+                'bias': breakout_bias,
+                'action': 'BUY', # Signal is Active
+                'price': df['close'].iloc[-1], # Current Price
+                'setup': self.latest_setup,
+                'details': final_score_details,
+                'meta': breakout_meta,
+                'htf': {
+                    'trend': 'UP',
+                    'bias': breakout_bias,
+                    'ema50': 0, 'ema200': 0, 'adx': 0
+                },
+                'ltf': {
+                    'rsi': rsi_series.iloc[-1],
+                    'divergence': 'NONE',
+                    'pullbackDepth': 0,
+                    'isPullback': False,
+                    'volumeOk': True,
+                    'momentumOk': True,
+                    'isOverextended': False
+                },
+                'timestamp': int(datetime.datetime.now().timestamp() * 1000)
+            }
+        
+        return self.empty_result(df)
+            
     def plot_debug_chart(self, df, rsi_series, trendline, side, symbol):
         try:
             plt.figure(figsize=(12, 6))
@@ -1048,7 +1080,7 @@ class QuantProBreakout(Strategy):
 
     def backtest(self, df, df_htf=None, mcap=0):
         # Rolling Window Backtest
-        df['rsi'] = df.ta.rsi(length=self.rsi_len)
+        df['rsi'] = df.ta.rsi(length=self.rsi_len).fillna(0)
         df['obv'] = df.ta.obv()
         df['mfi'] = df.ta.mfi(length=14)
         df['swing_high_100'] = df['high'].rolling(100).max()
@@ -1214,7 +1246,7 @@ class QuantProBreakout(Strategy):
             "htf": {}, "ltf": {}
         }
         
-    def build_result(self, df, bias, action, score, mcap, trendline_info=None, metadata=None):
+    def build_result(self, df, bias, action, score, mcap, trendline_info=None, metadata=None, score_details=None):
         last_row = df.iloc[-1]
         close = float(last_row['close'])
         
@@ -1257,6 +1289,6 @@ class QuantProBreakout(Strategy):
             "take_profit": float(setup['tp']) if setup else None,
             "setup": setup,
             "analysis": metadata if metadata else {},
-            "details": {"total": score},
+            "details": score_details if score_details else {"total": score},
             "htf": {}, "ltf": {"rsi": float(last_row['rsi']) if pd.notna(last_row['rsi']) else 0}
         }

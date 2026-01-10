@@ -30,14 +30,19 @@ def load_data(filename):
             df[col] = pd.to_numeric(df[col], errors='coerce')
             
     # Drop rows with NaN in critical columns
+    initial_len = len(df)
     df.dropna(subset=['close'], inplace=True)
+    dropped = initial_len - len(df)
+    if dropped > 0:
+        import sys
+        print(f"[WARN] Dropped {dropped} rows due to NaN values in {filename}", file=sys.stderr)
     
     return df
 
 def clean_nans(obj):
     if isinstance(obj, float):
         if pd.isna(obj) or np.isinf(obj):
-            return None
+            return 0.0
         return obj
     elif isinstance(obj, dict):
         return {k: clean_nans(v) for k, v in obj.items()}
@@ -116,17 +121,19 @@ def main():
                     # Assume LIVE mode for batch typically
                     batch_res = []
                     for stra in strategies_to_run:
-                        r = stra.analyze(df, df_htf, mcap=0) # mcap ignored for now
-                        r['symbol'] = symbol
-                        
-                        # FORCE Name Injection
-                        if isinstance(stra, QuantProLegacy):
-                            r['strategy_name'] = "Legacy"
-                        elif isinstance(stra, QuantProBreakout):
-                            r['strategy_name'] = "Breakout"
+                        # Logic Split: Breakout runs on HTF (4H), Legacy runs on LTF (15m)
+                        if isinstance(stra, QuantProBreakout):
+                             # Pass df_htf as the primary 'df' for Breakout
+                             r = stra.analyze(df_htf, df_htf, mcap=0) 
+                             r['strategy_name'] = "Breakout"
+                        elif isinstance(stra, QuantProLegacy):
+                             r = stra.analyze(df, df_htf, mcap=0)
+                             r['strategy_name'] = "Legacy"
                         else:
-                            r['strategy_name'] = stra.name()
-                            
+                             r = stra.analyze(df, df_htf, mcap=0)
+                             r['strategy_name'] = stra.name()
+
+                        r['symbol'] = symbol
                         batch_res.append(r)
                     
                     # Filter: Keep all valid Signals (RR>=2) and all WAITs
@@ -216,6 +223,10 @@ def main():
             strategies_to_run = [QuantProBreakout(config)]
         else:
             raise ValueError(f"Unknown strategy: {args.strategy}")
+        
+        # DEBUG PRINT
+        import sys
+        print(f"DEBUG: Selected Strategies: {[s.name() for s in strategies_to_run]}", file=sys.stderr)
             
         if args.backtest:
             # BACKTEST MODE -> Accumulate all
@@ -243,8 +254,12 @@ def main():
                     r['strategy_name'] = "Legacy"
                 elif isinstance(stra, QuantProBreakout):
                     r['strategy_name'] = "Breakout"
+                    # DEBUG
+                    print("DEBUG: SET BREAKOUT NAME", file=sys.stderr)
                 else:
                     r['strategy_name'] = stra.name()
+                
+                print(f"DEBUG: Strategy {stra} -> {r['strategy_name']}", file=sys.stderr)
 
                 results.append(r)
             

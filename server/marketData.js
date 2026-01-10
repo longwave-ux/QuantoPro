@@ -73,11 +73,11 @@ const mapData = (data) => {
 const mapHyperliquidData = (data) => {
     return data.map((d) => ({
         time: d.t,
-        open: parseFloat(d.o),
-        high: parseFloat(d.h),
-        low: parseFloat(d.l),
-        close: parseFloat(d.c),
-        volume: parseFloat(d.v)
+        open: parseFloat(d.o) || 0.0,
+        high: parseFloat(d.h) || 0.0,
+        low: parseFloat(d.l) || 0.0,
+        close: parseFloat(d.c) || 0.0,
+        volume: parseFloat(d.v) || 0.0
     }));
 };
 

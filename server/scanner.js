@@ -258,7 +258,100 @@ export const runServerScan = async (source = 'KUCOIN') => {
 
     await saveScanHistory(nextHistory);
 
-    const finalResults = results.sort((a, b) => b.score - a.score).slice(0, 20);
+    // --- PERSISTENCE LOGIC START ---
+    // Load Previous Results to find "Sticky" signals (Breakout > 80, < 24h old)
+    let previousResults = [];
+    try {
+        const prevFile = path.join(DATA_DIR, `latest_results_${source}.json`);
+        const data = await fs.readFile(prevFile, 'utf8');
+        previousResults = JSON.parse(data);
+    } catch (e) {
+        // Ignore file not found
+    }
+
+    // Filter for Sticky Signals
+    const STICKY_THRESHOLD = 80;
+    const STICKY_DURATION = 24 * 60 * 60 * 1000; // 24 Hours
+    const stickySignals = previousResults.filter(r => {
+        if (r.strategy_name !== 'Breakout') return false;
+        if (r.score < STICKY_THRESHOLD) return false;
+        const age = now - (r.timestamp || 0);
+        return age < STICKY_DURATION;
+    });
+
+    Logger.info(`[SERVER SCAN] Found ${stickySignals.length} sticky signals to preserve.`);
+
+    // Merge Logic:
+    // 1. Create a Map of New Results key = Symbol + Strategy
+    // 2. Add Sticky Signals if they aren't in New Results (or if New Result score is lower? User wants display)
+    // POLICY: If Sticky exists, we keep the Sticky version? Or just ensure it's in the list?
+    // User said: "displayed for 24h".
+    // Let's add them to the pool. If duplicate (Symbol+Strategy), use the Higher Score one?
+    // Actually, if New Scan says Score 0 (Wait), but Old was 95, we want to see the 95.
+    // So Max(Old, New) seems appropriate for visibility.
+
+    const resultMap = new Map();
+
+    // 1. Add All New Results
+    results.forEach(r => {
+        const key = `${r.symbol}_${r.strategy_name}`;
+        resultMap.set(key, r);
+    });
+
+    // 2. Merge Sticky
+    stickySignals.forEach(s => {
+        const key = `${s.symbol}_${s.strategy_name}`;
+        const existing = resultMap.get(key);
+
+        if (!existing) {
+            // New scan didn't find this (was filtered out or failed), restore sticky
+            resultMap.set(key, s);
+        } else {
+            // Conflict. Existing is New Scan. Sticky is Old.
+            // If New Scan score < Sticky, revert to Sticky to keep it visible?
+            // "displayed for 24h" implies we show the signal.
+            if (existing.score < s.score) {
+                resultMap.set(key, s);
+            }
+        }
+    });
+
+    const mergedResults = Array.from(resultMap.values());
+    // --- PERSISTENCE LOGIC END ---
+
+    await saveScanHistory(nextHistory);
+
+    // --- QUOTA LOGIC START ---
+    // User Requirement: "Keep top 10 Legacy and top 5 Breakout"
+    // Plus: "Breakout > 80 displayed for 24h" (Sticky)
+
+    // 1. Separate by Strategy
+    const legacyAll = mergedResults.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
+    const breakoutAll = mergedResults.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
+
+    // 2. Select Legacy (Top 10)
+    const legacySelected = legacyAll.slice(0, 10);
+
+    // 3. Select Breakout (Top 5 + All Sticky > 80)
+    // Sticky signals are already in 'mergedResults' due to previous step.
+    // We just need to ensure we select:
+    //  a) The Top 5 (regardless of score)
+    //  b) Any others with Score > 80 (which are effectively "Sticky" high quality)
+
+    const breakoutSelected = breakoutAll.filter((r, index) => {
+        const isTop5 = index < 5;
+        const isHighValue = r.score > 80;
+        return isTop5 || isHighValue;
+    });
+
+    // 4. Combine & Final Sort
+    const finalResults = [...legacySelected, ...breakoutSelected].sort((a, b) => b.score - a.score);
+
+    // Safety Limit: If for some reason we have 1000 > 80 score breakouts (unlikely), 
+    // we might want a hard cap, but 50 is safe for the UI.
+    // finalResults is effectively Limited by (10 + max(5, count(>80))).
+    // --- QUOTA LOGIC END ---
+
     await saveLatestResults(finalResults, source);
 
     // Log high-quality signals for historical consistency analysis

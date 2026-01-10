@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
     Zap, Activity, RefreshCw, Settings, Trophy, AlertTriangle, ArrowRight, BarChart2, Save, X, Terminal, Brain, Wallet,
-    Clock, Download, Database, Upload, Globe, Send, WifiOff, CheckCircle2, AlertCircle, Bot, Bell
+    Clock, Download, Database, Upload, Globe, Send, WifiOff, CheckCircle2, AlertCircle, Bot, Bell, Check
 } from 'lucide-react';
 import { runScannerWorkflow, exportHistoryJSON, restoreHistoryJSON, getSystemLogs, LogEntry } from './services/dataService';
 import { AnalysisResult, NotificationSettings, DataSource } from './types';
@@ -20,7 +20,11 @@ const DEFAULT_SETTINGS: NotificationSettings = {
     botToken: '',
     chatId: '',
     minScore: 85,
-    activeExchange: 'HYPERLIQUID'
+    activeExchange: 'HYPERLIQUID',
+    strategies: {
+        Legacy: { enabled: true, minScore: 85 },
+        Breakout: { enabled: true, minScore: 95 }
+    }
 };
 
 export default function App() {
@@ -119,7 +123,12 @@ export default function App() {
             if (saved) {
                 const parsed = JSON.parse(saved);
                 // Merge with defaults to ensure all keys exist
-                return { ...DEFAULT_SETTINGS, ...parsed };
+                const merged = { ...DEFAULT_SETTINGS, ...parsed };
+                // Deep merge strategies to ensure defaults exist if migration happened
+                if (!merged.strategies) {
+                    merged.strategies = DEFAULT_SETTINGS.strategies;
+                }
+                return merged;
             }
             return DEFAULT_SETTINGS;
         } catch (e) {
@@ -575,15 +584,52 @@ export default function App() {
                                         />
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs uppercase font-bold text-gray-500">Minimum Score</label>
-                                        <input
-                                            type="number"
-                                            value={settings.minScore}
-                                            onChange={(e) => setSettings({ ...settings, minScore: Number(e.target.value) })}
-                                            placeholder="85"
-                                            className="w-full bg-gray-950 border border-gray-800 rounded px-3 py-2 text-sm focus:border-blue-500 focus:outline-none placeholder-gray-700"
-                                        />
+                                    <div className="pt-2 border-t border-gray-800 mt-2">
+                                        <label className="text-xs uppercase font-bold text-blue-400 mb-2 flex items-center justify-between">
+                                            <span>Strategy Thresholds</span>
+                                            <span className="text-[10px] text-gray-500 font-normal normal-case">Global Fallback: {settings.minScore}</span>
+                                        </label>
+                                        <div className="space-y-2">
+                                            {Object.keys(settings.strategies || {}).length === 0 && (
+                                                <div className="text-xs text-yellow-500 p-2 bg-yellow-900/20 rounded">
+                                                    No strategies configured. Using default list.
+                                                </div>
+                                            )}
+                                            {Object.entries(settings.strategies || DEFAULT_SETTINGS.strategies || {}).map(([stratName, config]) => (
+                                                <div key={stratName} className="flex items-center justify-between bg-gray-950/50 p-2 rounded border border-gray-800">
+                                                    <div className="flex items-center gap-3">
+                                                        <button
+                                                            onClick={() => {
+                                                                const newStrat = { ...config, enabled: !config.enabled };
+                                                                setSettings({
+                                                                    ...settings,
+                                                                    strategies: { ...settings.strategies, [stratName]: newStrat } as any
+                                                                });
+                                                            }}
+                                                            className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${config.enabled ? 'bg-blue-600 border-blue-500' : 'bg-gray-800 border-gray-600'}`}
+                                                        >
+                                                            {config.enabled && <Check strokeWidth={4} className="w-3 h-3 text-white" />}
+                                                        </button>
+                                                        <span className="text-xs font-bold text-gray-300">{stratName}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[10px] text-gray-500 uppercase">Min Score</span>
+                                                        <input
+                                                            type="number"
+                                                            value={config.minScore}
+                                                            onChange={(e) => {
+                                                                const newStrat = { ...config, minScore: Number(e.target.value) };
+                                                                setSettings({
+                                                                    ...settings,
+                                                                    strategies: { ...settings.strategies, [stratName]: newStrat } as any
+                                                                });
+                                                            }}
+                                                            className={`w-12 bg-gray-900 border border-gray-700 rounded px-2 py-1 text-xs text-right focus:outline-none font-mono ${stratName === 'Breakout' ? 'focus:border-purple-500 text-purple-300' : 'focus:border-blue-500 text-blue-300'}`}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     <div className="pt-2">

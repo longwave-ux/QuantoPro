@@ -20,16 +20,16 @@ export const optimizeStrategy = async (baseConfig, options = {}) => {
     // Expanded to include Indicators for better accuracy
     const GRID = {
         THRESHOLDS: {
-            MIN_SCORE_SIGNAL: [65, 75],
+            MIN_SCORE_SIGNAL: [70, 80],
         },
 
         RISK: {
             ATR_MULTIPLIER: [2.0, 3.0],
-            SL_BUFFER: [0.005, 0.01]
+            SL_BUFFER: [0.01]
         },
         INDICATORS: {
-            RSI: { PERIOD: [14, 9] }, // Standard vs Fast
-            ADX: { STRONG_TREND: [20, 25] } // Sensitive vs Strong
+            RSI: { PERIOD: [14] }, // Fixed
+            ADX: { STRONG_TREND: [25] } // Fixed
         }
     };
 
@@ -72,8 +72,8 @@ export const optimizeStrategy = async (baseConfig, options = {}) => {
 
                         // Run fast backtest on subset of files
                         // Pass 'days' to limit the history depth if needed, or stick to validationLimit for pairs
-                        const validationLimit = 30;
-                        const stats = await runBacktest(runConfig, { limit: validationLimit, verbose: false, days: days });
+                        const validationLimit = 5;
+                        const stats = await runBacktest(runConfig, { limit: validationLimit, verbose: false, days: days, strategy: options.strategy || 'legacy' });
 
                         const winRate = stats.totalSignals > 0 ? stats.wins / (stats.wins + stats.losses) : 0;
 
@@ -121,7 +121,7 @@ export const optimizeStrategy = async (baseConfig, options = {}) => {
     if (options.onProgress) options.onProgress(95, 10); // Fake 10s ETA for final step
 
     // Validate the best
-    const bestStats = await runBacktest(bestResult.config, { limit: 0, verbose: false, days: days }); // 0 = All files
+    const bestStats = await runBacktest(bestResult.config, { limit: 0, verbose: false, days: days, strategy: options.strategy || 'legacy' }); // 0 = All files
     const bestWinRate = bestStats.totalSignals > 0 ? bestStats.wins / (bestStats.wins + bestStats.losses) : 0;
 
     // Update the result with the deep validation stats
@@ -130,7 +130,7 @@ export const optimizeStrategy = async (baseConfig, options = {}) => {
 
     // Also run baseline on full history for fair comparison
     console.log('[OPTIMIZER] Validating baseline on FULL history...');
-    const baselineStats = await runBacktest(baseConfig, { limit: 0, verbose: false, days: days });
+    const baselineStats = await runBacktest(baseConfig, { limit: 0, verbose: false, days: days, strategy: options.strategy || 'legacy' });
     const baselineWinRate = baselineStats.totalSignals > 0 ? baselineStats.wins / (baselineStats.wins + baselineStats.losses) : 0;
 
     if (options.onProgress) options.onProgress(100, 0);

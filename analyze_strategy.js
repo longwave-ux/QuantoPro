@@ -121,11 +121,11 @@ const getFutureOutcome = (candles, startIndex, entry, tp, sl, side, config) => {
     return { result: 'EXPIRED', pnl: 0, candles: LOOKAHEAD, meta: 'TIMEOUT' };
 };
 
-export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12, onProgress: null }) => {
+export const runBacktest = async (customConfig = null, options = { limit: 0, verbose: false, days: 12, onProgress: null, strategy: 'legacy' }) => {
     // If running in standalone mode (no custom config), look for global CONFIG
     // Otherwise use provided config, merging checks if needed.
     const activeConfig = customConfig || CONFIG;
-    const { limit, verbose } = options;
+    const { limit, verbose, strategy = 'legacy' } = options;
     const backtestCandles = getCandlesFromDays(options.days || 12);
 
     // In API mode, we might need absolute path if CWD differs, but here assuming same DIR structure
@@ -152,7 +152,8 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
             divergenceWin: 0, divergenceLoss: 0,
             pullbackWin: 0, pullbackLoss: 0
         },
-        weak_signals: []
+        weak_signals: [],
+        allTrades: []
     };
 
     // Load Mcap Cache
@@ -163,8 +164,6 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
     } catch (e) {
         if (verbose) console.warn('[BACKTEST] No mcap_cache.json found. MCap scoring disabled.');
     }
-
-    if (verbose) console.log(`[BACKTEST] Analyzing ${ltfFiles.length} pairs ...`);
 
     if (verbose) console.log(`[BACKTEST] Analyzing ${ltfFiles.length} pairs ...`);
 
@@ -206,7 +205,7 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
             const { stdout } = await execFilePromise(venvPython, [
                 pythonScript,
                 ltfPath,
-                '--strategy', 'legacy',
+                '--strategy', strategy,
                 '--backtest',
                 '--config', configStr
             ]);
@@ -260,6 +259,19 @@ export const runBacktest = async (customConfig = null, options = { limit: 0, ver
                     if (outcome.result !== 'EXPIRED') {
                         stats.totalPnL += outcome.pnl;
                         stats.pnlHistory.push(outcome.pnl);
+
+                        // Capture Trade Metadata
+                        stats.allTrades.push({
+                            symbol: symbol,
+                            result: outcome.result,
+                            pnl: outcome.pnl,
+                            candles: outcome.candles,
+                            isTimeExit: outcome.isTimeExit || false,
+                            score: signal.score, // Signal Score
+                            mcap: mcapCache[symbol] || 0, // Market Cap
+                            volume: signal.volume || 0, // Needs Python to return volume, checking...
+                            timestamp: signal.timestamp
+                        });
                     }
 
                     if (outcome.result === 'WIN') {
