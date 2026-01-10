@@ -19,6 +19,16 @@ export interface TechnicalIndicators {
   } | null;
 }
 
+export interface TrendlineInfo {
+  m: number;
+  c: number;
+  start_idx: number;
+  start_rsi: number;
+  end_idx: number;
+  end_rsi: number;
+  current_projected_rsi: number;
+}
+
 export interface TradeSetup {
   entry: number;
   sl: number;
@@ -26,21 +36,23 @@ export interface TradeSetup {
   rr: number;
   side: 'LONG' | 'SHORT';
   confluenceType?: 'FIB_STRUCTURE' | 'STRUCTURE_ONLY' | 'ATR_REVERSION';
+  trendline?: TrendlineInfo; // Added for Breakout Visualization
 }
 
 export type DataSource = 'KUCOIN' | 'MEXC' | 'HYPERLIQUID';
 
 export interface AnalysisResult {
   symbol: string;
-  source: DataSource; // Added source
-  strategy_name?: string; // Multi-Strategy Support
-  bias?: string; // Root level bias
+  source: DataSource;
+  strategy_name?: string;
+  bias?: string;
+  action?: string; // Added for Breakout Watch/Wait
   price: number;
   score: number;
   setup: TradeSetup | null;
   history?: {
-    consecutiveScans: number; // How many consecutive times it appeared (1 = New, 2 = 30m, 3 = 45m, etc)
-    prevScore: number;        // Score from the last scan
+    consecutiveScans: number;
+    prevScore: number;
     status: 'NEW' | 'STABLE' | 'WEAKENING' | 'STRENGTHENING';
   };
   meta: {
@@ -48,12 +60,15 @@ export interface AnalysisResult {
     ltfInterval: string;
   };
   details: {
-    trendScore: number;     // Max 25 (Trend Strength & Alignment)
-    structureScore: number; // Max 25 (Fib + Support/Res)
-    moneyFlowScore: number; // Max 40 (OBV [25] + Divergence [15]) - Heavy weighting
-    timingScore: number;    // Max 10 (Pullback & Wick)
-    // Breakout Strategy Keys
-    geometry_score?: number;
+    trendScore: number;
+    structureScore: number;
+    moneyFlowScore: number;
+    timingScore: number;
+    // Breakout Strategy Keys (camelCase to match Python)
+    geometryScore?: number;
+    momentumScore?: number;
+    divergenceScore?: number;
+    geometry_score?: number; // Legacy support if needed
     momentum_score?: number;
     divergence_score?: number;
     structure_score?: number;

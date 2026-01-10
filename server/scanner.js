@@ -329,19 +329,19 @@ export const runServerScan = async (source = 'KUCOIN') => {
     const legacyAll = mergedResults.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
     const breakoutAll = mergedResults.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
 
-    // 2. Select Legacy (Top 10)
-    const legacySelected = legacyAll.slice(0, 10);
+    // 2. Select Legacy (Top 20)
+    const legacySelected = legacyAll.slice(0, 20);
 
-    // 3. Select Breakout (Top 5 + All Sticky > 80)
+    // 3. Select Breakout (Top 20 + All Sticky > 80)
     // Sticky signals are already in 'mergedResults' due to previous step.
     // We just need to ensure we select:
-    //  a) The Top 5 (regardless of score)
+    //  a) The Top 20 (regardless of score)
     //  b) Any others with Score > 80 (which are effectively "Sticky" high quality)
 
     const breakoutSelected = breakoutAll.filter((r, index) => {
-        const isTop5 = index < 5;
+        const isTop20 = index < 20;
         const isHighValue = r.score > 80;
-        return isTop5 || isHighValue;
+        return isTop20 || isHighValue;
     });
 
     // 4. Combine & Final Sort

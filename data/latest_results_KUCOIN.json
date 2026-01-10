@@ -1,51 +1,46 @@
 [
   {
-    "strategy_name": "Legacy",
-    "symbol": "TAKEUSDTM",
-    "price": 0.07701,
-    "score": 89.7,
+    "strategy_name": "Breakout",
+    "symbol": "ETHUSDTM",
+    "price": 3092.1,
+    "score": 100,
     "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 3.66,
-    "entry": 0.07701,
-    "stop_loss": 0.07779704999999999,
-    "take_profit": 0.07413,
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 3091.69,
+    "stop_loss": 3093.91,
+    "take_profit": 2937.1055,
     "setup": {
+      "entry": 3091.69,
+      "sl": 3093.91,
+      "tp": 2937.1055,
+      "rr": 2,
       "side": "SHORT",
-      "entry": 0.07701,
-      "tp": 0.07413,
-      "sl": 0.07779704999999999,
-      "rr": 3.66
+      "trendline": {
+        "m": 0.11609848279808813,
+        "c": 21.407312865118314,
+        "start_idx": 58,
+        "start_rsi": 28.141024867407427,
+        "end_idx": 191,
+        "end_rsi": 43.58212307955315,
+        "current_idx": 199,
+        "current_projected_rsi": 44.51091094193785
+      }
     },
     "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 214078.77081000002
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 28.78770394216573,
-      "ema50": 0.10214242214851084,
-      "ema200": 0.2559092
+      "trend": "SHORT",
+      "bias": "SHORT"
     },
     "ltf": {
-      "rsi": 52.831907649212305,
-      "adx": 28.78770394216573,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7499999999999991,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 45.357927362685984
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768075740620,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -58,110 +53,153 @@
     }
   },
   {
-    "strategy_name": "Legacy",
-    "symbol": "GRASSUSDTM",
-    "price": 0.3631,
-    "score": 89.7,
+    "strategy_name": "Breakout",
+    "symbol": "PIPPINUSDTM",
+    "price": 0.41398,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.41705,
+    "stop_loss": 0.43611,
+    "take_profit": 0.3961975,
+    "setup": {
+      "entry": 0.41705,
+      "sl": 0.43611,
+      "tp": 0.3961975,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.1547952112746915,
+        "c": 13.753722774700421,
+        "start_idx": 120,
+        "start_rsi": 32.3291481276634,
+        "end_idx": 196,
+        "end_rsi": 44.09358418453996,
+        "current_idx": 199,
+        "current_projected_rsi": 44.55796981836403
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 37.15141793593877
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "BCHUSDTM",
+    "price": 643.74,
+    "score": 100,
     "bias": "LONG",
-    "action": "LONG",
-    "rr": 5.16,
-    "entry": 0.3631,
-    "stop_loss": 0.3602895,
-    "take_profit": 0.3776,
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 643.13,
+    "stop_loss": 639,
+    "take_profit": 675.2865,
     "setup": {
+      "entry": 643.13,
+      "sl": 639,
+      "tp": 675.2865,
+      "rr": 2,
       "side": "LONG",
-      "entry": 0.3631,
-      "tp": 0.3776,
-      "sl": 0.3602895,
-      "rr": 5.16
+      "trendline": {
+        "m": -0.1953782908950989,
+        "c": 100.3907565817902,
+        "start_idx": 2,
+        "start_rsi": 100,
+        "end_idx": 191,
+        "end_rsi": 63.07350302082631,
+        "current_idx": 199,
+        "current_projected_rsi": 61.51047669366552
+      }
     },
     "details": {
-      "total": 89.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 1782116.6353
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 32.24154055033563,
-      "ema50": 0.3328949769394242,
-      "ema200": 0.310851
+      "trend": "LONG",
+      "bias": "LONG"
     },
     "ltf": {
-      "rsi": 48.61162128199806,
-      "adx": 32.24154055033563,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5053763440860224,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 66.1223492584092
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768073928379,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
+      "consecutiveScans": 2,
+      "prevScore": 86,
+      "status": "STRENGTHENING"
     }
   },
   {
-    "strategy_name": "Legacy",
-    "symbol": "HYPEUSDTM",
-    "price": 24.615,
-    "score": 70,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.74,
-    "entry": 24.615,
-    "stop_loss": 24.766215,
-    "take_profit": 24.2,
+    "strategy_name": "Breakout",
+    "symbol": "SHIBUSDTM",
+    "price": 0.000008712,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.000008712,
+    "stop_loss": 0.000008634,
+    "take_profit": 0.0000091476,
     "setup": {
-      "side": "SHORT",
-      "entry": 24.615,
-      "tp": 24.2,
-      "sl": 24.766215,
-      "rr": 2.74
+      "entry": 0.000008712,
+      "sl": 0.000008634,
+      "tp": 0.0000091476,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.19890091629256845,
+        "c": 100.19890091629257,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 191,
+        "end_rsi": 62.208825904411995,
+        "current_idx": 199,
+        "current_projected_rsi": 60.61761857407145
+      }
     },
     "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 74023679.598
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 23.146272518401528,
-      "ema50": 25.840780511728052,
-      "ema200": 26.19495
+      "trend": "LONG",
+      "bias": "LONG"
     },
     "ltf": {
-      "rsi": 59.558973162289945,
-      "adx": 23.146272518401528,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.3194765204003074,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 62.60971829084338
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768073032550,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -174,52 +212,842 @@
     }
   },
   {
-    "strategy_name": "Legacy",
+    "strategy_name": "Breakout",
+    "symbol": "TRUTHUSDTM",
+    "price": 0.012624,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.012631,
+    "stop_loss": 0.01196,
+    "take_profit": 0.01326255,
+    "setup": {
+      "entry": 0.012631,
+      "sl": 0.01196,
+      "tp": 0.01326255,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.1331719459361723,
+        "c": 100.13317194593617,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 198,
+        "end_rsi": 73.76512665057406,
+        "current_idx": 199,
+        "current_projected_rsi": 73.63195470463788
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 73.37682939716957
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "FARTCOINUSDTM",
+    "price": 0.381,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.3798,
+    "stop_loss": 0.389,
+    "take_profit": 0.36081,
+    "setup": {
+      "entry": 0.3798,
+      "sl": 0.389,
+      "tp": 0.36081,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.3730377966461691,
+        "c": -33.2853420172117,
+        "start_idx": 135,
+        "start_rsi": 17.07476053002113,
+        "end_idx": 197,
+        "end_rsi": 40.20310392208361,
+        "current_idx": 199,
+        "current_projected_rsi": 40.94917951537595
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 43.56530967158552
+    },
+    "timestamp": 1768072134321,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CROSSUSDTM",
+    "price": 0.12762,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.12762,
+    "stop_loss": 0.12685,
+    "take_profit": 0.134001,
+    "setup": {
+      "entry": 0.12762,
+      "sl": 0.12685,
+      "tp": 0.134001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.28033541343868307,
+        "c": 100.28033541343868,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 192,
+        "end_rsi": 46.45593603321153,
+        "current_idx": 199,
+        "current_projected_rsi": 44.49358813914075
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 45.927583994422235
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "4USDTM",
+    "price": 0.02644,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.02611,
+    "stop_loss": 0.02716,
+    "take_profit": 0.0248045,
+    "setup": {
+      "entry": 0.02611,
+      "sl": 0.02716,
+      "tp": 0.0248045,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.2899369116730729,
+        "c": -0.2899369116730729,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 196,
+        "end_rsi": 56.53769777624921,
+        "current_idx": 199,
+        "current_projected_rsi": 57.40750851126843
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 59.92555796443289
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "MONUSDTM",
+    "price": 0.02503,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.02503,
+    "stop_loss": 0.02451,
+    "take_profit": 0.026281500000000003,
+    "setup": {
+      "entry": 0.02503,
+      "sl": 0.02451,
+      "tp": 0.026281500000000003,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.2423223340342397,
+        "c": 100.24232233403424,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 197,
+        "end_rsi": 52.50482252928902,
+        "current_idx": 199,
+        "current_projected_rsi": 52.020177861220546
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 54.364351102369504
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CLOUSDTM",
+    "price": 0.64057,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.63812,
+    "stop_loss": 0.61345,
+    "take_profit": 0.670026,
+    "setup": {
+      "entry": 0.63812,
+      "sl": 0.61345,
+      "tp": 0.670026,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.17994531823804857,
+        "c": 100.17994531823805,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 190,
+        "end_rsi": 65.99033485300882,
+        "current_idx": 199,
+        "current_projected_rsi": 64.37082698886638
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 70.20442335493094
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "PUMPUSDTM",
+    "price": 0.002359,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.002349,
+    "stop_loss": 0.002418,
+    "take_profit": 0.0022315499999999997,
+    "setup": {
+      "entry": 0.002349,
+      "sl": 0.002418,
+      "tp": 0.0022315499999999997,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.2019709506383589,
+        "c": 3.524519026257792,
+        "start_idx": 139,
+        "start_rsi": 31.59848116498968,
+        "end_idx": 196,
+        "end_rsi": 43.110825351376135,
+        "current_idx": 199,
+        "current_projected_rsi": 43.716738203291214
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 46.23845357756124
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "AINUSDTM",
+    "price": 0.05588,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.05588,
+    "stop_loss": 0.05463,
+    "take_profit": 0.058674000000000004,
+    "setup": {
+      "entry": 0.05588,
+      "sl": 0.05463,
+      "tp": 0.058674000000000004,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.14917149348149428,
+        "c": 100.14917149348149,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 196,
+        "end_rsi": 70.91155877110862,
+        "current_idx": 199,
+        "current_projected_rsi": 70.46404429066413
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 73.6486006895938
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "GPSUSDTM",
+    "price": 0.00645,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.00642,
+    "stop_loss": 0.00632,
+    "take_profit": 0.0067410000000000005,
+    "setup": {
+      "entry": 0.00642,
+      "sl": 0.00632,
+      "tp": 0.0067410000000000005,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.5187934346296478,
+        "c": 147.0999229544897,
+        "start_idx": 106,
+        "start_rsi": 92.10781888374704,
+        "end_idx": 189,
+        "end_rsi": 49.047963809486276,
+        "current_idx": 199,
+        "current_projected_rsi": 43.86002946318979
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 50.31255416687918
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 62.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "BNBUSDTM",
+    "price": 911.99,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 911.99,
+    "stop_loss": 907.74,
+    "take_profit": 957.5895,
+    "setup": {
+      "entry": 911.99,
+      "sl": 907.74,
+      "tp": 957.5895,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.14306457753355406,
+        "c": 100.14306457753355,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 187,
+        "end_rsi": 73.38998857875895,
+        "current_idx": 199,
+        "current_projected_rsi": 71.6732136483563
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 71.94225831628721
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "KGENUSDTM",
+    "price": 0.20031,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.20059,
+    "stop_loss": 0.19918,
+    "take_profit": 0.2106195,
+    "setup": {
+      "entry": 0.20059,
+      "sl": 0.19918,
+      "tp": 0.2106195,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.23508174339435065,
+        "c": 100.23508174339435,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 197,
+        "end_rsi": 53.923978294707275,
+        "current_idx": 199,
+        "current_projected_rsi": 53.45381480791857
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 50.79011767115834
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "LIGHTUSDTM",
+    "price": 0.63303,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.63303,
+    "stop_loss": 0.63939,
+    "take_profit": 0.6013784999999999,
+    "setup": {
+      "entry": 0.63303,
+      "sl": 0.63939,
+      "tp": 0.6013784999999999,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.2659491009536721,
+        "c": -0.2659491009536721,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 194,
+        "end_rsi": 51.328176484058716,
+        "current_idx": 199,
+        "current_projected_rsi": 52.65792198882708
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 52.481863178788124
+    },
+    "timestamp": 1768072134321,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "UBUSDTM",
+    "price": 0.0369951,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.0369951,
+    "stop_loss": 0.0361821,
+    "take_profit": 0.038844855000000005,
+    "setup": {
+      "entry": 0.0369951,
+      "sl": 0.0361821,
+      "tp": 0.038844855000000005,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.2296296042840722,
+        "c": 100.22962960428407,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 197,
+        "end_rsi": 54.99259756032185,
+        "current_idx": 199,
+        "current_projected_rsi": 54.533338351753706
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 54.56570666024653
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 4,
+      "prevScore": 89.7,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "BUSDTM",
+    "price": 0.22913,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.22881,
+    "stop_loss": 0.23397,
+    "take_profit": 0.2173695,
+    "setup": {
+      "entry": 0.22881,
+      "sl": 0.23397,
+      "tp": 0.2173695,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.3056332693087762,
+        "c": -5.620663032236235,
+        "start_idx": 68,
+        "start_rsi": 15.162399280760548,
+        "end_idx": 196,
+        "end_rsi": 54.2834577522839,
+        "current_idx": 199,
+        "current_projected_rsi": 55.20035756021023
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 55.31893093997088
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 62.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CUSDTM",
+    "price": 0.08257,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.0819,
+    "stop_loss": 0.08269,
+    "take_profit": 0.077805,
+    "setup": {
+      "entry": 0.0819,
+      "sl": 0.08269,
+      "tp": 0.077805,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.1211096006074418,
+        "c": 16.61667870287412,
+        "start_idx": 65,
+        "start_rsi": 24.488802742357834,
+        "end_idx": 197,
+        "end_rsi": 40.47527002254015,
+        "current_idx": 199,
+        "current_projected_rsi": 40.71748922375504
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 47.586549150733255
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
     "symbol": "XANUSDTM",
-    "price": 0.017609,
-    "score": 70,
+    "price": 0.017832,
+    "score": 100,
     "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.92,
-    "entry": 0.017609,
-    "stop_loss": 0.017499064999999998,
-    "take_profit": 0.01804,
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.017769,
+    "stop_loss": 0.017519,
+    "take_profit": 0.018657450000000003,
     "setup": {
+      "entry": 0.017769,
+      "sl": 0.017519,
+      "tp": 0.018657450000000003,
+      "rr": 2,
       "side": "LONG",
-      "entry": 0.017609,
-      "tp": 0.01804,
-      "sl": 0.017499064999999998,
-      "rr": 3.92
+      "trendline": {
+        "m": -0.12015201255005344,
+        "c": 83.51283226967234,
+        "start_idx": 41,
+        "start_rsi": 78.58659975512015,
+        "end_idx": 190,
+        "end_rsi": 60.683949885162185,
+        "current_idx": 199,
+        "current_projected_rsi": 59.60258177221171
+      }
     },
     "details": {
-      "total": 70,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 25,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 170526.0515
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 23.986129407162746,
-      "ema50": 0.01748141916698647,
-      "ema200": 0.017027524999999998
+      "trend": "LONG",
+      "bias": "LONG"
     },
     "ltf": {
-      "rsi": 48.97049568692448,
-      "adx": 23.986129407162746,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5769745649263723,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 65.23187752004588
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768073928379,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -232,98 +1060,47 @@
     }
   },
   {
-    "strategy_name": "Legacy",
-    "symbol": "GMTUSDTM",
-    "price": 0.02148,
-    "score": 64.7,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 8516473.8562
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 38.604531395440624,
-      "ema50": 0.0171471380706272,
-      "ema200": 0.015751
-    },
-    "ltf": {
-      "rsi": 49.1979386012951,
-      "adx": 38.604531395440624,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.46654611211573277,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "BEATUSDTM",
-    "price": 0.46496,
-    "score": 64.7,
+    "strategy_name": "Breakout",
+    "symbol": "FILUSDTM",
+    "price": 1.491,
+    "score": 100,
     "bias": "SHORT",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 1.4823,
+    "stop_loss": 1.4929,
+    "take_profit": 1.4081849999999998,
+    "setup": {
+      "entry": 1.4823,
+      "sl": 1.4929,
+      "tp": 1.4081849999999998,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.19534885655259754,
+        "c": -0.19534885655259754,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 196,
+        "end_rsi": 38.09302702775652,
+        "current_idx": 199,
+        "current_projected_rsi": 38.67907359741431
+      }
+    },
     "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 831180.62015
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 38.71476942921369,
-      "ema50": 0.7584234921899843,
-      "ema200": 1.8004857
+      "trend": "SHORT",
+      "bias": "SHORT"
     },
     "ltf": {
-      "rsi": 55.91794326246692,
-      "adx": 38.71476942921369,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.550126368997472,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 51.56491189676701
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768070321839,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -336,98 +1113,47 @@
     }
   },
   {
-    "strategy_name": "Legacy",
-    "symbol": "WIFUSDTM",
-    "price": 0.3811,
-    "score": 64.7,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 793248.2163
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 35.23901313035505,
-      "ema50": 0.3748576088065913,
-      "ema200": 0.3543295000000001
-    },
-    "ltf": {
-      "rsi": 57.47100607351279,
-      "adx": 35.23901313035505,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5975609756097571,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "ZORAUSDTM",
-    "price": 0.03864,
-    "score": 64.7,
+    "strategy_name": "Breakout",
+    "symbol": "REZUSDTM",
+    "price": 0.005555,
+    "score": 100,
     "bias": "SHORT",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.005573,
+    "stop_loss": 0.005744,
+    "take_profit": 0.00529435,
+    "setup": {
+      "entry": 0.005573,
+      "sl": 0.005744,
+      "tp": 0.00529435,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.30385608205878106,
+        "c": -5.619890155780986,
+        "start_idx": 131,
+        "start_rsi": 34.185256593919334,
+        "end_idx": 196,
+        "end_rsi": 53.935901927740105,
+        "current_idx": 199,
+        "current_projected_rsi": 54.84747017391645
+      }
+    },
     "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 39262.54004000001
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 28.232884175313917,
-      "ema50": 0.04047984540674013,
-      "ema200": 0.04336955
+      "trend": "SHORT",
+      "bias": "SHORT"
     },
     "ltf": {
-      "rsi": 61.25983443921069,
-      "adx": 28.232884175313917,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6499999999999978,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 52.97271102019864
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768075740620,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -440,46 +1166,3863 @@
     }
   },
   {
-    "strategy_name": "Legacy",
+    "strategy_name": "Breakout",
+    "symbol": "BINANCELIFEUSDTM",
+    "price": 0.16538,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.16342,
+    "stop_loss": 0.16821,
+    "take_profit": 0.155249,
+    "setup": {
+      "entry": 0.16342,
+      "sl": 0.16821,
+      "tp": 0.155249,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.41499263720230106,
+        "c": -25.045756714776665,
+        "start_idx": 138,
+        "start_rsi": 32.22322721914088,
+        "end_idx": 198,
+        "end_rsi": 57.12278545127894,
+        "current_idx": 199,
+        "current_projected_rsi": 57.53777808848124
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 59.966257279493426
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ASTERUSDTM",
+    "price": 0.7352,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.7352,
+    "stop_loss": 0.72177,
+    "take_profit": 0.77196,
+    "setup": {
+      "entry": 0.7352,
+      "sl": 0.72177,
+      "tp": 0.77196,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.1534317852639485,
+        "c": 100.15343178526395,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 191,
+        "end_rsi": 70.84796079984979,
+        "current_idx": 199,
+        "current_projected_rsi": 69.62050651773819
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 72.36851506534948
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "GOATUSDTM",
+    "price": 0.03984,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.03984,
+    "stop_loss": 0.03906,
+    "take_profit": 0.041832,
+    "setup": {
+      "entry": 0.03984,
+      "sl": 0.03906,
+      "tp": 0.041832,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.07830936715297074,
+        "c": 75.08978869606291,
+        "start_idx": 86,
+        "start_rsi": 68.35518312090743,
+        "end_idx": 197,
+        "end_rsi": 59.662843366927675,
+        "current_idx": 199,
+        "current_projected_rsi": 59.50622463262174
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 63.59804571782487
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "1000BONKUSDTM",
+    "price": 0.010599,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.010555,
+    "stop_loss": 0.010686,
+    "take_profit": 0.01002725,
+    "setup": {
+      "entry": 0.010555,
+      "sl": 0.010686,
+      "tp": 0.01002725,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.3146003570893882,
+        "c": -24.662527333329002,
+        "start_idx": 150,
+        "start_rsi": 22.527526230079232,
+        "end_idx": 196,
+        "end_rsi": 36.99914265619109,
+        "current_idx": 199,
+        "current_projected_rsi": 37.94294372745925
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 44.26407291352296
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DOTUSDTM",
+    "price": 2.106,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 2.099,
+    "stop_loss": 2.119,
+    "take_profit": 1.99405,
+    "setup": {
+      "entry": 2.099,
+      "sl": 2.119,
+      "tp": 1.99405,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.20902635020003357,
+        "c": -0.20902635020003357,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 196,
+        "end_rsi": 40.76013828900655,
+        "current_idx": 199,
+        "current_projected_rsi": 41.38721733960665
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 47.02468691801282
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "WLDUSDTM",
+    "price": 0.5805,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.5814,
+    "stop_loss": 0.5754,
+    "take_profit": 0.6104700000000001,
+    "setup": {
+      "entry": 0.5814,
+      "sl": 0.5754,
+      "tp": 0.6104700000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7140744762276713,
+        "c": 197.36794980874728,
+        "start_idx": 170,
+        "start_rsi": 75.97528885004317,
+        "end_idx": 198,
+        "end_rsi": 55.981203515668376,
+        "current_idx": 199,
+        "current_projected_rsi": 55.267129039440704
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 53.06986407540621
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ICPUSDTM",
+    "price": 3.244,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 3.244,
+    "stop_loss": 3.19,
+    "take_profit": 3.4062000000000006,
+    "setup": {
+      "entry": 3.244,
+      "sl": 3.19,
+      "tp": 3.4062000000000006,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.17698037779484646,
+        "c": 100.17698037779485,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 189,
+        "end_rsi": 66.72768897456886,
+        "current_idx": 199,
+        "current_projected_rsi": 64.9578851966204
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 67.92000562378392
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DOGSUSDTM",
+    "price": 0.00004601,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.00004591,
+    "stop_loss": 0.00004519,
+    "take_profit": 0.000048205500000000005,
+    "setup": {
+      "entry": 0.00004591,
+      "sl": 0.00004519,
+      "tp": 0.000048205500000000005,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.20960188371520508,
+        "c": 100.20960188371521,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 195,
+        "end_rsi": 59.33723455925021,
+        "current_idx": 199,
+        "current_projected_rsi": 58.4988270243894
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 61.97186526346602
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "FLOWUSDTM",
+    "price": 0.1032,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.1032,
+    "stop_loss": 0.1048,
+    "take_profit": 0.09804,
+    "setup": {
+      "entry": 0.1032,
+      "sl": 0.1048,
+      "tp": 0.09804,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.17325925936579292,
+        "c": -0.17325925936579292,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 191,
+        "end_rsi": 32.91925927950066,
+        "current_idx": 199,
+        "current_projected_rsi": 34.305333354427
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 31.130333844260285
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "AGTUSDTM",
+    "price": 0.003433,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.003438,
+    "stop_loss": 0.003418,
+    "take_profit": 0.0036099,
+    "setup": {
+      "entry": 0.003438,
+      "sl": 0.003418,
+      "tp": 0.0036099,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.18821360230239956,
+        "c": 93.41703255399676,
+        "start_idx": 132,
+        "start_rsi": 68.57283705008003,
+        "end_idx": 197,
+        "end_rsi": 56.338952900424054,
+        "current_idx": 199,
+        "current_projected_rsi": 55.96252569581925
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 52.96892943497464
+    },
+    "timestamp": 1768071240221,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "BOMEUSDTM",
+    "price": 0.0007068,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.0007074,
+    "stop_loss": 0.0006947,
+    "take_profit": 0.00074277,
+    "setup": {
+      "entry": 0.0007074,
+      "sl": 0.0006947,
+      "tp": 0.00074277,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.19592910247923317,
+        "c": 100.19592910247923,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 198,
+        "end_rsi": 61.401966811591066,
+        "current_idx": 199,
+        "current_projected_rsi": 61.206037709111826
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 59.79265567599514
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CAKEUSDTM",
+    "price": 2.0722,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 2.0668,
+    "stop_loss": 2.0382,
+    "take_profit": 2.1701400000000004,
+    "setup": {
+      "entry": 2.0668,
+      "sl": 2.0382,
+      "tp": 2.1701400000000004,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.12167494205429186,
+        "c": 100.1216749420543,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 194,
+        "end_rsi": 76.51673618352167,
+        "current_idx": 199,
+        "current_projected_rsi": 75.90836147325021
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 78.6344836350206
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "SEIUSDTM",
+    "price": 0.1205,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.1201,
+    "stop_loss": 0.1211,
+    "take_profit": 0.11409499999999999,
+    "setup": {
+      "entry": 0.1201,
+      "sl": 0.1211,
+      "tp": 0.11409499999999999,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.07700100373980275,
+        "c": 22.109708668449485,
+        "start_idx": 64,
+        "start_rsi": 27.03777290779686,
+        "end_idx": 196,
+        "end_rsi": 37.20190540145082,
+        "current_idx": 199,
+        "current_projected_rsi": 37.43290841267023
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 44.961302724117566
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "HAEDALUSDTM",
+    "price": 0.04698,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.04699,
+    "stop_loss": 0.0463,
+    "take_profit": 0.0493395,
+    "setup": {
+      "entry": 0.04699,
+      "sl": 0.0463,
+      "tp": 0.0493395,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.22249293593828087,
+        "c": 100.22249293593828,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 198,
+        "end_rsi": 56.16889162015867,
+        "current_idx": 199,
+        "current_projected_rsi": 55.946398684220384
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 55.80191243297496
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "MELANIAUSDTM",
+    "price": 0.1513,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.1514,
+    "stop_loss": 0.1537,
+    "take_profit": 0.14383,
+    "setup": {
+      "entry": 0.1514,
+      "sl": 0.1537,
+      "tp": 0.14383,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.18622116361656033,
+        "c": -0.18622116361656033,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 194,
+        "end_rsi": 35.940684577996144,
+        "current_idx": 199,
+        "current_projected_rsi": 36.87179039607895
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 35.08430910220561
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "MOVEUSDTM",
+    "price": 0.03496,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.03505,
+    "stop_loss": 0.03468,
+    "take_profit": 0.0368025,
+    "setup": {
+      "entry": 0.03505,
+      "sl": 0.03468,
+      "tp": 0.0368025,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.782531626435092,
+        "c": 204.60140496311124,
+        "start_idx": 168,
+        "start_rsi": 73.13609172201578,
+        "end_idx": 198,
+        "end_rsi": 49.66014292896302,
+        "current_idx": 199,
+        "current_projected_rsi": 48.877611302527924
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 45.416896447152574
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "KAITOUSDTM",
+    "price": 0.5951,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.5951,
+    "stop_loss": 0.6033,
+    "take_profit": 0.565345,
+    "setup": {
+      "entry": 0.5951,
+      "sl": 0.6033,
+      "tp": 0.565345,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.44336585765753556,
+        "c": -31.8171559433718,
+        "start_idx": 146,
+        "start_rsi": 32.91425927462839,
+        "end_idx": 196,
+        "end_rsi": 55.08255215750517,
+        "current_idx": 199,
+        "current_projected_rsi": 56.41264973047777
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 55.2997910407042
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DOODUSDTM",
+    "price": 0.005604,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.005572,
+    "stop_loss": 0.005516,
+    "take_profit": 0.0058506,
+    "setup": {
+      "entry": 0.005572,
+      "sl": 0.005516,
+      "tp": 0.0058506,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.2503030915571536,
+        "c": 100.25030309155716,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 191,
+        "end_rsi": 52.44241260414082,
+        "current_idx": 199,
+        "current_projected_rsi": 50.4399878716836
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 60.441751260541274
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "SYRUPUSDTM",
+    "price": 0.39621,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.39297,
+    "stop_loss": 0.40098,
+    "take_profit": 0.3733215,
+    "setup": {
+      "entry": 0.39297,
+      "sl": 0.40098,
+      "tp": 0.3733215,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.09744485565528428,
+        "c": 19.83005064968806,
+        "start_idx": 89,
+        "start_rsi": 28.50264280300836,
+        "end_idx": 197,
+        "end_rsi": 39.02668721377906,
+        "current_idx": 199,
+        "current_projected_rsi": 39.221576925089636
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 48.48322544569001
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "1MBABYDOGEUSDTM",
+    "price": 0.0007098,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.0007098,
+    "stop_loss": 0.000699,
+    "take_profit": 0.00074529,
+    "setup": {
+      "entry": 0.0007098,
+      "sl": 0.000699,
+      "tp": 0.00074529,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.1598018747841122,
+        "c": 100.15980187478411,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 189,
+        "end_rsi": 69.9572475405869,
+        "current_idx": 199,
+        "current_projected_rsi": 68.35922879274578
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 72.27399808664876
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "UAIUSDTM",
+    "price": 0.16781,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.16772,
+    "stop_loss": 0.16882,
+    "take_profit": 0.159334,
+    "setup": {
+      "entry": 0.16772,
+      "sl": 0.16882,
+      "tp": 0.159334,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.22766671580940828,
+        "c": -0.22766671580940828,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 195,
+        "end_rsi": 44.167342867025205,
+        "current_idx": 199,
+        "current_projected_rsi": 45.07800973026284
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 44.98324071686887
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "QUSDTM",
+    "price": 0.019436,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.019408,
+    "stop_loss": 0.018458,
+    "take_profit": 0.0203784,
+    "setup": {
+      "entry": 0.019408,
+      "sl": 0.018458,
+      "tp": 0.0203784,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.11563621899368007,
+        "c": 100.11563621899369,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 195,
+        "end_rsi": 77.56657351522607,
+        "current_idx": 199,
+        "current_projected_rsi": 77.10402863925135
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 78.36226476137202
+    },
+    "timestamp": 1768072134321,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "RECALLUSDTM",
+    "price": 0.11007,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.11041,
+    "stop_loss": 0.10905,
+    "take_profit": 0.1159305,
+    "setup": {
+      "entry": 0.11041,
+      "sl": 0.10905,
+      "tp": 0.1159305,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.17615538697978153,
+        "c": 100.17615538697979,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 193,
+        "end_rsi": 66.17816569988194,
+        "current_idx": 199,
+        "current_projected_rsi": 65.12123337800327
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 62.41041024929227
+    },
+    "timestamp": 1768071240221,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DOGEUSDTM",
+    "price": 0.14026,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.14021,
+    "stop_loss": 0.13952,
+    "take_profit": 0.1472205,
+    "setup": {
+      "entry": 0.14021,
+      "sl": 0.13952,
+      "tp": 0.1472205,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.23725390768054871,
+        "c": 100.23725390768055,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 189,
+        "end_rsi": 55.396265356056844,
+        "current_idx": 199,
+        "current_projected_rsi": 53.023726279251356
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.24572835405106
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 90,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "IDUSDTM",
+    "price": 0.08724,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.08717,
+    "stop_loss": 0.08896,
+    "take_profit": 0.0828115,
+    "setup": {
+      "entry": 0.08717,
+      "sl": 0.08896,
+      "tp": 0.0828115,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.24750843597002983,
+        "c": -0.24750843597002983,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 190,
+        "end_rsi": 46.77909439833564,
+        "current_idx": 199,
+        "current_projected_rsi": 49.0066703220659
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 48.42925019779205
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 62.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ZEREBROUSDTM",
+    "price": 0.02943,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.02943,
+    "stop_loss": 0.02857,
+    "take_profit": 0.030901500000000002,
+    "setup": {
+      "entry": 0.02943,
+      "sl": 0.02857,
+      "tp": 0.030901500000000002,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.11289217590088514,
+        "c": 100.11289217590088,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 191,
+        "end_rsi": 78.55048657883182,
+        "current_idx": 199,
+        "current_projected_rsi": 77.64734917162474
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 80.0019707792664
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CCUSDTM",
+    "price": 0.13159,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.13228,
+    "stop_loss": 0.13519,
+    "take_profit": 0.125666,
+    "setup": {
+      "entry": 0.13228,
+      "sl": 0.13519,
+      "tp": 0.125666,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.27789680013110585,
+        "c": -5.9604258750598476,
+        "start_idx": 96,
+        "start_rsi": 20.717666937526314,
+        "end_idx": 195,
+        "end_rsi": 48.22945015050579,
+        "current_idx": 199,
+        "current_projected_rsi": 49.34103735103022
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 44.166636351784234
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "STOUSDTM",
+    "price": 0.07919,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.07898,
+    "stop_loss": 0.07794,
+    "take_profit": 0.082929,
+    "setup": {
+      "entry": 0.07898,
+      "sl": 0.07794,
+      "tp": 0.082929,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.05600381434393986,
+        "c": 72.28830533969027,
+        "start_idx": 41,
+        "start_rsi": 69.99214895158873,
+        "end_idx": 190,
+        "end_rsi": 61.64758061434169,
+        "current_idx": 199,
+        "current_projected_rsi": 61.14354628524624
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 68.49935033654411
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 100,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "IRYSUSDTM",
+    "price": 0.056145,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.056145,
+    "stop_loss": 0.054336,
+    "take_profit": 0.058952250000000005,
+    "setup": {
+      "entry": 0.056145,
+      "sl": 0.054336,
+      "tp": 0.058952250000000005,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.16777258965250091,
+        "c": 100.1677725896525,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 197,
+        "end_rsi": 67.11657242810982,
+        "current_idx": 199,
+        "current_projected_rsi": 66.78102724880482
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 67.3085642325808
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "MUSDTM",
+    "price": 1.70306,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 1.69147,
+    "stop_loss": 1.62419,
+    "take_profit": 1.7760435,
+    "setup": {
+      "entry": 1.69147,
+      "sl": 1.62419,
+      "tp": 1.7760435,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.20755102496901176,
+        "c": 100.207551024969,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 185,
+        "end_rsi": 61.810611405701835,
+        "current_idx": 199,
+        "current_projected_rsi": 58.90489705613567
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 345766.3402685049
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 64.03209827382663
+    },
+    "timestamp": 1768072134321,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TRBUSDTM",
+    "price": 21.644,
+    "score": 100,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 21.675,
+    "stop_loss": 21.452,
+    "take_profit": 22.758750000000003,
+    "setup": {
+      "entry": 21.675,
+      "sl": 21.452,
+      "tp": 22.758750000000003,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.22592624409948853,
+        "c": 100.22592624409948,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 198,
+        "end_rsi": 55.49252991240076,
+        "current_idx": 199,
+        "current_projected_rsi": 55.266603668301265
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 52.19137080015363
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "USUALUSDTM",
+    "price": 0.027,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.02694,
+    "stop_loss": 0.02723,
+    "take_profit": 0.025592999999999998,
+    "setup": {
+      "entry": 0.02694,
+      "sl": 0.02723,
+      "tp": 0.025592999999999998,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.17402843863581782,
+        "c": -0.17402843863581782,
+        "start_idx": 1,
+        "start_rsi": 0,
+        "end_idx": 190,
+        "end_rsi": 32.89137490216957,
+        "current_idx": 199,
+        "current_projected_rsi": 34.457630849891935
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 40.14875781429287
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CHILLGUYUSDTM",
+    "price": 0.02325,
+    "score": 100,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.02321,
+    "stop_loss": 0.02353,
+    "take_profit": 0.0220495,
+    "setup": {
+      "entry": 0.02321,
+      "sl": 0.02353,
+      "tp": 0.0220495,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.045894147470999645,
+        "c": 18.722009269844495,
+        "start_idx": 64,
+        "start_rsi": 21.65923470798847,
+        "end_idx": 197,
+        "end_rsi": 27.763156321631424,
+        "current_idx": 199,
+        "current_projected_rsi": 27.854944616573427
+      }
+    },
+    "details": {
+      "geometryScore": 100,
+      "total": 100,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 31.71936556534734
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ICNTUSDTM",
+    "price": 0.36957,
+    "score": 99,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.36809,
+    "stop_loss": 0.36496,
+    "take_profit": 0.38649449999999996,
+    "setup": {
+      "entry": 0.36809,
+      "sl": 0.36496,
+      "tp": 0.38649449999999996,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6161996194895369,
+        "c": 161.15931240300796,
+        "start_idx": 149,
+        "start_rsi": 69.34556909906695,
+        "end_idx": 190,
+        "end_rsi": 44.08138469999594,
+        "current_idx": 199,
+        "current_projected_rsi": 38.535588124590106
+      }
+    },
+    "details": {
+      "geometryScore": 99,
+      "total": 99,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 49.15654486545367
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 99,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "HBARUSDTM",
+    "price": 0.11903,
+    "score": 98,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.11894,
+    "stop_loss": 0.11839,
+    "take_profit": 0.12488700000000001,
+    "setup": {
+      "entry": 0.11894,
+      "sl": 0.11839,
+      "tp": 0.12488700000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7502822046110297,
+        "c": 193.70440663765268,
+        "start_idx": 168,
+        "start_rsi": 67.6569962629997,
+        "end_idx": 196,
+        "end_rsi": 46.64909453389087,
+        "current_idx": 199,
+        "current_projected_rsi": 44.39824792005777
+      }
+    },
+    "details": {
+      "geometryScore": 98,
+      "total": 98,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 49.37288280400964
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "HYPEUSDTM",
+    "price": 24.076,
+    "score": 96,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 23.966,
+    "stop_loss": 24.319,
+    "take_profit": 22.7677,
+    "setup": {
+      "entry": 23.966,
+      "sl": 24.319,
+      "tp": 22.7677,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.09637364419769716,
+        "c": 5.086745163430811,
+        "start_idx": 135,
+        "start_rsi": 18.097187130119927,
+        "end_idx": 197,
+        "end_rsi": 24.07235307037715,
+        "current_idx": 199,
+        "current_projected_rsi": 24.265100358772543
+      }
+    },
+    "details": {
+      "geometryScore": 96,
+      "total": 96,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 34.79783471106083
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "AVNTUSDTM",
+    "price": 0.33067,
+    "score": 96,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.32973,
+    "stop_loss": 0.32085,
+    "take_profit": 0.34621650000000004,
+    "setup": {
+      "entry": 0.32973,
+      "sl": 0.32085,
+      "tp": 0.34621650000000004,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3450645953397301,
+        "c": 128.6030805266852,
+        "start_idx": 137,
+        "start_rsi": 81.32923096514219,
+        "end_idx": 196,
+        "end_rsi": 60.97041984009811,
+        "current_idx": 199,
+        "current_projected_rsi": 59.93522605407891
+      }
+    },
+    "details": {
+      "geometryScore": 96,
+      "total": 96,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 62.42046736233912
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TACUSDTM",
+    "price": 0.004446,
+    "score": 96,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.004408,
+    "stop_loss": 0.004361,
+    "take_profit": 0.0046283999999999995,
+    "setup": {
+      "entry": 0.004408,
+      "sl": 0.004361,
+      "tp": 0.0046283999999999995,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.1977438077809912,
+        "c": 100.08611195101827,
+        "start_idx": 131,
+        "start_rsi": 74.18167313170842,
+        "end_idx": 195,
+        "end_rsi": 61.526069433724984,
+        "current_idx": 199,
+        "current_projected_rsi": 60.73509420260102
+      }
+    },
+    "details": {
+      "geometryScore": 96,
+      "total": 96,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 69.54516215566714
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "WILDUSDTM",
+    "price": 0.0693,
+    "score": 96,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.0693,
+    "stop_loss": 0.0648,
+    "take_profit": 0.07276500000000001,
+    "setup": {
+      "entry": 0.0693,
+      "sl": 0.0648,
+      "tp": 0.07276500000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.46370465681995365,
+        "c": 143.52479024489142,
+        "start_idx": 131,
+        "start_rsi": 82.77948020147748,
+        "end_idx": 190,
+        "end_rsi": 55.42090544910022,
+        "current_idx": 199,
+        "current_projected_rsi": 51.24756353772064
+      }
+    },
+    "details": {
+      "geometryScore": 96,
+      "total": 96,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 52.09191259120007
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 70,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ZECUSDTM",
+    "price": 376.28,
+    "score": 95,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 365.82,
+    "stop_loss": 383.73,
+    "take_profit": 347.529,
+    "setup": {
+      "entry": 365.82,
+      "sl": 383.73,
+      "tp": 347.529,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.22454247149354475,
+        "c": -19.816314762311002,
+        "start_idx": 142,
+        "start_rsi": 12.068716189772351,
+        "end_idx": 197,
+        "end_rsi": 24.418552121917312,
+        "current_idx": 199,
+        "current_projected_rsi": 24.867637064904407
+      }
+    },
+    "details": {
+      "geometryScore": 95,
+      "total": 95,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 44.923806959443006
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "BOBBOBUSDTM",
+    "price": 0.011371,
+    "score": 95,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.011346,
+    "stop_loss": 0.011442,
+    "take_profit": 0.0107787,
+    "setup": {
+      "entry": 0.011346,
+      "sl": 0.011442,
+      "tp": 0.0107787,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.3197006064208336,
+        "c": -16.027358315679376,
+        "start_idx": 140,
+        "start_rsi": 28.730726583237324,
+        "end_idx": 190,
+        "end_rsi": 44.715756904279004,
+        "current_idx": 199,
+        "current_projected_rsi": 47.593062362066505
+      }
+    },
+    "details": {
+      "geometryScore": 95,
+      "total": 95,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 48.0451464395625
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
     "symbol": "ESUSDTM",
-    "price": 0.1244,
-    "score": 64.7,
+    "price": 0.1243,
+    "score": 95,
     "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.1244,
+    "stop_loss": 0.1222,
+    "take_profit": 0.13062,
+    "setup": {
+      "entry": 0.1244,
+      "sl": 0.1222,
+      "tp": 0.13062,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.42679803177721903,
+        "c": 144.35610849673682,
+        "start_idx": 147,
+        "start_rsi": 81.61679782548563,
+        "end_idx": 198,
+        "end_rsi": 59.85009820484746,
+        "current_idx": 199,
+        "current_projected_rsi": 59.42330017307023
+      }
+    },
     "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 308795.78130000003
+      "geometryScore": 95,
+      "total": 95,
+      "type": "BREAKOUT",
+      "mcap": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 48.75756056571293,
-      "ema50": 0.11213451719771031,
-      "ema200": 0.0965115
+      "trend": "LONG",
+      "bias": "LONG"
     },
     "ltf": {
-      "rsi": 44.38485511449559,
-      "adx": 48.75756056571293,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5681818181818183,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
+      "rsi": 59.12699885126406
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 95,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "POLUSDTM",
+    "price": 0.1844,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.1814,
+    "stop_loss": 0.1754,
+    "take_profit": 0.19047,
+    "setup": {
+      "entry": 0.1814,
+      "sl": 0.1754,
+      "tp": 0.19047,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.4017797012377302,
+        "c": 145.57763038093572,
+        "start_idx": 150,
+        "start_rsi": 85.31067519527618,
+        "end_idx": 195,
+        "end_rsi": 67.23058863957831,
+        "current_idx": 199,
+        "current_projected_rsi": 65.6234698346274
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 77.13047259791423
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 94,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TAOUSDTM",
+    "price": 281.3,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 281.4,
+    "stop_loss": 279.5,
+    "take_profit": 295.46999999999997,
+    "setup": {
+      "entry": 281.4,
+      "sl": 279.5,
+      "tp": 295.46999999999997,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8441966245743613,
+        "c": 216.2508693548882,
+        "start_idx": 158,
+        "start_rsi": 82.86780267213913,
+        "end_idx": 198,
+        "end_rsi": 49.09993768916468,
+        "current_idx": 199,
+        "current_projected_rsi": 48.255741064590325
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 48.59936741993035
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "XPINUSDTM",
+    "price": 0.0025655,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.002565,
+    "stop_loss": 0.0025289,
+    "take_profit": 0.0026932500000000003,
+    "setup": {
+      "entry": 0.002565,
+      "sl": 0.0025289,
+      "tp": 0.0026932500000000003,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6847078096172411,
+        "c": 191.24482628119299,
+        "start_idx": 158,
+        "start_rsi": 83.0609923616689,
+        "end_idx": 184,
+        "end_rsi": 65.25858931162063,
+        "current_idx": 199,
+        "current_projected_rsi": 54.98797216736202
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 57.25965435352504
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ERAUSDTM",
+    "price": 0.20594,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.20594,
+    "stop_loss": 0.20472,
+    "take_profit": 0.216237,
+    "setup": {
+      "entry": 0.20594,
+      "sl": 0.20472,
+      "tp": 0.216237,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.70181672036215,
+        "c": 189.141823497357,
+        "start_idx": 154,
+        "start_rsi": 81.0620485615859,
+        "end_idx": 196,
+        "end_rsi": 51.5857463063756,
+        "current_idx": 199,
+        "current_projected_rsi": 49.480296145289145
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 50.65362323440138
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "FFUSDTM",
+    "price": 0.09001,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.08948,
+    "stop_loss": 0.08847,
+    "take_profit": 0.09395400000000001,
+    "setup": {
+      "entry": 0.08948,
+      "sl": 0.08847,
+      "tp": 0.09395400000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.41927496711063234,
+        "c": 142.1431046717367,
+        "start_idx": 154,
+        "start_rsi": 77.57475973669932,
+        "end_idx": 188,
+        "end_rsi": 63.31941085493782,
+        "current_idx": 199,
+        "current_projected_rsi": 58.70738621672086
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 67.61146999405511
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "METUSDTM",
+    "price": 0.2558,
+    "score": 94,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.2554,
+    "stop_loss": 0.2585,
+    "take_profit": 0.24263,
+    "setup": {
+      "entry": 0.2554,
+      "sl": 0.2585,
+      "tp": 0.24263,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.4100581432870572,
+        "c": -44.19035399216942,
+        "start_idx": 149,
+        "start_rsi": 16.908309357602096,
+        "end_idx": 197,
+        "end_rsi": 36.59110023538084,
+        "current_idx": 199,
+        "current_projected_rsi": 37.411216521954955
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 40.262687266380155
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ANIMEUSDTM",
+    "price": 0.0074,
+    "score": 94,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.007379,
+    "stop_loss": 0.007465,
+    "take_profit": 0.0070100499999999994,
+    "setup": {
+      "entry": 0.007379,
+      "sl": 0.007465,
+      "tp": 0.0070100499999999994,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.09861675692076911,
+        "c": 6.5721414798094795,
+        "start_idx": 149,
+        "start_rsi": 21.266038261004077,
+        "end_idx": 194,
+        "end_rsi": 25.703792322438687,
+        "current_idx": 199,
+        "current_projected_rsi": 26.196876107042534
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 33.508504622489845
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DAMUSDTM",
+    "price": 0.02485,
+    "score": 94,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.02485,
+    "stop_loss": 0.02518,
+    "take_profit": 0.0236075,
+    "setup": {
+      "entry": 0.02485,
+      "sl": 0.02518,
+      "tp": 0.0236075,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.22674911110343665,
+        "c": -6.581054393092572,
+        "start_idx": 151,
+        "start_rsi": 27.65806138352636,
+        "end_idx": 196,
+        "end_rsi": 37.86177138318101,
+        "current_idx": 199,
+        "current_projected_rsi": 38.54201871649132
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 38.53149081479505
+    },
+    "timestamp": 1768071240221,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "LUNAUSDTM",
+    "price": 0.0913,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.0913,
+    "stop_loss": 0.0909,
+    "take_profit": 0.095865,
+    "setup": {
+      "entry": 0.0913,
+      "sl": 0.0909,
+      "tp": 0.095865,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7562842112832044,
+        "c": 201.75080937215284,
+        "start_idx": 158,
+        "start_rsi": 82.25790398940654,
+        "end_idx": 197,
+        "end_rsi": 52.76281974936157,
+        "current_idx": 199,
+        "current_projected_rsi": 51.250251326795166
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 52.69017645513102
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "PYTHUSDTM",
+    "price": 0.06829,
+    "score": 94,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.06854,
+    "stop_loss": 0.06722,
+    "take_profit": 0.071967,
+    "setup": {
+      "entry": 0.06854,
+      "sl": 0.06722,
+      "tp": 0.071967,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.4689172077508436,
+        "c": 152.75914821130203,
+        "start_idx": 153,
+        "start_rsi": 81.01481542542298,
+        "end_idx": 197,
+        "end_rsi": 60.38245828438586,
+        "current_idx": 199,
+        "current_projected_rsi": 59.44462386888415
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 55.4435880487997
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 45,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "PEPEUSDTM",
+    "price": 0.0000059933,
+    "score": 94,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.0000059728,
+    "stop_loss": 0.0000060189,
+    "take_profit": 0.0000056741599999999996,
+    "setup": {
+      "entry": 0.0000059728,
+      "sl": 0.0000060189,
+      "tp": 0.0000056741599999999996,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.39364111094463106,
+        "c": -31.191666318921293,
+        "start_idx": 150,
+        "start_rsi": 27.85450032277337,
+        "end_idx": 196,
+        "end_rsi": 45.9619914262264,
+        "current_idx": 199,
+        "current_projected_rsi": 47.14291475906029
+      }
+    },
+    "details": {
+      "geometryScore": 94,
+      "total": 94,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 51.920726201449426
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "SUIUSDTM",
+    "price": 1.8064,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 1.8076,
+    "stop_loss": 1.7935,
+    "take_profit": 1.8979800000000002,
+    "setup": {
+      "entry": 1.8076,
+      "sl": 1.7935,
+      "tp": 1.8979800000000002,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6429755939569052,
+        "c": 176.24499629012075,
+        "start_idx": 158,
+        "start_rsi": 74.65485244492974,
+        "end_idx": 197,
+        "end_rsi": 49.57880428061044,
+        "current_idx": 199,
+        "current_projected_rsi": 48.29285309269662
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 48.153870371237204
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "WIFUSDTM",
+    "price": 0.3814,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.3821,
+    "stop_loss": 0.3779,
+    "take_profit": 0.40120500000000003,
+    "setup": {
+      "entry": 0.3821,
+      "sl": 0.3779,
+      "tp": 0.40120500000000003,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6656241887435456,
+        "c": 182.91701717184728,
+        "start_idx": 167,
+        "start_rsi": 71.75777765167517,
+        "end_idx": 195,
+        "end_rsi": 53.12030036685589,
+        "current_idx": 199,
+        "current_projected_rsi": 50.4578036118817
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 48.598088110348044
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "SKYUSDTM",
+    "price": 0.0588,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.05865,
+    "stop_loss": 0.05804,
+    "take_profit": 0.061582500000000005,
+    "setup": {
+      "entry": 0.05865,
+      "sl": 0.05804,
+      "tp": 0.061582500000000005,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7721334017023529,
+        "c": 210.81833399915638,
+        "start_idx": 167,
+        "start_rsi": 81.87205591486345,
+        "end_idx": 196,
+        "end_rsi": 59.48018726549522,
+        "current_idx": 199,
+        "current_projected_rsi": 57.16378706038816
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 67.43968917575857
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "LUNCUSDTM",
+    "price": 0.000044037,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.000043776,
+    "stop_loss": 0.000043535,
+    "take_profit": 0.000045964800000000004,
+    "setup": {
+      "entry": 0.000043776,
+      "sl": 0.000043535,
+      "tp": 0.000045964800000000004,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -1.0405973801464794,
+        "c": 251.30491514373693,
+        "start_idx": 160,
+        "start_rsi": 84.80933432030021,
+        "end_idx": 186,
+        "end_rsi": 57.753802436491746,
+        "current_idx": 199,
+        "current_projected_rsi": 44.22603649458753
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.40074600279141
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 93,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ORDERUSDTM",
+    "price": 0.10095,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.1009,
+    "stop_loss": 0.09984,
+    "take_profit": 0.10594500000000001,
+    "setup": {
+      "entry": 0.1009,
+      "sl": 0.09984,
+      "tp": 0.10594500000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.535873828281136,
+        "c": 157.79547092671714,
+        "start_idx": 160,
+        "start_rsi": 72.05565840173536,
+        "end_idx": 188,
+        "end_rsi": 57.051191209863546,
+        "current_idx": 199,
+        "current_projected_rsi": 51.156579098771076
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.074639961180985
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 4,
+      "prevScore": 93,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ZROUSDTM",
+    "price": 1.5136,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 1.5128,
+    "stop_loss": 1.4856,
+    "take_profit": 1.58844,
+    "setup": {
+      "entry": 1.5128,
+      "sl": 1.4856,
+      "tp": 1.58844,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3214024103558662,
+        "c": 132.1151186415726,
+        "start_idx": 167,
+        "start_rsi": 78.44091611214293,
+        "end_idx": 195,
+        "end_rsi": 69.44164862217868,
+        "current_idx": 199,
+        "current_projected_rsi": 68.15603898075523
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 70.24031577555573
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 37.5,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "DEEPUSDTM",
+    "price": 0.05007,
+    "score": 93,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.04996,
+    "stop_loss": 0.04976,
+    "take_profit": 0.052458,
+    "setup": {
+      "entry": 0.04996,
+      "sl": 0.04976,
+      "tp": 0.052458,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -1.1325068172051962,
+        "c": 261.1873140774707,
+        "start_idx": 167,
+        "start_rsi": 72.05867560420296,
+        "end_idx": 193,
+        "end_rsi": 42.61349835686786,
+        "current_idx": 199,
+        "current_projected_rsi": 35.81845745363668
+      }
+    },
+    "details": {
+      "geometryScore": 93,
+      "total": 93,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 41.37547416766783
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "LTCUSDTM",
+    "price": 81.33,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 81.34,
+    "stop_loss": 81.22,
+    "take_profit": 85.40700000000001,
+    "setup": {
+      "entry": 81.34,
+      "sl": 81.22,
+      "tp": 85.40700000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -1.078771938721023,
+        "c": 258.992142728157,
+        "start_idx": 171,
+        "start_rsi": 74.52214120686206,
+        "end_idx": 198,
+        "end_rsi": 45.39529886139444,
+        "current_idx": 199,
+        "current_projected_rsi": 44.316526922673376
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 44.99627042959922
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ONDOUSDTM",
+    "price": 0.4019,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.4019,
+    "stop_loss": 0.4006,
+    "take_profit": 0.421995,
+    "setup": {
+      "entry": 0.4019,
+      "sl": 0.4006,
+      "tp": 0.421995,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8004806292547346,
+        "c": 208.47842923325769,
+        "start_idx": 170,
+        "start_rsi": 72.39672225995281,
+        "end_idx": 195,
+        "end_rsi": 52.384706528584445,
+        "current_idx": 199,
+        "current_projected_rsi": 49.1827840115655
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 51.04700663929226
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ENAUSDTM",
+    "price": 0.2303,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.2304,
+    "stop_loss": 0.2275,
+    "take_profit": 0.24192,
+    "setup": {
+      "entry": 0.2304,
+      "sl": 0.2275,
+      "tp": 0.24192,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7963925367640486,
+        "c": 210.49224742558386,
+        "start_idx": 174,
+        "start_rsi": 71.91994602863942,
+        "end_idx": 198,
+        "end_rsi": 52.80652514630225,
+        "current_idx": 199,
+        "current_projected_rsi": 52.010132609538175
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 51.994856917212296
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "PTBUSDTM",
+    "price": 0.002617,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.00262,
+    "stop_loss": 0.002595,
+    "take_profit": 0.002751,
+    "setup": {
+      "entry": 0.00262,
+      "sl": 0.002595,
+      "tp": 0.002751,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -1.248977629704652,
+        "c": 289.62827236346004,
+        "start_idx": 168,
+        "start_rsi": 79.80003057307849,
+        "end_idx": 193,
+        "end_rsi": 48.575589830462185,
+        "current_idx": 199,
+        "current_projected_rsi": 41.08172405223431
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 44.491274607299985
+    },
+    "timestamp": 1768071240221,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 92,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TANSSIUSDTM",
+    "price": 0.01257,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.01258,
+    "stop_loss": 0.0125,
+    "take_profit": 0.013209,
+    "setup": {
+      "entry": 0.01258,
+      "sl": 0.0125,
+      "tp": 0.013209,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3762724777772951,
+        "c": 134.74208442913883,
+        "start_idx": 168,
+        "start_rsi": 71.52830816255326,
+        "end_idx": 197,
+        "end_rsi": 60.6164063070117,
+        "current_idx": 199,
+        "current_projected_rsi": 59.8638613514571
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 57.91501911073256
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "SPXUSDTM",
+    "price": 0.5861,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.5862,
+    "stop_loss": 0.5799,
+    "take_profit": 0.6155100000000001,
+    "setup": {
+      "entry": 0.5862,
+      "sl": 0.5799,
+      "tp": 0.6155100000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8415651100174569,
+        "c": 218.3526413150753,
+        "start_idx": 170,
+        "start_rsi": 75.28657261210763,
+        "end_idx": 198,
+        "end_rsi": 51.72274953161884,
+        "current_idx": 199,
+        "current_projected_rsi": 50.88118442160135
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 51.48666882889022
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "NOTUSDTM",
+    "price": 0.000601,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.0006034,
+    "stop_loss": 0.0005931,
+    "take_profit": 0.0006335700000000001,
+    "setup": {
+      "entry": 0.0006034,
+      "sl": 0.0005931,
+      "tp": 0.0006335700000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.28796301903059657,
+        "c": 121.36165056400701,
+        "start_idx": 170,
+        "start_rsi": 72.40793732880559,
+        "end_idx": 195,
+        "end_rsi": 65.20886185304067,
+        "current_idx": 199,
+        "current_projected_rsi": 64.05700977691829
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 58.82095987178457
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "OMUSDTM",
+    "price": 0.07996,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.0799,
+    "stop_loss": 0.07864,
+    "take_profit": 0.083895,
+    "setup": {
+      "entry": 0.0799,
+      "sl": 0.07864,
+      "tp": 0.083895,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.7255877624559315,
+        "c": 200.5766615182795,
+        "start_idx": 171,
+        "start_rsi": 76.50115413831523,
+        "end_idx": 196,
+        "end_rsi": 58.36146007691694,
+        "current_idx": 199,
+        "current_projected_rsi": 56.18469678954915
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 59.93723594076933
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 92,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "OPUSDTM",
+    "price": 0.3229,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.3238,
+    "stop_loss": 0.3175,
+    "take_profit": 0.33999,
+    "setup": {
+      "entry": 0.3238,
+      "sl": 0.3175,
+      "tp": 0.33999,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8719481590573037,
+        "c": 232.41048611860992,
+        "start_idx": 171,
+        "start_rsi": 83.307350919811,
+        "end_idx": 197,
+        "end_rsi": 60.636698784321105,
+        "current_idx": 199,
+        "current_projected_rsi": 58.89280246620649
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.52450476377769
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ENSUSDTM",
+    "price": 10.513,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 10.513,
+    "stop_loss": 10.437,
+    "take_profit": 11.03865,
+    "setup": {
+      "entry": 10.513,
+      "sl": 10.437,
+      "tp": 11.03865,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8042556386289064,
+        "c": 214.8649676642989,
+        "start_idx": 170,
+        "start_rsi": 78.1415090973848,
+        "end_idx": 197,
+        "end_rsi": 56.426606854404326,
+        "current_idx": 199,
+        "current_projected_rsi": 54.81809557714652
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.17464631499967
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "EIGENUSDTM",
+    "price": 0.4145,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.415,
+    "stop_loss": 0.406,
+    "take_profit": 0.43574999999999997,
+    "setup": {
+      "entry": 0.415,
+      "sl": 0.406,
+      "tp": 0.43574999999999997,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.4265592779695019,
+        "c": 146.760216378522,
+        "start_idx": 171,
+        "start_rsi": 73.81857984573718,
+        "end_idx": 198,
+        "end_rsi": 62.301479340560626,
+        "current_idx": 199,
+        "current_projected_rsi": 61.874920062591116
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 60.32976297690532
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 92,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "THETAUSDTM",
+    "price": 0.3057,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.3062,
+    "stop_loss": 0.3031,
+    "take_profit": 0.32151,
+    "setup": {
+      "entry": 0.3062,
+      "sl": 0.3031,
+      "tp": 0.32151,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.8184606949445942,
+        "c": 215.80973328607215,
+        "start_idx": 171,
+        "start_rsi": 75.85295445054655,
+        "end_idx": 198,
+        "end_rsi": 53.754515687042506,
+        "current_idx": 199,
+        "current_projected_rsi": 52.936054992097894
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 50.949033474319265
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ETHFIUSDTM",
+    "price": 0.7431,
+    "score": 92,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.7426,
+    "stop_loss": 0.7341,
+    "take_profit": 0.77973,
+    "setup": {
+      "entry": 0.7426,
+      "sl": 0.7341,
+      "tp": 0.77973,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6349846345263995,
+        "c": 178.8603278611992,
+        "start_idx": 171,
+        "start_rsi": 70.27795535718491,
+        "end_idx": 196,
+        "end_rsi": 54.40333949402492,
+        "current_idx": 199,
+        "current_projected_rsi": 52.49838559044571
+      }
+    },
+    "details": {
+      "geometryScore": 92,
+      "total": 92,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.68855884282521
+    },
+    "timestamp": 1768074838793,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -494,252 +5037,1397 @@
   {
     "strategy_name": "Legacy",
     "symbol": "UBUSDTM",
-    "price": 0.0383774,
-    "score": 64.7,
+    "price": 0.0368808,
+    "score": 89.7,
     "bias": "SHORT",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
+    "action": "SHORT",
+    "rr": 4.23,
+    "entry": 0.0368808,
+    "stop_loss": 0.0372988665,
+    "take_profit": 0.0351103,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.0368808,
+      "tp": 0.0351103,
+      "sl": 0.0372988665,
+      "rr": 4.23
+    },
     "details": {
-      "total": 64.7,
+      "total": 89.7,
       "trendScore": 37.5,
       "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 20922.8118499
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 31.03375342390493,
-      "ema50": 0.039300873539720504,
-      "ema200": 0.039514993500000005
-    },
-    "ltf": {
-      "rsi": 53.72450828783087,
-      "adx": 31.03375342390493,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.3939589466467713,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "TACUSDTM",
-    "price": 0.004337,
-    "score": 64.7,
-    "bias": "SHORT",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 18568.440005
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 31.317727100938427,
-      "ema50": 0.004439050999241023,
-      "ema200": 0.0044624849999999995
-    },
-    "ltf": {
-      "rsi": 59.94855059001797,
-      "adx": 31.317727100938427,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7590909090909084,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "VINEUSDTM",
-    "price": 0.03113,
-    "score": 64.7,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 142286.04292
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 29.887827064212146,
-      "ema50": 0.03074069775298708,
-      "ema200": 0.02909645
-    },
-    "ltf": {
-      "rsi": 52.36537669796682,
-      "adx": 29.887827064212146,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.4124999999999995,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "CHILLGUYUSDTM",
-    "price": 0.02394,
-    "score": 64.7,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 64.7,
-      "trendScore": 37.5,
-      "structureScore": 20,
-      "moneyFlowScore": 0,
-      "timingScore": 7.199999999999999,
-      "mcap": 0,
-      "vol24h": 1038619.68962
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 26.653536578851522,
-      "ema50": 0.022665599623520133,
-      "ema200": 0.0187993
-    },
-    "ltf": {
-      "rsi": 46.883809636166525,
-      "adx": 26.653536578851522,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7056074766355146,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "CLOUSDTM",
-    "price": 0.63378,
-    "score": 62.5,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 62.5,
-      "trendScore": 37.5,
-      "structureScore": 0,
       "moneyFlowScore": 25,
-      "timingScore": 0,
+      "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 463677.00843000005
+      "vol24h": 20200.659576799997
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 30.26518858628847,
+      "ema50": 0.039022245810969,
+      "ema200": 0.03943503550000001
+    },
+    "ltf": {
+      "rsi": 52.572941268393926,
+      "adx": 30.26518858628847,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.44178560734604283,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "IDUSDTM",
+    "price": 0.0863,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 10.65,
+    "entry": 0.0863,
+    "stop_loss": 0.08557995,
+    "take_profit": 0.09397,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.0863,
+      "tp": 0.09397,
+      "sl": 0.08557995,
+      "rr": 10.65
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 154615.22767
     },
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "adx": 38.712253210647724,
-      "ema50": 0.5415596659192254,
-      "ema200": 0.3381198999999999
+      "adx": 40.639903674274585,
+      "ema50": 0.07260296872588944,
+      "ema200": 0.0678844
     },
     "ltf": {
-      "rsi": 46.355740710950904,
-      "adx": 38.712253210647724,
+      "rsi": 43.635008914898016,
+      "adx": 40.639903674274585,
       "bias": "LONG",
       "obvImbalance": "BULLISH",
       "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0.8178008617128014,
-      "volumeOk": false,
+      "isPullback": true,
+      "pullbackDepth": 0.3434841021047916,
+      "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768038813624,
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "MELANIAUSDTM",
+    "price": 0.1513,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 5.5,
+    "entry": 0.1513,
+    "stop_loss": 0.150245,
+    "take_profit": 0.1571,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.1513,
+      "tp": 0.1571,
+      "sl": 0.150245,
+      "rr": 5.5
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 9069629.6494
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 46.418903947470824,
+      "ema50": 0.1413590667764537,
+      "ema200": 0.11922600000000001
+    },
+    "ltf": {
+      "rsi": 35.08430910220561,
+      "adx": 46.418903947470824,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7733333333333354,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "AUCTIONUSDTM",
+    "price": 5.62,
+    "score": 89.7,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 7.18,
+    "entry": 5.62,
+    "stop_loss": 5.590904999999999,
+    "take_profit": 5.829,
+    "setup": {
+      "side": "LONG",
+      "entry": 5.62,
+      "tp": 5.829,
+      "sl": 5.590904999999999,
+      "rr": 7.18
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 8260701.197
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 28.247343849607855,
+      "ema50": 5.452654033878634,
+      "ema200": 5.206875
+    },
+    "ltf": {
+      "rsi": 44.85289738014597,
+      "adx": 28.247343849607855,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6613924050632903,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "BERAUSDTM",
+    "price": 0.5956,
+    "score": 89.7,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 4.3,
+    "entry": 0.5956,
+    "stop_loss": 0.5991809999999999,
+    "take_profit": 0.5802,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.5956,
+      "tp": 0.5802,
+      "sl": 0.5991809999999999,
+      "rr": 4.3
+    },
+    "details": {
+      "total": 89.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 25,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 8168191.3552
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 30.83341721264741,
+      "ema50": 0.6180265942262849,
+      "ema200": 0.649755
+    },
+    "ltf": {
+      "rsi": 48.30160995660745,
+      "adx": 30.83341721264741,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5071428571428563,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ESPORTSUSDTM",
+    "price": 0.4238,
+    "score": 84,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.4237,
+    "stop_loss": 0.4195,
+    "take_profit": 0.44488500000000003,
+    "setup": {
+      "entry": 0.4237,
+      "sl": 0.4195,
+      "tp": 0.44488500000000003,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.49620991491900684,
+        "c": 145.45387613181128,
+        "start_idx": 157,
+        "start_rsi": 67.5489194895272,
+        "end_idx": 195,
+        "end_rsi": 48.69294272260493,
+        "current_idx": 199,
+        "current_projected_rsi": 46.70810306292893
+      }
+    },
+    "details": {
+      "geometryScore": 84,
+      "total": 84,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 56.36543706362605
+    },
+    "timestamp": 1768070321839,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "NXPCUSDTM",
+    "price": 0.3942,
+    "score": 84,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.3944,
+    "stop_loss": 0.3908,
+    "take_profit": 0.41412,
+    "setup": {
+      "entry": 0.3944,
+      "sl": 0.3908,
+      "tp": 0.41412,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3604237703246039,
+        "c": 124.0734810422554,
+        "start_idx": 152,
+        "start_rsi": 69.2890679529156,
+        "end_idx": 195,
+        "end_rsi": 53.790845828957636,
+        "current_idx": 199,
+        "current_projected_rsi": 52.34915074765922
+      }
+    },
+    "details": {
+      "geometryScore": 84,
+      "total": 84,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 52.49996365172081
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "XRPUSDTM",
+    "price": 2.09794,
+    "score": 83,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 2.09794,
+    "stop_loss": 2.08989,
+    "take_profit": 2.202837,
+    "setup": {
+      "entry": 2.09794,
+      "sl": 2.08989,
+      "tp": 2.202837,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.36576748107121904,
+        "c": 127.89171663228666,
+        "start_idx": 169,
+        "start_rsi": 66.07701233125064,
+        "end_idx": 195,
+        "end_rsi": 56.56705782339895,
+        "current_idx": 199,
+        "current_projected_rsi": 55.103987899114074
+      }
+    },
+    "details": {
+      "geometryScore": 83,
+      "total": 83,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 55.350183729648336
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "APRUSDTM",
+    "price": 0.12162,
+    "score": 83,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 0.12162,
+    "stop_loss": 0.12039,
+    "take_profit": 0.127701,
+    "setup": {
+      "entry": 0.12162,
+      "sl": 0.12039,
+      "tp": 0.127701,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.26907441799287296,
+        "c": 110.89304938667581,
+        "start_idx": 160,
+        "start_rsi": 67.84114250781613,
+        "end_idx": 194,
+        "end_rsi": 58.69261229605845,
+        "current_idx": 199,
+        "current_projected_rsi": 57.34724020609409
+      }
+    },
+    "details": {
+      "geometryScore": 83,
+      "total": 83,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 57.44967480970298
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "APTUSDTM",
+    "price": 1.83,
+    "score": 83,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 1.83,
+    "stop_loss": 1.805,
+    "take_profit": 1.9215000000000002,
+    "setup": {
+      "entry": 1.83,
+      "sl": 1.805,
+      "tp": 1.9215000000000002,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3384772167677919,
+        "c": 124.03368447264305,
+        "start_idx": 160,
+        "start_rsi": 69.87732978979635,
+        "end_idx": 198,
+        "end_rsi": 57.015195552620256,
+        "current_idx": 199,
+        "current_projected_rsi": 56.676718335852456
+      }
+    },
+    "details": {
+      "geometryScore": 83,
+      "total": 83,
+      "type": "BREAKOUT",
+      "mcap": 57584865.49820474
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 57.01519555262025
+    },
+    "timestamp": 1768073928379,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 83,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "RENDERUSDTM",
+    "price": 2.302,
+    "score": 83,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 2.307,
+    "stop_loss": 2.276,
+    "take_profit": 2.4223500000000002,
+    "setup": {
+      "entry": 2.307,
+      "sl": 2.276,
+      "tp": 2.4223500000000002,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.4947450943357248,
+        "c": 150.0540733133035,
+        "start_idx": 162,
+        "start_rsi": 69.9053680309161,
+        "end_idx": 198,
+        "end_rsi": 52.09454463483,
+        "current_idx": 199,
+        "current_projected_rsi": 51.59979954049426
+      }
+    },
+    "details": {
+      "geometryScore": 83,
+      "total": 83,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 49.95401497224805
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 64.7,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ADAUSDTM",
+    "price": 0.39099,
+    "score": 82,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.39113,
+    "stop_loss": 0.3892,
+    "take_profit": 0.4106865,
+    "setup": {
+      "entry": 0.39113,
+      "sl": 0.3892,
+      "tp": 0.4106865,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3462058197913809,
+        "c": 124.28821036006295,
+        "start_idx": 170,
+        "start_rsi": 65.4332209955282,
+        "end_idx": 198,
+        "end_rsi": 55.73945804136954,
+        "current_idx": 199,
+        "current_projected_rsi": 55.39325222157815
+      }
+    },
+    "details": {
+      "geometryScore": 82,
+      "total": 82,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 54.713264452659544
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "CUDISUSDTM",
+    "price": 0.03252,
+    "score": 82,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.03252,
+    "stop_loss": 0.03286,
+    "take_profit": 0.030893999999999998,
+    "setup": {
+      "entry": 0.03252,
+      "sl": 0.03286,
+      "tp": 0.030893999999999998,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 1.119493527965964,
+        "c": -162.69643409779158,
+        "start_idx": 173,
+        "start_rsi": 30.97594624032018,
+        "end_idx": 197,
+        "end_rsi": 57.84379091150331,
+        "current_idx": 199,
+        "current_projected_rsi": 60.08277796743525
+      }
+    },
+    "details": {
+      "geometryScore": 82,
+      "total": 82,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT",
+      "bias": "SHORT"
+    },
+    "ltf": {
+      "rsi": 56.11443449492186
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "STRKUSDTM",
+    "price": 0.08315,
+    "score": 82,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.08316,
+    "stop_loss": 0.08176,
+    "take_profit": 0.087318,
+    "setup": {
+      "entry": 0.08316,
+      "sl": 0.08176,
+      "tp": 0.087318,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.5362468592102735,
+        "c": 161.9328345995525,
+        "start_idx": 173,
+        "start_rsi": 69.1621279561752,
+        "end_idx": 198,
+        "end_rsi": 55.75595647591836,
+        "current_idx": 199,
+        "current_projected_rsi": 55.21970961670809
+      }
+    },
+    "details": {
+      "geometryScore": 82,
+      "total": 82,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 55.56067817557383
+    },
+    "timestamp": 1768073032550,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 64.7,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "PENDLEUSDTM",
+    "price": 2.0847,
+    "score": 82,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 2.0819,
+    "stop_loss": 2.06,
+    "take_profit": 2.185995,
+    "setup": {
+      "entry": 2.0819,
+      "sl": 2.06,
+      "tp": 2.185995,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.6323682582153171,
+        "c": 175.45342889691398,
+        "start_idx": 170,
+        "start_rsi": 67.95082500031009,
+        "end_idx": 195,
+        "end_rsi": 52.14161854492716,
+        "current_idx": 199,
+        "current_projected_rsi": 49.61214551206588
+      }
+    },
+    "details": {
+      "geometryScore": 82,
+      "total": 82,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 55.74381245706714
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "IPUSDTM",
+    "price": 2.01604,
+    "score": 82,
+    "bias": "LONG",
+    "action": "BUY_BREAKOUT",
+    "rr": 2,
+    "entry": 2.01604,
+    "stop_loss": 1.99991,
+    "take_profit": 2.116842,
+    "setup": {
+      "entry": 2.01604,
+      "sl": 1.99991,
+      "tp": 2.116842,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.3913404200326777,
+        "c": 134.64948797208152,
+        "start_idx": 170,
+        "start_rsi": 68.1216165665263,
+        "end_idx": 197,
+        "end_rsi": 57.555425225644,
+        "current_idx": 199,
+        "current_projected_rsi": 56.77274438557865
+      }
+    },
+    "details": {
+      "geometryScore": 82,
+      "total": 82,
+      "type": "BREAKOUT",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG",
+      "bias": "LONG"
+    },
+    "ltf": {
+      "rsi": 59.69862310140441
+    },
+    "timestamp": 1768074838793,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "LIGHTUSDTM",
+    "price": 0.64643,
+    "score": 70,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 10.95,
+    "entry": 0.64643,
+    "stop_loss": 0.6518530499999999,
+    "take_profit": 0.58706,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.64643,
+      "tp": 0.58706,
+      "sl": 0.6518530499999999,
+      "rr": 10.95
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 2289079.3305699998
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 10.414059949026985,
+      "ema50": 0.6615616761641504,
+      "ema200": 1.02962895
+    },
+    "ltf": {
+      "rsi": 62.687976534760345,
+      "adx": 10.414059949026985,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7529098303183273,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "POPCATUSDTM",
+    "price": 0.1009,
+    "score": 70,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 4.97,
+    "entry": 0.1009,
+    "stop_loss": 0.100296,
+    "take_profit": 0.1039,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.1009,
+      "tp": 0.1039,
+      "sl": 0.100296,
+      "rr": 4.97
+    },
+    "details": {
+      "total": 70,
+      "trendScore": 15,
+      "structureScore": 25,
+      "moneyFlowScore": 25,
+      "timingScore": 5,
+      "mcap": 0,
+      "vol24h": 940086.812
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 16.062580545012402,
+      "ema50": 0.09936825423846983,
+      "ema200": 0.09063700000000001
+    },
+    "ltf": {
+      "rsi": 48.29798829572028,
+      "adx": 16.062580545012402,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5813953488372082,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "ZECUSDTM",
+    "price": 379.84,
+    "score": 69.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 69.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 3022318516.94
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 47.29592765061893,
+      "ema50": 453.6634962493208,
+      "ema200": 456.13289999999995
+    },
+    "ltf": {
+      "rsi": 51.5841788122641,
+      "adx": 47.29592765061893,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5960932577189652,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "TAOUSDTM",
+    "price": 281.3,
+    "score": 69.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 69.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 359050868.9
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 36.70142770699299,
+      "ema50": 270.0154085693345,
+      "ema200": 252.465
+    },
+    "ltf": {
+      "rsi": 48.59936741993035,
+      "adx": 36.70142770699299,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.604790419161675,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "BEATUSDTM",
+    "price": 0.47285,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 1011435.2876499998
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 37.10725453333882,
+      "ema50": 0.7266682035811938,
+      "ema200": 1.7832655499999999
+    },
+    "ltf": {
+      "rsi": 52.23495083511586,
+      "adx": 37.10725453333882,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.45583351782156306,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "GMTUSDTM",
+    "price": 0.02182,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 8433503.27761
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 45.04444399507481,
+      "ema50": 0.01764829425994322,
+      "ema200": 0.015823049999999998
+    },
+    "ltf": {
+      "rsi": 48.95163289144172,
+      "adx": 45.04444399507481,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.535315985130112,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "HYPEUSDTM",
+    "price": 24.166,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 59605884.831
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 25.530519031852442,
+      "ema50": 25.65596876816974,
+      "ema200": 26.106749999999998
+    },
+    "ltf": {
+      "rsi": 44.17045203382165,
+      "adx": 25.530519031852442,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3861047835990888,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "WIFUSDTM",
+    "price": 0.3814,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 558668.1455
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 32.00835552364709,
+      "ema50": 0.3757384723243326,
+      "ema200": 0.3542345
+    },
+    "ltf": {
+      "rsi": 48.598088110348044,
+      "adx": 32.00835552364709,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.48120300751879486,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "GUNUSDTM",
+    "price": 0.02509,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 267420.19824999996
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 62.84204987690691,
+      "ema50": 0.019426269192017575,
+      "ema200": 0.01436095
+    },
+    "ltf": {
+      "rsi": 41.45005034039544,
+      "adx": 62.84204987690691,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.755494505494505,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "ONDOUSDTM",
+    "price": 0.4019,
+    "score": 64.7,
+    "bias": "SHORT",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 238407.4345
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 25.38159219113202,
+      "ema50": 0.4138827600957269,
+      "ema200": 0.4141195
+    },
+    "ltf": {
+      "rsi": 51.04700663929226,
+      "adx": 25.38159219113202,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.3863636363636328,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",
@@ -754,8 +6442,8 @@
   {
     "strategy_name": "Legacy",
     "symbol": "JASMYUSDTM",
-    "price": 0.008727,
-    "score": 62.5,
+    "price": 0.008626,
+    "score": 64.7,
     "bias": "LONG",
     "action": "WAIT",
     "rr": 0,
@@ -764,294 +6452,242 @@
     "take_profit": null,
     "setup": null,
     "details": {
-      "total": 62.5,
-      "trendScore": 37.5,
-      "structureScore": 0,
-      "moneyFlowScore": 25,
-      "timingScore": 0,
-      "mcap": 0,
-      "vol24h": 398295.615224
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 48.04429689197949,
-      "ema50": 0.008038186744881673,
-      "ema200": 0.00664301
-    },
-    "ltf": {
-      "rsi": 45.38431132467093,
-      "adx": 48.04429689197949,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0.8020202020202005,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "GPSUSDTM",
-    "price": 0.00657,
-    "score": 62.5,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 62.5,
-      "trendScore": 37.5,
-      "structureScore": 0,
-      "moneyFlowScore": 25,
-      "timingScore": 0,
-      "mcap": 0,
-      "vol24h": 268068.11669
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 44.15122961290406,
-      "ema50": 0.005915876995688185,
-      "ema200": 0.0053301500000000005
-    },
-    "ltf": {
-      "rsi": 29.764165215747774,
-      "adx": 44.15122961290406,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0.9281767955801106,
-      "volumeOk": false,
-      "momentumOk": false,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "MOVEUSDTM",
-    "price": 0.0351,
-    "score": 62.5,
-    "bias": "SHORT",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 62.5,
-      "trendScore": 37.5,
-      "structureScore": 0,
-      "moneyFlowScore": 25,
-      "timingScore": 0,
-      "mcap": 0,
-      "vol24h": 1071319.9936199998
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 35.61528045633993,
-      "ema50": 0.03653395583585351,
-      "ema200": 0.03668865
-    },
-    "ltf": {
-      "rsi": 63.866513941021324,
-      "adx": 35.61528045633993,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0.8260869565217381,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "MUBARAKUSDTM",
-    "price": 0.02018,
-    "score": 62.5,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 62.5,
+      "total": 64.7,
       "trendScore": 37.5,
       "structureScore": 20,
-      "moneyFlowScore": 25,
-      "timingScore": 0,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
       "mcap": 0,
-      "vol24h": 79893.75792999999
+      "vol24h": 223060.17091
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 44.748053918294715,
+      "ema50": 0.008103598450777794,
+      "ema200": 0.0066667
+    },
+    "ltf": {
+      "rsi": 47.06648034919505,
+      "adx": 44.748053918294715,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7669902912621376,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "PENGUUSDTM",
+    "price": 0.012021,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 198947.86199399998
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 32.068179278249204,
+      "ema50": 0.011781913692068689,
+      "ema200": 0.010389474999999999
+    },
+    "ltf": {
+      "rsi": 49.07406777106742,
+      "adx": 32.068179278249204,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.4175999999999993,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "VIRTUALUSDTM",
+    "price": 1.0613,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 1795511.3685
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 35.94012620081631,
+      "ema50": 0.9975215662723054,
+      "ema200": 0.8022244999999999
+    },
+    "ltf": {
+      "rsi": 48.161337005348045,
+      "adx": 35.94012620081631,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.539823008849561,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "CUDISUSDTM",
+    "price": 0.03252,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 148073.28506
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 29.011062957496065,
+      "ema50": 0.030608664607501803,
+      "ema200": 0.0290597
+    },
+    "ltf": {
+      "rsi": 56.11443449492186,
+      "adx": 29.011062957496065,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5974999999999996,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768075740620,
+    "source": "KUCOIN",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "GRASSUSDTM",
+    "price": 0.3696,
+    "score": 64.7,
+    "bias": "LONG",
+    "action": "WAIT",
+    "rr": 0,
+    "entry": null,
+    "stop_loss": null,
+    "take_profit": null,
+    "setup": null,
+    "details": {
+      "total": 64.7,
+      "trendScore": 37.5,
+      "structureScore": 20,
+      "moneyFlowScore": 0,
+      "timingScore": 7.199999999999999,
+      "mcap": 0,
+      "vol24h": 1348765.4309999999
     },
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 27.12786539224386,
-      "ema50": 0.019273776051111493,
-      "ema200": 0.017016299999999998
+      "adx": 36.59466369376965,
+      "ema50": 0.33710179502295273,
+      "ema200": 0.3116235
     },
     "ltf": {
-      "rsi": 49.16113447360752,
-      "adx": 27.12786539224386,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.4553571428571431,
-      "volumeOk": false,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "SHIBUSDTM",
-    "price": 0.000008651,
-    "score": 45,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 45,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 74.145451842
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 22.101391801229084,
-      "ema50": 0.000008537055267365992,
-      "ema200": 0.000007896165
-    },
-    "ltf": {
-      "rsi": 53.13904896284504,
-      "adx": 22.101391801229084,
+      "rsi": 48.736285201865414,
+      "adx": 36.59466369376965,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.327380952380946,
+      "pullbackDepth": 0.3438914027149327,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768038813624,
-    "source": "KUCOIN",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "TRXUSDTM",
-    "price": 0.29793,
-    "score": 45,
-    "bias": "LONG",
-    "action": "WAIT",
-    "rr": 0,
-    "entry": null,
-    "stop_loss": null,
-    "take_profit": null,
-    "setup": null,
-    "details": {
-      "total": 45,
-      "trendScore": 15,
-      "structureScore": 25,
-      "moneyFlowScore": 0,
-      "timingScore": 5,
-      "mcap": 0,
-      "vol24h": 72852.20060000001
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 13.611078658686136,
-      "ema50": 0.2934404715263024,
-      "ema200": 0.28422220000000004
-    },
-    "ltf": {
-      "rsi": 45.46900504412868,
-      "adx": 13.611078658686136,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7500000000000109,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768038813624,
+    "timestamp": 1768075740620,
     "source": "KUCOIN",
     "meta": {
       "htfInterval": "4h",

@@ -266,6 +266,8 @@ def main():
             # Filter: Keep all valid Signals (RR>=2) and all WAITs
             # Note: For single file mode which feeds the server loop, 
             # returning ALL results (array) is safer so Server can log them.
+            # DEBUG
+            # print(f"DEBUG RAW RESULTS: {results}", file=sys.stderr)
             final_res = []
             for r in results:
                 if r['action'] != 'WAIT':
@@ -278,6 +280,7 @@ def main():
         
     except Exception as e:
         import traceback
+        import sys
         traceback.print_exc(file=sys.stderr)
         error_out = {
             "error": str(e),
