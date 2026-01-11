@@ -1,8 +1,6 @@
 import { execFile } from 'child_process';
 import util from 'util';
 const execFilePromise = util.promisify(execFile);
-
-// ... existing imports ...
 import fetch from 'node-fetch';
 import fs from 'fs/promises';
 import path from 'path';
@@ -72,6 +70,16 @@ export const getLatestResults = async (source = 'KUCOIN') => {
     }
 };
 
+export const getMasterFeed = async () => {
+    try {
+        const filePath = path.join(DATA_DIR, 'master_feed.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch {
+        return [];
+    }
+};
+
 const appendSignalLog = async (results) => {
     try {
         const filePath = path.join(DATA_DIR, 'signal_log.jsonl');
@@ -119,7 +127,19 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
             const venvPython = path.join(process.cwd(), 'venv/bin/python');
 
             // Pass the requested strategy to Python
-            const { stdout } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--config', configStr]);
+            const { stdout, stderr } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--config', configStr]);
+
+            if (stderr) {
+                // Filter for relevant SCORE-DEBUG lines to avoid noise if needed, 
+                // but user wants to see everything for now.
+                // console.error(`[PYTHON LOG] ${stderr}`);
+                const lines = stderr.split('\n');
+                lines.forEach(line => {
+                    if (line.includes('[SCORE-DEBUG]')) {
+                        console.log(line);
+                    }
+                });
+            }
 
             try {
                 const pyResult = JSON.parse(stdout);
@@ -202,8 +222,44 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
     return results.filter(r => r !== null).flat();
 };
 
+let isScanning = false;
+let lastLegacyScan = {};
+let lastBreakoutScan = {};
+
 export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
-    Logger.info(`[SERVER SCAN] Starting scan for ${source} (Strategy: ${strategy})...`);
+    if (isScanning) {
+        Logger.info(`[SERVER SCAN] Skipped: Scan already in progress.`);
+        return [];
+    }
+    isScanning = true;
+
+    // Determine which strategies to run based on Last Run Time (if 'all' is requested)
+    // If specific strategy requested (manual override), run it.
+    let targetStrategy = strategy;
+    const now = Date.now();
+
+    if (strategy === 'all') {
+        const lastLeg = lastLegacyScan[source] || 0;
+        const lastBrk = lastBreakoutScan[source] || 0;
+
+        const runLegacy = (now - lastLeg) > CONFIG.SYSTEM.LEGACY_INTERVAL;
+        const runBreakout = (now - lastBrk) > CONFIG.SYSTEM.BREAKOUT_INTERVAL;
+
+        if (runLegacy && runBreakout) targetStrategy = 'all';
+        else if (runBreakout) targetStrategy = 'Breakout';
+        else if (runLegacy) targetStrategy = 'Legacy';
+        else {
+            // Nothing due yet
+            Logger.info(`[SERVER SCAN] Skipped ${source}: No strategies due for execution.`);
+            isScanning = false;
+            return [];
+        }
+
+        if (runLegacy) lastLegacyScan[source] = now;
+        if (runBreakout) lastBreakoutScan[source] = now;
+    }
+
+    Logger.info(`[SERVER SCAN] Starting scan for ${source} (Strategy: ${targetStrategy})...`);
 
     // 1. Update outcomes of previous signals (Foretesting)
     await updateOutcomes();
@@ -219,7 +275,6 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
 
     const history = await getScanHistory();
     const nextHistory = {};
-    const now = Date.now();
 
     const BATCH_SIZE = CONFIG.SYSTEM.BATCH_SIZE;
     for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
@@ -307,10 +362,22 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
     const finalResults = [...legacySelected, ...breakoutSelected].sort((a, b) => b.score - a.score);
 
     await saveLatestResults(finalResults, source);
+
+    // [NEW] Trigger Master Aggregator
+    try {
+        const aggregatorScript = path.join(process.cwd(), 'results_aggregator.py');
+        const venvPython = path.join(process.cwd(), 'venv/bin/python'); // Use venv python
+        await execFilePromise(venvPython, [aggregatorScript]);
+        Logger.info('[AGGREGATOR] Master feed updated.');
+    } catch (e) {
+        Logger.error('[AGGREGATOR] Failed to update master feed', e);
+    }
+
     await appendSignalLog(finalResults);
     await registerSignals(finalResults);
     await sendTelegramAlert(finalResults);
 
     Logger.info(`[SERVER SCAN] Complete. Saved ${finalResults.length} results.`);
+    isScanning = false;
     return finalResults;
 };

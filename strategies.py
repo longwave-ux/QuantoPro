@@ -8,6 +8,7 @@ import datetime
 import matplotlib.pyplot as plt
 plt.switch_backend('Agg')
 from abc import ABC, abstractmethod
+from scoring_engine import calculate_score
 
 class Strategy(ABC):
     @abstractmethod
@@ -259,7 +260,13 @@ class QuantProLegacy(Strategy):
             "stop_loss": float(setup['sl']) if setup else None,
             "take_profit": float(setup['tp']) if setup else None,
             "setup": setup,
-            "details": score_breakdown,
+            "details": score_breakdown, # score_breakdown now contains the breakdown dict
+            "score_breakdown": score_breakdown['score_breakdown'], # Hoist for convenience
+            "raw_components": {
+                "price_change_pct": 0.0,
+                "duration_candles": 0,
+                "divergence_type": 0
+            },
             "htf": {
                 "trend": trend_struct,
                 "bias": bias,
@@ -378,56 +385,66 @@ class QuantProLegacy(Strategy):
         # Fill None/NaN
         if pd.isna(adx): adx = 0
         
+        # [REFACTORED] Dampened Scoring to align with new system
+        # Original was producing 89.7 clusters. New max target ~50-60.
+        
         if bias != 'NONE':
-            trend_score = self.kv_trend_base
-            if adx > self.adx_trend: trend_score += self.kv_trend_strong
+            trend_score = 5.0 # Was 15
+            if adx > self.adx_trend: trend_score += 5.0 # Was 10
         else:
             trend_score = 0 
             
         if is_pullback:
-            structure_score = 25
+            structure_score = 10.0 # Was 25
         
         if (bias == 'LONG' and obv == 'BULLISH') or (bias == 'SHORT' and obv == 'BEARISH'):
-            money_flow_score += 25
+            money_flow_score += 10.0 # Was 25
             
-        if is_pullback and vol_ok: timing_score += 5
+        if is_pullback and vol_ok: timing_score += 2.0 # Was 5
             
+        # Multipliers (Reduced impact)
         if adx > 25:
-            trend_score *= 1.5
-            structure_score *= 0.8
-            timing_score *= 1.2
-            
-            timing_score *= 1.2
+            trend_score *= 1.2 # Was 1.5
+            # structure_score *= 0.8
+            timing_score *= 1.1 # Was 1.2
             
         # --- Rewards (Volume & Mcap) ---
         rewards_score = 0
         
         # 1. Volume (24h approx = last 96 candles of 15m)
         if vol_24h > 100_000_000:
-             rewards_score += 5
+             rewards_score += 2.0 # Was 5
                   
         # 2. Mcap
         if mcap > 0:
-             if mcap < 1_000_000_000: # Small Cap < 1B
-                  rewards_score += 5
-             elif mcap > 10_000_000_000: # Mega Cap > 10B
-                  rewards_score += 5
+             if mcap < 1_000_000_000: rewards_score += 2.0
+             elif mcap > 10_000_000_000: rewards_score += 2.0
                   
         total = trend_score + structure_score + money_flow_score + timing_score + rewards_score
         
-        if is_pullback and not vol_ok: total -= 20
-        if (bias == 'LONG' and obv == 'BEARISH') or (bias == 'SHORT' and obv == 'BULLISH'): total -= 40
-        if (bias == 'LONG' and div == 'BEARISH') or (bias == 'SHORT' and div == 'BULLISH'): total -= 20
-        if overextended: total -= 20
+        if is_pullback and not vol_ok: total -= 10
+        if (bias == 'LONG' and obv == 'BEARISH') or (bias == 'SHORT' and obv == 'BULLISH'): total -= 10
+        if (bias == 'LONG' and div == 'BEARISH') or (bias == 'SHORT' and div == 'BULLISH'): total -= 10
+        if overextended: total -= 10
+        
+        total = max(0, min(100, total))
         
         return {
-            "total": max(0, min(100, total)),
+            "total": total,
             "trendScore": float(trend_score),
             "structureScore": float(structure_score),
             "moneyFlowScore": float(money_flow_score),
             "timingScore": float(timing_score),
             "mcap": float(mcap),
-            "vol24h": float(vol_24h)
+            "vol24h": float(vol_24h),
+            "score_breakdown": {
+                "base": 10.0, 
+                "geometry": 0.0, 
+                "momentum": float(trend_score + money_flow_score),
+                "total": float(total)
+            },
+            "geometry_component": 0.0,
+            "momentum_component": float(trend_score + money_flow_score)
         }
 
     def backtest(self, df, df_htf=None, mcap=0):
@@ -726,102 +743,100 @@ class QuantProBreakout(Strategy):
             # Log error?
             return (True, 0, metadata) # Fail Open
             
-    def detect_divergence(self, df, rsi_series, side):
+    def detect_divergence_type(self, df, rsi_series, side):
         """
-        Detects RSI Divergence.
-        LONG (Bullish): Price Lows Lower, RSI Lows Higher.
-        SHORT (Bearish): Price Highs Higher, RSI Highs Lower.
-        Returns: (has_divergence, is_extreme)
+        Detects RSI Divergence Type (1, 2, or 3).
+        Returns: int (0=None, 1=Classic, 2=Double, 3=Triple)
         """
-        # Lookback window for pivots
-        window = 60
-        if len(rsi_series) < window: return False, False
-        
-        rsi_slice = rsi_series.iloc[-window:]
-        price_highs = df['high'].iloc[-window:]
-        price_lows = df['low'].iloc[-window:]
-        
-        # Use underlying numpy array for finding peaks to avoid index confusion
-        rsi_vals = rsi_slice.values
-        w_len = len(rsi_slice)
-        
-        if side == 'LONG':
-            # Bullish Divergence -> Find Valleys (Lows)
-            # Invert for find_peaks
-            pivots, _ = find_peaks(-rsi_vals, distance=10)
-            if len(pivots) < 2: return False, False
+        try:
+            # Lookback window for pivots
+            window = 60
+            if len(rsi_series) < window: return 0
             
-            # Get last 2 pivots indices (relative to slice)
-            idx2 = pivots[-1] # Most recent
-            idx1 = pivots[-2] # Previous
+            rsi_slice = rsi_series.iloc[-window:]
+            price_highs = df['high'].iloc[-window:]
+            price_lows = df['low'].iloc[-window:]
             
-            # RSI values
-            rsi2 = rsi_vals[idx2]
-            rsi1 = rsi_vals[idx1]
-            
-            # Map indices to DF slice to get Price
-            # Slice indices are 0..N-1. iloc works.
-            
-            # Robust Price Low search (Min in +/- 1 candle window)
-            # Ensure boundaries
+            rsi_vals = rsi_slice.values
             w_len = len(rsi_slice)
             
-            def get_local_min(idx):
-                start = max(0, idx - 1)
-                end = min(w_len, idx + 2)
-                return price_lows.iloc[start:end].min()
-            
-            p2_low = get_local_min(idx2)
-            p1_low = get_local_min(idx1)
+            start_idx_offset = len(df) - window
 
-            # Condition: Price Lower, RSI Higher
-            # Also ensure RSI lows are actually "low" (e.g. < 50) to filter range noise?
-            # User requirement: "RSI Low_1 in Oversold < 30" is bonus.
-            # Base divergence just needs direction.
+            pivots = []
             
-            if p2_low < p1_low and rsi2 > rsi1:
-                 is_extreme = rsi1 < 30
-                 return True, is_extreme
-                 
-        elif side == 'SHORT':
-            # Bearish Divergence -> Find Peaks (Highs)
-            pivots, _ = find_peaks(rsi_vals, distance=10)
-            if len(pivots) < 2: return False, False
-            
-            idx2 = pivots[-1]
-            idx1 = pivots[-2]
-            
-            rsi2 = rsi_vals[idx2]
-            rsi1 = rsi_vals[idx1]
-            
-            def get_local_max(idx):
-                start = max(0, idx - 1)
-                end = min(w_len, idx + 2)
-                return price_highs.iloc[start:end].max()
-            
-            p2_high = get_local_max(idx2)
-            p1_high = get_local_max(idx1)
-            
-            # Condition: Price Higher, RSI Lower
-            if p2_high > p1_high and rsi2 < rsi1:
-                is_extreme = rsi1 > 70
-                return True, is_extreme
+            if side == 'LONG':
+                # Find Valleys (-rsi)
+                peaks, _ = find_peaks(-rsi_vals, distance=8) # Lower distance to catch multiples
+                if len(peaks) < 2: return 0
+                
+                # Get last 4 pivots max
+                check_indices = peaks[-4:] 
+                
+                # We iterate backwards from the most recent pivot
+                # We need consecutive divergence: P_current vs P_prev
+                
+                # Collect Pivot Data
+                pivot_data = []
+                for idx in check_indices:
+                    # Robust Price Min
+                    p_start = max(0, idx - 1)
+                    p_end = min(w_len, idx + 2)
+                    price_val = price_lows.iloc[p_start:p_end].min()
+                    rsi_val = rsi_vals[idx]
+                    pivot_data.append({'p': price_val, 'r': rsi_val})
+                
+                # Check Divergence Chain (from end)
+                # We want P_new < P_old (Price Lower) and R_new > R_old (RSI Higher)
+                div_count = 0
+                # Reverse to go Newest -> Oldest
+                # pivot_data is [Oldest ... Newest]
+                # Let's compare [i] vs [i-1]
+                
+                for i in range(len(pivot_data) - 1, 0, -1):
+                    curr = pivot_data[i]
+                    prev = pivot_data[i-1]
+                    
+                    if curr['p'] < prev['p'] and curr['r'] > prev['r']:
+                        div_count += 1
+                    else:
+                        break # Chain broken
+                
+                return div_count # 1, 2, 3
+                
+            elif side == 'SHORT':
+                # Find Peaks
+                peaks, _ = find_peaks(rsi_vals, distance=8)
+                if len(peaks) < 2: return 0
+                
+                check_indices = peaks[-4:]
+                
+                pivot_data = []
+                for idx in check_indices:
+                    p_start = max(0, idx - 1)
+                    p_end = min(w_len, idx + 2)
+                    price_val = price_highs.iloc[p_start:p_end].max()
+                    rsi_val = rsi_vals[idx]
+                    pivot_data.append({'p': price_val, 'r': rsi_val})
+                    
+                div_count = 0
+                for i in range(len(pivot_data) - 1, 0, -1):
+                    curr = pivot_data[i]
+                    prev = pivot_data[i-1]
+                    
+                    # Bearish: Price Higher, RSI Lower
+                    if curr['p'] > prev['p'] and curr['r'] < prev['r']:
+                        div_count += 1
+                    else:
+                        break
+                        
+                return div_count
 
-        return False, False
+        except Exception as e:
+            # print(f"Div Check Error: {e}")
+            return 0
         
 
-class QuantProBreakout(Strategy):
-    """
-    RSI Trendline Breakout Strategy (Consensus & Smart Persistence):
-    - Uses "Best Fit" geometry (Consensus/RANSAC-style) to find structural trendlines.
-    - Decoupled from the last pivot to detect early breakouts.
-    - Smart Persistence: Tracks signals for 3 candles (12h on H4) to catch Retests.
-    """
-    
-    def __init__(self, config=None):
-        self.config = config or {}
-        self.rsi_len = 14
-        self.breakout_threshold = self.config.get('breakout_threshold', 2.0)
+
         
     def name(self):
         return "Breakout"
@@ -949,6 +964,7 @@ class QuantProBreakout(Strategy):
         latest_price = df['close'].iloc[-1]
         
         breakout_score = 0
+        details = {}
         action = 'WAIT'
         bias = 'NONE'
         setup = None
@@ -978,22 +994,90 @@ class QuantProBreakout(Strategy):
                     if latest_price >= tp or latest_price <= sl: continue
                     if latest_price > entry_price * 1.03: continue
                     
-                    # Valid Signal
-                    score = 80
-                    action = 'BUY_BREAKOUT' if offset == 0 else 'BUY_RETEST'
-                    bias = 'LONG'
+                    # Valid Signal logic
+                    breakout_score = 0
                     
-                    duration = scan_i - res_line['start_idx']
-                    dur_bonus = min(20, int(duration / 10))
-                    score += dur_bonus
-                    if res_line['start_val'] > 70: score += 10
-                    if res_line['min_val_in_range'] < 30: score += 15
-                    
-                    breakout_score = min(100, score)
-                    setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'LONG'}
-                    details = {'total': breakout_score, 'type': 'BREAKOUT', 'duration_bonus': dur_bonus}
-                    trendline_info = res_line
-                    break 
+                    try:
+                        # 1. Calculate Geometry & Slopes
+                        p_start = df['close'].iloc[res_line['start_idx']]
+                        p_end = df['close'].iloc[res_line['end_idx']]
+                        
+                        price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
+                        duration = res_line['end_idx'] - res_line['start_idx']
+                        duration = max(1, duration)
+                        
+                        price_slope = price_change_pct / duration
+                        rsi_slope = (res_line['end_val'] - res_line['start_val']) / duration
+                        
+                        # 2. Divergence Memory (Scan Backwards)
+                        div_type = 0
+                        div_badge = None
+                        
+                        # Ensure we have enough data and respect trendline bounds
+                        # SCAN FULL HISTORY of trendline (plus buffer)
+                        scan_limit = max(0, res_line['start_idx'] - 20)
+                        check_range = range(curr_i, scan_limit, -5)
+                        
+                        if curr_i not in check_range:
+                            check_range = list(check_range)
+                            check_range.insert(0, curr_i)
+
+                        for d_idx in check_range:
+                            if d_idx < 60: break
+                            d_slice_df = df.iloc[:d_idx+1]
+                            d_slice_rsi = rsi_series.iloc[:d_idx+1]
+                            
+                            found_div = self.detect_divergence_type(d_slice_df, d_slice_rsi, 'LONG')
+                            
+                            if found_div > 0:
+                                age = curr_i - d_idx
+                                if age <= 10:
+                                    div_type = 2
+                                else:
+                                    div_type = 1
+                                    div_badge = "DIV-PREP"
+                                break
+                        
+                        # 3. Call Scoring Engine with Null Safety
+                        scoring_data = {
+                            "symbol": df['symbol'].iloc[0] if 'symbol' in df.columns else "Unknown",
+                            "price_change_pct": float(price_change_pct or 0.0),
+                            "duration_candles": int(duration or 0),
+                            "price_slope": float(price_slope or 0.0),
+                            "rsi_slope": float(rsi_slope or 0.0),
+                            "divergence_type": int(div_type or 0)
+                        }
+                        
+                        score_result = calculate_score(scoring_data)
+                        breakout_score = score_result['total']
+                        
+                        # 4. Bonuses specific to Breakout (Retest bonus, etc)
+                        # REMOVED static bonuses to rely on geometry score
+                        # if offset > 0: breakout_score += 2 
+                        # if res_line['min_val_in_range'] < 30: breakout_score += 3
+                        
+                        # Cap
+                        breakout_score = min(100.0, breakout_score)
+                        
+                        setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'LONG'}
+                        details = {
+                            'total_score': breakout_score,
+                            'score_breakdown': score_result['score_breakdown'],
+                            'geometry_component': score_result['geometry_component'],
+                            'momentum_component': score_result['momentum_component'], 
+                            'type': 'BREAKOUT' if offset == 0 else 'RETEST',
+                            'raw_components': scoring_data,
+                            'context_badge': div_badge
+                        }
+                        trendline_info = res_line
+                        
+                        action = 'BUY_BREAKOUT' if offset == 0 else 'BUY_RETEST'
+                        bias = 'LONG'
+                        break 
+                        
+                    except Exception as e:
+                        print(f"Scoring Error (LONG): {e}")
+                        breakout_score = 50.0
             
             # Touch Check
             if action == 'WAIT':
@@ -1028,20 +1112,86 @@ class QuantProBreakout(Strategy):
                         if latest_price <= tp or latest_price >= sl: continue
                         if latest_price < entry_price * 0.97: continue
                             
-                        score = 80
-                        action = 'SELL_BREAKDOWN' if offset == 0 else 'SELL_RETEST'
-                        bias = 'SHORT'
-                        
-                        duration = scan_i - sup_line['start_idx']
-                        score += min(20, int(duration / 10))
-                        if sup_line['start_val'] < 30: score += 10
-                        if sup_line['max_val_in_range'] > 70: score += 15
-                        
-                        breakout_score = min(100, score)
-                        setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'SHORT'}
-                        details = {'total': breakout_score, 'type': 'BREAKOUT'}
-                        trendline_info = sup_line
-                        break
+                        try:
+                            # 1. Calculate Geometry & Slopes
+                            p_start = df['close'].iloc[sup_line['start_idx']]
+                            p_end = df['close'].iloc[sup_line['end_idx']]
+                            
+                            price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
+                            duration = sup_line['end_idx'] - sup_line['start_idx']
+                            duration = max(1, duration)
+                            
+                            price_slope = price_change_pct / duration
+                            rsi_slope = (sup_line['end_val'] - sup_line['start_val']) / duration
+                            
+                            # 2. Divergence Memory (Scan Backwards)
+                            div_type = 0
+                            div_badge = None
+                            
+                            # Ensure we have enough data and respect trendline bounds
+                            # SCAN FULL HISTORY of trendline (plus buffer)
+                            scan_limit = max(0, sup_line['start_idx'] - 20) 
+                            check_range = range(curr_i, scan_limit, -5)
+                            
+                            if curr_i not in check_range:
+                                check_range = list(check_range)
+                                check_range.insert(0, curr_i)
+
+                            for d_idx in check_range:
+                                if d_idx < 60: break
+                                d_slice_df = df.iloc[:d_idx+1]
+                                d_slice_rsi = rsi_series.iloc[:d_idx+1]
+                                
+                                found_div = self.detect_divergence_type(d_slice_df, d_slice_rsi, 'SHORT')
+                                
+                                if found_div > 0:
+                                    age = curr_i - d_idx
+                                    if age <= 10:
+                                        div_type = 2 # Fresh -> 30 pts
+                                    else:
+                                        div_type = 1 # Old -> 20 pts (DIV-PREP)
+                                        div_badge = "DIV-PREP"
+                                    break
+                            
+                            # 3. Call Scoring Engine with Null Safety
+                            scoring_data = {
+                                "symbol": df['symbol'].iloc[0] if 'symbol' in df.columns else "Unknown",
+                                "price_change_pct": float(price_change_pct or 0.0),
+                                "duration_candles": int(duration or 0),
+                                "price_slope": float(price_slope or 0.0),
+                                "rsi_slope": float(rsi_slope or 0.0),
+                                "divergence_type": int(div_type or 0)
+                            }
+                            
+                            score_result = calculate_score(scoring_data)
+                            breakout_score = score_result['total']
+                            
+                            # 4. Bonuses
+                            # REMOVED static bonuses to rely on geometry score
+                            # if offset > 0: breakout_score += 2
+                            # if sup_line['max_val_in_range'] > 70: breakout_score += 3
+                            
+                            breakout_score = min(100.0, breakout_score)
+                            
+                            setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'SHORT'}
+                            details = {
+                                'total_score': breakout_score,
+                                'score_breakdown': score_result['score_breakdown'],
+                                'geometry_component': score_result['geometry_component'],
+                                'momentum_component': score_result['momentum_component'],
+                                'type': 'BREAKOUT',
+                                'raw_components': scoring_data,
+                                'context_badge': div_badge
+                            }
+                            trendline_info = sup_line
+                            
+                            action = 'SELL_BREAKDOWN' if offset == 0 else 'SELL_RETEST'
+                            bias = 'SHORT'
+                            break
+                            
+                        except Exception as e:
+                            print(f"Scoring Error (SHORT): {e}")
+                            breakout_score = 50.0
 
                 if action == 'WAIT':
                     threshold = sup_line['m'] * curr_i + sup_line['c']
@@ -1054,11 +1204,23 @@ class QuantProBreakout(Strategy):
                         details = {'total': 50, 'type': 'TOUCH'}
 
         # Formatting
+        # Formatting - Ensure robust structure for Aggregator
         final_score_details = {
-            'geometryScore': int(breakout_score) if action != 'WAIT' else 0,
-            'total': int(breakout_score) if action != 'WAIT' else 0,
-            'type': details.get('type', 'NONE')
+             "total": 0.0,
+             "score_breakdown": {"geometry": 0.0, "momentum": 0.0, "base": 0.0, "total": 0.0},
+             "geometry_component": 0.0,
+             "momentum_component": 0.0,
+             "raw_components": {"price_change_pct": 0.0, "duration_candles": 0, "divergence_type": 0},
+             "type": details.get('type', 'NONE')
         }
+        
+        # If we have a valid signal/touch, merge its details
+        if details:
+            final_score_details.update(details)
+            
+        # Ensure 'total' reflects the capped score if not in details
+        if 'total' not in details and breakout_score > 0:
+             final_score_details['total'] = int(breakout_score)
 
         if setup and trendline_info:
              t_proj_val = trendline_info['m'] * curr_i + trendline_info['c']
@@ -1103,6 +1265,21 @@ class QuantProBreakout(Strategy):
             "rr": 0.0,
             "entry": None, "stop_loss": None, "take_profit": None,
             "setup": None,
-            "details": {"total": 0.0},
+            "details": {
+                "total": 0.0,
+                "score_breakdown": {
+                    "geometry": 0.0,
+                    "momentum": 0.0,
+                    "base": 0.0,
+                    "total": 0.0
+                },
+                "geometry_component": 0.0,
+                "momentum_component": 0.0,
+                "raw_components": {
+                    "price_change_pct": 0.0,
+                    "duration_candles": 0, 
+                    "divergence_type": 0
+                }
+            },
             "htf": {}, "ltf": {}
         }

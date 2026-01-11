@@ -125,17 +125,52 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     if (!chartData || !indicators) return <div className="p-8 flex justify-center text-gray-500"><Loader2 className="animate-spin" /></div>;
 
-    // Trendline Visualization Data
-    const trendLineSegment = pair.setup?.trendline ? [
-        { x: pair.setup.trendline.start_idx, y: pair.setup.trendline.start_rsi },
-        { x: pair.setup.trendline.end_idx, y: pair.setup.trendline.end_rsi }
-    ] : null;
+    // Trendline Visualization Data with Time-based X-Axis
+    const getTrendlineData = () => {
+        if (!pair.setup?.trendline) return { segment: null, projection: null };
 
-    // Projection Point (Current)
-    const trendLineProjection = pair.setup?.trendline ? [
-        { x: pair.setup.trendline.end_idx, y: pair.setup.trendline.end_rsi },
-        { x: indicators.htfData.length - 1, y: pair.setup.trendline.current_projected_rsi } // Project to current candle
-    ] : null;
+        const isBreakout = pair.strategy_name === 'Breakout';
+        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+
+        // Get timestamps instead of indices
+        const startCandle = sourceData[pair.setup.trendline.start_idx];
+        const endCandle = sourceData[pair.setup.trendline.end_idx];
+        const currentCandle = sourceData[sourceData.length - 1];
+
+        if (!startCandle || !endCandle) return { segment: null, projection: null };
+
+        const segment = [
+            { x: startCandle.time, y: pair.setup.trendline.start_rsi },
+            { x: endCandle.time, y: pair.setup.trendline.end_rsi }
+        ];
+
+        const projection = [
+            { x: endCandle.time, y: pair.setup.trendline.end_rsi },
+            { x: currentCandle.time, y: pair.setup.trendline.current_projected_rsi }
+        ];
+
+        return { segment, projection };
+    };
+
+    const { segment: trendLineSegment, projection: trendLineProjection } = getTrendlineData();
+
+    // Calculate Slice Start for Zoomed View
+    const getZoomedData = () => {
+        const isBreakout = pair.strategy_name === 'Breakout';
+        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+
+        let sliceStart = 0;
+        if (pair.setup?.trendline?.start_idx) {
+            sliceStart = Math.max(0, pair.setup.trendline.start_idx - 10);
+        }
+
+        return {
+            slicedData: sourceData.slice(sliceStart),
+            isZoomed: sliceStart > 0
+        };
+    };
+
+    const { slicedData, isZoomed } = getZoomedData();
 
     return (
         <div className="bg-gray-900/50 p-6 space-y-6">
@@ -227,19 +262,25 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
                         <div className="flex-1 min-h-0">
                             <ResponsiveContainer width="100%" height="100%">
-                                {/* Use htfData for Breakout, ltfData for Legacy */}
-                                <LineChart data={pair.strategy_name === 'Breakout' ? indicators.htfData : indicators.ltfData}>
+                                {/* Use Sliced Data for Zoom effect */}
+                                <LineChart data={slicedData}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" vertical={false} />
-                                    <XAxis dataKey="index" hide />
+                                    <XAxis
+                                        dataKey="time"
+                                        tickFormatter={(time) => new Date(time).toLocaleDateString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                        stroke="#4b5563"
+                                        fontSize={10}
+                                        minTickGap={30}
+                                    />
                                     <YAxis domain={[0, 100]} ticks={[30, 50, 70]} stroke="#374151" fontSize={10} />
                                     <Tooltip
                                         contentStyle={{ backgroundColor: '#111827', border: '1px solid #374151', color: '#f3f4f6' }}
                                         formatter={(value: number) => [value.toFixed(2), 'RSI']}
-                                        labelFormatter={() => ''}
+                                        labelFormatter={(label) => new Date(label).toLocaleString()}
                                     />
                                     <ReferenceLine y={70} stroke="#4b5563" strokeDasharray="3 3" />
                                     <ReferenceLine y={30} stroke="#4b5563" strokeDasharray="3 3" />
-                                    <Line type="monotone" dataKey="rsi" stroke="#a855f7" dot={false} strokeWidth={2} />
+                                    <Line type="monotone" dataKey="rsi" stroke="#a855f7" dot={false} strokeWidth={2} isAnimationActive={false} />
 
                                     {/* Draw Trendline if Breakout */}
                                     {pair.strategy_name === 'Breakout' && trendLineSegment && (

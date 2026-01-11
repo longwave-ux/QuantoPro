@@ -1,6 +1,7 @@
 node_modules
 # Dati di mercato
 data/*.json
+!data/scoring_settings.json
 data/*.jsonl
 
 # Log

@@ -59,6 +59,22 @@ export interface AnalysisResult {
     htfInterval: string;
     ltfInterval: string;
   };
+  exchange_tag?: string;
+  components?: {
+    symbol: string;
+    price_change_pct: number;
+    duration_candles: number;
+    price_slope: number;
+    rsi_slope: number;
+    divergence_type: number;
+    // Add other fields if necessary
+  } | null;
+  score_breakdown?: {
+    geometry: number;
+    momentum: number;
+    base: number;
+    total: number;
+  } | null;
   details: {
     trendScore: number;
     structureScore: number;
@@ -72,6 +88,18 @@ export interface AnalysisResult {
     momentum_score?: number;
     divergence_score?: number;
     structure_score?: number;
+    geometry_component?: number; // Added for UI tooltip
+    momentum_component?: number; // Added for UI tooltip
+    type?: string; // Added for Breakout/Retest type
+    context_badge?: string;
+    raw_components?: any;
+    score_breakdown?: {
+      geometry: number;
+      momentum: number;
+      base: number;
+      total: number;
+    };
+    vol24h?: number;
   };
   htf: {
     trend: 'UP' | 'DOWN';       // Close[-1] > Close[-3]

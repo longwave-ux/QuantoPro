@@ -6,7 +6,7 @@ import crypto from 'crypto'; // Native Node crypto for signing
 import { ethers } from 'ethers'; // For Hyperliquid Signing
 import { fileURLToPath } from 'url';
 import { CONFIG, loadConfig, saveConfig } from './server/config.js';
-import { runServerScan, getLatestResults } from './server/scanner.js';
+import { runServerScan, getLatestResults, getMasterFeed } from './server/scanner.js';
 import { saveSettings, getSettings } from './server/telegram.js';
 import { getTradeHistory, getPerformanceStats, updateOutcomes } from './server/tracker.js';
 
@@ -51,51 +51,62 @@ process.on('unhandledRejection', (reason, promise) => {
 // Middleware to parse JSON bodies (Required for trade requests)
 app.use(express.json());
 // Serve static files from the React build
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist'), {
+    etag: false,
+    lastModified: false,
+    setHeaders: (res, path) => {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+    }
+}));
 
 // ==========================================
 // SERVER-SIDE SCANNER LOOP
 // ==========================================
 
-const startScannerLoop = () => {
-    console.log('[SYSTEM] Starting 24/7 Scanner Loop...');
+const startScannerLoop = async () => {
+    console.log('[SYSTEM] Starting 24/7 Scanner Loop (Sequential Mode)...');
 
-    // Run ALL immediately on start to populate
-    runServerScan('HYPERLIQUID', 'all').catch(e => console.error('[SCAN ERROR]', e));
-    runServerScan('MEXC', 'all').catch(e => console.error('[SCAN ERROR]', e));
-    runServerScan('KUCOIN', 'all').catch(e => console.error('[SCAN ERROR]', e));
+    // Run immediately on start
+    try {
+        await runServerScan('HYPERLIQUID', 'all');
+        await runServerScan('MEXC', 'all');
+        await runServerScan('KUCOIN', 'all');
+    } catch (e) {
+        console.error('[SCAN ERROR - STARTUP]', e);
+    }
 
-    // 1. Legacy Strategy Scanner (Fast: 15m)
-    // Uses existing SCAN_INTERVAL from config (default 15m)
-    setInterval(() => {
-        runServerScan('HYPERLIQUID', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
-        runServerScan('MEXC', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
-        runServerScan('KUCOIN', 'legacy').catch(e => console.error('[SCAN ERROR - LEGACY]', e));
-    }, CONFIG.SYSTEM.SCAN_INTERVAL);
+    // Main Loop
+    while (true) {
+        try {
+            // Wait 1 minute between cycles (Polling for Interval Check)
+            // The intervals (1h/4h) are checked INSIDE runServerScan.
+            await new Promise(resolve => setTimeout(resolve, 60 * 1000));
 
-    // 2. Breakout Strategy Scanner (Slow: 4H)
-    const FOUR_HOURS = 4 * 60 * 60 * 1000;
-    setInterval(() => {
-        runServerScan('HYPERLIQUID', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
-        runServerScan('MEXC', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
-        runServerScan('KUCOIN', 'breakout').catch(e => console.error('[SCAN ERROR - BREAKOUT]', e));
-    }, FOUR_HOURS);
+            // Sequentially execute scans. 
+            // runServerScan checks if enough time has passed since last run.
+            await runServerScan('HYPERLIQUID', 'all');
+            await runServerScan('MEXC', 'all');
+            await runServerScan('KUCOIN', 'all');
 
-    // 3. Trade Tracker & Alerts
-    setInterval(() => {
-        updateOutcomes().catch(e => console.error('[TRACKER ERROR]', e));
-    }, CONFIG.SYSTEM.TRACKER_INTERVAL);
+            // Update Tracker
+            await updateOutcomes().catch(e => console.error('[TRACKER ERROR]', e));
+
+        } catch (e) {
+            console.error('[MAIN LOOP ERROR]', e);
+            // Wait 1 min on error to avoid rapid restart loops
+            await new Promise(resolve => setTimeout(resolve, 60 * 1000));
+        }
+    }
 };
 
 // Start the loop
-// Start the loop
-startScannerLoop();
+startScannerLoop().catch(e => console.error('[FATAL LOOP ERROR]', e));
 
 // ==========================================
 // API: CONTROL & MANUAL TRIGGER
 // ==========================================
 app.post('/api/scan/manual', async (req, res) => {
-    const { source } = req.body; // e.g. 'BINANCE'
+    const { source } = req.body; // e.g. 'HYPERLIQUID'
     try {
         console.log(`[MANUAL TRIGGER] Starting scan for ${source}...`);
         // Force run the scan
@@ -110,9 +121,9 @@ app.post('/api/scan/manual', async (req, res) => {
 // ==========================================
 // API: SETTINGS & RESULTS
 // ==========================================
+
 app.get('/api/results', async (req, res) => {
-    const { source } = req.query;
-    const results = await getLatestResults(source || 'HYPERLIQUID');
+    const results = await getMasterFeed();
     res.json(results);
 });
 

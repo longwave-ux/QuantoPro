@@ -58,6 +58,7 @@ def main():
     parser.add_argument('--backtest', action='store_true', help='Run in backtest mode')
     parser.add_argument('--plot', action='store_true', help='Generate debug plots (Breakout strategy)')
     parser.add_argument('--limit', type=int, help='Limit data rows (backtest only)', default=0)
+    parser.add_argument('--symbol', help='Specific symbol to scan (e.g., BTCUSDT)', default=None)
     
     args = parser.parse_args()
     
@@ -86,7 +87,11 @@ def main():
                     
                     if not data_file:
                         continue # Skip if no data found
-                        
+                    
+                    # Filter by symbol if requested
+                    if args.symbol and args.symbol.upper() not in symbol.upper():
+                        continue
+
                     # Process this file
                     df = load_data(data_file)
                     # No limit for batch scan typically, or apply same limit

@@ -8,7 +8,9 @@ const CONFIG_FILE = path.join(__dirname, '../data/config.json');
 
 export const CONFIG = {
     SYSTEM: {
-        SCAN_INTERVAL: 15 * 60 * 1000, // 15 Minutes
+        SCAN_INTERVAL: 15 * 60 * 1000, // 15 Minutes (Base pulse)
+        LEGACY_INTERVAL: 60 * 60 * 1000, // 1 Hour
+        BREAKOUT_INTERVAL: 4 * 60 * 60 * 1000, // 4 Hours
         TRACKER_INTERVAL: 1 * 60 * 1000, // 1 Minute
         BATCH_SIZE: 5,
         HTTP_PORT: process.env.PORT || 3000,
@@ -23,9 +25,9 @@ export const CONFIG = {
         MIN_HISTORY_LTF: 50,
     },
     THRESHOLDS: {
-        MIN_SCORE_TO_SAVE: 30,
-        MIN_SCORE_TRENDING: 50,
-        MIN_SCORE_SIGNAL: 70,
+        MIN_SCORE_TO_SAVE: 10,
+        MIN_SCORE_TRENDING: 20,
+        MIN_SCORE_SIGNAL: 20,
         MAX_TRADE_AGE_HOURS: 24,
     },
     INDICATORS: {

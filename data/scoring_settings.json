@@ -1,0 +1,12 @@
+{
+    "GEOMETRY_WEIGHT": 60.0,
+    "MOMENTUM_WEIGHT": 30.0,
+    "BASE_WEIGHT": 10.0,
+    "TARGET_AREA": 10000.0,
+    "DIV_SCORES": {
+        "0": 0,
+        "1": 20,
+        "2": 30,
+        "3": 30
+    }
+}
