@@ -16,3 +16,15 @@ node_modules/
 # Cache
 .cache
 node_modules
+
+# Python
+venv/
+.env
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
