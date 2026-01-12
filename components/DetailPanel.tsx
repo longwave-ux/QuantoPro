@@ -129,7 +129,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
     const getTrendlineData = () => {
         if (!pair.setup?.trendline) return { segment: null, projection: null };
 
-        const isBreakout = pair.strategy_name === 'Breakout';
+        if (!pair.setup?.trendline) return { segment: null, projection: null };
+
+        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
         const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
 
         // Get timestamps instead of indices
@@ -156,7 +158,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     // Calculate Slice Start for Zoomed View
     const getZoomedData = () => {
-        const isBreakout = pair.strategy_name === 'Breakout';
+        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
         const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
 
         let sliceStart = 0;
@@ -244,7 +246,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-64 flex flex-col relative">
                         <div className="flex justify-between items-center mb-2">
                             <div className="text-sm font-semibold text-gray-300 uppercase flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis ({pair.strategy_name === 'Breakout' ? '4H' : '15m'})
+                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis ({(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') ? '4H' : '15m'})
                             </div>
 
                             {/* CONDITION LABEL FOR WATCH */}
@@ -376,11 +378,12 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
                     {/* SCORE BREAKDOWN (FIXED KEYS) */}
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4">
-                        <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
-                            <BarChart3 className="w-3 h-3 text-purple-400" /> Score Composition
+                        <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2 justify-between">
+                            <span className="flex items-center gap-2"><BarChart3 className="w-3 h-3 text-purple-400" /> Score Composition</span>
+                            <span className="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded border border-gray-700">{pair.strategy_name}</span>
                         </h4>
                         <div className="space-y-3">
-                            {pair.strategy_name === 'Breakout' ? (
+                            {(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') ? (
                                 <>
                                     <ScoreBar
                                         label="Geometry"

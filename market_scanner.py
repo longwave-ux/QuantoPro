@@ -5,7 +5,7 @@ import os
 import pandas as pd
 import numpy as np
 import pandas_ta as ta
-from strategies import QuantProLegacy, QuantProBreakout
+from strategies import QuantProLegacy, QuantProBreakout, QuantProBreakoutV2
 
 def load_data(filename):
     with open(filename, 'r') as f:
@@ -237,11 +237,13 @@ def main():
 
         strategies_to_run = []
         if args.strategy.lower() == 'all':
-             strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config)]
+             strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config), QuantProBreakoutV2(config)]
         elif args.strategy.lower() == 'legacy':
             strategies_to_run = [QuantProLegacy(config)]
         elif args.strategy.lower() == 'breakout':
             strategies_to_run = [QuantProBreakout(config)]
+        elif args.strategy.lower() == 'breakoutv2':
+            strategies_to_run = [QuantProBreakoutV2(config)]
         else:
             raise ValueError(f"Unknown strategy: {args.strategy}")
         

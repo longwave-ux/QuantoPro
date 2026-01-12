@@ -7,8 +7,12 @@ from scipy.signal import find_peaks, argrelextrema
 import datetime
 import matplotlib.pyplot as plt
 plt.switch_backend('Agg')
+import datetime
+import matplotlib.pyplot as plt
+plt.switch_backend('Agg')
 from abc import ABC, abstractmethod
 from scoring_engine import calculate_score
+from strategy_config import StrategyConfig
 
 def clean_nans(obj):
     """Recursively convert NaN, inf, and numpy types to JSON-serializable values."""
@@ -710,7 +714,7 @@ class QuantProBreakout(Strategy):
     
     def __init__(self, config=None):
         self.config = config or {}
-        self.rsi_len = 14
+        self.rsi_len = StrategyConfig.RSI_PERIOD_V1
         self.breakout_threshold = self.config.get('breakout_threshold', 2.0)
         self.coinalyze = CoinalyzeClient(api_key="5019d4cc-a330-4132-bac0-18d2b0a1ee38")
         
@@ -1219,8 +1223,8 @@ class QuantProBreakout(Strategy):
                         
                         score_result = calculate_score(scoring_data)
                         # Clamp and Round (Blueprint v1.1.5 Limits)
-                        geometry_score = round(min(40.0, score_result['geometry_component']), 1)
-                        momentum_score = round(min(30.0, score_result['momentum_component']), 1)
+                        geometry_score = round(min(StrategyConfig.SCORE_GEOMETRY_MAX, score_result['geometry_component']), 1)
+                        momentum_score = round(min(StrategyConfig.SCORE_MOMENTUM_MAX, score_result['momentum_component']), 1)
                         
                         # 4. FUNDING RATE HARD FILTER
                         funding_passed, funding_rate = self.check_funding_rate(symbol)
@@ -1384,8 +1388,8 @@ class QuantProBreakout(Strategy):
                             
                             score_result = calculate_score(scoring_data)
                             # Clamp and Round (Blueprint v1.1.5 Limits)
-                            geometry_score = round(min(40.0, score_result['geometry_component']), 1)
-                            momentum_score = round(min(30.0, score_result['momentum_component']), 1)
+                            geometry_score = round(min(StrategyConfig.SCORE_GEOMETRY_MAX, score_result['geometry_component']), 1)
+                            momentum_score = round(min(StrategyConfig.SCORE_MOMENTUM_MAX, score_result['momentum_component']), 1)
                             
                             # 4. FUNDING RATE HARD FILTER
                             funding_passed, funding_rate = self.check_funding_rate(symbol)
@@ -1408,7 +1412,7 @@ class QuantProBreakout(Strategy):
                             action_bonus = 0
                             # RETEST Bonus: +15
                             if offset > 0:
-                                action_bonus += 15
+                                action_bonus += StrategyConfig.BONUS_RETEST
                             
                             # DEEP RSI Bonus
                             if sup_line['max_val_in_range'] > 70:
@@ -1421,8 +1425,8 @@ class QuantProBreakout(Strategy):
                                 avg_vol = df['volume'].iloc[curr_i-20:curr_i].mean()
                                 if avg_vol > 0: vol_ratio = curr_vol / avg_vol
                             
-                            if vol_ratio > 2.0 and oi_score > 5:
-                                 action_bonus += 10
+                            if vol_ratio > StrategyConfig.MIN_VOL_RATIO_SQUEEZE and oi_score > StrategyConfig.MIN_OI_SCORE_SQUEEZE:
+                                 action_bonus += StrategyConfig.BONUS_SQUEEZE
                                  div_badge = "SQUEEZE"
                             
                             # TOTAL SCORE (5 components)
@@ -1559,3 +1563,335 @@ class QuantProBreakout(Strategy):
             },
             "htf": {}, "ltf": {}
         }
+
+# ==========================================
+# UTILITIES
+# ==========================================
+# ==========================================
+# UTILITIES
+# ==========================================
+def calculate_reverse_rsi(target_rsi, data, rsi_period=14):
+    """
+    Calculate the price needed to hit a target RSI using proper Wilder's Smoothing (RMA).
+    Formula: Delta = (TargetRS * AvgLoss - AvgGain) * (N-1)
+    """
+    import pandas as pd
+    import numpy as np
+
+    if isinstance(data, pd.DataFrame):
+        close = data['close']
+    else:
+        close = data
+        
+    # Validation
+    if len(close) < rsi_period + 1:
+        return close.iloc[-1]
+
+    delta = close.diff()
+    
+    # 1. Calculate Gains and Losses
+    # Use numpy for speed if needed, but pandas Series is fine
+    gains = delta.clip(lower=0)
+    losses = -delta.clip(upper=0)
+    
+    # 2. Replicate Wilder's Smoothing (RMA) matches pandas_ta
+    # First value is SMA of first N periods
+    # Subsequent are (Prev * (N-1) + Current) / N
+    
+    # We only need the LAST AvgGain and AvgLoss. 
+    # To be perfectly accurate, we must iterate from the index where RSI becomes valid.
+    # However, pandas ewm(alpha=1/N, adjust=False) is ALMOST identical except for initialization.
+    # To fix initialization:
+    
+    # Initialize with SMA
+    avg_gain = gains.rolling(window=rsi_period).mean().iloc[rsi_period]
+    avg_loss = losses.rolling(window=rsi_period).mean().iloc[rsi_period]
+    
+    # Iterate to current
+    # We can use the ewm function but we need to supply the 'initial' value?
+    # Easier to just loop for exact match if length is reasonable, or use a correction factor.
+    # Given typical length ~1000 candles, loop is fine in Python for a single call? 
+    # No, iteration is slow.
+    
+    # Faster way: Pandas ewm with adjust=False is Wilder's IF we handle pre-seeding.
+    # But pandas_ta actually just uses `ewm(alpha=1/N, adjust=False)` on the whole series?
+    # Let's verify standard pandas_ta behavior. 
+    # Most libs do: rma = series.ewm(alpha=1/length, min_periods=length).mean()
+    # BUT standard pandas ewm starts from index 0. RSI usually needs min_periods.
+    
+    # Let's try the vectorised EWM approach which is usually close enough IF data history is long (>100 candles).
+    # The discrepancy in the debug script (2.9 RSI points) suggests a MAJOR difference, likely the SMA seed missing.
+    
+    # Correct Loop implementation for robust "Last Value":
+    # (Optimized: we don't need to store all, just update)
+    
+    values_g = gains.values
+    values_l = losses.values
+    
+    # SMA Seed (at index N)
+    # Note: changes df index logic. 
+    # data is expected to be Series.
+    
+    # Make sure we have enough data
+    if len(values_g) < rsi_period: return close.iloc[-1]
+    
+    curr_avg_gain = np.mean(values_g[1:rsi_period+1]) # indices 1 to 14? (0 is NaN)
+    curr_avg_loss = np.mean(values_l[1:rsi_period+1])
+    
+    alpha = 1.0 / rsi_period
+    
+    # Run loop from N+1 to End
+    for i in range(rsi_period + 1, len(values_g)):
+        curr_avg_gain = (curr_avg_gain * (rsi_period - 1) + values_g[i]) / rsi_period
+        curr_avg_loss = (curr_avg_loss * (rsi_period - 1) + values_l[i]) / rsi_period
+        
+    prev_avg_gain = curr_avg_gain
+    prev_avg_loss = curr_avg_loss
+    
+    prev_close = close.iloc[-1]
+    
+    # Edge Cases
+    if target_rsi >= 100: return prev_close * 1.05
+    if target_rsi <= 0: return prev_close * 0.95
+    
+    rs_target = target_rsi / (100.0 - target_rsi)
+    
+    # Solve for Price Delta
+    # TargetRS = (AvgGain_new) / (AvgLoss_new)
+    
+    # Case 1: Assume Price Goes UP (Gain)
+    # AvgGain_new = (PrevAvgGain * (N-1) + Delta) / N
+    # AvgLoss_new = (PrevAvgLoss * (N-1) + 0) / N
+    # TargetRS = [ (PrevAvgGain*(N-1) + Delta) ] / [ PrevAvgLoss*(N-1) ]
+    # Delta = TargetRS * PrevAvgLoss * (N-1) - PrevAvgGain * (N-1)
+    
+    delta_gain = (rs_target * prev_avg_loss * (rsi_period - 1)) - (prev_avg_gain * (rsi_period - 1))
+    
+    # If delta_gain > 0, assumption was correct.
+    if delta_gain >= 0:
+        return prev_close + delta_gain
+        
+    # Case 2: Assume Price Goes DOWN (Loss)
+    # AvgGain_new = (PrevAvgGain * (N-1) + 0) / N
+    # AvgLoss_new = (PrevAvgLoss * (N-1) + DeltaLoss) / N
+    # TargetRS = [ PrevAvgGain * (N-1) ] / [ PrevAvgLoss * (N-1) + DeltaLoss ]
+    # PrevAvgLoss*(N-1) + DeltaLoss = (PrevAvgGain * (N-1)) / TargetRS
+    # DeltaLoss = [ (PrevAvgGain * (N-1)) / TargetRS ] - (PrevAvgLoss * (N-1))
+    
+    delta_loss = ((prev_avg_gain * (rsi_period - 1)) / rs_target) - (prev_avg_loss * (rsi_period - 1))
+    
+    return prev_close - delta_loss
+
+    prev_avg_gain = avg_gain_series.iloc[-2] # -1 is current (if included), -2 is previous? 
+    # Wait, 'data' passed usually includes the current candle? 
+    # If we are projecting for the CURRENT candle finishing at a certain price, we use averages from the PREVIOUS closed candle.
+    # Assuming 'data' ends with the previous closed candle. 
+    # Or if 'data' includes proper 'avg_gain', 'avg_loss'.
+    
+    # Let's assume passed 'data' includes usage up to index i-1.
+    prev_close = close.iloc[-1]
+    
+    # Get last valid smoothed averages
+    prev_avg_gain = avg_gain_series.iloc[-1]
+    prev_avg_loss = avg_loss_series.iloc[-1]
+    
+    # RS Target
+    if target_rsi == 100: return prev_close * 1.5 # Impossible high
+    if target_rsi == 0: return prev_close * 0.5   # Impossible low
+    
+    rs_target = target_rsi / (100.0 - target_rsi)
+    
+    # Formula:
+    # Price = prev_close + ((RS * AvgLoss * (N-1)) - (AvgGain * (N-1))) / (1 + RS) ??
+    # User Formula Check:
+    # Price = prev_close + ((RS_target * avg_loss * (N-1)) - (avg_gain * (N-1))) / (1 + RS_target)
+    
+    # This formula looks like it assumes Wilder's Smoothing where Total = Avg * N?
+    # Or implies (N-1) factor from the smoothing step update.
+    # Let's trust the user's provided logic verbatim.
+    
+    numerator = (rs_target * prev_avg_loss * (rsi_period - 1)) - (prev_avg_gain * (rsi_period - 1))
+    denominator = 1 + rs_target
+    
+    target_price = prev_close + (numerator / denominator)
+    return target_price
+
+# ==========================================
+# STRATEGY V2
+# ==========================================
+# ==========================================
+# STRATEGY V2
+# ==========================================
+class QuantProBreakoutV2(Strategy):
+    """
+    Strategy V2: Institutional RSI Breakout (Sidecar)
+    Features: State Persistence, V1 Scoring Filter, Breakout -> Retest Logic.
+    """
+    def __init__(self, config=None):
+        self.config = config or {}
+        self.state_file = "data/v2_state.json"
+        self.v1_strategy = QuantProBreakout(config)
+        self.state = self.load_state()
+        
+    def name(self):
+        return "BreakoutV2"
+        
+    def load_state(self):
+        import os
+        if os.path.exists(self.state_file):
+            try:
+                with open(self.state_file, 'r') as f:
+                    return json.load(f)
+            except:
+                return {}
+        return {}
+        
+    def save_state(self):
+        import json
+        with open(self.state_file, 'w') as f:
+            json.dump(self.state, f, indent=2)
+
+    def analyze(self, df, df_htf=None, mcap=0):
+        # V2 runs on HTF (4H) mostly. Ensure we have data.
+        target_df = df_htf if df_htf is not None else df
+        if len(target_df) < 50: 
+            return {
+                'action': 'WAIT',
+                'score': 0,
+                'details': {'total': 0},
+                'strategy_name': self.name()
+            }
+        
+        symbol = target_df['symbol'].iloc[0] if 'symbol' in target_df.columns else "UNKNOWN"
+        
+        # Get Symbol State
+        sym_state = self.state.get(symbol, {
+            'status': 'IDLE', # IDLE, WAITING_RETEST, IN_TRADE
+            'target_rsi': 0,
+            'entry_target': 0,
+            'sl': 0,
+            'tp': 0
+        })
+        
+        # Prepare Indicators
+        # We only need the last few candles for decision, but calculating RSI needs history.
+        # Check if column exists or calc it?
+        # Assuming df has standard OHLCV.
+        if 'rsi' not in target_df.columns:
+            target_df['rsi'] = target_df.ta.rsi(length=StrategyConfig.RSI_PERIOD)
+            
+        # Vol Z-Score
+        # Calculate only for tail to save time? Or full series.
+        # Full series is safer for rolling.
+        vol_mean = target_df['volume'].rolling(window=StrategyConfig.OI_ZSCORE_LOOKBACK).mean()
+        vol_std = target_df['volume'].rolling(window=StrategyConfig.OI_ZSCORE_LOOKBACK).std()
+        target_df['vol_zscore'] = (target_df['volume'] - vol_mean) / vol_std
+        
+        # Current Candle (Latest Closed or Forming?)
+        # Market Scanner loads data. Usually last row is the LATEST candle.
+        # If it's forming, we might want to check previous closed.
+        # Assuming last row is 'Current'.
+        
+        row = target_df.iloc[-1]
+        prev = target_df.iloc[-2]
+        
+        curr_rsi = row['rsi']
+        prev_rsi = prev['rsi']
+        
+        action = 'WAIT'
+        details = {'total': 0}
+        
+        # --- STATE MACHINE ---
+        
+        if sym_state['status'] == 'IDLE':
+            # Check Breakout
+            is_breakout = (prev_rsi <= 60 and curr_rsi > 60)
+            
+            if is_breakout:
+                # V1 Filter
+                try:
+                    # Score the breakout using V1 logic
+                    # Pass slice for scoring
+                    slice_df = target_df.copy() # Safe copy
+                    analysis = self.v1_strategy.analyze(slice_df, slice_df)
+                    v1_score = analysis.get('details', {}).get('total', 0)
+                except:
+                    v1_score = 0
+                    
+                if v1_score >= StrategyConfig.V2_MIN_SCORE_V1:
+                     # 70/30 RULE: Check Anchor
+                     # Bullish Line must start > 70
+                     setup_tl = analysis.get('setup', {}).get('trendline', {})
+                     anchor_rsi = setup_tl.get('start_rsi', 50.0)
+                     
+                     print(f"[V2-GEOMETRY] {symbol}: Checking Anchor at RSI {anchor_rsi:.1f}...", file=sys.stderr, end="")
+                     
+                     if anchor_rsi > 70.0:
+                         print(" [VALID]", file=sys.stderr)
+                         
+                         # Check Institutional Filter (Mocked via Vol Z-Score)
+                         if row['vol_zscore'] > 1.5:
+                             # VALID BREAKOUT -> TRANSITION
+                             sym_state['status'] = 'WAITING_RETEST'
+                             sym_state['target_rsi'] = 60.0 # Strict retest target
+                             print(f"[V2] {symbol}: Breakout Detected! Score={v1_score}, VolZ={row['vol_zscore']:.2f}. Waiting for Retest.", file=sys.stderr)
+                         else:
+                             print(f"[V2] {symbol}: Breakout Filtered by VolZ ({row['vol_zscore']:.2f})", file=sys.stderr)
+                     else:
+                         print(" [INVALID - Anchor < 70]", file=sys.stderr)
+                else:
+                    print(f"[V2] {symbol}: Breakout Filtered by V1 Score ({v1_score})", file=sys.stderr)
+                    
+        elif sym_state['status'] == 'WAITING_RETEST':
+            # Check Failure conditions
+            if prev_rsi < sym_state['target_rsi']:
+                # Collapsed
+                sym_state['status'] = 'IDLE'
+                print(f"[V2] {symbol}: Retest Failed (RSI Collapsed)", file=sys.stderr)
+            else:
+                # Calculate Price Target
+                retest_target = sym_state['target_rsi']
+                target_price = calculate_reverse_rsi(retest_target, target_df.iloc[:-1], rsi_period=StrategyConfig.RSI_PERIOD)
+                
+                # Check Entry (Low Hit)
+                if row['low'] <= target_price:
+                    # TRIGGER ENTRY
+                    entry_price = target_price
+                    pivot_low = target_df['low'].iloc[-15:-1].min() # Last 15 candles pivot
+                    sl = pivot_low if pivot_low < entry_price else entry_price * 0.98
+                    risk = entry_price - sl
+                    tp = entry_price + (risk * StrategyConfig.MIN_RR_RATIO)
+                    
+                    sym_state['status'] = 'IDLE' # Reset after signaling (Or IN_TRADE if we tracked via execution)
+                    # For Scanner, we signal BUY. The Tracker handles the trade management.
+                    # We reset state so we don't signal repeatedly?
+                    # Or we stay in specific state?
+                    # Let's signal ONCE.
+                    
+                    action = 'BUY'
+                    details = {
+                        'entry': entry_price,
+                        'sl': sl,
+                        'tp': tp,
+                        'type': 'RETEST_ENTRY',
+                        'desc': f"V2 Retest of RSI {retest_target}"
+                    }
+                    print(f"[V2] {symbol}: ENTRY SIGNAL! Price {entry_price:.2f}", file=sys.stderr)
+                    
+        # Save State
+        self.state[symbol] = sym_state
+        self.save_state()
+        
+        return {
+            'action': action,
+            'score': 100 if action == 'BUY' else 0, # High score for signal
+            'details': details,
+            'strategy_name': self.name(),
+            'setup': details if action == 'BUY' else None
+        }
+
+    def backtest(self, df, df_htf=None, mcap=0):
+        # V2 Backtest logic is in backtest_v2.py
+        # This function is required by abstract base class but unused for scanner backtest mode here.
+        return []
+
