@@ -1,257 +1,387 @@
 {
-  "TAOUSDTM": {
-    "score": 26.2,
-    "timestamp": 1768234315092,
+  "ETHUSDT": {
+    "score": 19,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "HYPEUSDTM": {
-    "score": 22.17266784364815,
-    "timestamp": 1768234315092,
+  "XRPUSDT": {
+    "score": 20.7,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "IPUSDTM": {
-    "score": 39.69635586160551,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "POLUSDTM": {
+  "ZECUSDT": {
     "score": 34.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "LINKUSDT": {
+    "score": 35.8,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "JASMYUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "PENGUUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "AAVEUSDTM": {
-    "score": 29,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "WETUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "VIRTUALUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "GMTUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ERAUSDTM": {
-    "score": 20.77240509033093,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "FFUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ZENUSDTM": {
-    "score": 22.553365459644183,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "GUNUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ANIMEUSDTM": {
-    "score": 21.643011872991444,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "REZUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "DASHUSDTM": {
-    "score": 36.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "BUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "UBUSDTM": {
+  "LTCUSDT": {
     "score": 22,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "PEPEUSDT": {
+    "score": 35.9,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "AINUSDTM": {
+  "PAXGUSDT": {
+    "score": 12,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "AVAXUSDT": {
+    "score": 35.3,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "FDUSDUSDT": {
     "score": 24.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "VFYUSDTM": {
-    "score": 38.42958839381459,
-    "timestamp": 1768234315092,
+  "UNIUSDT": {
+    "score": 17,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
+  },
+  "CHZUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "GRIFFAINUSDTM": {
-    "score": 25.999000008357523,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
+  "TAOUSDT": {
+    "score": 12,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
   },
-  "TACUSDTM": {
+  "DAIUSDT": {
     "score": 34.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "CRVUSDTM": {
-    "score": 22.1753722927479,
-    "timestamp": 1768234315092,
+  "HBARUSDT": {
+    "score": 20.400000000000002,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "ENSOUSDTM": {
+  "AAVEUSDT": {
+    "score": 21,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "MXUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "PENGUUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "PVTUSDT": {
+    "score": 58.5,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "XLMUSDT": {
     "score": 27,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "OPUSDTM": {
-    "score": 43.67662657679713,
-    "timestamp": 1768234315092,
+  "KRYONUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "VELVETUSDTM": {
-    "score": 37.11992957868088,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "STRKUSDTM": {
+  "MINDHIVEUSDT": {
     "score": 34.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "DEEPUSDTM": {
-    "score": 22,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ORCAUSDTM": {
-    "score": 35.44007532988413,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "LUNCUSDTM": {
-    "score": 42.6019708611997,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "VINEUSDTM": {
-    "score": 50.54755244755245,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "MUBARAKUSDTM": {
+  "MNTUSDT": {
     "score": 24.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "MBGUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "CHILLGUYUSDTM": {
+  "POLUSDT": {
     "score": 24.2,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "OPUSDT": {
+    "score": 41,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "BERAUSDTM": {
-    "score": 24.200000000000003,
-    "timestamp": 1768234315092,
+  "SBETONUSDT": {
+    "score": 20.900000000000002,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "DAMUSDTM": {
-    "score": 30.226131850675134,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "PIEVERSEUSDTM": {
-    "score": 40.55529879281234,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "NOTUSDTM": {
-    "score": 40.73566836937218,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ETCUSDTM": {
-    "score": 26.685705497226973,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ETHFIUSDTM": {
-    "score": 45.34385316255117,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "BROCCOLI714USDTM": {
-    "score": 22,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "CYSUSDTM": {
-    "score": 53.351692069232755,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "XPLUSDTM": {
-    "score": 45.159288230727896,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "SANDUSDTM": {
-    "score": 50.46369279152528,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "TRBUSDTM": {
-    "score": 27.452844821563467,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "MELANIAUSDTM": {
-    "score": 22,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "NEIROCTOUSDTM": {
-    "score": 40.24862113962908,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "ATOMUSDTM": {
-    "score": 24.2,
-    "timestamp": 1768234315092,
-    "consecutiveScans": 1
-  },
-  "STOUSDTM": {
+  "APTUSDT": {
     "score": 27,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "INTCONUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "RAVEUSDTM": {
+  "ETHFIUSDT": {
     "score": 27,
-    "timestamp": 1768234315092,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "CRCLONUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
   },
-  "ZROUSDTM": {
-    "score": 36.07400925595492,
-    "timestamp": 1768234315092,
+  "ARTXUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
     "consecutiveScans": 1
+  },
+  "ICPUSDT": {
+    "score": 17,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "HIMSONUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ULTIMAUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "FETUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "GUNUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "DASHUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "OBTUSDT": {
+    "score": 66.3,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "WIFUSDT": {
+    "score": 35.3,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ASMLONUSDT": {
+    "score": 35.1,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ETCUSDT": {
+    "score": 27,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
+  },
+  "ARBUSDT": {
+    "score": 22.400000000000002,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "UCNUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "JGGLUSDT": {
+    "score": 20.5,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ZENUSDT": {
+    "score": 17,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
+  },
+  "REZUSDT": {
+    "score": 12,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "PLTRONUSDT": {
+    "score": 51.7,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "OGUSDT": {
+    "score": 39.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "CSCOONUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "WMTONUSDT": {
+    "score": 35.4,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "SUTUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "HYPERUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "ZILUSDT": {
+    "score": 35.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "FARTCOINUSDT": {
+    "score": 20.6,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "SEIUSDT": {
+    "score": 27,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
+  },
+  "ATLAUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ADBEONUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "KASUSDT": {
+    "score": 35.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "ONDOUSDT": {
+    "score": 27,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "ACHUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "HUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "SNOWONUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ESPORTSUSDT": {
+    "score": 35.7,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "MUBARAKUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "MRVLONUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "NOWONUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ARMONUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "XPLUSDT": {
+    "score": 27,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ATOMUSDT": {
+    "score": 22,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 3
+  },
+  "DEEPUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "MAONUSDT": {
+    "score": 40.3,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "STEPNUSDT": {
+    "score": 34.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "PARTIUSDT": {
+    "score": 40.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "BDXUSDT": {
+    "score": 45,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "MXSOLUSDT": {
+    "score": 20.7,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "AMPUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 1
+  },
+  "ACEUSDT": {
+    "score": 24.2,
+    "timestamp": 1768238033107,
+    "consecutiveScans": 2
   }
 }

@@ -18,7 +18,7 @@ const ScoreBar = ({ label, value, max, color, description }: { label: string, va
             <span className="text-gray-400 font-medium flex items-center gap-1" title={description}>
                 {label} <Info className="w-3 h-3 text-gray-600" />
             </span>
-            <span className="font-mono text-white">{value}/{max}</span>
+            <span className="font-mono text-white">{value.toFixed(1)}/{max}</span>
         </div>
         <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
             <div
@@ -392,23 +392,30 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                     <ScoreBar
                                         label="Momentum"
                                         value={pair.details.score_breakdown?.momentum || 0}
-                                        max={40}
+                                        max={30}
                                         color="bg-blue-500"
                                         description="RSI Divergence + Slope Decoupling"
                                     />
                                     <ScoreBar
-                                        label="Base/Flow"
-                                        value={pair.details.score_breakdown?.base || 0}
+                                        label="OI Flow"
+                                        value={pair.details.score_breakdown?.oi_flow || 0}
                                         max={20}
-                                        color="bg-indigo-500"
-                                        description="Quality Score (Fixed 20pts)"
+                                        color="bg-cyan-500"
+                                        description="Open Interest Slope & Delta"
+                                    />
+                                    <ScoreBar
+                                        label="Sentiment"
+                                        value={pair.details.score_breakdown?.sentiment || 0}
+                                        max={10}
+                                        color="bg-pink-500"
+                                        description="Liquidation Ratio + Top Traders"
                                     />
                                     <ScoreBar
                                         label="Action Bonuses"
-                                        value={Math.max(0, (pair.score || 0) - ((pair.details.score_breakdown?.geometry || 0) + (pair.details.score_breakdown?.momentum || 0) + (pair.details.score_breakdown?.base || 0)))}
-                                        max={20}
+                                        value={pair.details.score_breakdown?.bonuses || 0}
+                                        max={25}
                                         color="bg-green-500"
-                                        description="Retest (+15), Institutional Entry, Pattern Recognition"
+                                        description="Retest (+15), Squeeze (+10), Deep RSI (+5)"
                                     />
                                 </>
                             ) : (
@@ -467,6 +474,6 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                 </div>
 
             </div>
-        </div>
+        </div >
     );
 };

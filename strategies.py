@@ -1218,8 +1218,9 @@ class QuantProBreakout(Strategy):
                         }
                         
                         score_result = calculate_score(scoring_data)
-                        geometry_score = score_result['geometry_component']
-                        momentum_score = score_result['momentum_component']
+                        # Clamp and Round (Blueprint v1.1.5 Limits)
+                        geometry_score = round(min(40.0, score_result['geometry_component']), 1)
+                        momentum_score = round(min(30.0, score_result['momentum_component']), 1)
                         
                         # 4. FUNDING RATE HARD FILTER
                         funding_passed, funding_rate = self.check_funding_rate(symbol)
@@ -1233,6 +1234,10 @@ class QuantProBreakout(Strategy):
                         
                         # 6. Sentiment Score (0-10 pts)
                         sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'LONG')
+                        
+                        # Round intermediate scores
+                        oi_score = round(oi_score, 1)
+                        sentiment_score = round(sentiment_score, 1)
                         
                         # 7. Action Bonuses (Retest + Squeeze)
                         action_bonus = 0
@@ -1378,8 +1383,9 @@ class QuantProBreakout(Strategy):
                             }
                             
                             score_result = calculate_score(scoring_data)
-                            geometry_score = score_result['geometry_component']
-                            momentum_score = score_result['momentum_component']
+                            # Clamp and Round (Blueprint v1.1.5 Limits)
+                            geometry_score = round(min(40.0, score_result['geometry_component']), 1)
+                            momentum_score = round(min(30.0, score_result['momentum_component']), 1)
                             
                             # 4. FUNDING RATE HARD FILTER
                             funding_passed, funding_rate = self.check_funding_rate(symbol)
@@ -1393,6 +1399,10 @@ class QuantProBreakout(Strategy):
                             
                             # 6. Sentiment Score (0-10 pts)
                             sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'SHORT')
+                            
+                            # Round intermediate scores
+                            oi_score = round(oi_score, 1)
+                            sentiment_score = round(sentiment_score, 1)
                             
                             # 7. Action Bonuses (Retest + Squeeze)
                             action_bonus = 0
@@ -1463,7 +1473,11 @@ class QuantProBreakout(Strategy):
         # Formatting - Ensure robust structure for Aggregator
         final_score_details = {
              "total": 0.0,
-             "score_breakdown": {"geometry": 0.0, "momentum": 0.0, "base": 0.0, "total": 0.0},
+             "score_breakdown": {
+                 "geometry": 0.0, "momentum": 0.0, 
+                 "oi_flow": 0.0, "sentiment": 0.0, "bonuses": 0.0,
+                 "base": 0.0, "total": 0.0
+             },
              "geometry_component": 0.0,
              "momentum_component": 0.0,
              "raw_components": {"price_change_pct": 0.0, "duration_candles": 0, "divergence_type": 0},

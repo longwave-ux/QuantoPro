@@ -98,6 +98,9 @@ export interface AnalysisResult {
       momentum: number;
       base: number;
       total: number;
+      oi_flow?: number;    // Added for Breakout
+      sentiment?: number;  // Added for Breakout
+      bonuses?: number;    // Added for Breakout
     };
     vol24h?: number;
   };
