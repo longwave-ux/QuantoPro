@@ -10,6 +10,20 @@ plt.switch_backend('Agg')
 from abc import ABC, abstractmethod
 from scoring_engine import calculate_score
 
+def clean_nans(obj):
+    """Recursively clean NaN/inf values and convert numpy types to native Python types for JSON serialization."""
+    if isinstance(obj, dict):
+        return {k: clean_nans(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [clean_nans(item) for item in obj]
+    elif isinstance(obj, (np.integer, np.int64)):
+        return int(obj)
+    elif isinstance(obj, (np.floating, float)):
+        if np.isnan(obj) or np.isinf(obj):
+            return 0.0
+        return float(obj)
+    return obj
+
 class Strategy(ABC):
     @abstractmethod
     def analyze(self, df, df_htf=None, mcap=0):
@@ -834,9 +848,128 @@ class QuantProBreakout(Strategy):
         except Exception as e:
             # print(f"Div Check Error: {e}")
             return 0
+
+    def calculate_oi_flow(self, symbol, side, duration_hours):
+        """
+        Calculate OI Flow score (0-20 pts) based on Open Interest slope.
+        Rewards positive OI slope for BOTH Long and Short setups.
+        """
+        try:
+            # Dynamic lookback: trendline duration + 2 hours buffer
+            lookback_hours = duration_hours + 2
+            
+            # Fetch OI data from Coinalyze
+            oi_data = self.coinalyze.get_open_interest_history(
+                symbol=symbol,
+                hours=lookback_hours
+            )
+            
+            if not oi_data or len(oi_data) < 3:
+                return 0, {"oi_slope": 0, "oi_points": 0}
+            
+            # Extract timestamps and OI values
+            timestamps = np.array([d['timestamp'] for d in oi_data])
+            oi_values = np.array([d['value'] for d in oi_data])
+            
+            # Calculate slope using numpy.polyfit (linear regression)
+            coefficients = np.polyfit(timestamps, oi_values, 1)
+            slope = coefficients[0]  # First coefficient is the slope
+            
+            # Normalize slope to percentage change per hour
+            avg_oi = np.mean(oi_values)
+            if avg_oi == 0:
+                return 0, {"oi_slope": 0, "oi_points": len(oi_data)}
+            
+            slope_pct_per_hour = (slope * 3600 / avg_oi) * 100  # Convert to %/hour
+            
+            # CRITICAL: Reward POSITIVE OI slope for both Long and Short
+            # Increasing OI = More participants = Stronger move potential
+            if slope_pct_per_hour > 0:
+                # Linear scaling: 0-5% slope = 0-20 points
+                score = min(20, max(0, slope_pct_per_hour * 4))
+            else:
+                score = 0
+            
+            return score, {
+                "oi_slope": float(slope_pct_per_hour),
+                "oi_points": len(oi_data),
+                "oi_avg": float(avg_oi)
+            }
         
+        except Exception as e:
+            print(f"[OI FLOW ERROR] {symbol}: {e}", file=sys.stderr)
+            return 0, {"error": str(e)}
 
+    def check_funding_rate(self, symbol):
+        """
+        HARD FILTER: Reject if funding rate > |0.05%|
+        Returns: (passed: bool, funding_rate: float)
+        """
+        try:
+            funding = self.coinalyze.get_funding_rate(symbol)
+            
+            if funding is None:
+                # If no data, pass (fail-open for data issues)
+                return True, 0.0
+            
+            # Convert to percentage
+            funding_pct = funding * 100
+            
+            # HARD FILTER: |funding| > 0.05%
+            if abs(funding_pct) > 0.05:
+                return False, funding_pct
+            
+            return True, funding_pct
+        
+        except Exception as e:
+            print(f"[FUNDING ERROR] {symbol}: {e}", file=sys.stderr)
+            return True, 0.0  # Fail-open
 
+    def calculate_sentiment_score(self, symbol, side):
+        """
+        Calculate sentiment score (0-10 pts) based on liquidation ratio.
+        """
+        try:
+            liqs = self.coinalyze.get_liquidation_history(symbol)
+            
+            if not liqs:
+                return 0, {"liq_longs": 0, "liq_shorts": 0, "liq_ratio": 0}
+            
+            longs = liqs.get('longs', 0)
+            shorts = liqs.get('shorts', 0)
+            
+            # Calculate ratio based on side
+            if side == 'LONG':
+                # For long setup, we want shorts being liquidated
+                ratio = shorts / (longs + 1)  # +1 to avoid division by zero
+                if ratio > 2.0:
+                    score = 10
+                elif ratio > 1.5:
+                    score = 7
+                elif ratio > 1.0:
+                    score = 4
+                else:
+                    score = 0
+            else:  # SHORT
+                ratio = longs / (shorts + 1)
+                if ratio > 2.0:
+                    score = 10
+                elif ratio > 1.5:
+                    score = 7
+                elif ratio > 1.0:
+                    score = 4
+                else:
+                    score = 0
+            
+            return score, {
+                "liq_longs": int(longs),
+                "liq_shorts": int(shorts),
+                "liq_ratio": float(ratio)
+            }
+        
+        except Exception as e:
+            print(f"[SENTIMENT ERROR] {symbol}: {e}", file=sys.stderr)
+            return 0, {"error": str(e)}
         
     def name(self):
         return "Breakout"
@@ -995,9 +1128,10 @@ class QuantProBreakout(Strategy):
                     if latest_price > entry_price * 1.03: continue
                     
                     # Valid Signal logic
-                    breakout_score = 0
-                    
                     try:
+                        # Get symbol for API calls
+                        symbol = df['symbol'].iloc[0] if 'symbol' in df.columns else "UNKNOWN"
+                        
                         # 1. Calculate Geometry & Slopes
                         p_start = df['close'].iloc[res_line['start_idx']]
                         p_end = df['close'].iloc[res_line['end_idx']]
@@ -1038,9 +1172,9 @@ class QuantProBreakout(Strategy):
                                     div_badge = "DIV-PREP"
                                 break
                         
-                        # 3. Call Scoring Engine with Null Safety
+                        # 3. Call Scoring Engine for Geometry & Momentum
                         scoring_data = {
-                            "symbol": df['symbol'].iloc[0] if 'symbol' in df.columns else "Unknown",
+                            "symbol": symbol,
                             "price_change_pct": float(price_change_pct or 0.0),
                             "duration_candles": int(duration or 0),
                             "price_slope": float(price_slope or 0.0),
@@ -1049,22 +1183,49 @@ class QuantProBreakout(Strategy):
                         }
                         
                         score_result = calculate_score(scoring_data)
-                        breakout_score = score_result['total']
+                        geometry_score = score_result['geometry_component']
+                        momentum_score = score_result['momentum_component']
                         
-                        # 4. Bonuses specific to Breakout (Retest bonus, etc)
-                        # REMOVED static bonuses to rely on geometry score
-                        # if offset > 0: breakout_score += 2 
-                        # if res_line['min_val_in_range'] < 30: breakout_score += 3
+                        # 4. FUNDING RATE HARD FILTER
+                        funding_passed, funding_rate = self.check_funding_rate(symbol)
+                        if not funding_passed:
+                            print(f"[BREAKOUT REJECTED] {symbol} - Funding rate too high: {funding_rate:.4f}%", file=sys.stderr)
+                            continue  # Skip this signal
                         
-                        # Cap
+                        # 5. OI Flow Score (0-20 pts)
+                        duration_hours = duration * 0.25  # Convert 15m candles to hours
+                        oi_score, oi_meta = self.calculate_oi_flow(symbol, 'LONG', duration_hours)
+                        
+                        # 6. Sentiment Score (0-10 pts)
+                        sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'LONG')
+                        
+                        # 7. Action Bonuses
+                        action_bonus = 0
+                        if offset > 0:
+                            action_bonus += 5  # Retest bonus
+                        if res_line['min_val_in_range'] < 30:
+                            action_bonus += 5  # Deep RSI bonus
+                        
+                        # TOTAL SCORE (5 components)
+                        breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus
                         breakout_score = min(100.0, breakout_score)
                         
                         setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'LONG'}
                         details = {
                             'total_score': breakout_score,
-                            'score_breakdown': score_result['score_breakdown'],
-                            'geometry_component': score_result['geometry_component'],
-                            'momentum_component': score_result['momentum_component'], 
+                            'score_breakdown': {
+                                'geometry': float(geometry_score),
+                                'momentum': float(momentum_score),
+                                'oi_flow': float(oi_score),
+                                'sentiment': float(sentiment_score),
+                                'bonuses': float(action_bonus),
+                                'total': float(breakout_score)
+                            },
+                            'geometry_component': float(geometry_score),
+                            'momentum_component': float(momentum_score),
+                            'oi_meta': clean_nans(oi_meta),
+                            'sentiment_meta': clean_nans(sentiment_meta),
+                            'funding_rate': float(funding_rate),
                             'type': 'BREAKOUT' if offset == 0 else 'RETEST',
                             'raw_components': scoring_data,
                             'context_badge': div_badge
@@ -1113,6 +1274,9 @@ class QuantProBreakout(Strategy):
                         if latest_price < entry_price * 0.97: continue
                             
                         try:
+                            # Get symbol for API calls
+                            symbol = df['symbol'].iloc[0] if 'symbol' in df.columns else "UNKNOWN"
+                            
                             # 1. Calculate Geometry & Slopes
                             p_start = df['close'].iloc[sup_line['start_idx']]
                             p_end = df['close'].iloc[sup_line['end_idx']]
@@ -1153,9 +1317,9 @@ class QuantProBreakout(Strategy):
                                         div_badge = "DIV-PREP"
                                     break
                             
-                            # 3. Call Scoring Engine with Null Safety
+                            # 3. Call Scoring Engine for Geometry & Momentum
                             scoring_data = {
-                                "symbol": df['symbol'].iloc[0] if 'symbol' in df.columns else "Unknown",
+                                "symbol": symbol,
                                 "price_change_pct": float(price_change_pct or 0.0),
                                 "duration_candles": int(duration or 0),
                                 "price_slope": float(price_slope or 0.0),
@@ -1164,22 +1328,50 @@ class QuantProBreakout(Strategy):
                             }
                             
                             score_result = calculate_score(scoring_data)
-                            breakout_score = score_result['total']
+                            geometry_score = score_result['geometry_component']
+                            momentum_score = score_result['momentum_component']
                             
-                            # 4. Bonuses
-                            # REMOVED static bonuses to rely on geometry score
-                            # if offset > 0: breakout_score += 2
-                            # if sup_line['max_val_in_range'] > 70: breakout_score += 3
+                            # 4. FUNDING RATE HARD FILTER
+                            funding_passed, funding_rate = self.check_funding_rate(symbol)
+                            if not funding_passed:
+                                print(f"[BREAKOUT REJECTED] {symbol} - Funding rate too high: {funding_rate:.4f}%", file=sys.stderr)
+                                continue  # Skip this signal
                             
+                            # 5. OI Flow Score (0-20 pts)
+                            duration_hours = duration * 0.25  # Convert 15m candles to hours
+                            oi_score, oi_meta = self.calculate_oi_flow(symbol, 'SHORT', duration_hours)
+                            
+                            # 6. Sentiment Score (0-10 pts)
+                            sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'SHORT')
+                            
+                            # 7. Action Bonuses
+                            action_bonus = 0
+                            if offset > 0:
+                                action_bonus += 5  # Retest bonus
+                            if sup_line['max_val_in_range'] > 70:
+                                action_bonus += 5  # Overbought RSI bonus
+                            
+                            # TOTAL SCORE (5 components)
+                            breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus
                             breakout_score = min(100.0, breakout_score)
                             
                             setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'SHORT'}
                             details = {
                                 'total_score': breakout_score,
-                                'score_breakdown': score_result['score_breakdown'],
-                                'geometry_component': score_result['geometry_component'],
-                                'momentum_component': score_result['momentum_component'],
-                                'type': 'BREAKOUT',
+                                'score_breakdown': {
+                                    'geometry': float(geometry_score),
+                                    'momentum': float(momentum_score),
+                                    'oi_flow': float(oi_score),
+                                    'sentiment': float(sentiment_score),
+                                    'bonuses': float(action_bonus),
+                                    'total': float(breakout_score)
+                                },
+                                'geometry_component': float(geometry_score),
+                                'momentum_component': float(momentum_score),
+                                'oi_meta': clean_nans(oi_meta),
+                                'sentiment_meta': clean_nans(sentiment_meta),
+                                'funding_rate': float(funding_rate),
+                                'type': 'BREAKOUT' if offset == 0 else 'RETEST',
                                 'raw_components': scoring_data,
                                 'context_badge': div_badge
                             }
@@ -1270,11 +1462,17 @@ class QuantProBreakout(Strategy):
                 "score_breakdown": {
                     "geometry": 0.0,
                     "momentum": 0.0,
-                    "base": 0.0,
+                    "oi_flow": 0.0,
+                    "sentiment": 0.0,
+                    "bonuses": 0.0,
                     "total": 0.0
                 },
                 "geometry_component": 0.0,
                 "momentum_component": 0.0,
+                "oi_meta": {},
+                "sentiment_meta": {},
+                "funding_rate": 0.0,
+                "type": "NONE",
                 "raw_components": {
                     "price_change_pct": 0.0,
                     "duration_candles": 0, 
