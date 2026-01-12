@@ -223,10 +223,39 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
 };
 
 let isScanning = false;
+
+// Persistent timestamp storage (survives PM2 restarts)
+const getLastScanTimestamps = async () => {
+    try {
+        const filePath = path.join(DATA_DIR, 'scanner_timestamps.json');
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch {
+        return {};
+    }
+};
+
+const saveLastScanTimestamps = async (timestamps) => {
+    try {
+        const filePath = path.join(DATA_DIR, 'scanner_timestamps.json');
+        await fs.writeFile(filePath, JSON.stringify(timestamps, null, 2));
+    } catch (e) {
+        Logger.error(`[STORAGE ERROR] Failed to save scanner timestamps`, e);
+    }
+};
+
+// Load timestamps on startup
 let lastLegacyScan = {};
 let lastBreakoutScan = {};
 
-export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
+(async () => {
+    const timestamps = await getLastScanTimestamps();
+    lastLegacyScan = timestamps.legacy || {};
+    lastBreakoutScan = timestamps.breakout || {};
+    Logger.info(`[SCANNER] Loaded timestamps: Legacy=${JSON.stringify(lastLegacyScan)}, Breakout=${JSON.stringify(lastBreakoutScan)}`);
+})();
+
+export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force = false) => {
     if (isScanning) {
         Logger.info(`[SERVER SCAN] Skipped: Scan already in progress.`);
         return [];
@@ -235,10 +264,11 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
 
     // Determine which strategies to run based on Last Run Time (if 'all' is requested)
     // If specific strategy requested (manual override), run it.
+    // If force=true, skip interval checks and run immediately
     let targetStrategy = strategy;
     const now = Date.now();
 
-    if (strategy === 'all') {
+    if (strategy === 'all' && !force) {
         const lastLeg = lastLegacyScan[source] || 0;
         const lastBrk = lastBreakoutScan[source] || 0;
 
@@ -257,6 +287,21 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all') => {
 
         if (runLegacy) lastLegacyScan[source] = now;
         if (runBreakout) lastBreakoutScan[source] = now;
+
+        // Persist to disk
+        await saveLastScanTimestamps({
+            legacy: lastLegacyScan,
+            breakout: lastBreakoutScan
+        });
+    } else if (force) {
+        // Force mode: Update both timestamps to current time
+        Logger.info(`[SERVER SCAN] Force mode enabled - bypassing interval checks`);
+        lastLegacyScan[source] = now;
+        lastBreakoutScan[source] = now;
+        await saveLastScanTimestamps({
+            legacy: lastLegacyScan,
+            breakout: lastBreakoutScan
+        });
     }
 
     Logger.info(`[SERVER SCAN] Starting scan for ${source} (Strategy: ${targetStrategy})...`);

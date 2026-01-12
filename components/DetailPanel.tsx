@@ -383,32 +383,32 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                             {pair.strategy_name === 'Breakout' ? (
                                 <>
                                     <ScoreBar
-                                        label="Geometry & Structure"
-                                        value={pair.details.geometryScore || 0} // Fixed camelCase
+                                        label="Geometry"
+                                        value={pair.details.score_breakdown?.geometry || 0}
                                         max={40}
                                         color="bg-purple-500"
-                                        description="Trendline Quality & Pivots (40pts)"
+                                        description="Trendline Force: (Price% × Duration) / Target Area"
                                     />
                                     <ScoreBar
                                         label="Momentum"
-                                        value={pair.details.momentumScore || 0}
+                                        value={pair.details.score_breakdown?.momentum || 0}
                                         max={40}
                                         color="bg-blue-500"
-                                        description="RSI Strength & MFI Filter (40pts)"
+                                        description="RSI Divergence + Slope Decoupling"
                                     />
                                     <ScoreBar
-                                        label="Smart Money Cons."
-                                        value={pair.details.structureScore || 0}
+                                        label="Base/Flow"
+                                        value={pair.details.score_breakdown?.base || 0}
                                         max={20}
                                         color="bg-indigo-500"
-                                        description="Coinalyze OI/CVD Confirmation (Bonus)"
+                                        description="Quality Score (Fixed 20pts)"
                                     />
                                     <ScoreBar
-                                        label="Divergence"
-                                        value={pair.details.divergenceScore || 0}
-                                        max={30}
+                                        label="Action Bonuses"
+                                        value={Math.max(0, (pair.score || 0) - ((pair.details.score_breakdown?.geometry || 0) + (pair.details.score_breakdown?.momentum || 0) + (pair.details.score_breakdown?.base || 0)))}
+                                        max={20}
                                         color="bg-green-500"
-                                        description="RSI Divergence Boost (30pts)"
+                                        description="Retest (+15), Institutional Entry, Pattern Recognition"
                                     />
                                 </>
                             ) : (

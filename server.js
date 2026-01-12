@@ -109,8 +109,8 @@ app.post('/api/scan/manual', async (req, res) => {
     const { source } = req.body; // e.g. 'HYPERLIQUID'
     try {
         console.log(`[MANUAL TRIGGER] Starting scan for ${source}...`);
-        // Force run the scan
-        const results = await runServerScan(source || 'HYPERLIQUID');
+        // Force run the scan (bypass interval checks)
+        const results = await runServerScan(source || 'HYPERLIQUID', 'all', true);
         res.json({ success: true, count: results.length, results });
     } catch (e) {
         console.error('[MANUAL TRIGGER ERROR]', e);

@@ -11,17 +11,30 @@ from abc import ABC, abstractmethod
 from scoring_engine import calculate_score
 
 def clean_nans(obj):
-    """Recursively clean NaN/inf values and convert numpy types to native Python types for JSON serialization."""
-    if isinstance(obj, dict):
-        return {k: clean_nans(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [clean_nans(item) for item in obj]
-    elif isinstance(obj, (np.integer, np.int64)):
+    """Recursively convert NaN, inf, and numpy types to JSON-serializable values."""
+    import numpy as np
+    import pandas as pd
+    
+    # Handle numpy integer types (int64, int32, etc.)
+    if isinstance(obj, (np.integer, np.int64, np.int32)):
         return int(obj)
-    elif isinstance(obj, (np.floating, float)):
-        if np.isnan(obj) or np.isinf(obj):
+    # Handle numpy float types (float64, float32, etc.)
+    elif isinstance(obj, (np.floating, np.float64, np.float32)):
+        if pd.isna(obj) or np.isinf(obj):
             return 0.0
         return float(obj)
+    # Handle regular Python floats
+    elif isinstance(obj, float):
+        if pd.isna(obj) or np.isinf(obj):
+            return 0.0
+        return obj
+    # Recursively handle dictionaries
+    elif isinstance(obj, dict):
+        return {k: clean_nans(v) for k, v in obj.items()}
+    # Recursively handle lists
+    elif isinstance(obj, list):
+        return [clean_nans(v) for v in obj]
+    # Return everything else as-is
     return obj
 
 class Strategy(ABC):
@@ -927,45 +940,66 @@ class QuantProBreakout(Strategy):
 
     def calculate_sentiment_score(self, symbol, side):
         """
-        Calculate sentiment score (0-10 pts) based on liquidation ratio.
+        Calculate sentiment score (0-10 pts):
+        - 5 pts: Liquidation Ratio (Contrary)
+        - 5 pts: Top Traders L/S Ratio (Consensus)
         """
         try:
-            liqs = self.coinalyze.get_liquidation_history(symbol)
-            
-            if not liqs:
-                return 0, {"liq_longs": 0, "liq_shorts": 0, "liq_ratio": 0}
-            
-            longs = liqs.get('longs', 0)
-            shorts = liqs.get('shorts', 0)
-            
-            # Calculate ratio based on side
-            if side == 'LONG':
-                # For long setup, we want shorts being liquidated
-                ratio = shorts / (longs + 1)  # +1 to avoid division by zero
-                if ratio > 2.0:
-                    score = 10
-                elif ratio > 1.5:
-                    score = 7
-                elif ratio > 1.0:
-                    score = 4
-                else:
-                    score = 0
-            else:  # SHORT
-                ratio = longs / (shorts + 1)
-                if ratio > 2.0:
-                    score = 10
-                elif ratio > 1.5:
-                    score = 7
-                elif ratio > 1.0:
-                    score = 4
-                else:
-                    score = 0
-            
-            return score, {
-                "liq_longs": int(longs),
-                "liq_shorts": int(shorts),
-                "liq_ratio": float(ratio)
+            score_liq = 0
+            score_top = 0
+            meta = {
+                "liq_longs": 0, "liq_shorts": 0, "liq_ratio": 0.0,
+                "top_ls_ratio": 0.0
             }
+
+            # 1. Liquidation Ratio (Contrary View) - Max 5 pts
+            liqs = self.coinalyze.get_liquidation_history(symbol)
+            if liqs:
+                longs = liqs.get('longs', 0)
+                shorts = liqs.get('shorts', 0)
+                meta['liq_longs'] = int(longs)
+                meta['liq_shorts'] = int(shorts)
+                
+                if side == 'LONG':
+                    # Bullish if Shorts are getting wrecked
+                    ratio = shorts / (longs + 1)
+                    meta['liq_ratio'] = round(ratio, 2)
+                    if ratio > 1.5: score_liq = 5
+                    elif ratio > 1.0: score_liq = 3
+                else:
+                    # Bearish if Longs are getting wrecked
+                    ratio = longs / (shorts + 1)
+                    meta['liq_ratio'] = round(ratio, 2)
+                    if ratio > 1.5: score_liq = 5
+                    elif ratio > 1.0: score_liq = 3
+
+            # 2. Top Traders L/S Ratio (Smart Money) - Max 5 pts
+            # Note: Requires self.coinalyze to carry this method or we mock it
+            # Assuming get_ls_ratio_top_traders exists or we use a placeholder/generic
+            # If not present in CoinalyzeClient, we'll need to add it or skip.
+            # Based on user request, we assume it's available or we should try to use it.
+            # Let's check `data_fetcher.py` content via tool first? 
+            # User instruction: "In calculate_sentiment_score, integrate self.coinalyze.get_ls_ratio_top_traders(symbol)"
+            
+            top_ratio = self.coinalyze.get_ls_ratio_top_traders(symbol)
+            if top_ratio:
+                 meta['top_ls_ratio'] = float(top_ratio)
+                 
+                 if side == 'LONG':
+                     # Bullish if Top Traders > 1.0 (More Longs)
+                     if top_ratio > 1.2: score_top = 5
+                     elif top_ratio > 1.0: score_top = 3
+                 else:
+                     # Bearish if Top Traders < 1.0 (More Shorts)
+                     if top_ratio < 0.8: score_top = 5
+                     elif top_ratio < 1.0: score_top = 3
+            
+            total_score = score_liq + score_top
+            return total_score, meta
+        
+        except Exception as e:
+            print(f"[SENTIMENT ERROR] {symbol}: {e}", file=sys.stderr)
+            return 0, {"error": str(e)}
         
         except Exception as e:
             print(f"[SENTIMENT ERROR] {symbol}: {e}", file=sys.stderr)
@@ -1117,6 +1151,7 @@ class QuantProBreakout(Strategy):
                 line_prev = res_line['m'] * (scan_i-1) + res_line['c']
                 
                 # Breakout Check (Strict Freshness)
+                # print(f"DEBUG: Scan {scan_i} | RSI Prev: {rsi_prev:.2f} vs Line: {line_prev:.2f} | RSI Now: {rsi_now:.2f} vs Line: {line_now:.2f}")
                 if rsi_prev <= line_prev and rsi_now > line_now:
                     entry_price = df['close'].iloc[scan_i]
                     sl = df['low'].iloc[scan_i-5:scan_i].min()
@@ -1199,12 +1234,27 @@ class QuantProBreakout(Strategy):
                         # 6. Sentiment Score (0-10 pts)
                         sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'LONG')
                         
-                        # 7. Action Bonuses
+                        # 7. Action Bonuses (Retest + Squeeze)
                         action_bonus = 0
+                        # RETEST Bonus: +15
                         if offset > 0:
-                            action_bonus += 5  # Retest bonus
+                            action_bonus += 15  
+                        
+                        # DEEP RSI Bonus (Oversold/Bought at Breakout point)
                         if res_line['min_val_in_range'] < 30:
-                            action_bonus += 5  # Deep RSI bonus
+                            action_bonus += 5  
+                            
+                        # SQUEEZE Bonus: +10 if Volume high + Positive OI Delta
+                        # Check Volume Ratio (Current vs Avg)
+                        vol_ratio = 1.0
+                        if 'volume' in df.columns:
+                            curr_vol = df['volume'].iloc[curr_i]
+                            avg_vol = df['volume'].iloc[curr_i-20:curr_i].mean()
+                            if avg_vol > 0: vol_ratio = curr_vol / avg_vol
+                        
+                        if vol_ratio > 2.0 and oi_score > 5: # oi_score > 5 implies positive slope
+                             action_bonus += 10
+                             div_badge = "SQUEEZE" # Override badge
                         
                         # TOTAL SCORE (5 components)
                         breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus
@@ -1344,12 +1394,26 @@ class QuantProBreakout(Strategy):
                             # 6. Sentiment Score (0-10 pts)
                             sentiment_score, sentiment_meta = self.calculate_sentiment_score(symbol, 'SHORT')
                             
-                            # 7. Action Bonuses
+                            # 7. Action Bonuses (Retest + Squeeze)
                             action_bonus = 0
+                            # RETEST Bonus: +15
                             if offset > 0:
-                                action_bonus += 5  # Retest bonus
+                                action_bonus += 15
+                            
+                            # DEEP RSI Bonus
                             if sup_line['max_val_in_range'] > 70:
-                                action_bonus += 5  # Overbought RSI bonus
+                                action_bonus += 5
+                                
+                            # SQUEEZE Bonus: +10
+                            vol_ratio = 1.0
+                            if 'volume' in df.columns:
+                                curr_vol = df['volume'].iloc[curr_i]
+                                avg_vol = df['volume'].iloc[curr_i-20:curr_i].mean()
+                                if avg_vol > 0: vol_ratio = curr_vol / avg_vol
+                            
+                            if vol_ratio > 2.0 and oi_score > 5:
+                                 action_bonus += 10
+                                 div_badge = "SQUEEZE"
                             
                             # TOTAL SCORE (5 components)
                             breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus

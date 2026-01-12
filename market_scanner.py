@@ -40,14 +40,30 @@ def load_data(filename):
     return df
 
 def clean_nans(obj):
-    if isinstance(obj, float):
+    """Recursively convert NaN, inf, and numpy types to JSON-serializable values."""
+    import numpy as np
+    import pandas as pd
+    
+    # Handle numpy integer types (int64, int32, etc.)
+    if isinstance(obj, (np.integer, np.int64, np.int32)):
+        return int(obj)
+    # Handle numpy float types (float64, float32, etc.)
+    elif isinstance(obj, (np.floating, np.float64, np.float32)):
+        if pd.isna(obj) or np.isinf(obj):
+            return 0.0
+        return float(obj)
+    # Handle regular Python floats
+    elif isinstance(obj, float):
         if pd.isna(obj) or np.isinf(obj):
             return 0.0
         return obj
+    # Recursively handle dictionaries
     elif isinstance(obj, dict):
         return {k: clean_nans(v) for k, v in obj.items()}
+    # Recursively handle lists
     elif isinstance(obj, list):
         return [clean_nans(v) for v in obj]
+    # Return everything else as-is
     return obj
 
 def main():

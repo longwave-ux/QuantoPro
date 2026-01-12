@@ -363,6 +363,47 @@ export default function App() {
         return `${m}:${s.toString().padStart(2, '0')}`;
     };
 
+    const triggerManualScan = useCallback(async () => {
+        setIsScanning(true);
+        setScanError(null);
+        try {
+            console.log(`[MANUAL SCAN] Triggering scanner for ${dataSource}...`);
+            const res = await fetch('/api/scan/manual', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ source: dataSource })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                console.log(`[MANUAL SCAN] Complete: ${data.count} results`);
+
+                if (data.success && data.results) {
+                    setData(data.results);
+                    const now = new Date();
+                    setLastUpdated(now);
+                    setTimeLeft(REFRESH_INTERVAL);
+                    localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(data.results));
+                    localStorage.setItem('cs_last_updated', now.toISOString());
+                } else {
+                    // If scan returns 0 results, fetch from master feed as fallback
+                    console.log('[MANUAL SCAN] 0 results, fetching master feed...');
+                    const masterRes = await fetch('/api/results');
+                    if (masterRes.ok) {
+                        const masterData = await masterRes.json();
+                        setData(masterData);
+                        setLastUpdated(new Date());
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Manual scan failed", e);
+            setScanError(e.message || "Scan failed");
+        } finally {
+            setIsScanning(false);
+        }
+    }, [dataSource]);
+
     const exportCSV = () => {
         if (data.length === 0) return;
 
@@ -953,7 +994,7 @@ export default function App() {
                         </div>
 
                         <button
-                            onClick={() => performScan(timeframe)}
+                            onClick={() => triggerManualScan()}
                             disabled={isScanning}
                             className={`p-2 rounded-lg bg-gray-800 hover:bg-gray-700 border border-gray-700 transition-all ${isScanning ? 'animate-pulse' : ''}`}
                         >

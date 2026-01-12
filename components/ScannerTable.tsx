@@ -234,16 +234,16 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                                 {/* GEOMETRY */}
                                 <div className="flex justify-between items-center mb-1">
                                   <span>Geometry & Structure:</span>
-                                  <span className={pair.details.score_breakdown.geometry >= 35 ? "text-green-400 font-bold ml-2" : "text-gray-300 ml-2"}>
-                                    {pair.details.score_breakdown.geometry.toFixed(1)} / 60
+                                  <span className={(pair.details.score_breakdown?.geometry || 0) >= 35 ? "text-green-400 font-bold ml-2" : "text-gray-300 ml-2"}>
+                                    {(pair.details.score_breakdown?.geometry || 0).toFixed(1)} / 60
                                   </span>
                                 </div>
 
                                 {/* MOMENTUM */}
                                 <div className="flex justify-between items-center mb-1">
                                   <span>Momentum & Div:</span>
-                                  <span className={pair.details.score_breakdown.momentum >= 15 ? "text-blue-400 font-bold ml-2" : "text-gray-300 ml-2"}>
-                                    {pair.details.score_breakdown.momentum.toFixed(1)} / 30
+                                  <span className={(pair.details.score_breakdown?.momentum || 0) >= 15 ? "text-blue-400 font-bold ml-2" : "text-gray-300 ml-2"}>
+                                    {(pair.details.score_breakdown?.momentum || 0).toFixed(1)} / 30
                                   </span>
                                 </div>
 
@@ -251,7 +251,7 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                                 <div className="flex justify-between items-center">
                                   <span>Base / Context:</span>
                                   <span className="text-gray-400 ml-2">
-                                    {pair.details.score_breakdown.base.toFixed(1)} / 10
+                                    {(pair.details.score_breakdown?.base || 0).toFixed(1)} / 10
                                   </span>
                                 </div>
                               </div>
@@ -261,8 +261,8 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
 
                             {pair.components && (
                               <div className="mt-1 pt-1 border-t border-gray-800 text-[9px] text-gray-500">
-                                Area: {(Math.abs(pair.components.price_change_pct) * pair.components.duration_candles).toFixed(0)} <br />
-                                Div Type: {pair.components.divergence_type}
+                                Area: {(Math.abs(pair.components.price_change_pct || 0) * (pair.components.duration_candles || 0)).toFixed(0)} <br />
+                                Div Type: {pair.components.divergence_type || 0}
                               </div>
                             )}
                           </div>
