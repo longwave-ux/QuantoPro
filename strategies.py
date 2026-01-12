@@ -876,11 +876,17 @@ class QuantProBreakout(Strategy):
             lookback_hours = duration_hours + 2
             
             # Fetch OI data from Coinalyze
+            # DEBUG: Log the fetch attempt
+            print(f"[DATA-DEBUG] Requesting Coinalyze for: {symbol} (Lookback: {lookback_hours}h)", file=sys.stderr)
+            
             oi_data = self.coinalyze.get_open_interest_history(
                 symbol=symbol,
                 hours=lookback_hours
             )
             
+            # DEBUG: Log the response
+            print(f"[DATA-DEBUG] Raw OI Data for {symbol}: {oi_data[:2] if oi_data else 'NONE'}", file=sys.stderr)
+
             if not oi_data or len(oi_data) < 3:
                 return 0, {"oi_slope": 0, "oi_points": 0}
             
@@ -951,6 +957,10 @@ class QuantProBreakout(Strategy):
         try:
             score_liq = 0
             score_top = 0
+            
+            # DEBUG: Log the request
+            print(f"[DATA-DEBUG] Requesting Coinalyze Sentiment for: {symbol}", file=sys.stderr)
+            
             meta = {
                 "liq_longs": 0, "liq_shorts": 0, "liq_ratio": 0.0,
                 "top_ls_ratio": 0.0
@@ -1135,6 +1145,7 @@ class QuantProBreakout(Strategy):
         latest_price = df['close'].iloc[-1]
         
         breakout_score = 0
+
         details = {}
         action = 'WAIT'
         bias = 'NONE'
@@ -1878,6 +1889,32 @@ class QuantProBreakoutV2(Strategy):
                     }
                     print(f"[V2] {symbol}: ENTRY SIGNAL! Price {entry_price:.2f}", file=sys.stderr)
                     
+        # Prepare Score Breakdown for UI
+        # We try to get V1 breakdown if available (from Breakout check phase)
+        # If not available (e.g. entry signal phase), we should probably run a quick scoring check
+        # or defaults.
+        
+        score_breakdown = {
+            'geometry': 0, 'momentum': 0, 'oi_flow': 0, 'sentiment': 0, 'bonuses': 0, 'total': 0
+        }
+        
+        # If we have a pending/active state, we likely want to see the "Validation" scores
+        # Run a V1 analysis to get current metrics (OI/Sentiment) even if not a fresh breakout
+        try:
+             # Full V1 analysis to get metadata
+             v1_full = self.v1_strategy.analyze(target_df, df_htf, mcap)
+             if v1_full and 'details' in v1_full and 'score_breakdown' in v1_full['details']:
+                 score_breakdown = v1_full['details']['score_breakdown']
+                 # Override total if we are forcing a buy
+                 if action == 'BUY': score_breakdown['total'] = 100
+        except Exception as e:
+             # print(e, file=sys.stderr)
+             pass
+             
+        # Inject into details
+        details['score_breakdown'] = score_breakdown
+        # Also need flat OI/Sentiment? No, UI uses breakdown.
+        
         # Save State
         self.state[symbol] = sym_state
         self.save_state()

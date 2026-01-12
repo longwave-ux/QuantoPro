@@ -107,119 +107,128 @@ const appendSignalLog = async (results) => {
 // ==========================================
 
 const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, strategy = 'all') => {
-    const promises = pairs.map(async (symbol) => {
-        const [htfData, ltfData] = await Promise.all([
-            fetchCandles(symbol, htf, source),
-            fetchCandles(symbol, ltf, source)
-        ]);
+    // BATCH PROCESSING TO PREVENT CPU THRASHING
+    const CHUNK_SIZE = 10;
+    const chunks = [];
+    for (let i = 0; i < pairs.length; i += CHUNK_SIZE) {
+        chunks.push(pairs.slice(i, i + CHUNK_SIZE));
+    }
 
-        if (htfData.length === 0 || ltfData.length === 0) return null;
+    const allResults = [];
 
-        const mcap = McapService.getMcap(symbol);
-        const ltfFilename = `${source}_${symbol}_${ltf}.json`;
-        const ltfFilePath = path.join(DATA_DIR, ltfFilename);
-        const configStr = JSON.stringify(CONFIG);
+    for (const chunk of chunks) {
+        const promises = chunk.map(async (symbol) => {
+            const [htfData, ltfData] = await Promise.all([
+                fetchCandles(symbol, htf, source),
+                fetchCandles(symbol, ltf, source)
+            ]);
 
-        let resultBase = null;
+            if (htfData.length === 0 || ltfData.length === 0) return null;
 
-        try {
-            const pythonScript = path.join(process.cwd(), 'market_scanner.py');
-            const venvPython = path.join(process.cwd(), 'venv/bin/python');
+            const mcap = McapService.getMcap(symbol);
+            const ltfFilename = `${source}_${symbol}_${ltf}.json`;
+            const ltfFilePath = path.join(DATA_DIR, ltfFilename);
+            const configStr = JSON.stringify(CONFIG);
 
-            // Pass the requested strategy to Python
-            const { stdout, stderr } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--config', configStr]);
-
-            if (stderr) {
-                // Filter for relevant SCORE-DEBUG lines to avoid noise if needed, 
-                // but user wants to see everything for now.
-                // console.error(`[PYTHON LOG] ${stderr}`);
-                const lines = stderr.split('\n');
-                lines.forEach(line => {
-                    if (line.includes('[SCORE-DEBUG]')) {
-                        console.log(line);
-                    }
-                });
-            }
+            let resultBase = null;
 
             try {
-                const pyResult = JSON.parse(stdout);
-                const pyResArray = Array.isArray(pyResult) ? pyResult : [pyResult];
+                const pythonScript = path.join(process.cwd(), 'market_scanner.py');
+                const venvPython = path.join(process.cwd(), 'venv/bin/python');
 
-                resultBase = pyResArray.map(res => ({
-                    ...res,
-                    strategy_name: res.strategy_name || 'Legacy',
-                    timestamp: now,
-                    source: source,
-                    meta: { htfInterval: htf, ltfInterval: ltf },
-                    details: { ...res.details, mcap: mcap }
-                }));
+                // Pass the requested strategy to Python with TIMEOUT and ENV
+                const { stdout, stderr } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--symbol', symbol, '--config', configStr], {
+                    timeout: 30000,
+                    env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
+                });
 
-                if (resultBase.length > 0) {
-                    console.log(`[PYTHON-LIVE] ${symbol} (${strategy}) | Score: ${resultBase[0].score?.toFixed(1)}`);
+                if (stderr) {
+                    const lines = stderr.split('\n');
+                    lines.forEach(line => {
+                        if (line.includes('[SCORE-DEBUG]') || line.includes('[V2')) {
+                            console.log(line);
+                        }
+                    });
                 }
 
-            } catch (jsonErr) {
-                console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
+                try {
+                    const pyResult = JSON.parse(stdout);
+                    const pyResArray = Array.isArray(pyResult) ? pyResult : [pyResult];
+
+                    resultBase = pyResArray.map(res => ({
+                        ...res,
+                        strategy_name: res.strategy_name || 'Legacy',
+                        timestamp: now,
+                        source: source,
+                        meta: { htfInterval: htf, ltfInterval: ltf },
+                        details: { ...res.details, mcap: mcap }
+                    }));
+
+                } catch (jsonErr) {
+                    console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
+                    return null;
+                }
+
+            } catch (pyErr) {
+                console.error(`[PYTHON EXEC ERROR] ${symbol}`, pyErr.message);
                 return null;
             }
 
-        } catch (pyErr) {
-            console.error(`[PYTHON EXEC ERROR] ${symbol}`, pyErr.message);
-            return null;
-        }
+            if (!resultBase) return [];
 
-        if (!resultBase) return [];
+            const resultsArray = Array.isArray(resultBase) ? resultBase : [resultBase];
+            const processedResults = [];
 
-        const resultsArray = Array.isArray(resultBase) ? resultBase : [resultBase];
-        const processedResults = [];
+            resultsArray.forEach(res => {
+                let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
 
-        resultsArray.forEach(res => {
-            let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
-
-            if (history[symbol]) {
-                const prev = history[symbol];
-                const isRecent = (now - prev.timestamp) < (45 * 60 * 1000);
-
-                if (isRecent) {
-                    let status = 'STABLE';
-                    if (res.score > prev.score + 5) status = 'STRENGTHENING';
-                    else if (res.score < prev.score - 5) status = 'WEAKENING';
-
-                    historyEntry = {
-                        consecutiveScans: prev.consecutiveScans + 1,
-                        prevScore: prev.score,
-                        status
-                    };
-                }
-            }
-
-            if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || (history[symbol] && res.score > CONFIG.THRESHOLDS.MIN_SCORE_TO_SAVE)) {
-                let nextConsecutive = 1;
                 if (history[symbol]) {
-                    if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING) {
-                        nextConsecutive = historyEntry.consecutiveScans;
-                    } else {
-                        nextConsecutive = history[symbol].consecutiveScans;
+                    const prev = history[symbol];
+                    const isRecent = (now - prev.timestamp) < (45 * 60 * 1000);
+
+                    if (isRecent) {
+                        let status = 'STABLE';
+                        if (res.score > prev.score + 5) status = 'STRENGTHENING';
+                        else if (res.score < prev.score - 5) status = 'WEAKENING';
+
+                        historyEntry = {
+                            consecutiveScans: prev.consecutiveScans + 1,
+                            prevScore: prev.score,
+                            status
+                        };
                     }
                 }
-                nextHistory[symbol] = {
-                    score: res.score,
-                    timestamp: now,
-                    consecutiveScans: nextConsecutive
-                };
-            }
 
-            processedResults.push({
-                ...res,
-                history: historyEntry
+                if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || (history[symbol] && res.score > CONFIG.THRESHOLDS.MIN_SCORE_TO_SAVE)) {
+                    let nextConsecutive = 1;
+                    if (history[symbol]) {
+                        if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING) {
+                            nextConsecutive = historyEntry.consecutiveScans;
+                        } else {
+                            nextConsecutive = history[symbol].consecutiveScans;
+                        }
+                    }
+                    nextHistory[symbol] = {
+                        score: res.score,
+                        timestamp: now,
+                        consecutiveScans: nextConsecutive
+                    };
+                }
+
+                processedResults.push({
+                    ...res,
+                    history: historyEntry
+                });
             });
+
+            return processedResults;
         });
 
-        return processedResults;
-    });
+        const chunkResults = await Promise.all(promises);
+        allResults.push(...chunkResults.filter(r => r !== null).flat());
+    }
 
-    const results = await Promise.all(promises);
-    return results.filter(r => r !== null).flat();
+    return allResults;
 };
 
 let isScanning = false;

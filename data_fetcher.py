@@ -172,6 +172,127 @@ class CoinalyzeClient:
             
             return {'longs': total_longs, 'shorts': total_shorts}
             
+            return {'longs': total_longs, 'shorts': total_shorts}
+            
         except Exception as e:
             logger.error(f"Coinalyze Liq Request Failed: {e}")
+            return None
+
+    def get_open_interest_history(self, symbol, hours=24):
+        """
+        Fetch full Open Interest history compatible with Strategies.py
+        Returns list of dicts: [{'timestamp': 123, 'value': 456}, ...]
+        """
+        self._wait_for_rate_limit()
+        mapped_symbol = self.convert_symbol(symbol)
+        endpoint = f"{self.base_url}/open-interest-history"
+        
+        to_ts = int(time.time())
+        from_ts = to_ts - (int(hours) * 3600)
+        
+        params = {
+            'symbols': mapped_symbol,
+            'interval': '15min', # Defaulting to 15m resolution
+            'from': from_ts,
+            'to': to_ts,
+            'api_key': self.api_key
+        }
+        
+        try:
+            response = requests.get(endpoint, params=params, timeout=5)
+            if response.status_code != 200:
+                logger.error(f"Coinalyze OI Hist Error {response.status_code}: {response.text}")
+                return None
+                
+            data = response.json()
+            history_data = []
+            
+            # Parsing Logic
+            if isinstance(data, list) and len(data) > 0:
+                first_item = data[0]
+                if 'history' in first_item:
+                    # Format: [{'t': 123, 'o':..., 'c':...}, ...]
+                    # We use 'c' (close) as the OI value
+                    for h in first_item['history']:
+                        history_data.append({
+                            'timestamp': h['t'],
+                            'value': float(h['c']) 
+                        })
+                        
+            return history_data
+            
+        except Exception as e:
+            logger.error(f"Coinalyze OI Hist Request Failed: {e}")
+            return None
+
+    def get_funding_rate(self, symbol):
+        """
+        Fetch current predicted/avg funding rate.
+        Returns float (e.g., 0.0001 for 0.01%) or None.
+        """
+        self._wait_for_rate_limit()
+        mapped_symbol = self.convert_symbol(symbol)
+        endpoint = f"{self.base_url}/funding-rate" # Check endpoint if history or current
+        # Coinalyze has /predicted-funding-rate and /funding-rate-history
+        
+        # We'll use predicted for live check
+        endpoint = f"{self.base_url}/predicted-funding-rate"
+        
+        try:
+            response = requests.get(endpoint, params={'symbols': mapped_symbol, 'api_key': self.api_key}, timeout=5)
+            if response.status_code != 200:
+                return None
+            
+            data = response.json()
+            # Format: [{"symbol":"BTCUSDT_PERP.A","pf":0.000100,...}]
+            if isinstance(data, list) and len(data) > 0:
+                return float(data[0].get('pf', 0))
+            return None
+        except:
+             return None
+
+    def get_ls_ratio_top_traders(self, symbol):
+        """
+        Fetch Long/Short Ratio of Top Traders.
+        Returns float (e.g. 1.5) or None.
+        """
+        self._wait_for_rate_limit()
+        mapped_symbol = self.convert_symbol(symbol)
+        # Verify specific endpoint. 'long-short-ratio-history' usually.
+        endpoint = f"{self.base_url}/long-short-ratio-history"
+        
+        to_ts = int(time.time())
+        from_ts = to_ts - 3600 # Last hour
+        
+        params = {
+            'symbols': mapped_symbol,
+            'interval': '15min',
+            'from': from_ts,
+            'to': to_ts,
+            'api_key': self.api_key
+        }
+        
+        try:
+            response = requests.get(endpoint, params=params, timeout=5)
+            if response.status_code != 200: return None
+            
+            data = response.json()
+            # Need ratio. Usually 'l' (longs) and 's' (shorts) % or ratio directly?
+            # Coinalyze documentation usually returns ratio in 'v' or separate l/s.
+            # Let's assume ratio is implicitly l/s or provided.
+            # Actually, standard LS endpoint gives: ratio.
+            
+            if isinstance(data, list) and len(data) > 0 and 'history' in data[0]:
+                hist = data[0]['history']
+                if hist:
+                    last = hist[-1]
+                    # 'l' and 's' are ratios or percentages?
+                    # Usually it's: l: 60.5, s: 39.5.
+                    l = float(last.get('l', 0))
+                    s = float(last.get('s', 0))
+                    if s > 0:
+                        return l / s
+                    return 1.0
+            return None
+        except:
             return None

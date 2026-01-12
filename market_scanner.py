@@ -7,6 +7,10 @@ import numpy as np
 import pandas_ta as ta
 from strategies import QuantProLegacy, QuantProBreakout, QuantProBreakoutV2
 
+# DEBUG: Check API Key visibility
+print(f"[ENV-DEBUG] Coinalyze Key Present: {bool(os.getenv('COINALYZE_API_KEY'))}", file=sys.stderr)
+
+
 def load_data(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
@@ -185,11 +189,14 @@ def main():
                  df = df.iloc[-args.limit:]
         
         # Extract symbol
-        filename = os.path.basename(args.file)
-        parts = filename.split('_')
-        symbol = "UNKNOWN"
-        if len(parts) >= 3:
-            symbol = parts[1]
+        if args.symbol:
+            symbol = args.symbol
+        else:
+            filename = os.path.basename(args.file)
+            parts = filename.split('_')
+            symbol = "UNKNOWN"
+            if len(parts) >= 3:
+                symbol = parts[1]
         
         # Load HTF
         htf_filename = args.file.replace('15m.json', '4h.json')

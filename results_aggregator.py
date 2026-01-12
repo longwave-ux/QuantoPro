@@ -156,6 +156,8 @@ def main():
     
     # 5. Save to Master Feed
     try:
+        abs_path = os.path.abspath(OUTPUT_FILE)
+        print(f"[FILESYSTEM-DEBUG] Saving {len(final_list)} symbols to {abs_path}")
         with open(OUTPUT_FILE, 'w') as f:
             json.dump(final_list, f, indent=2)
         print(f"[SUCCESS] Saved to {OUTPUT_FILE}")
