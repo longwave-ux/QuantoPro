@@ -49,6 +49,7 @@ export default function App() {
     const [isScanning, setIsScanning] = useState(false);
     const [scanError, setScanError] = useState<string | null>(null);
     const [timeLeft, setTimeLeft] = useState(REFRESH_INTERVAL);
+    const [scanProgress, setScanProgress] = useState<any>({ status: 'IDLE', progress: 0, eta: 0 });
 
     // Main View State
     const [mainView, setMainView] = useState<'SCANNER' | 'PERFORMANCE' | 'EXCHANGE'>('SCANNER');
@@ -357,6 +358,37 @@ export default function App() {
         return () => clearInterval(timer);
     }, [timeframe, performScan]);
 
+    // Poll Scan Status
+    useEffect(() => {
+        let interval: number;
+        if (isScanning) {
+            interval = window.setInterval(async () => {
+                try {
+                    const res = await fetch('/api/scan/status');
+                    const status = await res.json();
+                    setScanProgress(status);
+
+                    if (status.status === 'IDLE' && status.progress === 100) {
+                        // Scan Finished
+                        // Fetch latest data
+                        const dataRes = await fetch(`/api/results?source=${dataSource}`);
+                        if (dataRes.ok) {
+                            const newData = await dataRes.json();
+                            setData(newData);
+                            setLastUpdated(new Date());
+                            localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(newData));
+                        }
+                        setIsScanning(false);
+                        clearInterval(interval);
+                    }
+                } catch (e) {
+                    console.error("Poll failed", e);
+                }
+            }, 1000);
+        }
+        return () => clearInterval(interval);
+    }, [isScanning, dataSource]);
+
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -364,45 +396,25 @@ export default function App() {
     };
 
     const triggerManualScan = useCallback(async () => {
+        if (isScanning) return;
         setIsScanning(true);
         setScanError(null);
+        setScanProgress({ status: 'STARTING', progress: 0, eta: 0 });
+
         try {
             console.log(`[MANUAL SCAN] Triggering scanner for ${dataSource}...`);
-            const res = await fetch('/api/scan/manual', {
+            await fetch('/api/scan/manual', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ source: dataSource })
             });
-
-            if (res.ok) {
-                const data = await res.json();
-                console.log(`[MANUAL SCAN] Complete: ${data.count} results`);
-
-                if (data.success && data.results) {
-                    setData(data.results);
-                    const now = new Date();
-                    setLastUpdated(now);
-                    setTimeLeft(REFRESH_INTERVAL);
-                    localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(data.results));
-                    localStorage.setItem('cs_last_updated', now.toISOString());
-                } else {
-                    // If scan returns 0 results, fetch from master feed as fallback
-                    console.log('[MANUAL SCAN] 0 results, fetching master feed...');
-                    const masterRes = await fetch('/api/results');
-                    if (masterRes.ok) {
-                        const masterData = await masterRes.json();
-                        setData(masterData);
-                        setLastUpdated(new Date());
-                    }
-                }
-            }
-        } catch (e) {
+            // Polling effect handles the rest
+        } catch (e: any) {
             console.error("Manual scan failed", e);
             setScanError(e.message || "Scan failed");
-        } finally {
             setIsScanning(false);
         }
-    }, [dataSource]);
+    }, [dataSource, isScanning]);
 
     const exportCSV = () => {
         if (data.length === 0) return;
@@ -1009,7 +1021,33 @@ export default function App() {
                         </button>
                     </div>
                 </div>
-            </header>
+
+            </header >
+
+            {/* SCAN PROGRESS BAR */}
+            {
+                isScanning && (
+                    <div className="w-full max-w-7xl mx-auto mb-6 bg-gray-900 border border-blue-500/30 p-4 rounded-xl shadow-lg animate-in fade-in slide-in-from-top-2">
+                        <div className="flex items-center gap-4">
+                            <div className="p-2 bg-blue-500/10 rounded-full"><RefreshCw className="text-blue-500 animate-spin" size={20} /></div>
+                            <div className="flex-1">
+                                <div className="flex justify-between text-xs mb-1">
+                                    <span className="text-gray-300 font-bold">Scanning Markets ({dataSource})...</span>
+                                    <span className="text-white font-mono">{scanProgress.progress}% ({scanProgress.eta}s remaining)</span>
+                                </div>
+                                <div className="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                    <div
+                                        className="h-full bg-blue-500 transition-all duration-500 ease-out relative"
+                                        style={{ width: `${scanProgress.progress}%` }}
+                                    >
+                                        <div className="absolute inset-0 bg-white/20 animate-pulse" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
 
             {/* Main Content (Full Width) */}
             <main className="w-full max-w-7xl mx-auto space-y-4">
@@ -1140,6 +1178,6 @@ export default function App() {
                     </p>
                 </div>
             </footer>
-        </div>
+        </div >
     );
 }

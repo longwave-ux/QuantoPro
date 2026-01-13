@@ -247,9 +247,13 @@ def main():
     try:
         abs_path = os.path.abspath(OUTPUT_FILE)
         print(f"[FILESYSTEM-DEBUG] Saving {len(final_list)} symbols to {abs_path}")
-        with open(OUTPUT_FILE, 'w') as f:
+        # Atomic Write
+        temp_file = OUTPUT_FILE + ".tmp"
+        with open(temp_file, 'w') as f:
             json.dump(final_list, f, indent=2)
-        print(f"[SUCCESS] Saved to {OUTPUT_FILE}")
+            
+        os.replace(temp_file, OUTPUT_FILE) # Atomic rename
+        print(f"[SUCCESS] Saved to {OUTPUT_FILE} (Automically)")
     except Exception as e:
         print(f"[ERROR] Failed to save master feed: {e}")
 

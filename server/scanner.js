@@ -45,7 +45,17 @@ const saveScanHistory = async (history) => {
 export const saveLatestResults = async (results, source = 'KUCOIN') => {
     try {
         const filePath = path.join(DATA_DIR, `latest_results_${source}.json`);
-        await fs.writeFile(filePath, JSON.stringify(results, null, 2));
+        const tempPath = path.join(DATA_DIR, `latest_results_${source}.tmp`);
+
+        // Atomic Write: Write to temp file, then rename
+        if (results.length === 0) {
+            Logger.warn(`[STORAGE WARNING] Attempted to save empty results for ${source}. Aborting to preserve previous data.`);
+            return; // Abort save
+        }
+
+        // Atomic Write: Write to temp file, then rename
+        await fs.writeFile(tempPath, JSON.stringify(results, null, 2));
+        await fs.rename(tempPath, filePath);
     } catch (e) {
         Logger.error(`[STORAGE ERROR] Failed to save latest results for ${source}`, e);
     }
@@ -231,6 +241,9 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
     return allResults;
 };
 
+// Global Scan Progress Tracker
+export let scanStatus = { status: 'IDLE', progress: 0, total: 0, current: 0, eta: 0 };
+
 let isScanning = false;
 
 // Persistent timestamp storage (survives PM2 restarts)
@@ -331,10 +344,33 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
     const nextHistory = {};
 
     const BATCH_SIZE = 5; // Reduced from Config for Stability (Parallel V1/V2 execution)
+
+    // Initialize Progress
+    scanStatus = { status: 'RUNNING', progress: 0, total: topPairs.length, current: 0, eta: 0 };
+    const startTime = Date.now();
+
     for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
         const batchPairs = topPairs.slice(i, i + BATCH_SIZE);
         const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory, strategy);
         results.push(...batchResults.flat());
+
+        // Update Progress
+        const processed = Math.min(i + BATCH_SIZE, topPairs.length);
+        const progress = Math.round((processed / topPairs.length) * 100);
+
+        // Calculate ETA
+        const elapsed = (Date.now() - startTime) / 1000; // seconds
+        const rate = processed / (elapsed || 1); // symbols per second
+        const remaining = topPairs.length - processed;
+        const eta = Math.round(remaining / (rate || 0.1));
+
+        scanStatus = {
+            status: 'RUNNING',
+            progress: progress,
+            total: topPairs.length,
+            current: processed,
+            eta: eta
+        };
 
         if (i + BATCH_SIZE < topPairs.length) {
             await new Promise(r => setTimeout(r, 1000));
@@ -462,5 +498,6 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
 
     Logger.info(`[SERVER SCAN] Complete. Saved ${finalResults.length} results.`);
     isScanning = false;
+    scanStatus = { status: 'IDLE', progress: 100, total: 0, current: 0, eta: 0 };
     return finalResults;
 };

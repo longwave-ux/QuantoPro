@@ -1976,7 +1976,13 @@ class QuantProBreakoutV2(Strategy):
         if final_score == 0: 
              final_score = 0.1 # Minimal nonzero to show it exists
         
-        return {
+        # [FIX] Propagate Breakdown Total to Details Total
+        if 'score_breakdown' in details and 'total' in details['score_breakdown']:
+            details['total'] = details['score_breakdown']['total']
+            
+        print(f"[V2-DEBUG] {symbol} Final Score: {final_score}, Details Total: {details.get('total')}, Breakdown: {details.get('score_breakdown')}", file=sys.stderr)
+
+        return clean_nans({
             'action': action,
             'score': final_score,
             'details': details,
@@ -1997,7 +2003,7 @@ class QuantProBreakoutV2(Strategy):
             },
             'htf': {},
             'ltf': DEFAULT_LTF.copy()
-        }
+        })
 
     def backtest(self, df, df_htf=None, mcap=0):
         # V2 Backtest logic is in backtest_v2.py

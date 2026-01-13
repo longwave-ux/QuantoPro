@@ -104,7 +104,12 @@ def main():
             
             all_batch_results = []
             
-            for symbol in symbols:
+            total_symbols = len(symbols)
+            for i, symbol in enumerate(symbols):
+                # Progress Output for Node.js
+                if i % 5 == 0 or i == total_symbols - 1:
+                     print(f"[PROGRESS] {i+1}/{total_symbols}", file=sys.stderr)
+                     sys.stderr.flush()
                 try:
                     # Construct expected data path
                     # Try both current dir and data/ dir

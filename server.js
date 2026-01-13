@@ -6,7 +6,7 @@ import crypto from 'crypto'; // Native Node crypto for signing
 import { ethers } from 'ethers'; // For Hyperliquid Signing
 import { fileURLToPath } from 'url';
 import { CONFIG, loadConfig, saveConfig } from './server/config.js';
-import { runServerScan, getLatestResults, getMasterFeed } from './server/scanner.js';
+import { runServerScan, getLatestResults, getMasterFeed, scanStatus } from './server/scanner.js';
 import { saveSettings, getSettings } from './server/telegram.js';
 import { getTradeHistory, getPerformanceStats, updateOutcomes } from './server/tracker.js';
 
@@ -109,13 +109,18 @@ app.post('/api/scan/manual', async (req, res) => {
     const { source } = req.body; // e.g. 'HYPERLIQUID'
     try {
         console.log(`[MANUAL TRIGGER] Starting scan for ${source}...`);
-        // Force run the scan (bypass interval checks)
-        const results = await runServerScan(source || 'HYPERLIQUID', 'all', true);
-        res.json({ success: true, count: results.length, results });
+        // Force run the scan (bypass interval checks) - Async/Background
+        runServerScan(source || 'HYPERLIQUID', 'all', true).catch(err => console.error('[MANUAL SCAN ERROR]', err));
+
+        res.json({ success: true, message: 'Scan started in background' });
     } catch (e) {
         console.error('[MANUAL TRIGGER ERROR]', e);
         res.status(500).json({ error: 'Scan failed', details: e.message });
     }
+});
+
+app.get('/api/scan/status', (req, res) => {
+    res.json(scanStatus);
 });
 
 // ==========================================
