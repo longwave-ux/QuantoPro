@@ -155,8 +155,18 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
                 if (stderr) {
                     const lines = stderr.split('\n');
                     lines.forEach(line => {
-                        if (line.includes('[SCORE-DEBUG]') || line.includes('[V2')) {
-                            console.log(line);
+                        // Pass through critical debug info
+                        if (line.includes('[SCORE-DEBUG]') ||
+                            line.includes('[V2') ||
+                            line.includes('Coinalyze') ||
+                            line.includes(' - INFO - ') ||
+                            line.includes('[DATA-DEBUG]')) {
+                            // Use Logger to ensure it hits the log file
+                            Logger.info(`[PY] ${line}`);
+                        }
+                        // Log 429 errors explicitly
+                        if (line.includes('429')) {
+                            Logger.error(line);
                         }
                     });
                 }

@@ -9,7 +9,7 @@ const CONFIG_FILE = path.join(__dirname, '../data/config.json');
 export const CONFIG = {
     SYSTEM: {
         SCAN_INTERVAL: 15 * 60 * 1000, // 15 Minutes (Base pulse)
-        LEGACY_INTERVAL: 60 * 60 * 1000, // 1 Hour
+        LEGACY_INTERVAL: 4 * 60 * 60 * 1000, // 4 Hours
         BREAKOUT_INTERVAL: 4 * 60 * 60 * 1000, // 4 Hours
         TRACKER_INTERVAL: 1 * 60 * 1000, // 1 Minute
         BATCH_SIZE: 5,

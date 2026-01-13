@@ -93,9 +93,9 @@
   },
   {
     "action": "WAIT",
-    "score": 95,
+    "score": 90.6,
     "details": {
-      "total": 95,
+      "total": 90.6,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -108,42 +108,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 40,
-        "momentum": 30,
+        "geometry": 39.1,
+        "momentum": 21.5,
         "oi_flow": 0,
-        "sentiment": 5,
+        "sentiment": 10,
         "bonuses": 20,
-        "total": 95
+        "total": 90.6
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 3433818977.607804
+      "mcap": 1083986641.4386306
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 5.434,
-      "sl": 5.284,
-      "tp": 5.7057,
+      "entry": 5.401,
+      "sl": 5.306,
+      "tp": 5.67105,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.13501536746073547,
-        "c": 102.91318810656655,
-        "start_idx": 118,
-        "start_rsi": 86.98137474619976,
-        "end_idx": 344,
-        "end_rsi": 56.46790170007355,
+        "m": -0.08670492815829228,
+        "c": 89.36229703013284,
+        "start_idx": 116,
+        "start_rsi": 79.30452536377094,
+        "end_idx": 291,
+        "end_rsi": 64.13116293606979,
         "current_idx": 499,
-        "current_projected_rsi": 35.540519743659544
+        "current_projected_rsi": 46.09653787914499
       }
     },
-    "price": 5.425,
+    "price": 5.494,
     "bias": "LONG",
     "rr": 2,
-    "entry": 5.434,
-    "stop_loss": 5.284,
-    "take_profit": 5.7057,
-    "timestamp": 1768303861984,
+    "entry": 5.401,
+    "stop_loss": 5.306,
+    "take_profit": 5.67105,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -162,15 +162,98 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "UNIUSDT",
+    "symbol": "TRUMPUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 90,
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 90.1,
+    "details": {
+      "total": 90.1,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 40,
+        "momentum": 30,
+        "oi_flow": 0.1,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 90.1
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 787591804.5700775
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.1214,
+      "sl": 0.1176,
+      "tp": 0.12747,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.06216216605193675,
+        "c": 77.45922124947131,
+        "start_idx": 20,
+        "start_rsi": 76.21597792843258,
+        "end_idx": 247,
+        "end_rsi": 62.10516623464294,
+        "current_idx": 499,
+        "current_projected_rsi": 46.44030038955488
+      }
+    },
+    "price": 0.1222,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.1214,
+    "stop_loss": 0.1176,
+    "take_profit": 0.12747,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "SEIUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 90.1,
       "status": "STABLE"
     }
   },
@@ -419,9 +502,9 @@
   },
   {
     "action": "WAIT",
-    "score": 86.5,
+    "score": 90,
     "details": {
-      "total": 86.5,
+      "total": 90,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -435,11 +518,94 @@
       },
       "score_breakdown": {
         "geometry": 40,
-        "momentum": 21.5,
+        "momentum": 30,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 90
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 22640407.632030543
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.5313,
+      "sl": 0.6113,
+      "tp": 0.5047349999999999,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.15523198650577244,
+        "c": 5.106286882453146,
+        "start_idx": 11,
+        "start_rsi": 6.813838734016643,
+        "end_idx": 132,
+        "end_rsi": 25.596909101215108,
+        "current_idx": 318,
+        "current_projected_rsi": 54.47005859128878
+      }
+    },
+    "price": 0.5268,
+    "bias": "SHORT",
+    "rr": 2,
+    "entry": 0.5313,
+    "stop_loss": 0.6113,
+    "take_profit": 0.5047349999999999,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "ARTXUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 86.4,
+    "details": {
+      "total": 86.4,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 40,
+        "momentum": 21.4,
         "oi_flow": 0,
         "sentiment": 5,
         "bonuses": 20,
-        "total": 86.5
+        "total": 86.4
       },
       "status": "IDLE",
       "target_rsi": 0,
@@ -453,23 +619,23 @@
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.06961238044619272,
-        "c": 78.06155759499018,
-        "start_idx": 28,
-        "start_rsi": 76.11241094249678,
-        "end_idx": 208,
-        "end_rsi": 63.58218246218209,
+        "m": -0.0726113285242372,
+        "c": 78.61273074864859,
+        "start_idx": 15,
+        "start_rsi": 77.52356082078504,
+        "end_idx": 207,
+        "end_rsi": 63.58218574413149,
         "current_idx": 499,
-        "current_projected_rsi": 43.324979752340006
+        "current_projected_rsi": 42.37967781505422
       }
     },
-    "price": 1.796,
+    "price": 1.7936,
     "bias": "LONG",
     "rr": 2,
     "entry": 1.7941,
     "stop_loss": 1.7464,
     "take_profit": 1.8838050000000002,
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -495,16 +661,16 @@
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 81.5,
-      "status": "STABLE"
+      "consecutiveScans": 2,
+      "prevScore": 50.5,
+      "status": "STRENGTHENING"
     }
   },
   {
     "action": "WAIT",
-    "score": 85.6,
+    "score": 84.6,
     "details": {
-      "total": 85.6,
+      "total": 84.6,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -517,42 +683,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 39.1,
-        "momentum": 21.5,
+        "geometry": 40,
+        "momentum": 21.6,
         "oi_flow": 0,
-        "sentiment": 5,
+        "sentiment": 3,
         "bonuses": 20,
-        "total": 85.6
+        "total": 84.6
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 1083986641.4386306
+      "mcap": 753072713.8803747
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 5.401,
-      "sl": 5.306,
-      "tp": 5.67105,
+      "entry": 0.011943,
+      "sl": 0.011661,
+      "tp": 0.012540150000000002,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.08669097762705957,
-        "c": 89.44492838048345,
-        "start_idx": 117,
-        "start_rsi": 79.30208399811748,
-        "end_idx": 292,
-        "end_rsi": 64.13116291338206,
+        "m": -0.04919571520722579,
+        "c": 70.94143318079621,
+        "start_idx": 28,
+        "start_rsi": 69.56395315499388,
+        "end_idx": 213,
+        "end_rsi": 60.46274584165711,
         "current_idx": 499,
-        "current_projected_rsi": 46.18613054458072
+        "current_projected_rsi": 46.392771292390535
       }
     },
-    "price": 5.461,
+    "price": 0.012184,
     "bias": "LONG",
     "rr": 2,
-    "entry": 5.401,
-    "stop_loss": 5.306,
-    "take_profit": 5.67105,
-    "timestamp": 1768303861984,
+    "entry": 0.011943,
+    "stop_loss": 0.011661,
+    "take_profit": 0.012540150000000002,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -571,23 +737,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "TRUMPUSDT",
+    "symbol": "PENGUUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 85.6,
-      "status": "STABLE"
+      "consecutiveScans": 3,
+      "prevScore": 66.3,
+      "status": "STRENGTHENING"
     }
   },
   {
     "action": "WAIT",
-    "score": 81.3,
+    "score": 81.7,
     "details": {
-      "total": 81.3,
+      "total": 81.7,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -600,42 +766,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 35.8,
-        "momentum": 30,
-        "oi_flow": 0.5,
+        "geometry": 30.6,
+        "momentum": 20.9,
+        "oi_flow": 0.2,
         "sentiment": 10,
-        "bonuses": 5,
-        "total": 81.3
+        "bonuses": 20,
+        "total": 81.7
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 210659649.19091448
+      "mcap": 1547135108.6964524
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 0.6006,
-      "sl": 0.5662,
-      "tp": 0.63063,
+      "entry": 0.5659,
+      "sl": 0.5531,
+      "tp": 0.594195,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.043051059745085746,
-        "c": 81.77605079372077,
-        "start_idx": 28,
-        "start_rsi": 80.57062112085838,
-        "end_idx": 256,
-        "end_rsi": 70.75497949897883,
+        "m": -0.06981374398947686,
+        "c": 77.99495999850976,
+        "start_idx": 11,
+        "start_rsi": 77.2270088146255,
+        "end_idx": 218,
+        "end_rsi": 62.775563808803795,
         "current_idx": 499,
-        "current_projected_rsi": 60.293571980922984
+        "current_projected_rsi": 43.1579017477608
       }
     },
-    "price": 0.6006,
+    "price": 0.5745,
     "bias": "LONG",
     "rr": 2,
-    "entry": 0.6006,
-    "stop_loss": 0.5662,
-    "take_profit": 0.63063,
-    "timestamp": 1768303861984,
+    "entry": 0.5659,
+    "stop_loss": 0.5531,
+    "take_profit": 0.594195,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -654,16 +820,182 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "RUNEUSDT",
+    "symbol": "WLDUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 81.3,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 81.30000000000001,
+    "details": {
+      "total": 81.30000000000001,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 40,
+        "momentum": 21.2,
+        "oi_flow": 0.1,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 81.30000000000001
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 4949529702.420931
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.11619,
+      "sl": 0.11357,
+      "tp": 0.12199950000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.09931562885227957,
+        "c": 91.70436813549384,
+        "start_idx": 35,
+        "start_rsi": 88.22832112566405,
+        "end_idx": 290,
+        "end_rsi": 62.902835768332764,
+        "current_idx": 499,
+        "current_projected_rsi": 42.14586933820633
+      }
+    },
+    "price": 0.11632,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.11619,
+    "stop_loss": 0.11357,
+    "take_profit": 0.12199950000000001,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "HBARUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 81.1,
+    "details": {
+      "total": 81.1,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 40,
+        "momentum": 21.1,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 81.1
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 2488547827.04412
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.000005868,
+      "sl": 0.0000057,
+      "tp": 0.000006161400000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.11781264712023265,
+        "c": 100.11781264712023,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 259,
+        "end_rsi": 69.60433704297998,
+        "current_idx": 499,
+        "current_projected_rsi": 41.32930173412414
+      }
+    },
+    "price": 0.000005927,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.000005868,
+    "stop_loss": 0.0000057,
+    "take_profit": 0.000006161400000000001,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "PEPEUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
@@ -832,9 +1164,9 @@
   },
   {
     "action": "WAIT",
-    "score": 80.4,
+    "score": 74.6,
     "details": {
-      "total": 80.4,
+      "total": 74.6,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -847,42 +1179,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 30.4,
-        "momentum": 30,
+        "geometry": 28.8,
+        "momentum": 20.8,
         "oi_flow": 0,
-        "sentiment": 0,
+        "sentiment": 5,
         "bonuses": 20,
-        "total": 80.4
+        "total": 74.6
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 5923832421.139092
+      "mcap": 623468001.4786743
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 13.71,
-      "sl": 13.4,
-      "tp": 14.395500000000002,
+      "entry": 0.3249,
+      "sl": 0.3062,
+      "tp": 0.34114500000000003,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.10607276747048859,
-        "c": 100.1060727674705,
-        "start_idx": 1,
-        "start_rsi": 100,
-        "end_idx": 219,
-        "end_rsi": 76.87613669143349,
+        "m": -0.033057776944642986,
+        "c": 72.77639498565324,
+        "start_idx": 15,
+        "start_rsi": 72.2805283314836,
+        "end_idx": 217,
+        "end_rsi": 65.60285738866571,
         "current_idx": 499,
-        "current_projected_rsi": 47.17576179969669
+        "current_projected_rsi": 56.28056429027639
       }
     },
-    "price": 13.76,
+    "price": 0.3287,
     "bias": "LONG",
     "rr": 2,
-    "entry": 13.71,
-    "stop_loss": 13.4,
-    "take_profit": 14.395500000000002,
-    "timestamp": 1768303861984,
+    "entry": 0.3249,
+    "stop_loss": 0.3062,
+    "take_profit": 0.34114500000000003,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -901,23 +1233,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "AVAXUSDT",
+    "symbol": "OPUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 90.4,
-      "status": "WEAKENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 78.9,
+    "score": 73.5,
     "details": {
-      "total": 78.9,
+      "total": 73.5,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -930,42 +1262,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 27.8,
-        "momentum": 21.1,
-        "oi_flow": 0,
-        "sentiment": 10,
+        "geometry": 26.6,
+        "momentum": 21.4,
+        "oi_flow": 0.5,
+        "sentiment": 5,
         "bonuses": 20,
-        "total": 78.9
+        "total": 73.5
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 2593117975.6117973
+      "mcap": 1740843097.98079
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 167.27,
-      "sl": 160.91,
-      "tp": 175.63350000000003,
+      "entry": 0.6983,
+      "sl": 0.6813,
+      "tp": 0.7332150000000001,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.071732955543159,
-        "c": 82.28392658248214,
-        "start_idx": 29,
-        "start_rsi": 80.20367087173052,
-        "end_idx": 202,
-        "end_rsi": 67.79386956276402,
+        "m": -0.08810134566129098,
+        "c": 82.80728153520158,
+        "start_idx": 163,
+        "start_rsi": 68.44676219241116,
+        "end_idx": 313,
+        "end_rsi": 55.23156034321751,
         "current_idx": 499,
-        "current_projected_rsi": 46.489181766445796
+        "current_projected_rsi": 38.84471005021739
       }
     },
-    "price": 169.28,
+    "price": 0.7074,
     "bias": "LONG",
     "rr": 2,
-    "entry": 167.27,
-    "stop_loss": 160.91,
-    "take_profit": 175.63350000000003,
-    "timestamp": 1768303861984,
+    "entry": 0.6983,
+    "stop_loss": 0.6813,
+    "take_profit": 0.7332150000000001,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -984,23 +1316,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "AAVEUSDT",
+    "symbol": "ASTERUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 78.9,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 76,
+    "score": 70.89999999999999,
     "details": {
-      "total": 76,
+      "total": 70.89999999999999,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -1013,42 +1345,125 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 40,
-        "momentum": 21,
+        "geometry": 24.4,
+        "momentum": 21.2,
+        "oi_flow": 0.3,
+        "sentiment": 5,
+        "bonuses": 20,
+        "total": 70.89999999999999
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 386290365.0846323
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.38454,
+      "sl": 0.357,
+      "tp": 0.403767,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.05557738245015228,
+        "c": 78.64768482107606,
+        "start_idx": 28,
+        "start_rsi": 77.09151811247179,
+        "end_idx": 173,
+        "end_rsi": 69.03279765719971,
+        "current_idx": 499,
+        "current_projected_rsi": 50.91457097845007
+      }
+    },
+    "price": 0.38687,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.38454,
+    "stop_loss": 0.357,
+    "take_profit": 0.403767,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "FARTCOINUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 69.6,
+    "details": {
+      "total": 69.6,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 34,
+        "momentum": 20.6,
         "oi_flow": 0,
         "sentiment": 10,
         "bonuses": 5,
-        "total": 76
+        "total": 69.6
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 520262012.6614607
+      "mcap": 1783910537.938277
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 5.281,
-      "sl": 4.981,
-      "tp": 5.54505,
+      "entry": 3.436,
+      "sl": 3.09,
+      "tp": 3.6078,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.09412763354418541,
-        "c": 100.09412763354419,
-        "start_idx": 1,
-        "start_rsi": 100,
-        "end_idx": 400,
-        "end_rsi": 62.44307421587002,
+        "m": -0.045503420668531934,
+        "c": 90.8595961292637,
+        "start_idx": 69,
+        "start_rsi": 87.719860103135,
+        "end_idx": 357,
+        "end_rsi": 74.61487495059781,
         "current_idx": 499,
-        "current_projected_rsi": 53.12443849499567
+        "current_projected_rsi": 68.15338921566627
       }
     },
-    "price": 5.281,
+    "price": 3.436,
     "bias": "LONG",
     "rr": 2,
-    "entry": 5.281,
-    "stop_loss": 4.981,
-    "take_profit": 5.54505,
-    "timestamp": 1768303861984,
+    "entry": 3.436,
+    "stop_loss": 3.09,
+    "take_profit": 3.6078,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -1067,23 +1482,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "INJUSDT",
+    "symbol": "ICPUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 4,
-      "prevScore": 66,
-      "status": "STRENGTHENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 75,
+    "score": 68.8,
     "details": {
-      "total": 75,
+      "total": 68.8,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -1096,42 +1511,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 40,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 5,
-        "total": 75
+        "geometry": 18,
+        "momentum": 20.4,
+        "oi_flow": 7.4,
+        "sentiment": 3,
+        "bonuses": 20,
+        "total": 68.8
       },
       "status": "IDLE",
       "target_rsi": 0,
-      "mcap": 22640407.632030543
+      "mcap": 34310561.869845204
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 0.5364,
-      "sl": 0.6113,
-      "tp": 0.5095799999999999,
+      "entry": 0.06892,
+      "sl": 0.08019,
+      "tp": 0.06547399999999999,
       "rr": 2,
       "side": "SHORT",
       "trendline": {
-        "m": 0.15523198650577244,
-        "c": 5.106286882453146,
-        "start_idx": 11,
-        "start_rsi": 6.813838734016643,
-        "end_idx": 132,
-        "end_rsi": 25.596909101215108,
-        "current_idx": 317,
-        "current_projected_rsi": 54.314826604783015
+        "m": 0.14920492073730154,
+        "c": -0.2984098414746031,
+        "start_idx": 2,
+        "start_rsi": 0,
+        "end_idx": 204,
+        "end_rsi": 30.139393988934913,
+        "current_idx": 499,
+        "current_projected_rsi": 74.15484560643887
       }
     },
-    "price": 0.5364,
+    "price": 0.06892,
     "bias": "SHORT",
     "rr": 2,
-    "entry": 0.5364,
-    "stop_loss": 0.6113,
-    "take_profit": 0.5095799999999999,
-    "timestamp": 1768303861984,
+    "entry": 0.06892,
+    "stop_loss": 0.08019,
+    "take_profit": 0.06547399999999999,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -1150,182 +1565,16 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "ARTXUSDT",
+    "symbol": "DUSKUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 75,
-      "status": "STABLE"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 72.6,
-    "details": {
-      "total": 72.6,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 31.7,
-        "momentum": 20.9,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 72.6
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 0
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 244.58,
-      "sl": 238.71,
-      "tp": 256.809,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.01662314507390417,
-        "c": 62.599883069379764,
-        "start_idx": 18,
-        "start_rsi": 62.30066645804949,
-        "end_idx": 202,
-        "end_rsi": 59.242007764451124,
-        "current_idx": 499,
-        "current_projected_rsi": 54.30493367750158
-      }
-    },
-    "price": 244.06,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 244.58,
-    "stop_loss": 238.71,
-    "take_profit": 256.809,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "COINONUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 72.6,
-      "status": "STABLE"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 66.5,
-    "details": {
-      "total": 66.5,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 26,
-        "momentum": 30,
-        "oi_flow": 0.5,
-        "sentiment": 5,
-        "bonuses": 5,
-        "total": 66.5
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 8193834282.014872
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 24.36,
-      "sl": 23.14,
-      "tp": 25.578,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.06333178754225034,
-        "c": 76.77864018007976,
-        "start_idx": 37,
-        "start_rsi": 74.4353640410165,
-        "end_idx": 214,
-        "end_rsi": 63.22563764603819,
-        "current_idx": 499,
-        "current_projected_rsi": 45.176078196496846
-      }
-    },
-    "price": 24.36,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 24.36,
-    "stop_loss": 23.14,
-    "take_profit": 25.578,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "HYPEUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 24.2,
-      "status": "STRENGTHENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
@@ -1364,23 +1613,23 @@
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.13989949491328235,
-        "c": 104.92810423294787,
-        "start_idx": 256,
-        "start_rsi": 69.11383353514759,
-        "end_idx": 367,
-        "end_rsi": 53.58498959977325,
+        "m": -0.1398994674134985,
+        "c": 104.78819467154285,
+        "start_idx": 255,
+        "start_rsi": 69.11383048110073,
+        "end_idx": 366,
+        "end_rsi": 53.5849895982024,
         "current_idx": 499,
-        "current_projected_rsi": 35.11825627121998
+        "current_projected_rsi": 34.9783604322071
       }
     },
-    "price": 0.2207,
+    "price": 0.222,
     "bias": "LONG",
     "rr": 2,
     "entry": 0.22,
     "stop_loss": 0.213,
     "take_profit": 0.231,
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -1406,16 +1655,16 @@
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 65.6,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 61.9,
+    "score": 64.2,
     "details": {
-      "total": 61.9,
+      "total": 64.2,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -1428,225 +1677,50 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 6.9,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 5,
-        "bonuses": 20,
-        "total": 61.9
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 377713378716.0851
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 3116.22,
-      "sl": 3065.64,
-      "tp": 3272.031,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.055921089373567004,
-        "c": 71.91792060136126,
-        "start_idx": 29,
-        "start_rsi": 70.29620900952781,
-        "end_idx": 113,
-        "end_rsi": 65.59883750214819,
-        "current_idx": 499,
-        "current_projected_rsi": 44.01329700395132
-      }
-    },
-    "price": 3135.28,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 3116.22,
-    "stop_loss": 3065.64,
-    "take_profit": 3272.031,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "ETHUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 61.9,
-      "status": "STABLE"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 61,
-    "details": {
-      "total": 61,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 16,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 10,
-        "bonuses": 5,
-        "total": 61
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 14058757360.638727
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 0.392,
-      "sl": 0.3815,
-      "tp": 0.4116,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.03700072064947636,
-        "c": 66.8612904771097,
-        "start_idx": 115,
-        "start_rsi": 62.60620760241993,
-        "end_idx": 214,
-        "end_rsi": 58.94313625812177,
-        "current_idx": 499,
-        "current_projected_rsi": 48.397930873021
-      }
-    },
-    "price": 0.392,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 0.392,
-    "stop_loss": 0.3815,
-    "take_profit": 0.4116,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "ADAUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 51,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "DOLOUSDT",
-    "price": 0.06182,
-    "score": 60.1,
-    "bias": "SHORT",
-    "action": "SELL_RETEST",
-    "rr": 2,
-    "entry": 0.06131,
-    "stop_loss": 0.06383,
-    "take_profit": 0.0582445,
-    "setup": {
-      "entry": 0.06131,
-      "sl": 0.06383,
-      "tp": 0.0582445,
-      "rr": 2,
-      "side": "SHORT",
-      "trendline": {
-        "m": 0.02578243709896547,
-        "c": 25.09408437878561,
-        "start_idx": 122,
-        "start_rsi": 28.2395417048594,
-        "end_idx": 230,
-        "end_rsi": 31.02404491154767,
-        "current_idx": 499,
-        "current_projected_rsi": 37.95952049116938
-      }
-    },
-    "details": {
-      "total": 60,
-      "score_breakdown": {
-        "geometry": 0.7,
-        "momentum": 20.1,
-        "oi_flow": 16.3,
+        "geometry": 15.4,
+        "momentum": 20.6,
+        "oi_flow": 0.2,
         "sentiment": 8,
-        "bonuses": 15,
-        "total": 60.1
+        "bonuses": 20,
+        "total": 64.2
       },
-      "geometry_component": 0.7,
-      "momentum_component": 20.1,
-      "raw_components": {
-        "symbol": "DOLOUSDT",
-        "price_change_pct": 1.1405959031657296,
-        "duration_candles": 108,
-        "price_slope": 0.010561073177460458,
-        "rsi_slope": 0.02578243709896547,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 60.1,
-      "oi_meta": {
-        "oi_slope": 4.070251847831456,
-        "oi_points": 116,
-        "oi_avg": 171477678.75862068
-      },
-      "sentiment_meta": {
-        "liq_longs": 242844,
-        "liq_shorts": 165488,
-        "liq_ratio": 1.47,
-        "top_ls_ratio": 0.5807777426493835
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 27831715.243984237
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 1936929413.5069313
     },
-    "htf": {
-      "trend": "SHORT"
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 12.58,
+      "sl": 12.1,
+      "tp": 13.209000000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.08070389807561465,
+        "c": 86.93957581737709,
+        "start_idx": 12,
+        "start_rsi": 85.97112904046972,
+        "end_idx": 255,
+        "end_rsi": 66.36008180809536,
+        "current_idx": 499,
+        "current_projected_rsi": 46.66833067764538
+      }
     },
+    "price": 12.68,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 12.58,
+    "stop_loss": 12.1,
+    "take_profit": 13.209000000000001,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
     "ltf": {
-      "rsi": 41.9701305265394,
+      "rsi": 50,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -1657,23 +1731,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "symbol": "ETCUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 22,
-      "status": "STRENGTHENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 57.5,
+    "score": 63.9,
     "details": {
-      "total": 57.5,
+      "total": 63.9,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -1686,42 +1760,42 @@
         "top_ls_ratio": 0
       },
       "score_breakdown": {
-        "geometry": 22.4,
-        "momentum": 30,
-        "oi_flow": 0.1,
+        "geometry": 37.9,
+        "momentum": 21,
+        "oi_flow": 0,
         "sentiment": 0,
         "bonuses": 5,
-        "total": 57.5
+        "total": 63.9
       },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 787591804.5700775
+      "status": "WAITING_RETEST",
+      "target_rsi": 60,
+      "mcap": 2361485677.451414
     },
     "strategy_name": "BreakoutV2",
     "setup": {
-      "entry": 0.1221,
-      "sl": 0.1176,
-      "tp": 0.128205,
+      "entry": 115.707,
+      "sl": 110.413,
+      "tp": 121.49235,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.04368354110345306,
-        "c": 72.9386837728663,
-        "start_idx": 103,
-        "start_rsi": 68.43927903921063,
-        "end_idx": 248,
-        "end_rsi": 62.10516557920994,
+        "m": -0.05182594764469688,
+        "c": 84.93509256714138,
+        "start_idx": 11,
+        "start_rsi": 84.36500714304971,
+        "end_idx": 216,
+        "end_rsi": 73.74068787588685,
         "current_idx": 499,
-        "current_projected_rsi": 51.14059676224322
+        "current_projected_rsi": 59.073944692437635
       }
     },
-    "price": 0.1221,
+    "price": 115.707,
     "bias": "LONG",
     "rr": 2,
-    "entry": 0.1221,
-    "stop_loss": 0.1176,
-    "take_profit": 0.128205,
-    "timestamp": 1768303861984,
+    "entry": 115.707,
+    "stop_loss": 110.413,
+    "take_profit": 121.49235,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -1740,455 +1814,23 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "symbol": "SEIUSDT",
+    "symbol": "OKBUSDT",
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 57.5,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "DATASOULUSDT",
-    "price": 1.6375e-9,
-    "score": 57.3,
-    "bias": "SHORT",
-    "action": "SELL_RETEST",
-    "rr": 2,
-    "entry": 1.6402e-9,
-    "stop_loss": 1.7178e-9,
-    "take_profit": 1.55819e-9,
-    "setup": {
-      "entry": 1.6402e-9,
-      "sl": 1.7178e-9,
-      "tp": 1.55819e-9,
-      "rr": 2,
-      "side": "SHORT",
-      "trendline": {
-        "m": 0.1309937690991975,
-        "c": -0.1309937690991975,
-        "start_idx": 1,
-        "start_rsi": 0,
-        "end_idx": 267,
-        "end_rsi": 34.84434258038653,
-        "current_idx": 499,
-        "current_projected_rsi": 65.23489701140036
-      }
-    },
-    "details": {
-      "total": 57,
-      "score_breakdown": {
-        "geometry": 16.8,
-        "momentum": 20.5,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 57.3
-      },
-      "geometry_component": 16.8,
-      "momentum_component": 20.5,
-      "raw_components": {
-        "symbol": "DATASOULUSDT",
-        "price_change_pct": 10.527169505271704,
-        "duration_candles": 266,
-        "price_slope": 0.039575825207788365,
-        "rsi_slope": 0.1309937690991975,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 57.3,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 0
-    },
-    "htf": {
-      "trend": "SHORT"
-    },
-    "ltf": {
-      "rsi": 61.907147630339686,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 24.2,
-      "status": "STRENGTHENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "action": "WAIT",
-    "score": 56.9,
+    "score": 63.5,
     "details": {
-      "total": 56.9,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 11.7,
-        "momentum": 22.2,
-        "oi_flow": 0,
-        "sentiment": 3,
-        "bonuses": 20,
-        "total": 56.9
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 32196489.231610693
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 0.02163,
-      "sl": 0.0203,
-      "tp": 0.022711500000000003,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.0494863607027211,
-        "c": 66.72459675783695,
-        "start_idx": 29,
-        "start_rsi": 65.28949229745804,
-        "end_idx": 99,
-        "end_rsi": 61.82544704826756,
-        "current_idx": 499,
-        "current_projected_rsi": 42.03090276717912
-      }
-    },
-    "price": 0.02209,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 0.02163,
-    "stop_loss": 0.0203,
-    "take_profit": 0.022711500000000003,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "GUNUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 56.9,
-      "status": "STABLE"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 54.8,
-    "details": {
-      "total": 54.8,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 13.4,
-        "momentum": 21.4,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 54.8
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 2488547827.04412
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 0.000005868,
-      "sl": 0.0000057,
-      "tp": 0.000006161400000000001,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.12672008581583877,
-        "c": 102.55155897030531,
-        "start_idx": 260,
-        "start_rsi": 69.60433665818724,
-        "end_idx": 383,
-        "end_rsi": 54.01776610283907,
-        "current_idx": 499,
-        "current_projected_rsi": 39.31823614820176
-      }
-    },
-    "price": 0.000005928,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 0.000005868,
-    "stop_loss": 0.0000057,
-    "take_profit": 0.000006161400000000001,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "PEPEUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 54.8,
-      "status": "STABLE"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 54.6,
-    "details": {
-      "total": 54.6,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 4.6,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 54.6
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 918918928.366048
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 0.000010554,
-      "sl": 0.00001014,
-      "tp": 0.0000110817,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.048902373617042375,
-        "c": 70.27067061426989,
-        "start_idx": 29,
-        "start_rsi": 68.85250177937566,
-        "end_idx": 99,
-        "end_rsi": 65.42933562618269,
-        "current_idx": 499,
-        "current_projected_rsi": 45.86838617936574
-      }
-    },
-    "price": 0.000010462,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 0.000010554,
-    "stop_loss": 0.00001014,
-    "take_profit": 0.0000110817,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "BONKUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 54.6,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "HYPEUSDT",
-    "price": 24.36,
-    "score": 52.599999999999994,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
-    "rr": 2,
-    "entry": 24.36,
-    "stop_loss": 24.04,
-    "take_profit": 25.578,
-    "setup": {
-      "entry": 24.36,
-      "sl": 24.04,
-      "tp": 25.578,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.051314079690869464,
-        "c": 74.63081565054132,
-        "start_idx": 16,
-        "start_rsi": 73.80979037548741,
-        "end_idx": 208,
-        "end_rsi": 63.95748707484047,
-        "current_idx": 499,
-        "current_projected_rsi": 49.02508988479746
-      }
-    },
-    "details": {
-      "total": 52,
-      "score_breakdown": {
-        "geometry": 6.8,
-        "momentum": 20.4,
-        "oi_flow": 0.4,
-        "sentiment": 5,
-        "bonuses": 20,
-        "total": 52.599999999999994
-      },
-      "geometry_component": 6.8,
-      "momentum_component": 20.4,
-      "raw_components": {
-        "symbol": "HYPEUSDT",
-        "price_change_pct": 5.898021308980216,
-        "duration_candles": 192,
-        "price_slope": 0.030718860984271956,
-        "rsi_slope": -0.051314079690869464,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 52.599999999999994,
-      "oi_meta": {
-        "oi_slope": 0.09793250128643002,
-        "oi_points": 200,
-        "oi_avg": 6394015.192799999
-      },
-      "sentiment_meta": {
-        "liq_longs": 66,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 1.4461839530332679
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 8193834282.014872
-    },
-    "htf": {
-      "trend": "LONG"
-    },
-    "ltf": {
-      "rsi": 52.08669815087165,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 24.2,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 51.5,
-    "details": {
-      "total": 51.5,
+      "total": 63.5,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -2204,9 +1846,9 @@
         "geometry": 16.9,
         "momentum": 21.6,
         "oi_flow": 0,
-        "sentiment": 8,
-        "bonuses": 5,
-        "total": 51.5
+        "sentiment": 5,
+        "bonuses": 20,
+        "total": 63.5
       },
       "status": "IDLE",
       "target_rsi": 0,
@@ -2220,23 +1862,23 @@
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.04680625795708853,
-        "c": 70.40457746057454,
-        "start_idx": 99,
-        "start_rsi": 65.77075792282278,
-        "end_idx": 201,
-        "end_rsi": 60.99651961119975,
+        "m": -0.04685813904324804,
+        "c": 70.36815381012639,
+        "start_idx": 98,
+        "start_rsi": 65.77605618388807,
+        "end_idx": 200,
+        "end_rsi": 60.996526001476774,
         "current_idx": 499,
-        "current_projected_rsi": 47.04825473998737
+        "current_projected_rsi": 46.985942427545616
       }
     },
-    "price": 0.2064,
+    "price": 0.2074,
     "bias": "LONG",
     "rr": 2,
     "entry": 0.2064,
     "stop_loss": 0.1993,
     "take_profit": 0.21672,
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "raw_components": {
       "price_change_pct": 0,
       "duration_candles": 0,
@@ -2262,80 +1904,330 @@
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 5,
-      "prevScore": 51.5,
-      "status": "STABLE"
+      "consecutiveScans": 3,
+      "prevScore": 27.7,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 61.2,
+    "details": {
+      "total": 61.2,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 40,
+        "momentum": 1.2,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 61.2
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 3124838870.046885
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.961,
+      "sl": 0.9278,
+      "tp": 1.00905,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.12164745807565439,
+        "c": 100.12164745807566,
+        "start_idx": 1,
+        "start_rsi": 100,
+        "end_idx": 278,
+        "end_rsi": 66.30365411304373,
+        "current_idx": 499,
+        "current_projected_rsi": 39.41956587832412
+      }
+    },
+    "price": 0.965,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.961,
+    "stop_loss": 0.9278,
+    "take_profit": 1.00905,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "MNTUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 81.3,
+      "status": "WEAKENING"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 61.1,
+    "details": {
+      "total": 61.1,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 5,
+        "momentum": 30,
+        "oi_flow": 1.1,
+        "sentiment": 5,
+        "bonuses": 20,
+        "total": 61.1
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 1255668169.978797
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 0.3983,
+      "sl": 0.38388,
+      "tp": 0.418215,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.04625420326390436,
+        "c": 69.28633794638728,
+        "start_idx": 28,
+        "start_rsi": 67.99122025499796,
+        "end_idx": 98,
+        "end_rsi": 64.75342602652465,
+        "current_idx": 499,
+        "current_projected_rsi": 46.205490517699005
+      }
+    },
+    "price": 0.40018,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 0.3983,
+    "stop_loss": 0.38388,
+    "take_profit": 0.418215,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "ONDOUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 88.80000000000001,
+      "status": "WEAKENING"
+    }
+  },
+  {
+    "action": "WAIT",
+    "score": 60.2,
+    "details": {
+      "total": 60.2,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "score_breakdown": {
+        "geometry": 5.2,
+        "momentum": 30,
+        "oi_flow": 0,
+        "sentiment": 5,
+        "bonuses": 20,
+        "total": 60.2
+      },
+      "status": "IDLE",
+      "target_rsi": 0,
+      "mcap": 9371260477.371923
+    },
+    "strategy_name": "BreakoutV2",
+    "setup": {
+      "entry": 13.27,
+      "sl": 12.92,
+      "tp": 13.9335,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.022257895611297412,
+        "c": 61.28961542288791,
+        "start_idx": 32,
+        "start_rsi": 60.5773627633264,
+        "end_idx": 98,
+        "end_rsi": 59.10834165298077,
+        "current_idx": 499,
+        "current_projected_rsi": 50.1829255128505
+      }
+    },
+    "price": 13.27,
+    "bias": "LONG",
+    "rr": 2,
+    "entry": 13.27,
+    "stop_loss": 12.92,
+    "take_profit": 13.9335,
+    "timestamp": 1768309315890,
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {},
+    "ltf": {
+      "rsi": 50,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "symbol": "LINKUSDT",
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 95,
+      "status": "WEAKENING"
     }
   },
   {
     "strategy_name": "Breakout",
-    "symbol": "BDXUSDT",
-    "price": 0.09069,
-    "score": 51,
+    "symbol": "IDOLUSDT",
+    "price": 0.03021,
+    "score": 51.8,
     "bias": "LONG",
     "action": "BUY_RETEST",
     "rr": 2,
-    "entry": 0.09035,
-    "stop_loss": 0.09013,
-    "take_profit": 0.09486750000000001,
+    "entry": 0.03027,
+    "stop_loss": 0.02991,
+    "take_profit": 0.0317835,
     "setup": {
-      "entry": 0.09035,
-      "sl": 0.09013,
-      "tp": 0.09486750000000001,
+      "entry": 0.03027,
+      "sl": 0.02991,
+      "tp": 0.0317835,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.058546390351146727,
-        "c": 76.2108273345318,
-        "start_idx": 98,
-        "start_rsi": 70.47328108011942,
-        "end_idx": 229,
-        "end_rsi": 62.8037039441192,
+        "m": -0.10154635147719139,
+        "c": 109.48400340570393,
+        "start_idx": 229,
+        "start_rsi": 86.2298889174271,
+        "end_idx": 431,
+        "end_rsi": 65.71752591903444,
         "current_idx": 499,
-        "current_projected_rsi": 46.99617854930958
+        "current_projected_rsi": 58.81237401858542
       }
     },
     "details": {
       "total": 51,
       "score_breakdown": {
-        "geometry": 1,
-        "momentum": 30,
+        "geometry": 6.2,
+        "momentum": 20.6,
         "oi_flow": 0,
-        "sentiment": 0,
+        "sentiment": 5,
         "bonuses": 20,
-        "total": 51
+        "total": 51.8
       },
-      "geometry_component": 1,
-      "momentum_component": 30,
+      "geometry_component": 6.2,
+      "momentum_component": 20.6,
       "raw_components": {
-        "symbol": "BDXUSDT",
-        "price_change_pct": 1.2737454705171785,
-        "duration_candles": 131,
-        "price_slope": 0.009723247866543347,
-        "rsi_slope": -0.058546390351146727,
-        "divergence_type": 2
+        "symbol": "IDOLUSDT",
+        "price_change_pct": 5.085291277759902,
+        "duration_candles": 202,
+        "price_slope": 0.025174709295841098,
+        "rsi_slope": -0.10154635147719139,
+        "divergence_type": 1
       },
       "type": "RETEST",
-      "total_score": 51,
+      "total_score": 51.8,
       "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0
+        "oi_slope": -0.020290873932070266,
+        "oi_points": 209,
+        "oi_avg": 64547006.6076555
       },
       "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
+        "liq_longs": 5334,
+        "liq_shorts": 758,
+        "liq_ratio": 0.14,
+        "top_ls_ratio": 2.114294612270321
       },
       "funding_rate": 0,
-      "context_badge": null,
-      "mcap": 684566347.740539
+      "context_badge": "DIV-PREP",
+      "mcap": 31188289.560227532
     },
     "htf": {
       "trend": "LONG"
     },
     "ltf": {
-      "rsi": 56.653944244972365,
+      "rsi": 57.79682427336667,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -2346,151 +2238,68 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 45.2,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 50.5,
-    "details": {
-      "total": 50.5,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 9.1,
-        "momentum": 21.4,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 50.5
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 0
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 219.82,
-      "sl": 213.27,
-      "tp": 230.811,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.109273907041516,
-        "c": 100.32637176074138,
-        "start_idx": 255,
-        "start_rsi": 72.46152546515479,
-        "end_idx": 349,
-        "end_rsi": 62.18977820325229,
-        "current_idx": 499,
-        "current_projected_rsi": 45.798692147024894
-      }
-    },
-    "price": 219.6,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 219.82,
-    "stop_loss": 213.27,
-    "take_profit": 230.811,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "SNOWONUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 50.5,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "strategy_name": "Breakout",
-    "symbol": "RIOTONUSDT",
-    "price": 16.538,
-    "score": 50.3,
+    "symbol": "ORTAUSDT",
+    "price": 0.502,
+    "score": 48.3,
     "bias": "SHORT",
     "action": "SELL_RETEST",
     "rr": 2,
-    "entry": 16.582,
-    "stop_loss": 16.595,
-    "take_profit": 15.7529,
+    "entry": 0.5073,
+    "stop_loss": 0.5165,
+    "take_profit": 0.48193499999999995,
     "setup": {
-      "entry": 16.582,
-      "sl": 16.595,
-      "tp": 15.7529,
+      "entry": 0.5073,
+      "sl": 0.5165,
+      "tp": 0.48193499999999995,
       "rr": 2,
       "side": "SHORT",
       "trendline": {
-        "m": 0.07124674924724896,
-        "c": 26.185685327579144,
-        "start_idx": 104,
-        "start_rsi": 33.595347249293035,
-        "end_idx": 150,
-        "end_rsi": 36.87269771466649,
-        "current_idx": 499,
-        "current_projected_rsi": 61.73781320195637
+        "m": 0.07123333991985112,
+        "c": 22.352340271159214,
+        "start_idx": 55,
+        "start_rsi": 26.270173966751027,
+        "end_idx": 165,
+        "end_rsi": 34.10584135793465,
+        "current_idx": 480,
+        "current_projected_rsi": 56.544343432687754
       }
     },
     "details": {
-      "total": 50,
+      "total": 48,
       "score_breakdown": {
-        "geometry": 0.3,
-        "momentum": 30,
+        "geometry": 8.1,
+        "momentum": 20.2,
         "oi_flow": 0,
         "sentiment": 0,
         "bonuses": 20,
-        "total": 50.3
+        "total": 48.3
       },
-      "geometry_component": 0.3,
-      "momentum_component": 30,
+      "geometry_component": 8.1,
+      "momentum_component": 20.2,
       "raw_components": {
-        "symbol": "RIOTONUSDT",
-        "price_change_pct": 1.0075566750629672,
-        "duration_candles": 46,
-        "price_slope": 0.021903405979629722,
-        "rsi_slope": 0.07124674924724896,
-        "divergence_type": 2
+        "symbol": "ORTAUSDT",
+        "price_change_pct": 12.211126961483597,
+        "duration_candles": 110,
+        "price_slope": 0.11101024510439633,
+        "rsi_slope": 0.07123333991985112,
+        "divergence_type": 1
       },
       "type": "RETEST",
-      "total_score": 50.3,
+      "total_score": 48.3,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0
@@ -2502,14 +2311,14 @@
         "top_ls_ratio": 0
       },
       "funding_rate": 0,
-      "context_badge": null,
+      "context_badge": "DIV-PREP",
       "mcap": 0
     },
     "htf": {
       "trend": "SHORT"
     },
     "ltf": {
-      "rsi": 51.3390107403599,
+      "rsi": 46.24826933775522,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -2520,274 +2329,7 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 50.3,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "TONUSDT",
-    "price": 1.737,
-    "score": 50.3,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
-    "rr": 2,
-    "entry": 1.737,
-    "stop_loss": 1.725,
-    "take_profit": 1.8238500000000002,
-    "setup": {
-      "entry": 1.737,
-      "sl": 1.725,
-      "tp": 1.8238500000000002,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.055610402877100035,
-        "c": 69.93624585520162,
-        "start_idx": 52,
-        "start_rsi": 67.04450490559242,
-        "end_idx": 196,
-        "end_rsi": 59.03660689129001,
-        "current_idx": 499,
-        "current_projected_rsi": 42.1866548195287
-      }
-    },
-    "details": {
-      "total": 50,
-      "score_breakdown": {
-        "geometry": 6.5,
-        "momentum": 20.5,
-        "oi_flow": 0.3,
-        "sentiment": 3,
-        "bonuses": 20,
-        "total": 50.3
-      },
-      "geometry_component": 6.5,
-      "momentum_component": 20.5,
-      "raw_components": {
-        "symbol": "TONUSDT",
-        "price_change_pct": 7.541157727031328,
-        "duration_candles": 144,
-        "price_slope": 0.052369150882162,
-        "rsi_slope": -0.055610402877100035,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 50.3,
-      "oi_meta": {
-        "oi_slope": 0.07264233826472859,
-        "oi_points": 152,
-        "oi_avg": 18460501.912499998
-      },
-      "sentiment_meta": {
-        "liq_longs": 4608,
-        "liq_shorts": 64,
-        "liq_ratio": 0.01,
-        "top_ls_ratio": 1.1164021164021165
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 4197153111.8002567
-    },
-    "htf": {
-      "trend": "LONG"
-    },
-    "ltf": {
-      "rsi": 43.4466538701592,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "action": "WAIT",
-    "score": 50.3,
-    "details": {
-      "total": 50.3,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "score_breakdown": {
-        "geometry": 9.9,
-        "momentum": 20.4,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 50.3
-      },
-      "status": "IDLE",
-      "target_rsi": 0,
-      "mcap": 0
-    },
-    "strategy_name": "BreakoutV2",
-    "setup": {
-      "entry": 449.08,
-      "sl": 438.84,
-      "tp": 471.534,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.01798644965546099,
-        "c": 68.55636630263852,
-        "start_idx": 38,
-        "start_rsi": 67.872881215731,
-        "end_idx": 202,
-        "end_rsi": 64.9231034722354,
-        "current_idx": 499,
-        "current_projected_rsi": 59.58112792456349
-      }
-    },
-    "price": 449.21,
-    "bias": "LONG",
-    "rr": 2,
-    "entry": 449.08,
-    "stop_loss": 438.84,
-    "take_profit": 471.534,
-    "timestamp": 1768303861984,
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {},
-    "ltf": {
-      "rsi": 50,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "symbol": "TSLAONUSDT",
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 50.3,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "DUSKUSDT",
-    "price": 0.07004,
-    "score": 47.2,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
-    "rr": 2,
-    "entry": 0.07065,
-    "stop_loss": 0.06993,
-    "take_profit": 0.07418250000000001,
-    "setup": {
-      "entry": 0.07065,
-      "sl": 0.06993,
-      "tp": 0.07418250000000001,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.0821564270710614,
-        "c": 76.10450073099948,
-        "start_idx": 74,
-        "start_rsi": 70.02492512774093,
-        "end_idx": 130,
-        "end_rsi": 65.42416521176149,
-        "current_idx": 499,
-        "current_projected_rsi": 35.10844362253984
-      }
-    },
-    "details": {
-      "total": 47,
-      "score_breakdown": {
-        "geometry": 0.3,
-        "momentum": 20.5,
-        "oi_flow": 8.4,
-        "sentiment": 3,
-        "bonuses": 15,
-        "total": 47.2
-      },
-      "geometry_component": 0.3,
-      "momentum_component": 20.5,
-      "raw_components": {
-        "symbol": "DUSKUSDT",
-        "price_change_pct": 0.9297136481963564,
-        "duration_candles": 56,
-        "price_slope": 0.01660202943207779,
-        "rsi_slope": -0.0821564270710614,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 47.2,
-      "oi_meta": {
-        "oi_slope": 2.0989921976422843,
-        "oi_points": 64,
-        "oi_avg": 51398312.859375
-      },
-      "sentiment_meta": {
-        "liq_longs": 70731,
-        "liq_shorts": 924,
-        "liq_ratio": 0.01,
-        "top_ls_ratio": 1.0387359836901122
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 34310561.869845204
-    },
-    "htf": {
-      "trend": "LONG"
-    },
-    "ltf": {
-      "rsi": 35.255361668090515,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
@@ -2801,440 +2343,74 @@
   },
   {
     "strategy_name": "Breakout",
-    "symbol": "POLUSDT",
-    "price": 0.1507,
-    "score": 46.9,
+    "symbol": "THEUSDT",
+    "price": 0.2421,
+    "score": 46.4,
     "bias": "LONG",
     "action": "BUY_RETEST",
     "rr": 2,
-    "entry": 0.1505,
-    "stop_loss": 0.1501,
-    "take_profit": 0.158025,
+    "entry": 0.2421,
+    "stop_loss": 0.2407,
+    "take_profit": 0.254205,
     "setup": {
-      "entry": 0.1505,
-      "sl": 0.1501,
-      "tp": 0.158025,
+      "entry": 0.2421,
+      "sl": 0.2407,
+      "tp": 0.254205,
       "rr": 2,
       "side": "LONG",
       "trendline": {
-        "m": -0.15039250758505435,
-        "c": 114.95838124466947,
-        "start_idx": 193,
-        "start_rsi": 85.93262728075398,
-        "end_idx": 242,
-        "end_rsi": 78.56339440908631,
+        "m": -0.055287837457755236,
+        "c": 70.6883259489512,
+        "start_idx": 71,
+        "start_rsi": 66.76288948945059,
+        "end_idx": 124,
+        "end_rsi": 63.83263410418956,
         "current_idx": 499,
-        "current_projected_rsi": 39.91251995972735
+        "current_projected_rsi": 43.099695057531335
       }
     },
     "details": {
       "total": 46,
       "score_breakdown": {
-        "geometry": 1.9,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 15,
-        "total": 46.9
-      },
-      "geometry_component": 1.9,
-      "momentum_component": 30,
-      "raw_components": {
-        "symbol": "POLUSDT",
-        "price_change_pct": 6.612995974698108,
-        "duration_candles": 49,
-        "price_slope": 0.13495910152445117,
-        "rsi_slope": -0.15039250758505435,
-        "divergence_type": 2
-      },
-      "type": "RETEST",
-      "total_score": 46.9,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "funding_rate": 0,
-      "context_badge": null,
-      "mcap": 1591848721.864821
-    },
-    "htf": {
-      "trend": "LONG"
-    },
-    "ltf": {
-      "rsi": 43.65524577336137,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 24.2,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "BNBUSDT",
-    "price": 908.32,
-    "score": 46.6,
-    "bias": "SHORT",
-    "action": "SELL_RETEST",
-    "rr": 2,
-    "entry": 908.14,
-    "stop_loss": 911.31,
-    "take_profit": 862.733,
-    "setup": {
-      "entry": 908.14,
-      "sl": 911.31,
-      "tp": 862.733,
-      "rr": 2,
-      "side": "SHORT",
-      "trendline": {
-        "m": 0.09113982797442745,
-        "c": -0.09113982797442745,
-        "start_idx": 1,
-        "start_rsi": 0,
-        "end_idx": 323,
-        "end_rsi": 29.34702460776564,
-        "current_idx": 499,
-        "current_projected_rsi": 45.38763433126486
-      }
-    },
-    "details": {
-      "total": 46,
-      "score_breakdown": {
-        "geometry": 6.1,
+        "geometry": 0.4,
         "momentum": 20.4,
-        "oi_flow": 0.1,
-        "sentiment": 0,
-        "bonuses": 20,
-        "total": 46.6
+        "oi_flow": 0.6,
+        "sentiment": 10,
+        "bonuses": 15,
+        "total": 46.4
       },
-      "geometry_component": 6.1,
+      "geometry_component": 0.4,
       "momentum_component": 20.4,
       "raw_components": {
-        "symbol": "BNBUSDT",
-        "price_change_pct": 3.1813892142036884,
-        "duration_candles": 322,
-        "price_slope": 0.009880090727340647,
-        "rsi_slope": 0.09113982797442745,
+        "symbol": "THEUSDT",
+        "price_change_pct": 1.259774109470032,
+        "duration_candles": 53,
+        "price_slope": 0.023769322820189284,
+        "rsi_slope": -0.055287837457755236,
         "divergence_type": 1
       },
       "type": "RETEST",
-      "total_score": 46.6,
+      "total_score": 46.4,
       "oi_meta": {
-        "oi_slope": 0.03219330242127444,
-        "oi_points": 328,
-        "oi_avg": 533996.9747256098
+        "oi_slope": 0.1527256254514843,
+        "oi_points": 61,
+        "oi_avg": 9315000.355737705
       },
       "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0.09,
-        "top_ls_ratio": 2.2981530343007917
+        "liq_longs": 41,
+        "liq_shorts": 132,
+        "liq_ratio": 3.09,
+        "top_ls_ratio": 1.4021138601969731
       },
       "funding_rate": 0,
       "context_badge": "DIV-PREP",
-      "mcap": 125090812819.20314
-    },
-    "htf": {
-      "trend": "SHORT"
-    },
-    "ltf": {
-      "rsi": 46.03344925625099,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "WMTXUSDT",
-    "price": 0.07445,
-    "score": 46.6,
-    "bias": "SHORT",
-    "action": "SELL_RETEST",
-    "rr": 2,
-    "entry": 0.07448,
-    "stop_loss": 0.07473,
-    "take_profit": 0.070756,
-    "setup": {
-      "entry": 0.07448,
-      "sl": 0.07473,
-      "tp": 0.070756,
-      "rr": 2,
-      "side": "SHORT",
-      "trendline": {
-        "m": 0.10960372419695676,
-        "c": -2.2989436758241286,
-        "start_idx": 152,
-        "start_rsi": 14.360822402113298,
-        "end_idx": 190,
-        "end_rsi": 18.525763921597655,
-        "current_idx": 499,
-        "current_projected_rsi": 52.393314698457296
-      }
-    },
-    "details": {
-      "total": 46,
-      "score_breakdown": {
-        "geometry": 1.6,
-        "momentum": 30,
-        "oi_flow": 0,
-        "sentiment": 0,
-        "bonuses": 15,
-        "total": 46.6
-      },
-      "geometry_component": 1.6,
-      "momentum_component": 30,
-      "raw_components": {
-        "symbol": "WMTXUSDT",
-        "price_change_pct": 6.8040692297529235,
-        "duration_candles": 38,
-        "price_slope": 0.17905445341455062,
-        "rsi_slope": 0.10960372419695676,
-        "divergence_type": 2
-      },
-      "type": "RETEST",
-      "total_score": 46.6,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      },
-      "funding_rate": 0,
-      "context_badge": null,
-      "mcap": 59718190.30797018
-    },
-    "htf": {
-      "trend": "SHORT"
-    },
-    "ltf": {
-      "rsi": 48.63624046190551,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 1,
-      "prevScore": 0,
-      "status": "NEW"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "NIGHTUSDT",
-    "price": 0.06655,
-    "score": 46.2,
-    "bias": "SHORT",
-    "action": "SELL_RETEST",
-    "rr": 2,
-    "entry": 0.06648,
-    "stop_loss": 0.06734,
-    "take_profit": 0.06315599999999999,
-    "setup": {
-      "entry": 0.06648,
-      "sl": 0.06734,
-      "tp": 0.06315599999999999,
-      "rr": 2,
-      "side": "SHORT",
-      "trendline": {
-        "m": 0.04433162468785099,
-        "c": 33.59480823172399,
-        "start_idx": 63,
-        "start_rsi": 36.3877005870586,
-        "end_idx": 93,
-        "end_rsi": 37.71764932769413,
-        "current_idx": 499,
-        "current_projected_rsi": 55.71628895096163
-      }
-    },
-    "details": {
-      "total": 46,
-      "score_breakdown": {
-        "geometry": 0.1,
-        "momentum": 20.1,
-        "oi_flow": 3,
-        "sentiment": 8,
-        "bonuses": 15,
-        "total": 46.2
-      },
-      "geometry_component": 0.1,
-      "momentum_component": 20.1,
-      "raw_components": {
-        "symbol": "NIGHTUSDT",
-        "price_change_pct": 0.5845568243610656,
-        "duration_candles": 30,
-        "price_slope": 0.019485227478702186,
-        "rsi_slope": 0.04433162468785099,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 46.2,
-      "oi_meta": {
-        "oi_slope": 0.753537372592231,
-        "oi_points": 36,
-        "oi_avg": 168009567.8611111
-      },
-      "sentiment_meta": {
-        "liq_longs": 10773,
-        "liq_shorts": 8427,
-        "liq_ratio": 1.28,
-        "top_ls_ratio": 0.5698587127158555
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 1092551063.872748
-    },
-    "htf": {
-      "trend": "SHORT"
-    },
-    "ltf": {
-      "rsi": 55.28524208849494,
-      "adx": 0,
-      "bias": "NONE",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": false,
-      "pullbackDepth": 0,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 30.4,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Breakout",
-    "symbol": "LTCUSDT",
-    "price": 76.18,
-    "score": 46,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
-    "rr": 2,
-    "entry": 76.13,
-    "stop_loss": 75.28,
-    "take_profit": 79.9365,
-    "setup": {
-      "entry": 76.13,
-      "sl": 75.28,
-      "tp": 79.9365,
-      "rr": 2,
-      "side": "LONG",
-      "trendline": {
-        "m": -0.03687447504776998,
-        "c": 64.7530104777732,
-        "start_idx": 16,
-        "start_rsi": 64.16301887700888,
-        "end_idx": 41,
-        "end_rsi": 63.24115700081463,
-        "current_idx": 499,
-        "current_projected_rsi": 46.35264742893598
-      }
-    },
-    "details": {
-      "total": 46,
-      "score_breakdown": {
-        "geometry": 0.1,
-        "momentum": 20.3,
-        "oi_flow": 5.6,
-        "sentiment": 5,
-        "bonuses": 15,
-        "total": 46
-      },
-      "geometry_component": 0.1,
-      "momentum_component": 20.3,
-      "raw_components": {
-        "symbol": "LTCUSDT",
-        "price_change_pct": 0.5057981741919524,
-        "duration_candles": 25,
-        "price_slope": 0.020231926967678095,
-        "rsi_slope": -0.03687447504776998,
-        "divergence_type": 1
-      },
-      "type": "RETEST",
-      "total_score": 46,
-      "oi_meta": {
-        "oi_slope": 1.4109601022724274,
-        "oi_points": 32,
-        "oi_avg": 1361296.66678125
-      },
-      "sentiment_meta": {
-        "liq_longs": 1208,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 2.309066843150232
-      },
-      "funding_rate": 0,
-      "context_badge": "DIV-PREP",
-      "mcap": 5795142121.380462
+      "mcap": 29612589.418211676
     },
     "htf": {
       "trend": "LONG"
     },
     "ltf": {
-      "rsi": 49.10096237456523,
+      "rsi": 46.706147582140346,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -3245,88 +2421,87 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 12,
-      "status": "STRENGTHENING"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "strategy_name": "Breakout",
-    "symbol": "FILUSDT",
-    "price": 1.497,
-    "score": 45.7,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
+    "symbol": "ASMLONUSDT",
+    "price": 1281.94,
+    "score": 45.9,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
     "rr": 2,
-    "entry": 1.499,
-    "stop_loss": 1.484,
-    "take_profit": 1.5739500000000002,
+    "entry": 1279.89,
+    "stop_loss": 1286.05,
+    "take_profit": 1215.8955,
     "setup": {
-      "entry": 1.499,
-      "sl": 1.484,
-      "tp": 1.5739500000000002,
+      "entry": 1279.89,
+      "sl": 1286.05,
+      "tp": 1215.8955,
       "rr": 2,
-      "side": "LONG",
+      "side": "SHORT",
       "trendline": {
-        "m": -0.02975960594582736,
-        "c": 71.0029012110262,
-        "start_idx": 61,
-        "start_rsi": 69.18756524833073,
-        "end_idx": 133,
-        "end_rsi": 67.04487362023116,
+        "m": 0.04838036509084866,
+        "c": 30.135552604211885,
+        "start_idx": 92,
+        "start_rsi": 34.58654619256996,
+        "end_idx": 227,
+        "end_rsi": 41.11789547983453,
         "current_idx": 499,
-        "current_projected_rsi": 56.152857844058346
+        "current_projected_rsi": 54.277354784545366
       }
     },
     "details": {
       "total": 45,
       "score_breakdown": {
-        "geometry": 0.5,
-        "momentum": 20.2,
+        "geometry": 5.9,
+        "momentum": 20,
         "oi_flow": 0,
-        "sentiment": 5,
+        "sentiment": 0,
         "bonuses": 20,
-        "total": 45.7
+        "total": 45.9
       },
-      "geometry_component": 0.5,
-      "momentum_component": 20.2,
+      "geometry_component": 5.9,
+      "momentum_component": 20,
       "raw_components": {
-        "symbol": "FILUSDT",
-        "price_change_pct": 1.1250827266710872,
-        "duration_candles": 72,
-        "price_slope": 0.015626148981542878,
-        "rsi_slope": -0.02975960594582736,
+        "symbol": "ASMLONUSDT",
+        "price_change_pct": 7.34156157316775,
+        "duration_candles": 135,
+        "price_slope": 0.05438193757902037,
+        "rsi_slope": 0.04838036509084866,
         "divergence_type": 1
       },
       "type": "RETEST",
-      "total_score": 45.7,
+      "total_score": 45.9,
       "oi_meta": {
-        "oi_slope": -0.10466625127084422,
-        "oi_points": 80,
-        "oi_avg": 32467425.186249994
+        "oi_slope": 0,
+        "oi_points": 0
       },
       "sentiment_meta": {
-        "liq_longs": 627,
-        "liq_shorts": 76,
-        "liq_ratio": 0.12,
-        "top_ls_ratio": 1.6759432700026762
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
       },
       "funding_rate": 0,
       "context_badge": "DIV-PREP",
-      "mcap": 1090674092.9063842
+      "mcap": 0
     },
     "htf": {
-      "trend": "LONG"
+      "trend": "SHORT"
     },
     "ltf": {
-      "rsi": 60.55516712158247,
+      "rsi": 49.469586043280465,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -3337,7 +2512,7 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
@@ -3351,30 +2526,214 @@
   },
   {
     "strategy_name": "Breakout",
-    "symbol": "JDONUSDT",
-    "price": 30.22,
-    "score": 45.1,
-    "bias": "LONG",
-    "action": "BUY_RETEST",
+    "symbol": "DASHUSDT",
+    "price": 61.92,
+    "score": 45.8,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
     "rr": 2,
-    "entry": 30.24,
-    "stop_loss": 30.11,
-    "take_profit": 31.752,
+    "entry": 61.92,
+    "stop_loss": 68.21,
+    "take_profit": 58.824,
     "setup": {
-      "entry": 30.24,
-      "sl": 30.11,
-      "tp": 31.752,
+      "entry": 61.92,
+      "sl": 68.21,
+      "tp": 58.824,
       "rr": 2,
-      "side": "LONG",
+      "side": "SHORT",
       "trendline": {
-        "m": -0.06985191357663112,
-        "c": 74.94544681182214,
-        "start_idx": 48,
-        "start_rsi": 71.59255496014384,
-        "end_idx": 76,
-        "end_rsi": 69.63670137999817,
+        "m": 0.13698015551368803,
+        "c": -0.4109404665410641,
+        "start_idx": 3,
+        "start_rsi": 0,
+        "end_idx": 250,
+        "end_rsi": 33.834098411880944,
         "current_idx": 499,
-        "current_projected_rsi": 40.089341937083205
+        "current_projected_rsi": 67.94215713478927
+      }
+    },
+    "details": {
+      "total": 45,
+      "score_breakdown": {
+        "geometry": 7.8,
+        "momentum": 20.6,
+        "oi_flow": 2.4,
+        "sentiment": 10,
+        "bonuses": 5,
+        "total": 45.8
+      },
+      "geometry_component": 7.8,
+      "momentum_component": 20.6,
+      "raw_components": {
+        "symbol": "DASHUSDT",
+        "price_change_pct": 5.292908530318608,
+        "duration_candles": 247,
+        "price_slope": 0.02142877947497412,
+        "rsi_slope": 0.13698015551368803,
+        "divergence_type": 1
+      },
+      "type": "BREAKOUT",
+      "total_score": 45.8,
+      "oi_meta": {
+        "oi_slope": 0.6048690500925684,
+        "oi_points": 253,
+        "oi_avg": 513576.8697035573
+      },
+      "sentiment_meta": {
+        "liq_longs": 1328,
+        "liq_shorts": 574,
+        "liq_ratio": 2.31,
+        "top_ls_ratio": 0.7286084701815039
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 695285586.4854742
+    },
+    "htf": {
+      "trend": "SHORT"
+    },
+    "ltf": {
+      "rsi": 66.63861817614486,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ENAUSDT",
+    "price": 0.222,
+    "score": 45.3,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.2227,
+    "stop_loss": 0.2235,
+    "take_profit": 0.211565,
+    "setup": {
+      "entry": 0.2227,
+      "sl": 0.2235,
+      "tp": 0.211565,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.10317268562985053,
+        "c": 14.61283761752326,
+        "start_idx": 12,
+        "start_rsi": 15.850909845081466,
+        "end_idx": 162,
+        "end_rsi": 31.326812689559045,
+        "current_idx": 499,
+        "current_projected_rsi": 66.09600774681867
+      }
+    },
+    "details": {
+      "total": 45,
+      "score_breakdown": {
+        "geometry": 0.3,
+        "momentum": 30,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 15,
+        "total": 45.3
+      },
+      "geometry_component": 0.3,
+      "momentum_component": 30,
+      "raw_components": {
+        "symbol": "ENAUSDT",
+        "price_change_pct": 0.3046127067014822,
+        "duration_candles": 150,
+        "price_slope": 0.0020307513780098816,
+        "rsi_slope": 0.10317268562985053,
+        "divergence_type": 2
+      },
+      "type": "RETEST",
+      "total_score": 45.3,
+      "oi_meta": {
+        "oi_slope": -0.004770236361168312,
+        "oi_points": 157,
+        "oi_avg": 476041910.3821656
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 1.932551319648094
+      },
+      "funding_rate": 0,
+      "context_badge": null,
+      "mcap": 1739031871.8107693
+    },
+    "htf": {
+      "trend": "SHORT"
+    },
+    "ltf": {
+      "rsi": 60.7487511827968,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ZKUSDT",
+    "price": 0.03604,
+    "score": 45.1,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 0.03657,
+    "stop_loss": 0.03766,
+    "take_profit": 0.034741499999999995,
+    "setup": {
+      "entry": 0.03657,
+      "sl": 0.03766,
+      "tp": 0.034741499999999995,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.06513984229672432,
+        "c": 35.00600805167822,
+        "start_idx": 48,
+        "start_rsi": 38.13272048192099,
+        "end_idx": 98,
+        "end_rsi": 41.38971259675721,
+        "current_idx": 499,
+        "current_projected_rsi": 67.51078935774365
       }
     },
     "details": {
@@ -3390,15 +2749,199 @@
       "geometry_component": 0.1,
       "momentum_component": 30,
       "raw_components": {
-        "symbol": "JDONUSDT",
-        "price_change_pct": 0.33681374200066644,
-        "duration_candles": 28,
-        "price_slope": 0.012029062214309516,
-        "rsi_slope": -0.06985191357663112,
+        "symbol": "ZKUSDT",
+        "price_change_pct": 0.3912127595546138,
+        "duration_candles": 50,
+        "price_slope": 0.007824255191092276,
+        "rsi_slope": 0.06513984229672432,
         "divergence_type": 2
       },
       "type": "RETEST",
       "total_score": 45.1,
+      "oi_meta": {
+        "oi_slope": -0.12934112075228568,
+        "oi_points": 57,
+        "oi_avg": 319280532.57894737
+      },
+      "sentiment_meta": {
+        "liq_longs": 90291,
+        "liq_shorts": 139357,
+        "liq_ratio": 0.65,
+        "top_ls_ratio": 1.0145044319097503
+      },
+      "funding_rate": 0,
+      "context_badge": null,
+      "mcap": 355608435.3591145
+    },
+    "htf": {
+      "trend": "SHORT"
+    },
+    "ltf": {
+      "rsi": 54.85286814263946,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 2,
+      "prevScore": 54.2,
+      "status": "WEAKENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "FLOWUSDT",
+    "price": 0.08698,
+    "score": 44.8,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.08605,
+    "stop_loss": 0.08343,
+    "take_profit": 0.0903525,
+    "setup": {
+      "entry": 0.08605,
+      "sl": 0.08343,
+      "tp": 0.0903525,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.047138501277589555,
+        "c": 76.60628418468796,
+        "start_idx": 58,
+        "start_rsi": 73.87225111058777,
+        "end_idx": 323,
+        "end_rsi": 61.38054827202654,
+        "current_idx": 499,
+        "current_projected_rsi": 53.08417204717078
+      }
+    },
+    "details": {
+      "total": 44,
+      "score_breakdown": {
+        "geometry": 4.5,
+        "momentum": 20.3,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 44.8
+      },
+      "geometry_component": 4.5,
+      "momentum_component": 20.3,
+      "raw_components": {
+        "symbol": "FLOWUSDT",
+        "price_change_pct": 2.8053650046073573,
+        "duration_candles": 265,
+        "price_slope": 0.010586283036254179,
+        "rsi_slope": -0.047138501277589555,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 44.8,
+      "oi_meta": {
+        "oi_slope": -0.12515538369863258,
+        "oi_points": 273,
+        "oi_avg": 72625718.3120879
+      },
+      "sentiment_meta": {
+        "liq_longs": 4069,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0.8382352941176471
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 155116282.2368409
+    },
+    "htf": {
+      "trend": "LONG"
+    },
+    "ltf": {
+      "rsi": 60.534286825046806,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TSMONUSDT",
+    "price": 334.19,
+    "score": 43.3,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 333.91,
+    "stop_loss": 334.65,
+    "take_profit": 317.2145,
+    "setup": {
+      "entry": 333.91,
+      "sl": 334.65,
+      "tp": 317.2145,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.06336716778168358,
+        "c": 26.745292440176073,
+        "start_idx": 69,
+        "start_rsi": 31.11762701711224,
+        "end_idx": 263,
+        "end_rsi": 43.41085756675886,
+        "current_idx": 499,
+        "current_projected_rsi": 58.36550916323618
+      }
+    },
+    "details": {
+      "total": 43,
+      "score_breakdown": {
+        "geometry": 3,
+        "momentum": 20.3,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 43.3
+      },
+      "geometry_component": 3,
+      "momentum_component": 20.3,
+      "raw_components": {
+        "symbol": "TSMONUSDT",
+        "price_change_pct": 2.5675675675675724,
+        "duration_candles": 194,
+        "price_slope": 0.013234884368905013,
+        "rsi_slope": 0.06336716778168358,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 43.3,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0
@@ -3410,14 +2953,14 @@
         "top_ls_ratio": 0
       },
       "funding_rate": 0,
-      "context_badge": null,
+      "context_badge": "DIV-PREP",
       "mcap": 0
     },
     "htf": {
-      "trend": "LONG"
+      "trend": "SHORT"
     },
     "ltf": {
-      "rsi": 45.94998703029201,
+      "rsi": 54.36476280250354,
       "adx": 0,
       "bias": "NONE",
       "obvImbalance": "NEUTRAL",
@@ -3428,7 +2971,993 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "TSLAONUSDT",
+    "price": 449.57,
+    "score": 42.7,
+    "bias": "SHORT",
+    "action": "SELL_RETEST",
+    "rr": 2,
+    "entry": 449.69,
+    "stop_loss": 450.08,
+    "take_profit": 427.2055,
+    "setup": {
+      "entry": 449.69,
+      "sl": 450.08,
+      "tp": 427.2055,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.09549127650508484,
+        "c": 18.91040145859335,
+        "start_idx": 121,
+        "start_rsi": 30.464845915708615,
+        "end_idx": 269,
+        "end_rsi": 44.59755483846117,
+        "current_idx": 499,
+        "current_projected_rsi": 66.56054843463068
+      }
+    },
+    "details": {
+      "total": 42,
+      "score_breakdown": {
+        "geometry": 2.3,
+        "momentum": 20.4,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 42.7
+      },
+      "geometry_component": 2.3,
+      "momentum_component": 20.4,
+      "raw_components": {
+        "symbol": "TSLAONUSDT",
+        "price_change_pct": 2.6088955292495037,
+        "duration_candles": 148,
+        "price_slope": 0.01762767249492908,
+        "rsi_slope": 0.09549127650508484,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 42.7,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "SHORT"
+    },
+    "ltf": {
+      "rsi": 57.751400595302044,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "HUSDT",
+    "price": 0.17064,
+    "score": 42.5,
+    "bias": "SHORT",
+    "action": "SELL_BREAKDOWN",
+    "rr": 2,
+    "entry": 0.17064,
+    "stop_loss": 0.1733,
+    "take_profit": 0.16210799999999997,
+    "setup": {
+      "entry": 0.17064,
+      "sl": 0.1733,
+      "tp": 0.16210799999999997,
+      "rr": 2,
+      "side": "SHORT",
+      "trendline": {
+        "m": 0.03043581798786926,
+        "c": 31.834253424086185,
+        "start_idx": 25,
+        "start_rsi": 32.59514887378292,
+        "end_idx": 210,
+        "end_rsi": 38.22577520153873,
+        "current_idx": 499,
+        "current_projected_rsi": 47.02172660003295
+      }
+    },
+    "details": {
+      "total": 42,
+      "score_breakdown": {
+        "geometry": 7.5,
+        "momentum": 20,
+        "oi_flow": 0,
+        "sentiment": 10,
+        "bonuses": 5,
+        "total": 42.5
+      },
+      "geometry_component": 7.5,
+      "momentum_component": 20,
+      "raw_components": {
+        "symbol": "HUSDT",
+        "price_change_pct": 6.73588412484778,
+        "duration_candles": 185,
+        "price_slope": 0.03641018445863665,
+        "rsi_slope": 0.03043581798786926,
+        "divergence_type": 1
+      },
+      "type": "BREAKOUT",
+      "total_score": 42.5,
+      "oi_meta": {
+        "oi_slope": -0.022841428572872437,
+        "oi_points": 193,
+        "oi_avg": 169655423.13989636
+      },
+      "sentiment_meta": {
+        "liq_longs": 4690,
+        "liq_shorts": 170,
+        "liq_ratio": 27.43,
+        "top_ls_ratio": 0.4230823964707557
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 393104405.41783106
+    },
+    "htf": {
+      "trend": "SHORT"
+    },
+    "ltf": {
+      "rsi": 43.95890095665626,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "ARMONUSDT",
+    "price": 108.94,
+    "score": 42.2,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 108.88,
+    "stop_loss": 108.61,
+    "take_profit": 114.324,
+    "setup": {
+      "entry": 108.88,
+      "sl": 108.61,
+      "tp": 114.324,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.08172138006141648,
+        "c": 81.13608787659842,
+        "start_idx": 101,
+        "start_rsi": 72.88222849039536,
+        "end_idx": 332,
+        "end_rsi": 54.00458969620816,
+        "current_idx": 499,
+        "current_projected_rsi": 40.3571192259516
+      }
+    },
+    "details": {
+      "total": 42,
+      "score_breakdown": {
+        "geometry": 1.8,
+        "momentum": 20.4,
+        "oi_flow": 0,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 42.2
+      },
+      "geometry_component": 1.8,
+      "momentum_component": 20.4,
+      "raw_components": {
+        "symbol": "ARMONUSDT",
+        "price_change_pct": 1.3183336262963614,
+        "duration_candles": 231,
+        "price_slope": 0.005707071975308924,
+        "rsi_slope": -0.08172138006141648,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 42.2,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 0
+    },
+    "htf": {
+      "trend": "LONG"
+    },
+    "ltf": {
+      "rsi": 42.28918026272236,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "KAITOUSDT",
+    "price": 0.6293,
+    "score": 41.8,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.6347,
+    "stop_loss": 0.6266,
+    "take_profit": 0.6664350000000001,
+    "setup": {
+      "entry": 0.6347,
+      "sl": 0.6266,
+      "tp": 0.6664350000000001,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.05317554449492561,
+        "c": 82.05265480767287,
+        "start_idx": 229,
+        "start_rsi": 69.8754551183349,
+        "end_idx": 362,
+        "end_rsi": 62.80310770050979,
+        "current_idx": 499,
+        "current_projected_rsi": 55.518058104704984
+      }
+    },
+    "details": {
+      "total": 41,
+      "score_breakdown": {
+        "geometry": 1.3,
+        "momentum": 20.3,
+        "oi_flow": 0.2,
+        "sentiment": 0,
+        "bonuses": 20,
+        "total": 41.8
+      },
+      "geometry_component": 1.3,
+      "momentum_component": 20.3,
+      "raw_components": {
+        "symbol": "KAITOUSDT",
+        "price_change_pct": 1.5888944639571756,
+        "duration_candles": 133,
+        "price_slope": 0.011946574916971245,
+        "rsi_slope": -0.05317554449492561,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 41.8,
+      "oi_meta": {
+        "oi_slope": 0.05824178403034075,
+        "oi_points": 141,
+        "oi_avg": 30508021.729078017
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 151375679.3143292
+    },
+    "htf": {
+      "trend": "LONG"
+    },
+    "ltf": {
+      "rsi": 49.347675993715946,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 34.2,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Breakout",
+    "symbol": "HBARUSDT",
+    "price": 0.11632,
+    "score": 41.6,
+    "bias": "LONG",
+    "action": "BUY_RETEST",
+    "rr": 2,
+    "entry": 0.11658,
+    "stop_loss": 0.1158,
+    "take_profit": 0.122409,
+    "setup": {
+      "entry": 0.11658,
+      "sl": 0.1158,
+      "tp": 0.122409,
+      "rr": 2,
+      "side": "LONG",
+      "trendline": {
+        "m": -0.03306399765824345,
+        "c": 74.24422943524462,
+        "start_idx": 127,
+        "start_rsi": 70.04510173264771,
+        "end_idx": 208,
+        "end_rsi": 67.36691792232999,
+        "current_idx": 499,
+        "current_projected_rsi": 57.74529460378113
+      }
+    },
+    "details": {
+      "total": 41,
+      "score_breakdown": {
+        "geometry": 1,
+        "momentum": 20.3,
+        "oi_flow": 0.3,
+        "sentiment": 5,
+        "bonuses": 15,
+        "total": 41.6
+      },
+      "geometry_component": 1,
+      "momentum_component": 20.3,
+      "raw_components": {
+        "symbol": "HBARUSDT",
+        "price_change_pct": 2.0116807268007757,
+        "duration_candles": 81,
+        "price_slope": 0.024835564528404637,
+        "rsi_slope": -0.03306399765824345,
+        "divergence_type": 1
+      },
+      "type": "RETEST",
+      "total_score": 41.6,
+      "oi_meta": {
+        "oi_slope": 0.07631717642324312,
+        "oi_points": 89,
+        "oi_avg": 214502412.08988765
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 81,
+        "liq_ratio": 81,
+        "top_ls_ratio": 0.9751135690302192
+      },
+      "funding_rate": 0,
+      "context_badge": "DIV-PREP",
+      "mcap": 4949529702.420931
+    },
+    "htf": {
+      "trend": "LONG"
+    },
+    "ltf": {
+      "rsi": 53.723141607584424,
+      "adx": 0,
+      "bias": "NONE",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": false,
+      "pullbackDepth": 0,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "KAITOUSDT",
+    "price": 0.6293,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 17.31,
+    "entry": 0.6293,
+    "stop_loss": 0.625059,
+    "take_profit": 0.7027,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.6293,
+      "tp": 0.7027,
+      "sl": 0.625059,
+      "rr": 17.31
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 151375679.3143292,
+      "vol24h": 4065947.770815,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 40.92527100562084,
+      "ema50": 0.5876683453960097,
+      "ema200": 0.5819148650932805
+    },
+    "ltf": {
+      "rsi": 49.347675993715946,
+      "adx": 40.92527100562084,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7276785714285721,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 34.2,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "SBETONUSDT",
+    "price": 10.255,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 4.76,
+    "entry": 10.255,
+    "stop_loss": 10.203725,
+    "take_profit": 10.499,
+    "setup": {
+      "side": "LONG",
+      "entry": 10.255,
+      "tp": 10.499,
+      "sl": 10.203725,
+      "rr": 4.76
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 0,
+      "vol24h": 3921801.05056,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 26.693076724746494,
+      "ema50": 10.062265997821992,
+      "ema200": 9.96628630256242
+    },
+    "ltf": {
+      "rsi": 40.680407071556736,
+      "adx": 26.693076724746494,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7922077922077919,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "RIVERUSDT",
+    "price": 19.8563,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 18.79,
+    "entry": 19.8563,
+    "stop_loss": 19.692840999999998,
+    "take_profit": 22.9283,
+    "setup": {
+      "side": "LONG",
+      "entry": 19.8563,
+      "tp": 22.9283,
+      "sl": 19.692840999999998,
+      "rr": 18.79
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 412927490.9036912,
+      "vol24h": 3182241.4394080006,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 35.729102654702515,
+      "ema50": 16.473799460132728,
+      "ema200": 10.886967327116075
+    },
+    "ltf": {
+      "rsi": 39.758255089950005,
+      "adx": 35.729102654702515,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6469138922231347,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "RDDTONUSDT",
+    "price": 245.58,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 4.66,
+    "entry": 245.58,
+    "stop_loss": 244.32225,
+    "take_profit": 251.44,
+    "setup": {
+      "side": "LONG",
+      "entry": 245.58,
+      "tp": 251.44,
+      "sl": 244.32225,
+      "rr": 4.66
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 0,
+      "vol24h": 2513231.6407899996,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 26.487174959193894,
+      "ema50": 245.37287083886423,
+      "ema200": 235.94060353320137
+    },
+    "ltf": {
+      "rsi": 44.248871747430655,
+      "adx": 26.487174959193894,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5508849557522103,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "FETUSDT",
+    "price": 0.2843,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 6.1,
+    "entry": 0.2843,
+    "stop_loss": 0.28248049999999997,
+    "take_profit": 0.2954,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.2843,
+      "tp": 0.2954,
+      "sl": 0.28248049999999997,
+      "rr": 6.1
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 658785237.3019807,
+      "vol24h": 1929814.402646,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 31.382752504408998,
+      "ema50": 0.2788389187096376,
+      "ema200": 0.2516708430011136
+    },
+    "ltf": {
+      "rsi": 50.20904948591941,
+      "adx": 31.382752504408998,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.5000000000000032,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 24.2,
+      "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "RENDERUSDT",
+    "price": 2.348,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 7.95,
+    "entry": 2.348,
+    "stop_loss": 2.333275,
+    "take_profit": 2.465,
+    "setup": {
+      "side": "LONG",
+      "entry": 2.348,
+      "tp": 2.465,
+      "sl": 2.333275,
+      "rr": 7.95
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 1221748125.3967419,
+      "vol24h": 1850109.14872,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "LONG",
+      "adx": 38.02425226036666,
+      "ema50": 2.2524376592955995,
+      "ema200": 1.8427370030237857
+    },
+    "ltf": {
+      "rsi": 46.61814816467079,
+      "adx": 38.02425226036666,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7575757575757583,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
@@ -3436,15 +3965,719 @@
     },
     "history": {
       "consecutiveScans": 2,
-      "prevScore": 22,
+      "prevScore": 24.2,
       "status": "STRENGTHENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "HUSDT",
+    "price": 0.17064,
+    "score": 34.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 5.69,
+    "entry": 0.17064,
+    "stop_loss": 0.16977685,
+    "take_profit": 0.17555,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.17064,
+      "tp": 0.17555,
+      "sl": 0.16977685,
+      "rr": 5.69
+    },
+    "details": {
+      "total": 34.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 393104405.41783106,
+      "vol24h": 1534004.7569172,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 34.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 34.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 34.47131613171299,
+      "ema50": 0.16560984584027336,
+      "ema200": 0.15037638896455327
+    },
+    "ltf": {
+      "rsi": 43.95890095665626,
+      "adx": 34.47131613171299,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6994301994302032,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "DAIUSDT",
+    "price": 1.0011,
+    "score": 27,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 2,
+    "entry": 1.0011,
+    "stop_loss": 0.9960945000000001,
+    "take_profit": 1.011111,
+    "setup": {
+      "side": "LONG",
+      "entry": 1.0011,
+      "tp": 1.011111,
+      "sl": 0.9960945000000001,
+      "rr": 2
+    },
+    "details": {
+      "total": 27,
+      "trendScore": 5,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2,
+      "mcap": 5365159237.318473,
+      "vol24h": 7676856.558898,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 15,
+        "total": 27
+      },
+      "geometry_component": 0,
+      "momentum_component": 15,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 15,
+      "total": 27
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 22.12695198514652,
+      "ema50": 1.0009483633563676,
+      "ema200": 1.0004891761130508
+    },
+    "ltf": {
+      "rsi": 41.746979430239044,
+      "adx": 22.12695198514652,
+      "bias": "LONG",
+      "obvImbalance": "BULLISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6666666666665433,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "HYPEUSDT",
+    "price": 24.37,
+    "score": 27,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 8.09,
+    "entry": 24.37,
+    "stop_loss": 24.521999999999995,
+    "take_profit": 23.14,
+    "setup": {
+      "side": "SHORT",
+      "entry": 24.37,
+      "tp": 23.14,
+      "sl": 24.521999999999995,
+      "rr": 8.09
+    },
+    "details": {
+      "total": 27,
+      "trendScore": 5,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2,
+      "mcap": 8193834282.014872,
+      "vol24h": 7340910.2631,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 15,
+        "total": 27
+      },
+      "geometry_component": 0,
+      "momentum_component": 15,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 15,
+      "total": 27
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 23.85687169557048,
+      "ema50": 25.010488936832598,
+      "ema200": 26.7361166944964
+    },
+    "ltf": {
+      "rsi": 50.6496510407389,
+      "adx": 23.85687169557048,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6874999999999996,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 80.3,
+      "status": "WEAKENING"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "HBARUSDT",
+    "price": 0.11632,
+    "score": 27,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 3.11,
+    "entry": 0.11632,
+    "stop_loss": 0.11720309999999999,
+    "take_profit": 0.11357,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.11632,
+      "tp": 0.11357,
+      "sl": 0.11720309999999999,
+      "rr": 3.11
+    },
+    "details": {
+      "total": 27,
+      "trendScore": 5,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2,
+      "mcap": 4949529702.420931,
+      "vol24h": 5136279.560298501,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 15,
+        "total": 27
+      },
+      "geometry_component": 0,
+      "momentum_component": 15,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 15,
+      "total": 27
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 13.399549144569226,
+      "ema50": 0.11900259735168635,
+      "ema200": 0.12216306612571401
+    },
+    "ltf": {
+      "rsi": 53.723141607584424,
+      "adx": 13.399549144569226,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6666666666666702,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "PARTIUSDT",
+    "price": 0.09289,
+    "score": 27,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 7.98,
+    "entry": 0.09289,
+    "stop_loss": 0.0935655,
+    "take_profit": 0.0875,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.09289,
+      "tp": 0.0875,
+      "sl": 0.0935655,
+      "rr": 7.98
+    },
+    "details": {
+      "total": 27,
+      "trendScore": 5,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2,
+      "mcap": 39766125.273539156,
+      "vol24h": 1031846.157684,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 15,
+        "total": 27
+      },
+      "geometry_component": 0,
+      "momentum_component": 15,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 15,
+      "total": 27
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 21.25435023418454,
+      "ema50": 0.09478913870140686,
+      "ema200": 0.09981978405097494
+    },
+    "ltf": {
+      "rsi": 65.4523893551261,
+      "adx": 21.25435023418454,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.4829749103942656,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "FLOWUSDT",
+    "price": 0.08698,
+    "score": 24.200000000000003,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 7.51,
+    "entry": 0.08698,
+    "stop_loss": 0.08754555,
+    "take_profit": 0.08273,
+    "setup": {
+      "side": "SHORT",
+      "entry": 0.08698,
+      "tp": 0.08273,
+      "sl": 0.08754555,
+      "rr": 7.51
+    },
+    "details": {
+      "total": 24.200000000000003,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 10,
+      "timingScore": 2.2,
+      "mcap": 155116282.2368409,
+      "vol24h": 1000964.3436958,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 22,
+        "total": 24.200000000000003
+      },
+      "geometry_component": 0,
+      "momentum_component": 22,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 22,
+      "total": 24.200000000000003
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 34.44677344166365,
+      "ema50": 0.09259105821460481,
+      "ema200": 0.13054358959309997
+    },
+    "ltf": {
+      "rsi": 60.534286825046806,
+      "adx": 34.44677344166365,
+      "bias": "SHORT",
+      "obvImbalance": "BEARISH",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6002824858757065,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": true
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "ZECUSDT",
+    "price": 407.52,
+    "score": 24.2,
+    "bias": "SHORT",
+    "action": "SHORT",
+    "rr": 6.44,
+    "entry": 407.52,
+    "stop_loss": 409.85909999999996,
+    "take_profit": 392.45,
+    "setup": {
+      "side": "SHORT",
+      "entry": 407.52,
+      "tp": 392.45,
+      "sl": 409.85909999999996,
+      "rr": 6.44
+    },
+    "details": {
+      "total": 24.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 0,
+      "timingScore": 2.2,
+      "mcap": 6655959887.948403,
+      "vol24h": 19813804.358162448,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 12,
+        "total": 24.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 12,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 12,
+      "total": 24.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "UP",
+      "bias": "SHORT",
+      "adx": 26.927998818328785,
+      "ema50": 427.8237051757362,
+      "ema200": 452.1482700270969
+    },
+    "ltf": {
+      "rsi": 55.873744798947556,
+      "adx": 26.927998818328785,
+      "bias": "SHORT",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "BEARISH",
+      "isPullback": true,
+      "pullbackDepth": 0.66108545034642,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 3,
+      "prevScore": 24.2,
+      "status": "STABLE"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "XMRUSDT",
+    "price": 646.18,
+    "score": 24.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 8.67,
+    "entry": 646.18,
+    "stop_loss": 641.3571000000001,
+    "take_profit": 688,
+    "setup": {
+      "side": "LONG",
+      "entry": 646.18,
+      "tp": 688,
+      "sl": 641.3571000000001,
+      "rr": 8.67
+    },
+    "details": {
+      "total": 24.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 0,
+      "timingScore": 2.2,
+      "mcap": 12427341694.958666,
+      "vol24h": 19659485.493199997,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 12,
+        "total": 24.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 12,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 12,
+      "total": 24.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 65.289691984487,
+      "ema50": 512.5622859886182,
+      "ema200": 452.8225324428562
+    },
+    "ltf": {
+      "rsi": 41.195072459973694,
+      "adx": 65.289691984487,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.44987091222031017,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "strategy_name": "Legacy",
     "symbol": "USDEUSDT",
     "price": 1.0004,
-    "score": 34.2,
+    "score": 24.2,
     "bias": "LONG",
     "action": "LONG",
     "rr": 2,
@@ -3459,21 +4692,21 @@
       "rr": 2
     },
     "details": {
-      "total": 34.2,
+      "total": 24.2,
       "trendScore": 12,
       "structureScore": 10,
-      "moneyFlowScore": 10,
+      "moneyFlowScore": 0,
       "timingScore": 2.2,
       "mcap": 0,
-      "vol24h": 12279875.938764,
+      "vol24h": 12117747.72902,
       "score_breakdown": {
         "base": 10,
         "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
+        "momentum": 12,
+        "total": 24.2
       },
       "geometry_component": 0,
-      "momentum_component": 22,
+      "momentum_component": 12,
       "oi_meta": {
         "oi_slope": 0,
         "oi_points": 0,
@@ -3489,8 +4722,8 @@
     "score_breakdown": {
       "base": 10,
       "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
+      "momentum": 12,
+      "total": 24.2
     },
     "raw_components": {
       "price_change_pct": 0,
@@ -3500,15 +4733,15 @@
     "htf": {
       "trend": "DOWN",
       "bias": "LONG",
-      "adx": 40.778721014985564,
-      "ema50": 1.0002496282197844,
-      "ema200": 0.9997789193533629
+      "adx": 41.161103327188705,
+      "ema50": 1.0002517573707475,
+      "ema200": 0.9997841074485165
     },
     "ltf": {
-      "rsi": 51.362782897292725,
-      "adx": 40.778721014985564,
+      "rsi": 52.68134093220696,
+      "adx": 41.161103327188705,
       "bias": "LONG",
-      "obvImbalance": "BULLISH",
+      "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
       "pullbackDepth": 0.3333333333333333,
@@ -3516,1443 +4749,35 @@
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 34.2,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "strategy_name": "Legacy",
-    "symbol": "KAITOUSDT",
-    "price": 0.6285,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 18.38,
-    "entry": 0.6285,
-    "stop_loss": 0.6244620000000001,
-    "take_profit": 0.7027,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.6285,
-      "tp": 0.7027,
-      "sl": 0.6244620000000001,
-      "rr": 18.38
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 151375679.3143292,
-      "vol24h": 4279921.903139,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 40.937399991568824,
-      "ema50": 0.5859298784480887,
-      "ema200": 0.5813973360274771
-    },
-    "ltf": {
-      "rsi": 48.34828299868598,
-      "adx": 40.937399991568824,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7877094972067045,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 5,
-      "prevScore": 37.599999999999994,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "RIVERUSDT",
-    "price": 20.16,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 15.37,
-    "entry": 20.16,
-    "stop_loss": 19.9798985,
-    "take_profit": 22.9283,
-    "setup": {
-      "side": "LONG",
-      "entry": 20.16,
-      "tp": 22.9283,
-      "sl": 19.9798985,
-      "rr": 15.37
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 412927490.9036912,
-      "vol24h": 3068647.012757,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 36.30091985859384,
-      "ema50": 16.336287232357154,
-      "ema200": 10.795990231473182
-    },
-    "ltf": {
-      "rsi": 34.76182003861697,
-      "adx": 36.30091985859384,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "BULLISH",
-      "isPullback": true,
-      "pullbackDepth": 0.6749152790306456,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 34.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "FETUSDT",
-    "price": 0.2844,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 7.74,
-    "entry": 0.2844,
-    "stop_loss": 0.282978,
-    "take_profit": 0.2954,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.2844,
-      "tp": 0.2954,
-      "sl": 0.282978,
-      "rr": 7.74
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 658785237.3019807,
-      "vol24h": 1981877.5097580003,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 32.03620193086135,
-      "ema50": 0.27870229193232443,
-      "ema200": 0.2513578378109019
-    },
-    "ltf": {
-      "rsi": 48.18232128636041,
-      "adx": 32.03620193086135,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.4666666666666704,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 34.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "RENDERUSDT",
-    "price": 2.353,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 7.11,
-    "entry": 2.353,
-    "stop_loss": 2.3372550000000003,
-    "take_profit": 2.465,
-    "setup": {
-      "side": "LONG",
-      "entry": 2.353,
-      "tp": 2.465,
-      "sl": 2.3372550000000003,
-      "rr": 7.11
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 1221748125.3967419,
-      "vol24h": 1839748.4001000002,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 39.82579206202227,
-      "ema50": 2.2488116653199817,
-      "ema200": 1.8376811968107523
-    },
-    "ltf": {
-      "rsi": 47.13135894767586,
-      "adx": 39.82579206202227,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7558139534883689,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 22,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "THEUSDT",
-    "price": 0.2435,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 14.18,
-    "entry": 0.2435,
-    "stop_loss": 0.2418845,
-    "take_profit": 0.2664,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.2435,
-      "tp": 0.2664,
-      "sl": 0.2418845,
-      "rr": 14.18
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 29612589.418211676,
-      "vol24h": 1599342.387106,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 35.00074092121964,
-      "ema50": 0.22647437696828368,
-      "ema200": 0.20478502810486113
-    },
-    "ltf": {
-      "rsi": 51.22433698097237,
-      "adx": 35.00074092121964,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7161290322580651,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 34.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "HUSDT",
-    "price": 0.17156,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 3.61,
-    "entry": 0.17156,
-    "stop_loss": 0.17045344999999998,
-    "take_profit": 0.17555,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.17156,
-      "tp": 0.17555,
-      "sl": 0.17045344999999998,
-      "rr": 3.61
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 393104405.41783106,
-      "vol24h": 1536786.8864647,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 34.267420497262044,
-      "ema50": 0.16541747456685044,
-      "ema200": 0.15014205727761726
-    },
-    "ltf": {
-      "rsi": 49.98624784894474,
-      "adx": 34.267420497262044,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5683760683760716,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 34.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "STEPNUSDT",
-    "price": 0.01901,
-    "score": 34.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 10.19,
-    "entry": 0.01901,
-    "stop_loss": 0.018835349999999997,
-    "take_profit": 0.02079,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.01901,
-      "tp": 0.02079,
-      "sl": 0.018835349999999997,
-      "rr": 10.19
-    },
-    "details": {
-      "total": 34.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2.2,
-      "mcap": 0,
-      "vol24h": 1300798.7723959,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 22,
-        "total": 34.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 22,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 22,
-      "total": 34.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 47.635221397440326,
-      "ema50": 0.018487461289079847,
-      "ema200": 0.017124247210990318
-    },
-    "ltf": {
-      "rsi": 47.104005434232086,
-      "adx": 47.635221397440326,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.7788461538461561,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 46.8,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "DAIUSDT",
-    "price": 1.0014,
-    "score": 27,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 2,
-    "entry": 1.0014,
-    "stop_loss": 0.9962935,
-    "take_profit": 1.011613,
-    "setup": {
-      "side": "LONG",
-      "entry": 1.0014,
-      "tp": 1.011613,
-      "sl": 0.9962935,
-      "rr": 2
-    },
-    "details": {
-      "total": 27,
-      "trendScore": 5,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2,
-      "mcap": 5365159237.318473,
-      "vol24h": 7977982.456874,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 15,
-        "total": 27
-      },
-      "geometry_component": 0,
-      "momentum_component": 15,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 15,
-      "total": 27
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 23.347071638118255,
-      "ema50": 1.0009539388113797,
-      "ema200": 1.000485801970634
-    },
-    "ltf": {
-      "rsi": 52.857466297961004,
-      "adx": 23.347071638118255,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.4166666666665896,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 35.7,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "HBARUSDT",
-    "price": 0.11629,
-    "score": 27,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 4.68,
-    "entry": 0.11629,
-    "stop_loss": 0.11687144999999999,
-    "take_profit": 0.11357,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.11629,
-      "tp": 0.11357,
-      "sl": 0.11687144999999999,
-      "rr": 4.68
-    },
-    "details": {
-      "total": 27,
-      "trendScore": 5,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2,
-      "mcap": 4949529702.420931,
-      "vol24h": 4954342.5766689,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 15,
-        "total": 27
-      },
-      "geometry_component": 0,
-      "momentum_component": 15,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 15,
-      "total": 27
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 13.913920369717353,
-      "ema50": 0.11911601269006472,
-      "ema200": 0.12221619878129517
-    },
-    "ltf": {
-      "rsi": 54.6876943874886,
-      "adx": 13.913920369717353,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6966666666666689,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 5,
-      "prevScore": 27,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "NIGHTUSDT",
-    "price": 0.06655,
-    "score": 27,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.07,
-    "entry": 0.06655,
-    "stop_loss": 0.06704355,
-    "take_profit": 0.06553,
-    "setup": {
-      "side": "SHORT",
-      "entry": 0.06655,
-      "tp": 0.06553,
-      "sl": 0.06704355,
-      "rr": 2.07
-    },
-    "details": {
-      "total": 27,
-      "trendScore": 5,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2,
-      "mcap": 1092551063.872748,
-      "vol24h": 1945905.0456578,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 15,
-        "total": 27
-      },
-      "geometry_component": 0,
-      "momentum_component": 15,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 15,
-      "total": 27
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 17.57666580760881,
-      "ema50": 0.07384793542017623,
-      "ema200": 0.07509872228023558
-    },
-    "ltf": {
-      "rsi": 55.28524208849494,
-      "adx": 17.57666580760881,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.45945945945945643,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 30.4,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "OGUSDT",
-    "price": 4.195,
-    "score": 27,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 2.77,
-    "entry": 4.195,
-    "stop_loss": 4.221,
-    "take_profit": 4.123,
-    "setup": {
-      "side": "SHORT",
-      "entry": 4.195,
-      "tp": 4.123,
-      "sl": 4.221,
-      "rr": 2.77
-    },
-    "details": {
-      "total": 27,
-      "trendScore": 5,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2,
-      "mcap": 18998827.860414885,
-      "vol24h": 1311567.7392100003,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 15,
-        "total": 27
-      },
-      "geometry_component": 0,
-      "momentum_component": 15,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 15,
-      "total": 27
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "SHORT",
-      "adx": 20.277680661350583,
-      "ema50": 4.907860067858146,
-      "ema200": 8.58318110102693
-    },
-    "ltf": {
-      "rsi": 49.55315243435245,
-      "adx": 20.277680661350583,
-      "bias": "SHORT",
-      "obvImbalance": "BEARISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.35121951219512215,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 33.8,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "IDOLUSDT",
-    "price": 0.02994,
-    "score": 27,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 4.6,
-    "entry": 0.02994,
-    "stop_loss": 0.0297704,
-    "take_profit": 0.03072,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.02994,
-      "tp": 0.03072,
-      "sl": 0.0297704,
-      "rr": 4.6
-    },
-    "details": {
-      "total": 27,
-      "trendScore": 5,
-      "structureScore": 10,
-      "moneyFlowScore": 10,
-      "timingScore": 2,
-      "mcap": 31188289.560227532,
-      "vol24h": 1266067.3071146002,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 15,
-        "total": 27
-      },
-      "geometry_component": 0,
-      "momentum_component": 15,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 15,
-      "total": 27
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 18.36462988710881,
-      "ema50": 0.029672556812315353,
-      "ema200": 0.029580068974277875
-    },
-    "ltf": {
-      "rsi": 43.918860810024114,
-      "adx": 18.36462988710881,
-      "bias": "LONG",
-      "obvImbalance": "BULLISH",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.5064935064935062,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 27,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "LTCUSDT",
-    "price": 76.18,
+    "symbol": "ANBUSDT",
+    "price": 0.01952,
     "score": 24.2,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 2.24,
-    "entry": 76.18,
-    "stop_loss": 76.58099999999999,
-    "take_profit": 75.28,
+    "rr": 3.73,
+    "entry": 0.01952,
+    "stop_loss": 0.0197583,
+    "take_profit": 0.01863,
     "setup": {
       "side": "SHORT",
-      "entry": 76.18,
-      "tp": 75.28,
-      "sl": 76.58099999999999,
-      "rr": 2.24
-    },
-    "details": {
-      "total": 24.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 0,
-      "timingScore": 2.2,
-      "mcap": 5795142121.380462,
-      "vol24h": 27297382.639126997,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 12,
-        "total": 24.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 12,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 12,
-      "total": 24.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 36.7822617257341,
-      "ema50": 79.95961626642375,
-      "ema200": 80.79189216504768
-    },
-    "ltf": {
-      "rsi": 49.10096237456523,
-      "adx": 36.7822617257341,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.47619047619047905,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 12,
-      "status": "STRENGTHENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "ZECUSDT",
-    "price": 407.33,
-    "score": 24.2,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 5.57,
-    "entry": 407.33,
-    "stop_loss": 409.99979999999994,
-    "take_profit": 392.45,
-    "setup": {
-      "side": "SHORT",
-      "entry": 407.33,
-      "tp": 392.45,
-      "sl": 409.99979999999994,
-      "rr": 5.57
-    },
-    "details": {
-      "total": 24.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 0,
-      "timingScore": 2.2,
-      "mcap": 6655959887.948403,
-      "vol24h": 19487799.29124131,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 12,
-        "total": 24.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 12,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 12,
-      "total": 24.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 28.63344731002027,
-      "ema50": 428.5771337197749,
-      "ema200": 452.546438138295
-    },
-    "ltf": {
-      "rsi": 60.07325748091927,
-      "adx": 28.63344731002027,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6501154734411083,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 24.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "FDUSDUSDT",
-    "price": 0.9999,
-    "score": 24.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 2,
-    "entry": 0.9999,
-    "stop_loss": 0.994801,
-    "take_profit": 1.010098,
-    "setup": {
-      "side": "LONG",
-      "entry": 0.9999,
-      "tp": 1.010098,
-      "sl": 0.994801,
-      "rr": 2
-    },
-    "details": {
-      "total": 24.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 0,
-      "timingScore": 2.2,
-      "mcap": 493997706.8269063,
-      "vol24h": 12511030.878899,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 12,
-        "total": 24.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 12,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 12,
-      "total": 24.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "DOWN",
-      "bias": "LONG",
-      "adx": 48.18088348053412,
-      "ema50": 0.9998902284224356,
-      "ema200": 0.9992817960199929
-    },
-    "ltf": {
-      "rsi": 49.09316882917546,
-      "adx": 48.18088348053412,
-      "bias": "LONG",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6666666666666666,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 2,
-      "prevScore": 45,
-      "status": "WEAKENING"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "HYPEUSDT",
-    "price": 24.36,
-    "score": 24.2,
-    "bias": "SHORT",
-    "action": "SHORT",
-    "rr": 9.25,
-    "entry": 24.36,
-    "stop_loss": 24.49185,
-    "take_profit": 23.14,
-    "setup": {
-      "side": "SHORT",
-      "entry": 24.36,
-      "tp": 23.14,
-      "sl": 24.49185,
-      "rr": 9.25
-    },
-    "details": {
-      "total": 24.2,
-      "trendScore": 12,
-      "structureScore": 10,
-      "moneyFlowScore": 0,
-      "timingScore": 2.2,
-      "mcap": 8193834282.014872,
-      "vol24h": 7338744.129299999,
-      "score_breakdown": {
-        "base": 10,
-        "geometry": 0,
-        "momentum": 12,
-        "total": 24.2
-      },
-      "geometry_component": 0,
-      "momentum_component": 12,
-      "oi_meta": {
-        "oi_slope": 0,
-        "oi_points": 0,
-        "oi_avg": 0
-      },
-      "sentiment_meta": {
-        "liq_longs": 0,
-        "liq_shorts": 0,
-        "liq_ratio": 0,
-        "top_ls_ratio": 0
-      }
-    },
-    "score_breakdown": {
-      "base": 10,
-      "geometry": 0,
-      "momentum": 12,
-      "total": 24.2
-    },
-    "raw_components": {
-      "price_change_pct": 0,
-      "duration_candles": 0,
-      "divergence_type": 0
-    },
-    "htf": {
-      "trend": "UP",
-      "bias": "SHORT",
-      "adx": 25.012732858112347,
-      "ema50": 25.03819996763545,
-      "ema200": 26.75666293341697
-    },
-    "ltf": {
-      "rsi": 52.08669815087165,
-      "adx": 25.012732858112347,
-      "bias": "SHORT",
-      "obvImbalance": "NEUTRAL",
-      "divergence": "NONE",
-      "isPullback": true,
-      "pullbackDepth": 0.6770833333333313,
-      "volumeOk": true,
-      "momentumOk": true,
-      "isOverextended": false
-    },
-    "timestamp": 1768303861984,
-    "source": "MEXC",
-    "meta": {
-      "htfInterval": "4h",
-      "ltfInterval": "15m"
-    },
-    "history": {
-      "consecutiveScans": 4,
-      "prevScore": 24.2,
-      "status": "STABLE"
-    }
-  },
-  {
-    "strategy_name": "Legacy",
-    "symbol": "SBETONUSDT",
-    "price": 10.275,
-    "score": 24.2,
-    "bias": "LONG",
-    "action": "LONG",
-    "rr": 4.28,
-    "entry": 10.275,
-    "stop_loss": 10.222629999999999,
-    "take_profit": 10.499,
-    "setup": {
-      "side": "LONG",
-      "entry": 10.275,
-      "tp": 10.499,
-      "sl": 10.222629999999999,
-      "rr": 4.28
+      "entry": 0.01952,
+      "tp": 0.01863,
+      "sl": 0.0197583,
+      "rr": 3.73
     },
     "details": {
       "total": 24.2,
@@ -4961,7 +4786,7 @@
       "moneyFlowScore": 0,
       "timingScore": 2.2,
       "mcap": 0,
-      "vol24h": 3966595.59157,
+      "vol24h": 4966613.09312,
       "score_breakdown": {
         "base": 10,
         "geometry": 0,
@@ -4994,53 +4819,53 @@
       "divergence_type": 0
     },
     "htf": {
-      "trend": "UP",
-      "bias": "LONG",
-      "adx": 25.956611384762432,
-      "ema50": 10.05455616639928,
-      "ema200": 9.96333323021331
+      "trend": "DOWN",
+      "bias": "SHORT",
+      "adx": 33.37343589669805,
+      "ema50": 0.019553736426659533,
+      "ema200": 1768309200000
     },
     "ltf": {
-      "rsi": 44.66302672846394,
-      "adx": 25.956611384762432,
-      "bias": "LONG",
+      "rsi": 47.4905098333336,
+      "adx": 33.37343589669805,
+      "bias": "SHORT",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6568914956011715,
+      "pullbackDepth": 0.6371681415929195,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 2,
-      "prevScore": 24.2,
-      "status": "STABLE"
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
     }
   },
   {
     "strategy_name": "Legacy",
     "symbol": "LITUSDT",
-    "price": 2.201,
+    "price": 2.157,
     "score": 24.2,
     "bias": "SHORT",
     "action": "SHORT",
-    "rr": 5.53,
-    "entry": 2.201,
-    "stop_loss": 2.2300949999999995,
+    "rr": 4.52,
+    "entry": 2.157,
+    "stop_loss": 2.18286,
     "take_profit": 2.04,
     "setup": {
       "side": "SHORT",
-      "entry": 2.201,
+      "entry": 2.157,
       "tp": 2.04,
-      "sl": 2.2300949999999995,
-      "rr": 5.53
+      "sl": 2.18286,
+      "rr": 4.52
     },
     "details": {
       "total": 24.2,
@@ -5049,7 +4874,7 @@
       "moneyFlowScore": 0,
       "timingScore": 2.2,
       "mcap": 546036466.0607198,
-      "vol24h": 3808248.13965,
+      "vol24h": 3672923.03103,
       "score_breakdown": {
         "base": 10,
         "geometry": 0,
@@ -5084,30 +4909,30 @@
     "htf": {
       "trend": "UP",
       "bias": "SHORT",
-      "adx": 37.64714914260231,
-      "ema50": 2.6319922247443364,
-      "ema200": 1768291200000
+      "adx": 38.06806151947114,
+      "ema50": 2.612724555800114,
+      "ema200": 1768305600000
     },
     "ltf": {
-      "rsi": 56.17827264669943,
-      "adx": 37.64714914260231,
+      "rsi": 45.28018497138179,
+      "adx": 38.06806151947114,
       "bias": "SHORT",
       "obvImbalance": "NEUTRAL",
-      "divergence": "BEARISH",
+      "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.6338582677165355,
+      "pullbackDepth": 0.4606299212598425,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",
       "ltfInterval": "15m"
     },
     "history": {
-      "consecutiveScans": 4,
+      "consecutiveScans": 3,
       "prevScore": 24.2,
       "status": "STABLE"
     }
@@ -5115,20 +4940,20 @@
   {
     "strategy_name": "Legacy",
     "symbol": "XVGUSDT",
-    "price": 0.007312,
+    "price": 0.007239,
     "score": 24.2,
     "bias": "LONG",
     "action": "LONG",
-    "rr": 5.88,
-    "entry": 0.007312,
-    "stop_loss": 0.007230665,
+    "rr": 6.49,
+    "entry": 0.007239,
+    "stop_loss": 0.00715405,
     "take_profit": 0.00779,
     "setup": {
       "side": "LONG",
-      "entry": 0.007312,
+      "entry": 0.007239,
       "tp": 0.00779,
-      "sl": 0.007230665,
-      "rr": 5.88
+      "sl": 0.00715405,
+      "rr": 6.49
     },
     "details": {
       "total": 24.2,
@@ -5137,7 +4962,7 @@
       "moneyFlowScore": 0,
       "timingScore": 2.2,
       "mcap": 118907892.97029589,
-      "vol24h": 3225343.47381081,
+      "vol24h": 3248639.9771333802,
       "score_breakdown": {
         "base": 10,
         "geometry": 0,
@@ -5172,23 +4997,199 @@
     "htf": {
       "trend": "UP",
       "bias": "LONG",
-      "adx": 30.987895221993693,
-      "ema50": 0.0061445963470259084,
-      "ema200": 0.005889146397275074
+      "adx": 34.31329778970925,
+      "ema50": 0.006184160811795246,
+      "ema200": 0.005901638561967686
     },
     "ltf": {
-      "rsi": 53.60860095792671,
-      "adx": 30.987895221993693,
+      "rsi": 49.54500661919613,
+      "adx": 34.31329778970925,
       "bias": "LONG",
       "obvImbalance": "NEUTRAL",
       "divergence": "NONE",
       "isPullback": true,
-      "pullbackDepth": 0.37372947615324487,
+      "pullbackDepth": 0.459166666666667,
       "volumeOk": true,
       "momentumOk": true,
       "isOverextended": false
     },
-    "timestamp": 1768303861984,
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "DUSKUSDT",
+    "price": 0.06892,
+    "score": 24.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 12.5,
+    "entry": 0.06892,
+    "stop_loss": 0.0680182,
+    "take_profit": 0.08019,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.06892,
+      "tp": 0.08019,
+      "sl": 0.0680182,
+      "rr": 12.5
+    },
+    "details": {
+      "total": 24.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 0,
+      "timingScore": 2.2,
+      "mcap": 34310561.869845204,
+      "vol24h": 2952529.5243502,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 12,
+        "total": 24.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 12,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 12,
+      "total": 24.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 42.39390900377,
+      "ema50": 0.059216561283049016,
+      "ema200": 0.051524105245280116
+    },
+    "ltf": {
+      "rsi": 38.34402267972771,
+      "adx": 42.39390900377,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.7568838146406985,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
+    "source": "MEXC",
+    "meta": {
+      "htfInterval": "4h",
+      "ltfInterval": "15m"
+    },
+    "history": {
+      "consecutiveScans": 1,
+      "prevScore": 0,
+      "status": "NEW"
+    }
+  },
+  {
+    "strategy_name": "Legacy",
+    "symbol": "POLUSDT",
+    "price": 0.1506,
+    "score": 24.2,
+    "bias": "LONG",
+    "action": "LONG",
+    "rr": 5.76,
+    "entry": 0.1506,
+    "stop_loss": 0.14934950000000002,
+    "take_profit": 0.1578,
+    "setup": {
+      "side": "LONG",
+      "entry": 0.1506,
+      "tp": 0.1578,
+      "sl": 0.14934950000000002,
+      "rr": 5.76
+    },
+    "details": {
+      "total": 24.2,
+      "trendScore": 12,
+      "structureScore": 10,
+      "moneyFlowScore": 0,
+      "timingScore": 2.2,
+      "mcap": 1591848721.864821,
+      "vol24h": 2774996.440447,
+      "score_breakdown": {
+        "base": 10,
+        "geometry": 0,
+        "momentum": 12,
+        "total": 24.2
+      },
+      "geometry_component": 0,
+      "momentum_component": 12,
+      "oi_meta": {
+        "oi_slope": 0,
+        "oi_points": 0,
+        "oi_avg": 0
+      },
+      "sentiment_meta": {
+        "liq_longs": 0,
+        "liq_shorts": 0,
+        "liq_ratio": 0,
+        "top_ls_ratio": 0
+      }
+    },
+    "score_breakdown": {
+      "base": 10,
+      "geometry": 0,
+      "momentum": 12,
+      "total": 24.2
+    },
+    "raw_components": {
+      "price_change_pct": 0,
+      "duration_candles": 0,
+      "divergence_type": 0
+    },
+    "htf": {
+      "trend": "DOWN",
+      "bias": "LONG",
+      "adx": 34.394158971957445,
+      "ema50": 0.14738556442557427,
+      "ema200": 0.12928674381501562
+    },
+    "ltf": {
+      "rsi": 48.302990368368974,
+      "adx": 34.394158971957445,
+      "bias": "LONG",
+      "obvImbalance": "NEUTRAL",
+      "divergence": "NONE",
+      "isPullback": true,
+      "pullbackDepth": 0.6071428571428553,
+      "volumeOk": true,
+      "momentumOk": true,
+      "isOverextended": false
+    },
+    "timestamp": 1768309315890,
     "source": "MEXC",
     "meta": {
       "htfInterval": "4h",

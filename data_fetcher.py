@@ -3,6 +3,12 @@ import time
 import logging
 
 # Configure logging
+import logging
+import json
+import os
+import hashlib
+
+# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
@@ -11,7 +17,51 @@ class CoinalyzeClient:
         self.api_key = api_key
         self.base_url = "https://api.coinalyze.net/v1"
         self.last_req_time = 0
-        self.req_interval = 2.0  # 30 requests/min max to be safe (limit is 40)
+        self.req_interval = 2.2  # Slightly increased to be safer (limit is 40/min)
+        self.cache_dir = "data/coinalyze_cache"
+        self.cache_ttl = 900  # 15 minutes in seconds
+
+        # Ensure cache directory exists
+        if not os.path.exists(self.cache_dir):
+            os.makedirs(self.cache_dir, exist_ok=True)
+
+    def _get_cache_key(self, prefix, symbol, **kwargs):
+        """Generate a unique cache filename based on parameters."""
+        # Create a stable string representation of kwargs
+        param_str = json.dumps(kwargs, sort_keys=True)
+        # Hash it to keep filename short
+        param_hash = hashlib.md5(param_str.encode()).hexdigest()[:8]
+        # Clean symbol
+        safe_symbol = symbol.replace('/', '').replace(':', '')
+        return f"{prefix}_{safe_symbol}_{param_hash}.json"
+
+    def _get_from_cache(self, filename):
+        """Retrieve data from cache if valid."""
+        path = os.path.join(self.cache_dir, filename)
+        if not os.path.exists(path):
+            return None
+            
+        try:
+            # Check modification time
+            mtime = os.path.getmtime(path)
+            if (time.time() - mtime) > self.cache_ttl:
+                return None # Expired
+                
+            with open(path, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            logger.warning(f"Cache Read Error ({filename}): {e}")
+            return None
+
+    def _save_to_cache(self, filename, data):
+        """Save data to cache."""
+        path = os.path.join(self.cache_dir, filename)
+        try:
+            with open(path, 'w') as f:
+                json.dump(data, f)
+        except Exception as e:
+            logger.warning(f"Cache Write Error ({filename}): {e}")
+
 
     def _wait_for_rate_limit(self):
         """Enforce rate limit by sleeping if needed."""
@@ -36,46 +86,65 @@ class CoinalyzeClient:
     def get_open_interest_delta(self, symbol, interval='15m'):
         """
         Fetch Open Interest history and return % change over last 3 periods.
-        Returns:
-            float: % Change (e.g., 5.0 for +5%, -2.0 for -2%)
-            None: If request failed
         """
-        self._wait_for_rate_limit()
+        # Note: This method reuses get_open_interest_history logic implicitly or explicitly.
+        # But for now I'll wrap the existing logic with a simple cache since it doesn't call the other method?
+        # Actually, let's cache the RESULT of this calculation or the raw request?
+        # Raw request is better for reusability.
+        
+        # This method duplicates a lot of request logic. 
+        # For simplicity and robust caching, I will cache the RAW REQUEST response.
         
         mapped_symbol = self.convert_symbol(symbol)
         
         # Map Interval
         interval_map = {'15m': '15min', '1h': '1hour', '4h': '4hour'}
         mapped_interval = interval_map.get(interval, interval)
-        if mapped_interval == '15m': mapped_interval = '15min' # Fallback
+        if mapped_interval == '15m': mapped_interval = '15min'
         
-        endpoint = f"{self.base_url}/open-interest-history"
+        # Calculate 'from' timestamp (rounded to hour to improve cache hit rate?)
+        # No, 'from' depends on 'now'. This makes caching hard if 'now' changes every second.
+        # FIX: Align 'to_ts' to the nearest 15-minute block?
+        # If we align timestamps, we get cache hits.
         
-        # We need roughly a few candles. API params:
-        # symbols, interval, from, to.
-        # It's easier to verify endpoint docs, but assuming standard 'limit' or time range.
-        # Coinalyze API usually requires 'from'/'to'.
+        now = int(time.time())
+        # snap to previous 15m candle close
+        to_ts = now - (now % 900) 
+        from_ts = to_ts - 3600
         
-        # Calculate 'from' timestamp (last 60 mins)
-        to_ts = int(time.time())
-        from_ts = to_ts - 3600 # Last 1 hour is enough for 3 * 15m candles
+        cache_filename = self._get_cache_key("oi_delta", mapped_symbol, interval=mapped_interval, t=to_ts)
+        cached_data = self._get_from_cache(cache_filename)
         
-        params = {
-            'symbols': mapped_symbol,
-            'interval': mapped_interval,
-            'from': from_ts,
-            'to': to_ts,
-            'api_key': self.api_key
-        }
-        
-        try:
-            response = requests.get(endpoint, params=params, timeout=5)
-            
-            if response.status_code != 200:
-                logger.error(f"Coinalyze API Error {response.status_code}: {response.text}")
+        data = None
+        if cached_data:
+             data = cached_data
+        else:
+             self._wait_for_rate_limit()
+             endpoint = f"{self.base_url}/open-interest-history"
+             params = {
+                'symbols': mapped_symbol,
+                'interval': mapped_interval,
+                'from': from_ts,
+                'to': to_ts,
+                'api_key': self.api_key
+             }
+             try:
+                response = requests.get(endpoint, params=params, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    self._save_to_cache(cache_filename, data)
+                else:
+                    logger.error(f"Coinalyze API Error {response.status_code}: {response.text}")
+                    return None
+             except Exception as e:
+                logger.error(f"Coinalyze Request Failed: {e}")
                 return None
+
+        # Process Data (unchanged logic)
+        try:
+             # Expected format processing...
                 
-            data = response.json()
+
             # Expected format: list of objects usually, or dict with history
             # Let's assume standard response: [{t:..., o:..., h:..., l:..., c:...}, ...]
             # or data[0].history...
@@ -114,41 +183,45 @@ class CoinalyzeClient:
             return None
 
     def get_liquidation_history(self, symbol, interval='15min', lookback=3):
-        """
-        Fetch Liquidation history and return sum of Longs/Shorts over lookback.
-        Returns:
-            dict: {'longs': float, 'shorts': float}
-            None: If failed
-        """
-        self._wait_for_rate_limit()
-        
         mapped_symbol = self.convert_symbol(symbol)
-        endpoint = f"{self.base_url}/liquidation-history"
         
-        # Calculate time range
-        to_ts = int(time.time())
-        from_ts = to_ts - (3600 * 4) # ample buffer
+        # Align time to improve caching
+        now = int(time.time())
+        to_ts = now - (now % 900)
+        from_ts = to_ts - (3600 * 4)
         
-        # Map Interval (same logic)
+        # Map Interval
         interval_map = {'15m': '15min', '1h': '1hour', '4h': '4hour'}
         mapped_interval = interval_map.get(interval, interval)
         if mapped_interval == '15m': mapped_interval = '15min'
+
+        cache_filename = self._get_cache_key("liqs", mapped_symbol, interval=mapped_interval, t=to_ts)
+        cached_data = self._get_from_cache(cache_filename)
         
-        params = {
-            'symbols': mapped_symbol,
-            'interval': mapped_interval,
-            'from': from_ts,
-            'to': to_ts,
-            'api_key': self.api_key
-        }
-        
-        try:
-            response = requests.get(endpoint, params=params, timeout=5)
-            if response.status_code != 200:
-                logger.error(f"Coinalyze Liq API Error {response.status_code}: {response.text}")
+        data = None
+        if cached_data:
+            data = cached_data
+        else:
+            self._wait_for_rate_limit()
+            endpoint = f"{self.base_url}/liquidation-history"
+            params = {
+                'symbols': mapped_symbol,
+                'interval': mapped_interval,
+                'from': from_ts,
+                'to': to_ts,
+                'api_key': self.api_key
+            }
+            try:
+                response = requests.get(endpoint, params=params, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    self._save_to_cache(cache_filename, data)
+                else:
+                    logger.error(f"Coinalyze Liq API Error {response.status_code}: {response.text}")
+                    return None
+            except Exception as e:
+                logger.error(f"Coinalyze Liq Request Failed: {e}")
                 return None
-                
-            data = response.json()
             
             # Parsing Logic (Reuse OI pattern)
             history = []
@@ -172,39 +245,42 @@ class CoinalyzeClient:
             
             return {'longs': total_longs, 'shorts': total_shorts}
             
-            return {'longs': total_longs, 'shorts': total_shorts}
-            
-        except Exception as e:
-            logger.error(f"Coinalyze Liq Request Failed: {e}")
-            return None
+
 
     def get_open_interest_history(self, symbol, hours=24):
-        """
-        Fetch full Open Interest history compatible with Strategies.py
-        Returns list of dicts: [{'timestamp': 123, 'value': 456}, ...]
-        """
-        self._wait_for_rate_limit()
         mapped_symbol = self.convert_symbol(symbol)
-        endpoint = f"{self.base_url}/open-interest-history"
         
-        to_ts = int(time.time())
+        now = int(time.time())
+        to_ts = now - (now % 900)
         from_ts = to_ts - (int(hours) * 3600)
         
-        params = {
-            'symbols': mapped_symbol,
-            'interval': '15min', # Defaulting to 15m resolution
-            'from': from_ts,
-            'to': to_ts,
-            'api_key': self.api_key
-        }
+        cache_filename = self._get_cache_key("oi_hist", mapped_symbol, hours=hours, t=to_ts)
+        cached_data = self._get_from_cache(cache_filename)
         
-        try:
-            response = requests.get(endpoint, params=params, timeout=5)
-            if response.status_code != 200:
-                logger.error(f"Coinalyze OI Hist Error {response.status_code}: {response.text}")
+        data = None
+        if cached_data:
+            data = cached_data
+        else:
+            self._wait_for_rate_limit()
+            endpoint = f"{self.base_url}/open-interest-history"
+            params = {
+                'symbols': mapped_symbol,
+                'interval': '15min',
+                'from': from_ts,
+                'to': to_ts,
+                'api_key': self.api_key
+            }
+            try:
+                response = requests.get(endpoint, params=params, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    self._save_to_cache(cache_filename, data)
+                else:
+                    logger.error(f"Coinalyze OI Hist Error {response.status_code}: {response.text}")
+                    return None
+            except Exception as e:
+                logger.error(f"Coinalyze OI Hist Request Failed: {e}")
                 return None
-                
-            data = response.json()
             history_data = []
             
             # Parsing Logic
@@ -221,78 +297,92 @@ class CoinalyzeClient:
                         
             return history_data
             
-        except Exception as e:
-            logger.error(f"Coinalyze OI Hist Request Failed: {e}")
-            return None
+
 
     def get_funding_rate(self, symbol):
         """
         Fetch current predicted/avg funding rate.
-        Returns float (e.g., 0.0001 for 0.01%) or None.
         """
-        self._wait_for_rate_limit()
         mapped_symbol = self.convert_symbol(symbol)
-        endpoint = f"{self.base_url}/funding-rate" # Check endpoint if history or current
-        # Coinalyze has /predicted-funding-rate and /funding-rate-history
+        # Predicted funding is usually very volatile, but 15m cache is likely acceptable for "filtering".
+        # If user wants STRICT LIVE funding, we might lower TTL for this specific call, or keep simple 15m.
+        # Given the "Funding > 0.05%" rule, 15m old data is probably safe.
         
-        # We'll use predicted for live check
-        endpoint = f"{self.base_url}/predicted-funding-rate"
+        cache_filename = self._get_cache_key("funding", mapped_symbol)
+        cached_data = self._get_from_cache(cache_filename)
         
-        try:
-            response = requests.get(endpoint, params={'symbols': mapped_symbol, 'api_key': self.api_key}, timeout=5)
-            if response.status_code != 200:
+        data = None
+        if cached_data:
+            data = cached_data
+        else:
+            self._wait_for_rate_limit()
+            endpoint = f"{self.base_url}/predicted-funding-rate"
+            try:
+                response = requests.get(endpoint, params={'symbols': mapped_symbol, 'api_key': self.api_key}, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    self._save_to_cache(cache_filename, data)
+                else:
+                    return None
+            except:
                 return None
             
-            data = response.json()
-            # Format: [{"symbol":"BTCUSDT_PERP.A","pf":0.000100,...}]
-            if isinstance(data, list) and len(data) > 0:
-                return float(data[0].get('pf', 0))
-            return None
-        except:
-             return None
+        if isinstance(data, list) and len(data) > 0:
+            return float(data[0].get('pf', 0))
+        return None
 
     def get_ls_ratio_top_traders(self, symbol):
         """
         Fetch Long/Short Ratio of Top Traders.
         Returns float (e.g. 1.5) or None.
         """
-        self._wait_for_rate_limit()
         mapped_symbol = self.convert_symbol(symbol)
-        # Verify specific endpoint. 'long-short-ratio-history' usually.
-        endpoint = f"{self.base_url}/long-short-ratio-history"
         
-        to_ts = int(time.time())
-        from_ts = to_ts - 3600 # Last hour
+        now = int(time.time())
+        to_ts = now - (now % 900)
+        from_ts = to_ts - 3600
         
-        params = {
-            'symbols': mapped_symbol,
-            'interval': '15min',
-            'from': from_ts,
-            'to': to_ts,
-            'api_key': self.api_key
-        }
+        cache_filename = self._get_cache_key("ls_top", mapped_symbol, t=to_ts)
+        cached_data = self._get_from_cache(cache_filename)
         
+        data = None
+        if cached_data:
+            data = cached_data
+        else:
+            self._wait_for_rate_limit()
+            endpoint = f"{self.base_url}/long-short-ratio-history"
+            params = {
+                'symbols': mapped_symbol,
+                'interval': '15min',
+                'from': from_ts,
+                'to': to_ts,
+                'api_key': self.api_key
+            }
+            try:
+                response = requests.get(endpoint, params=params, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    self._save_to_cache(cache_filename, data)
+                else:
+                    return None
+            except:
+                return None
+        
+        # Process Data
+        if data is None: return None
+
         try:
-            response = requests.get(endpoint, params=params, timeout=5)
-            if response.status_code != 200: return None
-            
-            data = response.json()
-            # Need ratio. Usually 'l' (longs) and 's' (shorts) % or ratio directly?
-            # Coinalyze documentation usually returns ratio in 'v' or separate l/s.
-            # Let's assume ratio is implicitly l/s or provided.
-            # Actually, standard LS endpoint gives: ratio.
-            
-            if isinstance(data, list) and len(data) > 0 and 'history' in data[0]:
-                hist = data[0]['history']
-                if hist:
-                    last = hist[-1]
-                    # 'l' and 's' are ratios or percentages?
-                    # Usually it's: l: 60.5, s: 39.5.
-                    l = float(last.get('l', 0))
-                    s = float(last.get('s', 0))
-                    if s > 0:
-                        return l / s
-                    return 1.0
+            if isinstance(data, list) and len(data) > 0:
+                first = data[0] # Coinalyze returns list of objects
+                if 'history' in first:
+                    hist = first['history']
+                    if hist:
+                        last = hist[-1]
+                        l = float(last.get('l', 0))
+                        s = float(last.get('s', 0))
+                        if s > 0:
+                            return l / s
+                        return 1.0
             return None
         except:
             return None
