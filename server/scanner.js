@@ -138,7 +138,7 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
 
                 // Pass the requested strategy to Python with TIMEOUT and ENV
                 const { stdout, stderr } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--symbol', symbol, '--config', configStr], {
-                    timeout: 30000,
+                    timeout: 60000,
                     env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
                 });
 
@@ -330,7 +330,7 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
     const history = await getScanHistory();
     const nextHistory = {};
 
-    const BATCH_SIZE = CONFIG.SYSTEM.BATCH_SIZE;
+    const BATCH_SIZE = 5; // Reduced from Config for Stability (Parallel V1/V2 execution)
     for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
         const batchPairs = topPairs.slice(i, i + BATCH_SIZE);
         const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory, strategy);
@@ -400,11 +400,33 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
 
     const mergedResults = Array.from(resultMap.values());
 
+    // [MERGE FIX] Load previous results to preserve strategies not updated in this run
+    let existingFeedData = [];
+    try {
+        const prevPath = path.join(DATA_DIR, `latest_results_${source}.json`);
+        const prevData = await fs.readFile(prevPath, 'utf-8');
+        existingFeedData = JSON.parse(prevData);
+    } catch (e) { }
+
+    const preservedResults = existingFeedData.filter(r => {
+        if (targetStrategy === 'all') return false;
+        if (targetStrategy === 'Legacy') return r.strategy_name !== 'Legacy';
+        if (targetStrategy === 'Breakout') return r.strategy_name !== 'Breakout'; // Preserves V2 if only V1 ran
+        if (targetStrategy === 'BreakoutV2') return r.strategy_name !== 'BreakoutV2';
+        return true;
+    });
+
+    // Combine new and preserved
+    const allCandidates = [...preservedResults, ...mergedResults];
+
     await saveScanHistory(nextHistory);
 
-    // --- QUOTA LOGIC ---
-    const legacyAll = mergedResults.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
-    const breakoutAll = mergedResults.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
+    // --- QUOTA LOGIC (Applied to Unified List) ---
+    const legacyAll = allCandidates.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
+    const breakoutAll = allCandidates.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
+    const breakoutV2All = allCandidates.filter(r => r.strategy_name === 'BreakoutV2').sort((a, b) => b.score - a.score);
+
+    Logger.info(`[SCAN DEBUG] Candidates Count: Legacy=${legacyAll.length}, Breakout=${breakoutAll.length}, BreakoutV2=${breakoutV2All.length}`);
 
     const legacySelected = legacyAll.slice(0, 20);
     const breakoutSelected = breakoutAll.filter((r, index) => {
@@ -413,7 +435,14 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
         return isTop20 || isHighValue;
     });
 
-    const finalResults = [...legacySelected, ...breakoutSelected].sort((a, b) => b.score - a.score);
+    // Select V2 with same logic as Breakout
+    const breakoutV2Selected = breakoutV2All.filter((r, index) => {
+        const isTop20 = index < 20;
+        const isHighValue = r.score > 80;
+        return isTop20 || isHighValue;
+    });
+
+    const finalResults = [...legacySelected, ...breakoutSelected, ...breakoutV2Selected].sort((a, b) => b.score - a.score);
 
     await saveLatestResults(finalResults, source);
 

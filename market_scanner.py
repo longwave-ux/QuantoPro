@@ -11,6 +11,20 @@ from strategies import QuantProLegacy, QuantProBreakout, QuantProBreakoutV2
 print(f"[ENV-DEBUG] Coinalyze Key Present: {bool(os.getenv('COINALYZE_API_KEY'))}", file=sys.stderr)
 
 
+# Common LTF Default Structure for Frontend Compatibility
+DEFAULT_LTF = {
+    'rsi': 50.0,
+    'adx': 0.0,
+    'bias': 'NONE',
+    'obvImbalance': 'NEUTRAL',
+    'divergence': 'NONE',
+    'isPullback': False,
+    'pullbackDepth': 0.0,
+    'volumeOk': True,
+    'momentumOk': True,
+    'isOverextended': False
+}
+
 def load_data(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
@@ -212,6 +226,8 @@ def main():
         
         # Inject symbol for strategy use (plotting)
         df['symbol'] = symbol
+        if df_htf is not None:
+             df_htf['symbol'] = symbol
 
         # Load Mcap
         mcap = 0
@@ -301,12 +317,18 @@ def main():
             final_res = []
             for r in results:
                 if r['action'] != 'WAIT':
-                    if (r.get('rr', 0) or 0) >= 2.0:
+                    if r['action'] == 'WATCH' or (r.get('rr', 0) or 0) >= 2.0:
                         final_res.append(r)
                 else:
                     final_res.append(r)
 
             print(json.dumps(clean_nans(final_res), indent=2))
+            
+            # DEBUG: Show dropped
+            if len(results) > len(final_res):
+                dropped = [r for r in results if r not in final_res]
+                print(f"DEBUG: DROPPED {len(dropped)} RESULTS: {[d['strategy_name'] + ':' + d['action'] for d in dropped]}", file=sys.stderr)
+
         
     except Exception as e:
         import traceback
