@@ -39,12 +39,10 @@ export default function App() {
         } catch { return []; }
     });
 
-    const [lastUpdated, setLastUpdated] = useState<Date | null>(() => {
-        try {
-            const saved = localStorage.getItem('cs_last_updated');
-            return saved ? new Date(saved) : null;
-        } catch { return null; }
-    });
+    // Derived State for Consistency
+    const lastUpdated = (data && data.length > 0 && data[0].timestamp)
+        ? new Date(data[0].timestamp)
+        : null;
 
     const [isScanning, setIsScanning] = useState(false);
     const [scanError, setScanError] = useState<string | null>(null);
@@ -269,13 +267,11 @@ export default function App() {
             }
 
             setData(results);
-            const now = new Date();
-            setLastUpdated(now);
             setTimeLeft(REFRESH_INTERVAL);
 
             // Persist Results
             localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(results));
-            localStorage.setItem('cs_last_updated', now.toISOString());
+            // Removed inconsistent local timestamp persistence
 
             // Trigger Notifications using the Ref to ensure latest settings are used
             await sendTelegramAlert(results, settingsRef.current);
@@ -314,8 +310,9 @@ export default function App() {
                         console.log("Loaded results from server cache");
                         setData(serverResults);
                         // Use the timestamp from the first result or current time
-                        const resultTime = serverResults[0].timestamp ? new Date(serverResults[0].timestamp) : new Date();
-                        setLastUpdated(resultTime);
+                        // Use the timestamp from the first result or current time
+                        // const resultTime = serverResults[0].timestamp ? new Date(serverResults[0].timestamp) : new Date();
+                        // setLastUpdated(resultTime);
 
                         // Update local storage with fresh server data
                         localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(serverResults));
@@ -375,7 +372,8 @@ export default function App() {
                         if (dataRes.ok) {
                             const newData = await dataRes.json();
                             setData(newData);
-                            setLastUpdated(new Date());
+                            setData(newData);
+                            // setLastUpdated(new Date()); // Derived state now handles this
                             localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(newData));
                         }
                         setIsScanning(false);

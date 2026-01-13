@@ -3,6 +3,7 @@ node_modules
 data/*.json
 !data/scoring_settings.json
 data/*.jsonl
+data/coinalyze_cache/*
 
 # Log
 logs/
