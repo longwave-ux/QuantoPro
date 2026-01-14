@@ -59,6 +59,12 @@ export interface AnalysisResult {
     htfInterval: string;
     ltfInterval: string;
   };
+  // Breakout V2 Top-Level Fields
+  rr?: number;
+  entry?: number;
+  stop_loss?: number;
+  take_profit?: number;
+
   exchange_tag?: string;
   components?: {
     symbol: string;
@@ -98,9 +104,19 @@ export interface AnalysisResult {
       momentum: number;
       base: number;
       total: number;
-      oi_flow?: number;    // Added for Breakout
       sentiment?: number;  // Added for Breakout
       bonuses?: number;    // Added for Breakout
+    };
+    oi_meta?: {
+      oi_slope: number;
+      oi_points: number;
+      oi_avg: number;
+    };
+    sentiment_meta?: {
+      liq_longs: number;
+      liq_shorts: number;
+      liq_ratio: number;
+      top_ls_ratio: number;
     };
     vol24h?: number;
   };

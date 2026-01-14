@@ -298,9 +298,9 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                         </div>
                       </td>
                       <td className="px-6 py-4 text-center font-mono text-xs">
-                        {pair.setup ? (
-                          <span className={`px-2 py-1 rounded ${pair.setup.rr >= 2.5 ? 'bg-green-900/30 text-green-400' : 'text-yellow-400'}`}>
-                            1:{pair.setup.rr}
+                        {pair.rr || (pair.setup && pair.setup.rr) ? (
+                          <span className={`px-2 py-1 rounded ${(pair.rr || pair.setup?.rr || 0) >= 3.0 ? 'bg-green-900/30 text-green-400' : 'text-yellow-400'}`}>
+                            1:{(pair.rr || pair.setup?.rr || 0).toFixed(1)}
                           </span>
                         ) : (
                           <span className="text-gray-600">-</span>

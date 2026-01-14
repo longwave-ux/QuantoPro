@@ -155,7 +155,7 @@ def main():
                     
                     strategies_to_run = []
                     if args.strategy.lower() == 'all':
-                         strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config)]
+                         strategies_to_run = [QuantProBreakout(config), QuantProLegacy(config), QuantProBreakoutV2(config)]
                     elif args.strategy.lower() == 'legacy':
                         strategies_to_run = [QuantProLegacy(config)]
                     elif args.strategy.lower() == 'breakout':
@@ -173,6 +173,11 @@ def main():
                         elif isinstance(stra, QuantProLegacy):
                              r = stra.analyze(df, df_htf, mcap=0)
                              r['strategy_name'] = "Legacy"
+                        elif isinstance(stra, QuantProBreakoutV2):
+                             # V2 runs on HTF usually too, or both? Analyze uses target_df.
+                             # V2 expects df_htf as second arg.
+                             r = stra.analyze(df, df_htf, mcap=0)
+                             r['strategy_name'] = "BreakoutV2"
                         else:
                              r = stra.analyze(df, df_htf, mcap=0)
                              r['strategy_name'] = stra.name()

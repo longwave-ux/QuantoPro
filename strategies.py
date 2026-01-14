@@ -944,6 +944,36 @@ class QuantProBreakout(Strategy):
             print(f"[OI FLOW ERROR] {symbol}: {e}", file=sys.stderr)
             return 0, {"error": str(e)}
 
+    def calculate_reverse_rsi(self, rsi_target, close_prev, avg_gain_prev, avg_loss_prev, period=14):
+        """
+        Calculate the exact price needed for RSI to hit a target.
+        Formula:
+        RS_target = RSI / (100 - RSI)
+        Price_Change = ((RS_target * AvgLoss * (N-1)) - (AvgGain * (N-1))) / (1 + RS_target)
+        """
+        try:
+            if rsi_target >= 100: return float('inf')
+            if rsi_target <= 0: return float('-inf')
+            
+            rs_target = rsi_target / (100 - rsi_target)
+            
+            # 1. Try Upside Assumption (Gain > 0, Loss = 0 added)
+            # Delta = (N-1) * (RS_target * AvgLoss - AvgGain)
+            delta_up = (period - 1) * (rs_target * avg_loss_prev - avg_gain_prev)
+            
+            if delta_up >= 0:
+                return close_prev + delta_up
+            else:
+                # 2. Downside Assumption (Gain = 0, Loss > 0 added)
+                # Delta_Price = (N-1) * (AvgLoss - AvgGain / RS_target)
+                if rs_target == 0: return float('-inf')
+                delta_down = (period - 1) * (avg_loss_prev - avg_gain_prev / rs_target)
+                return close_prev + delta_down
+
+        except Exception as e:
+            # print(f"RevRSI Error: {e}", file=sys.stderr)
+            return close_prev # Fallback
+
     def check_funding_rate(self, symbol):
         """
         HARD FILTER: Reject if funding rate > |0.05%|
@@ -1155,8 +1185,18 @@ class QuantProBreakout(Strategy):
     def analyze(self, df, df_htf=None, mcap=0):
         # 1. Metrics
         df['rsi'] = df.ta.rsi(length=self.rsi_len)
+        
+        # [NEW] Pre-calculate components for Reverse RSI (Wilder's Smoothing)
+        delta = df['close'].diff()
+        gain = delta.clip(lower=0)
+        loss = -delta.clip(upper=0)
+        alpha = 1 / self.rsi_len
+        df['avg_gain'] = gain.ewm(alpha=alpha, adjust=False).mean()
+        df['avg_loss'] = loss.ewm(alpha=alpha, adjust=False).mean()
+        
         df['obv'] = df.ta.obv()
         df['mfi'] = df.ta.mfi(length=14)
+        df['atr'] = df.ta.atr(length=14)
         
         rsi_series = df['rsi'].fillna(50)
         if len(rsi_series) < 50: return self.empty_result(df)
@@ -1181,18 +1221,49 @@ class QuantProBreakout(Strategy):
                 scan_i = curr_i - offset
                 if scan_i < 50: continue
 
-                rsi_now = rsi_series.iloc[scan_i]
+                # [REVERSE RSI IMPLEMENTATION - LONG]
+                # Calculate the EXACT price needed to hit trendline
+                projected_rsi = res_line['m'] * scan_i + res_line['c']
+                
+                avg_gain_prev = df['avg_gain'].iloc[scan_i-1]
+                avg_loss_prev = df['avg_loss'].iloc[scan_i-1]
+                close_prev = df['close'].iloc[scan_i-1]
+                
+                # Predictive Entry Price
+                entry_price = self.calculate_reverse_rsi(projected_rsi, close_prev, avg_gain_prev, avg_loss_prev)
+                
+                current_high = df['high'].iloc[scan_i]
+                current_low = df['low'].iloc[scan_i]
+                
+                # Check if price touched the entry level
+                is_breakout = current_high >= entry_price and entry_price > current_low * 0.9 
+                
                 rsi_prev = rsi_series.iloc[scan_i-1]
-                line_now = res_line['m'] * scan_i + res_line['c']
                 line_prev = res_line['m'] * (scan_i-1) + res_line['c']
                 
-                # Breakout Check (Strict Freshness)
-                # print(f"DEBUG: Scan {scan_i} | RSI Prev: {rsi_prev:.2f} vs Line: {line_prev:.2f} | RSI Now: {rsi_now:.2f} vs Line: {line_now:.2f}")
-                if rsi_prev <= line_prev and rsi_now > line_now:
-                    entry_price = df['close'].iloc[scan_i]
-                    sl = df['low'].iloc[scan_i-5:scan_i].min()
+                # print(f"DEBUG: Scan {scan_i} | RSI Prev: {rsi_prev:.2f} vs Line: {line_prev:.2f} | Entry Px: {entry_price:.2f}")
+                if is_breakout and rsi_prev <= line_prev:
+                    # entry_price is the precise level to use
+
+                    # [DYNAMIC SL/TP - LONG]
+                    # SL: Max(Struct Low - 0.5*ATR, Entry - 2.5*ATR)
+                    # For LONG, SL is BELOW price. We want the TIGHTER (Higher) SL.
+                    atr = df['atr'].iloc[scan_i]
+                    struct_sl = df['low'].iloc[scan_i-5:scan_i].min() - (0.5 * atr)
+                    vol_sl = entry_price - (2.5 * atr)
+                    sl = max(struct_sl, vol_sl)
+                    
+                    # TP: Entry + 1.618 * Structure Height
+                    # Structure proxy = Range during Trendline formation
+                    p_max = df['high'].iloc[res_line['start_idx']:res_line['end_idx']].max()
+                    p_min = df['low'].iloc[res_line['start_idx']:res_line['end_idx']].min()
+                    structure_height = p_max - p_min
+                    
+                    tp = entry_price + (1.618 * structure_height)
+                    
+                    # Sanity
+                    if tp <= entry_price: tp = entry_price * 1.05
                     if sl >= entry_price: sl = entry_price * 0.98
-                    tp = entry_price * 1.05
                     
                     # Filters: Not Dead, Not Runaway
                     if latest_price >= tp or latest_price <= sl: continue
@@ -1301,7 +1372,12 @@ class QuantProBreakout(Strategy):
                         breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus
                         breakout_score = min(100.0, breakout_score)
                         
-                        setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'LONG'}
+                        # Calculate actual R:R for LONG
+                        risk = entry_price - sl
+                        reward = tp - entry_price
+                        rr_value = round(reward / risk, 2) if risk > 0 else 0.0
+                        
+                        setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': rr_value, 'side': 'LONG'}
                         details = {
                             'total_score': breakout_score,
                             'score_breakdown': {
@@ -1347,23 +1423,53 @@ class QuantProBreakout(Strategy):
             sup_line = self.find_trendlines(rsi_series, 'SUPPORT')
             if sup_line:
                 for offset in range(3):
-                    scan_i = curr_i - offset
-                    if scan_i < 50: continue
+                    # [REVERSE RSI IMPLEMENTATION - SHORT]
+                    projected_rsi = sup_line['m'] * curr_i + sup_line['c']
                     
-                    rsi_now = rsi_series.iloc[scan_i]
-                    rsi_prev = rsi_series.iloc[scan_i-1]
-                    line_now = sup_line['m'] * scan_i + sup_line['c']
-                    line_prev = sup_line['m'] * (scan_i-1) + sup_line['c']
+                    avg_gain_prev = df['avg_gain'].iloc[curr_i-1]
+                    avg_loss_prev = df['avg_loss'].iloc[curr_i-1]
+                    close_prev = df['close'].iloc[curr_i-1]
                     
-                    if rsi_prev >= line_prev and rsi_now < line_now:
-                        entry_price = df['close'].iloc[scan_i]
-                        sl = df['high'].iloc[scan_i-5:scan_i].max()
+                    entry_price = self.calculate_reverse_rsi(projected_rsi, close_prev, avg_gain_prev, avg_loss_prev)
+                    
+                    current_high = df['high'].iloc[curr_i]
+                    current_low = df['low'].iloc[curr_i]
+                    
+                    # For Short, we need Price <= Entry (Breakdown)
+                    is_breakout = current_low <= entry_price and entry_price < current_high * 1.1 
+                    
+                    rsi_prev = rsi_series.iloc[curr_i-1]
+                    line_prev = sup_line['m'] * (curr_i-1) + sup_line['c']
+                    
+                    if is_breakout and rsi_prev >= line_prev:
+                        # entry_price is the breakout price
+                        
+                        # [DYNAMIC SL/TP - SHORT]
+                        # SL: Min(Struct High + 0.5*ATR, Entry + 2.5*ATR)
+                        atr = df['atr'].iloc[scan_i]
+                        struct_sl = df['high'].iloc[scan_i-5:scan_i].max() + (0.5 * atr)
+                        vol_sl = entry_price + (2.5 * atr)
+                        sl = min(struct_sl, vol_sl) # Higher is safer? No, for SHORT, SL is ABOVE price.
+                        # Wait, for SHORT, we want the LOWER stop loss? No, we want the TIGHTER stop loss.
+                        # Price is dropping. SL is above. 
+                        # Struct SL = 105. Vol SL = 110. Safer = 105 (Closer/Tighter).
+                        # So for SHORT, SL = MIN(Struct, Vol) is correct.
+                        
+                        # TP: Entry - 1.618 * Structure Height
+                        # Structure Height proxy = Trendline Duration Range
+                        p_max = df['high'].iloc[sup_line['start_idx']:sup_line['end_idx']].max()
+                        p_min = df['low'].iloc[sup_line['start_idx']:sup_line['end_idx']].min()
+                        structure_height = p_max - p_min
+                        
+                        tp = entry_price - (1.618 * structure_height)
+                        
+                        # Sanity: TP must be below Entry. SL must be above Entry.
+                        if tp >= entry_price: tp = entry_price * 0.95
                         if sl <= entry_price: sl = entry_price * 1.02
-                        tp = entry_price * 0.95
                         
                         if latest_price <= tp or latest_price >= sl: continue
-                        if latest_price < entry_price * 0.97: continue
-                            
+                        if latest_price < entry_price * 0.97: continue # Too late
+                        
                         try:
                             # Get symbol for API calls
                             symbol = df['symbol'].iloc[0] if 'symbol' in df.columns else "UNKNOWN"
@@ -1465,7 +1571,12 @@ class QuantProBreakout(Strategy):
                             breakout_score = geometry_score + momentum_score + oi_score + sentiment_score + action_bonus
                             breakout_score = min(100.0, breakout_score)
                             
-                            setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': 2.0, 'side': 'SHORT'}
+                            # Calculate actual R:R for SHORT
+                            risk = sl - entry_price
+                            reward = entry_price - tp
+                            rr_value = round(reward / risk, 2) if risk > 0 else 0.0
+                            
+                            setup = {'entry': entry_price, 'sl': sl, 'tp': tp, 'rr': rr_value, 'side': 'SHORT'}
                             details = {
                                 'total_score': breakout_score,
                                 'score_breakdown': {
@@ -1897,9 +2008,23 @@ class QuantProBreakoutV2(Strategy):
                     # TRIGGER ENTRY
                     entry_price = target_price
                     pivot_low = target_df['low'].iloc[-15:-1].min() # Last 15 candles pivot
-                    sl = pivot_low if pivot_low < entry_price else entry_price * 0.98
-                    risk = entry_price - sl
-                    tp = entry_price + (risk * StrategyConfig.MIN_RR_RATIO)
+                    
+                    # [DYNAMIC SL/TP for V2]
+                    # Logic: Max(Structure Low, Entry - 2.5 ATR)
+                    atr = target_df['atr'].iloc[-1]
+                    sl_struct = pivot_low - (0.5 * atr)
+                    sl_vol = entry_price - (2.5 * atr)
+                    sl = max(sl_struct, sl_vol)
+                    
+                    # Logic: Fib extension of Recent Impulse
+                    # V2 Impulse = Low to Recent High (The move that failed and came back)
+                    p_high = target_df['high'].iloc[-15:-1].max()
+                    impulse_height = p_high - pivot_low
+                    tp = entry_price + (1.618 * impulse_height)
+                    
+                    # Sanity
+                    if sl >= entry_price: sl = entry_price * 0.98
+                    if tp <= entry_price: tp = entry_price * 1.05
                     
                     sym_state['status'] = 'IDLE' # Reset after signaling (Or IN_TRADE if we tracked via execution)
                     # For Scanner, we signal BUY. The Tracker handles the trade management.
@@ -1915,7 +2040,19 @@ class QuantProBreakoutV2(Strategy):
                         'type': 'RETEST_ENTRY',
                         'desc': f"V2 Retest of RSI {retest_target}"
                     }
-                    print(f"[V2] {symbol}: ENTRY SIGNAL! Price {entry_price:.2f}", file=sys.stderr)
+                    
+                    # [V2 RR CALCULATION]
+                    risk = entry_price - sl
+                    reward = tp - entry_price
+                    if risk > 0:
+                        rr_val = round(reward / risk, 2)
+                    else:
+                        rr_val = 0.0
+                    details['rr'] = rr_val # Save in details too?
+                    # The scanner main loop extracts 'rr' from top-level sometimes.
+                    # We should return it in the main dict.
+                    
+                    print(f"[V2] {symbol}: ENTRY SIGNAL! Price {entry_price:.2f} RR: {rr_val}", file=sys.stderr)
                     
         # Prepare Score Breakdown for UI
         # We try to get V1 breakdown if available (from Breakout check phase)
@@ -1928,20 +2065,36 @@ class QuantProBreakoutV2(Strategy):
         
         # If we have a pending/active state, we likely want to see the "Validation" scores
         # Run a V1 analysis to get current metrics (OI/Sentiment) even if not a fresh breakout
+        # Also need badge metadata
         try:
              # Full V1 analysis to get metadata
              v1_full = self.v1_strategy.analyze(target_df, df_htf, mcap)
-             if v1_full and 'details' in v1_full and 'score_breakdown' in v1_full['details']:
-                 score_breakdown = v1_full['details']['score_breakdown']
-                 # Override total if we are forcing a buy
-                 if action == 'BUY': score_breakdown['total'] = 100
+             if v1_full:
+                 if 'details' in v1_full:
+                     d = v1_full['details']
+                     if 'score_breakdown' in d:
+                         score_breakdown = d['score_breakdown']
+                         # Override total if we are forcing a buy
+                         if action == 'BUY': score_breakdown['total'] = 100
+                     
+                     # MERGE METADATA FOR BADGES
+                     details['oi_meta'] = d.get('oi_meta', details['oi_meta'])
+                     details['sentiment_meta'] = d.get('sentiment_meta', details['sentiment_meta'])
+                     
+                     # Extract raw_components for badge display (HUGE AREA, TRIPLE DIV, etc.)
+                     if 'raw_components' in d:
+                         details['raw_components'] = d['raw_components']
+                     
+                     # Extract context_badge (DIV-PREP, SQUEEZE, etc.)
+                     if 'context_badge' in d:
+                         details['context_badge'] = d['context_badge']
+
         except Exception as e:
              # print(e, file=sys.stderr)
              pass
              
         # Inject into details
         details['score_breakdown'] = score_breakdown
-        # Also need flat OI/Sentiment? No, UI uses breakdown.
         
         # Prepare State Details
         details['status'] = sym_state['status']
@@ -1991,16 +2144,21 @@ class QuantProBreakoutV2(Strategy):
             'setup': details if action == 'BUY' else v1_setup,
             'price': float(target_df['close'].iloc[-1]),
             'bias': 'LONG' if action == 'BUY' else (v1_full.get('bias', 'NONE') if v1_full else 'NONE'),
-            'rr': 2.0 if action == 'BUY' else (float(v1_setup.get('rr', 0)) if v1_setup else 0.0),
+            'rr': float(details.get('rr', 0)) if action == 'BUY' else (float(v1_setup.get('rr', 0)) if v1_setup else 0.0),
             'entry': details.get('entry') if action == 'BUY' else (float(v1_setup.get('entry')) if v1_setup and 'entry' in v1_setup else None),
             'stop_loss': details.get('sl') if action == 'BUY' else (float(v1_setup.get('sl')) if v1_setup and 'sl' in v1_setup else None),
             'take_profit': details.get('tp') if action == 'BUY' else (float(v1_setup.get('tp')) if v1_setup and 'tp' in v1_setup else None),
             'timestamp': int(datetime.datetime.now().timestamp() * 1000),
-            'raw_components': {
+            'components': details.get('raw_components', {
                 'price_change_pct': 0.0,
-                'duration_candles': 0, 
+                'duration_candles': 0,
                 'divergence_type': 0
-            },
+            }),
+            'raw_components': details.get('raw_components', {
+                'price_change_pct': 0.0,
+                'duration_candles': 0,
+                'divergence_type': 0
+            }),
             'htf': {},
             'ltf': DEFAULT_LTF.copy()
         })

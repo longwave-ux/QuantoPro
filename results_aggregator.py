@@ -199,7 +199,13 @@ def main():
         s['exchange_tag'] = SOURCE_TAGS.get(src, src[:3]) # Fallback to first 3 chars
         
         # [NEW] Extract Components for UI
-        if 'details' in s:
+        # Priority: Top Level 'components' > Top Level 'raw_components' > 'details.raw_components'
+        if s.get('components'):
+            # Already set by strategy (V2)
+            pass
+        elif s.get('raw_components'):
+            s['components'] = s.get('raw_components')
+        elif 'details' in s and s['details'].get('raw_components'):
             s['components'] = s['details'].get('raw_components')
         else:
             s['components'] = None
