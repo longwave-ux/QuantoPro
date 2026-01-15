@@ -13,6 +13,8 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
   const [strategyFilter, setStrategyFilter] = useState<string>('ALL');
   const [biasFilter, setBiasFilter] = useState<string>('ALL');
   const [exchangeFilter, setExchangeFilter] = useState<string>('ALL');
+  const [sortKey, setSortKey] = useState<'score' | 'risk_reward' | 'symbol'>('score');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
   const toggleExpand = (symbol: string) => {
     setExpandedSymbol(expandedSymbol === symbol ? null : symbol);
@@ -105,6 +107,31 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
             <option value="NONE">NONE</option>
           </select>
         </div>
+        <div className="h-4 w-px bg-gray-700 mx-2"></div>
+
+        {/* Sort Filter */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500 font-mono uppercase">Sort By:</span>
+          <select
+            value={sortKey}
+            onChange={(e) => {
+              const newKey = e.target.value as 'score' | 'risk_reward' | 'symbol';
+              setSortKey(newKey);
+              // Reset sort order for consistency
+              if (newKey === 'symbol') {
+                setSortOrder('asc');
+              } else {
+                setSortOrder('desc');
+              }
+            }}
+            className="bg-gray-800 text-gray-300 text-xs rounded border border-gray-700 px-2 py-1 outline-none focus:border-blue-500"
+          >
+            <option value="score">Score</option>
+            <option value="risk_reward">R:R</option>
+            <option value="symbol">Pair</option>
+          </select>
+        </div>
+
         <div className="ml-auto text-xs text-gray-600 whitespace-nowrap">
           Showing {data.filter(r =>
             (strategyFilter === 'ALL' || r.strategy_name === strategyFilter) &&
@@ -148,6 +175,37 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                 if (biasFilter !== 'ALL' && checkBias !== biasFilter) return false;
                 if (exchangeFilter !== 'ALL' && pair.exchange_tag !== exchangeFilter) return false;
                 return true;
+              })
+              .sort((a, b) => {
+                let aValue: number | string;
+                let bValue: number | string;
+                
+                switch (sortKey) {
+                  case 'score':
+                    aValue = a.score || 0;
+                    bValue = b.score || 0;
+                    break;
+                  case 'risk_reward':
+                    aValue = a.rr || a.setup?.rr || 0;
+                    bValue = b.rr || b.setup?.rr || 0;
+                    break;
+                  case 'symbol':
+                    aValue = a.symbol || '';
+                    bValue = b.symbol || '';
+                    break;
+                  default:
+                    return 0;
+                }
+                
+                if (typeof aValue === 'string' && typeof bValue === 'string') {
+                  return sortOrder === 'asc' 
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+                } else {
+                  return sortOrder === 'asc' 
+                    ? (aValue as number) - (bValue as number)
+                    : (bValue as number) - (aValue as number);
+                }
               })
               .map((pair, index) => {
                 const displayBias = pair.htf?.bias || pair.bias || 'NONE';

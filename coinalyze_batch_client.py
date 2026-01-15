@@ -10,10 +10,67 @@ import logging
 import json
 import os
 import hashlib
+import sys
 from typing import Dict, List, Optional, Any
+from functools import wraps
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+
+def retry_with_backoff(max_retries=3, base_delay=2):
+    """Retry decorator with exponential backoff for API failures."""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for attempt in range(max_retries):
+                try:
+                    return func(*args, **kwargs)
+                except requests.exceptions.HTTPError as e:
+                    if e.response.status_code == 429:
+                        # Rate limit - handle with Retry-After
+                        retry_after = e.response.headers.get('Retry-After')
+                        if retry_after:
+                            try:
+                                # Convert string to float first to handle decimals like "57.366", then to int with safety buffer
+                                wait_time = int(float(retry_after)) + 1
+                                print(f"[RATE-LIMIT] 429 Detected. Waiting {wait_time}s as requested by API...", file=sys.stderr)
+                                time.sleep(wait_time)
+                            except (ValueError, TypeError) as parse_error:
+                                # Fallback to exponential backoff if Retry-After parsing fails
+                                wait_time = base_delay * (2 ** attempt)
+                                print(f"[RATE-LIMIT] 429 Detected (invalid Retry-After: '{retry_after}'). Waiting {wait_time}s (attempt {attempt+1}/{max_retries})...", file=sys.stderr)
+                                time.sleep(wait_time)
+                        else:
+                            # No Retry-After header, use exponential backoff
+                            wait_time = base_delay * (2 ** attempt)
+                            print(f"[RATE-LIMIT] 429 Detected (no Retry-After). Waiting {wait_time}s (attempt {attempt+1}/{max_retries})...", file=sys.stderr)
+                            time.sleep(wait_time)
+                        
+                        if attempt == max_retries - 1:
+                            raise
+                    elif e.response.status_code >= 500:
+                        # Server error - retry with backoff
+                        wait_time = base_delay * (2 ** attempt)
+                        print(f"[API-ERROR] {e.response.status_code} Server Error. Retrying in {wait_time}s (attempt {attempt+1}/{max_retries})...", file=sys.stderr)
+                        time.sleep(wait_time)
+                        
+                        if attempt == max_retries - 1:
+                            raise
+                    else:
+                        # Other HTTP errors - don't retry
+                        raise
+                except requests.exceptions.RequestException as e:
+                    # Network errors - retry with backoff
+                    if attempt < max_retries - 1:
+                        wait_time = base_delay * (2 ** attempt)
+                        print(f"[NETWORK-ERROR] {e}. Retrying in {wait_time}s (attempt {attempt+1}/{max_retries})...", file=sys.stderr)
+                        time.sleep(wait_time)
+                    else:
+                        raise
+            return None
+        return wrapper
+    return decorator
 
 
 class CoinalyzeBatchClient:
@@ -26,17 +83,20 @@ class CoinalyzeBatchClient:
         self.api_key = api_key
         self.base_url = "https://api.coinalyze.net/v1"
         self.last_req_time = 0
-        self.req_interval = 2.2  # Rate limit: 40 requests/min
+        self.req_interval = 1.5  # Rate limit: 40 requests/min = 1 req every 1.5s
         self.cache_dir = "data/coinalyze_cache"
         self.cache_ttl = 900  # 15 minutes
+        self.successful_requests = 0
+        self.failed_requests = 0
         
         os.makedirs(self.cache_dir, exist_ok=True)
     
     def _wait_for_rate_limit(self):
-        """Enforce rate limit."""
+        """Enforce rate limit with adaptive spacing."""
         elapsed = time.time() - self.last_req_time
         if elapsed < self.req_interval:
-            time.sleep(self.req_interval - elapsed)
+            wait_time = self.req_interval - elapsed
+            time.sleep(wait_time)
         self.last_req_time = time.time()
     
     def _get_cache_key(self, prefix: str, symbols: List[str], **kwargs) -> str:
@@ -112,12 +172,13 @@ class CoinalyzeBatchClient:
         }
         
         try:
-            response = requests.get(endpoint, params=params, timeout=30)
-            if response.status_code != 200:
-                logger.error(f"OI Batch API Error {response.status_code}: {response.text}")
+            response = self._make_request_with_retry(endpoint, params)
+            if not response:
                 return {}
             
             data = response.json()
+            self.successful_requests += 1
+            print(f"[API-SUCCESS] OI History batch fetched for {len(symbols)} symbols", file=sys.stderr)
             
             # Parse batch response
             result = {}
@@ -141,7 +202,9 @@ class CoinalyzeBatchClient:
             return result
         
         except Exception as e:
+            self.failed_requests += 1
             logger.error(f"OI Batch Request Failed: {e}")
+            print(f"[API-FAILED] OI History batch failed for {len(symbols)} symbols: {e}", file=sys.stderr)
             return {}
     
     def get_funding_rate_batch(self, symbols: List[str]) -> Dict[str, float]:
@@ -172,12 +235,13 @@ class CoinalyzeBatchClient:
         }
         
         try:
-            response = requests.get(endpoint, params=params, timeout=30)
-            if response.status_code != 200:
-                logger.error(f"Funding Batch API Error {response.status_code}")
+            response = self._make_request_with_retry(endpoint, params)
+            if not response:
                 return {}
             
             data = response.json()
+            self.successful_requests += 1
+            print(f"[API-SUCCESS] Funding Rate batch fetched for {len(symbols)} symbols", file=sys.stderr)
             
             # Parse batch response
             result = {}
@@ -192,7 +256,9 @@ class CoinalyzeBatchClient:
             return result
         
         except Exception as e:
+            self.failed_requests += 1
             logger.error(f"Funding Batch Request Failed: {e}")
+            print(f"[API-FAILED] Funding Rate batch failed for {len(symbols)} symbols: {e}", file=sys.stderr)
             return {}
     
     def get_ls_ratio_batch(self, symbols: List[str]) -> Dict[str, float]:
@@ -230,12 +296,13 @@ class CoinalyzeBatchClient:
         }
         
         try:
-            response = requests.get(endpoint, params=params, timeout=30)
-            if response.status_code != 200:
-                logger.error(f"L/S Batch API Error {response.status_code}")
+            response = self._make_request_with_retry(endpoint, params)
+            if not response:
                 return {}
             
             data = response.json()
+            self.successful_requests += 1
+            print(f"[API-SUCCESS] L/S Ratio batch fetched for {len(symbols)} symbols", file=sys.stderr)
             
             # Parse batch response
             result = {}
@@ -260,7 +327,9 @@ class CoinalyzeBatchClient:
             return result
         
         except Exception as e:
+            self.failed_requests += 1
             logger.error(f"L/S Batch Request Failed: {e}")
+            print(f"[API-FAILED] L/S Ratio batch failed for {len(symbols)} symbols: {e}", file=sys.stderr)
             return {}
     
     def get_liquidations_batch(
@@ -303,12 +372,13 @@ class CoinalyzeBatchClient:
         }
         
         try:
-            response = requests.get(endpoint, params=params, timeout=30)
-            if response.status_code != 200:
-                logger.error(f"Liquidations Batch API Error {response.status_code}")
+            response = self._make_request_with_retry(endpoint, params)
+            if not response:
                 return {}
             
             data = response.json()
+            self.successful_requests += 1
+            print(f"[API-SUCCESS] Liquidations batch fetched for {len(symbols)} symbols", file=sys.stderr)
             
             # Parse batch response
             result = {}
@@ -335,7 +405,9 @@ class CoinalyzeBatchClient:
             return result
         
         except Exception as e:
+            self.failed_requests += 1
             logger.error(f"Liquidations Batch Request Failed: {e}")
+            print(f"[API-FAILED] Liquidations batch failed for {len(symbols)} symbols: {e}", file=sys.stderr)
             return {}
     
     def fetch_all_data_batch(
@@ -371,6 +443,21 @@ class CoinalyzeBatchClient:
             }
         
         return result
+    
+    @retry_with_backoff(max_retries=3, base_delay=2)
+    def _make_request_with_retry(self, endpoint: str, params: dict) -> Optional[requests.Response]:
+        """Make API request with retry logic and rate limit handling."""
+        response = requests.get(endpoint, params=params, timeout=30)
+        response.raise_for_status()  # Raises HTTPError for bad status codes
+        return response
+    
+    def get_stats(self) -> Dict[str, int]:
+        """Get API request statistics."""
+        return {
+            'successful': self.successful_requests,
+            'failed': self.failed_requests,
+            'total': self.successful_requests + self.failed_requests
+        }
 
 
 # Global singleton instance

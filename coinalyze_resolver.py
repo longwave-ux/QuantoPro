@@ -10,6 +10,10 @@ import time
 import requests
 from typing import Dict, Optional, Tuple
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 
 class CoinalyzeResolver:
@@ -103,9 +107,15 @@ class CoinalyzeResolver:
         Returns True if successful, False otherwise.
         """
         try:
+            api_key = os.environ.get('COINALYZE_API_KEY')
+            if not api_key:
+                print(f"[RESOLVER] No API key found, cannot fetch symbols")
+                return False
+            
             print(f"[RESOLVER] Fetching symbols from {self.API_URL}")
             
-            response = requests.get(self.API_URL, timeout=30)
+            headers = {'api_key': api_key}
+            response = requests.get(self.API_URL, headers=headers, timeout=30)
             response.raise_for_status()
             
             markets = response.json()
@@ -114,8 +124,8 @@ class CoinalyzeResolver:
             # Process markets
             for market in markets:
                 symbol = market.get('symbol', '')
-                base = market.get('base', '')
-                quote = market.get('quote', '')
+                base = market.get('base_asset', '')
+                quote = market.get('quote_asset', '')
                 exchange_id = market.get('exchange', '')
                 
                 if not symbol or not base:

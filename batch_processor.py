@@ -86,20 +86,29 @@ class BatchProcessor:
         
         # Step 3: Distribute results back to local symbols
         results = {}
+        injected_count = 0
         for symbol, exchange in symbols:
             key = f"{symbol}_{exchange}"
             coinalyze_symbol, status = resolved_map.get(key, (None, "neutral"))
             
             if coinalyze_symbol and coinalyze_symbol in all_data:
                 data = all_data[coinalyze_symbol]
+                oi_history = data.get('oi_history', [])
+                
                 results[key] = {
-                    'oi_history': data.get('oi_history', []),
+                    'oi_history': oi_history,
                     'funding_rate': data.get('funding_rate'),
                     'ls_ratio': data.get('ls_ratio'),
                     'liquidations': data.get('liquidations', {'longs': 0, 'shorts': 0}),
                     'oi_status': status,
                     'coinalyze_symbol': coinalyze_symbol
                 }
+                
+                # Log successful injection
+                if oi_history and len(oi_history) > 0:
+                    injected_count += 1
+                    latest_oi = oi_history[-1].get('value', 0) if oi_history else 0
+                    print(f"[BATCH] ✓ Injecting OI data for {symbol} (Local: {key}, Remote: {coinalyze_symbol}, Latest OI: {latest_oi:.0f})", file=sys.stderr)
             else:
                 # Neutral - no data available
                 results[key] = {
@@ -110,6 +119,12 @@ class BatchProcessor:
                     'oi_status': 'neutral',
                     'coinalyze_symbol': None
                 }
+        
+        print(f"[BATCH] Successfully injected OI data for {injected_count}/{len(symbols)} symbols", file=sys.stderr)
+        
+        # Display API statistics
+        stats = self.batch_client.get_stats()
+        print(f"[BATCH] API Statistics: {stats['successful']} successful, {stats['failed']} failed, {stats['total']} total requests", file=sys.stderr)
         
         return results
     

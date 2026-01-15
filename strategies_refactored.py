@@ -318,7 +318,8 @@ class QuantProLegacyRefactored(Strategy):
             "observability": observability,
             "oi_metadata": {
                 "status": context.get_external('oi_status') or 'neutral',
-                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
+                "value": context.get_external('oi_value', 0)
             }
         }
     
@@ -819,7 +820,8 @@ class QuantProBreakoutRefactored(Strategy):
             "observability": observability,
             "oi_metadata": {
                 "status": context.get_external('oi_status') or 'neutral',
-                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
+                "value": context.get_external('oi_value', 0)
             }
         }
     
@@ -1161,7 +1163,8 @@ class QuantProBreakoutV2Refactored(Strategy):
             "observability": observability,
             "oi_metadata": {
                 "status": context.get_external('oi_status') or 'neutral',
-                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
+                "value": context.get_external('oi_value', 0)
             }
         }
     

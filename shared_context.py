@@ -296,6 +296,11 @@ class FeatureFactory:
         import numpy as np
         
         oi_status = external_data.get('oi_status', 'neutral')
+        coinalyze_symbol = external_data.get('coinalyze_symbol')
+        
+        # Store coinalyze_symbol for strategies to access
+        if coinalyze_symbol:
+            context.external_data['coinalyze_symbol'] = coinalyze_symbol
         
         # Open Interest
         oi_history = external_data.get('oi_history', [])
@@ -304,11 +309,15 @@ class FeatureFactory:
             context.external_data['oi_available'] = True
             context.external_data['oi_status'] = oi_status
             
-            # Calculate OI Z-Score
+            # Calculate OI Z-Score with fallback to raw value
             try:
                 oi_values = [float(x.get('value', 0)) for x in oi_history if 'value' in x]
+                current_oi = oi_values[-1] if oi_values else 0
+                
+                # FALLBACK SAFETY: Always store the latest raw OI value
+                context.external_data['oi_value'] = current_oi
+                
                 if len(oi_values) >= 14:
-                    current_oi = oi_values[-1]
                     mean_oi = np.mean(oi_values[-30:])
                     std_oi = np.std(oi_values[-30:])
                     
@@ -316,14 +325,25 @@ class FeatureFactory:
                         oi_z_score = (current_oi - mean_oi) / std_oi
                         context.external_data['oi_z_score'] = float(oi_z_score)
                         context.external_data['oi_z_score_valid'] = oi_z_score > 1.5
+                        print(f"[BATCH] OI Z-Score for {context.symbol}: {oi_z_score:.2f} (Current: {current_oi:.0f})", flush=True)
                     else:
+                        # Std dev is 0 - use raw value
                         context.external_data['oi_z_score'] = 0.0
                         context.external_data['oi_z_score_valid'] = False
+                        print(f"[BATCH] OI Z-Score invalid (std=0), using raw OI: {current_oi:.0f}", flush=True)
                 else:
+                    # Insufficient data for Z-score - use raw value
                     context.external_data['oi_z_score'] = 0.0
                     context.external_data['oi_z_score_valid'] = False
+                    print(f"[BATCH] OI Z-Score invalid (n={len(oi_values)}), using raw OI: {current_oi:.0f}", flush=True)
             except Exception as e:
-                print(f"[BATCH] OI Z-Score calculation failed: {e}", flush=True)
+                print(f"[BATCH] OI Z-Score calculation failed: {e}, using raw value", flush=True)
+                # Still store raw value even if calculation fails
+                try:
+                    current_oi = oi_values[-1] if oi_values else 0
+                    context.external_data['oi_value'] = current_oi
+                except:
+                    context.external_data['oi_value'] = 0
                 context.external_data['oi_z_score'] = 0.0
                 context.external_data['oi_z_score_valid'] = False
         else:
@@ -331,6 +351,7 @@ class FeatureFactory:
             context.external_data['oi_available'] = False
             context.external_data['oi_z_score_valid'] = False
             context.external_data['oi_status'] = 'neutral'
+            context.external_data['oi_value'] = 0
         
         # Funding Rate
         funding_rate = external_data.get('funding_rate')

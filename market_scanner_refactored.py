@@ -18,6 +18,36 @@ load_dotenv()
 # Import canonical architecture components
 from symbol_mapper import to_canonical, get_mapper
 from shared_context import SharedContext, FeatureFactory, create_default_config
+
+
+def json_serializable(obj):
+    """
+    Convert numpy types and other problematic types to JSON-serializable Python types.
+    This handles numpy.bool_, numpy.int64, numpy.float64, sets, etc.
+    """
+    if isinstance(obj, np.bool_):
+        return bool(obj)
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, set):
+        return list(obj)
+    elif isinstance(obj, dict):
+        return {key: json_serializable(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [json_serializable(item) for item in obj]
+    else:
+        return obj
+
+
+def sanitize_for_json(data):
+    """
+    Recursively sanitize data structure to ensure all values are JSON-serializable.
+    """
+    return json_serializable(data)
 from strategies_refactored import (
     QuantProLegacyRefactored,
     QuantProBreakoutRefactored,
@@ -315,14 +345,16 @@ def main():
             temp_file = output_file + '.tmp'
             
             with open(temp_file, 'w') as f:
-                json.dump(master_feed, f, indent=2)
+                # Sanitize data to ensure JSON serializability
+                sanitized_feed = sanitize_for_json(master_feed)
+                json.dump(sanitized_feed, f, indent=2)
             
             os.replace(temp_file, output_file)
             print(f"[SUCCESS] Saved {len(all_results)} signals to {output_file}", file=sys.stderr)
             print(f"[TIMESTAMP] Last Updated: {master_feed['last_updated']}", file=sys.stderr)
             
             # Also output to stdout for compatibility
-            print(json.dumps(master_feed))
+            print(json.dumps(sanitized_feed))
             sys.exit(0)
         
         # Check if batch mode (text file with list of symbols)
