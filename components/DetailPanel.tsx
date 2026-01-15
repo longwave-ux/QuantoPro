@@ -6,6 +6,7 @@ import { executeLimitOrder } from '../services/tradeService';
 import { calculateOBV, calculateRSI, findKeyLevels, calculateVolumeProfile } from '../services/indicators';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine, LineChart, Line, BarChart, Bar } from 'recharts';
 import { Bot, Loader2, FileText, TrendingUp, Target, Shield, Crosshair, BarChart3, Anchor, Zap, AlertTriangle, Info, Wallet, ArrowRight, RefreshCw } from 'lucide-react';
+import { ObservabilityPanel } from './ObservabilityPanel';
 
 interface DetailPanelProps {
     pair: AnalysisResult;
@@ -174,6 +175,64 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     const { slicedData, isZoomed } = getZoomedData();
 
+    // Observability RSI Trendlines
+    const getObservabilityTrendlines = () => {
+        if (!pair.observability?.rsi_visuals) return { resistance: null, support: null };
+
+        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
+        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+
+        const result: any = {};
+
+        // Resistance trendline
+        if (pair.observability.rsi_visuals.resistance) {
+            const res = pair.observability.rsi_visuals.resistance;
+            const p1 = sourceData[res.pivot_1.index];
+            const p2 = sourceData[res.pivot_2.index];
+            const current = sourceData[sourceData.length - 1];
+
+            if (p1 && p2 && current) {
+                const currentY = res.slope * (sourceData.length - 1) + res.intercept;
+                result.resistance = {
+                    segment: [
+                        { x: p1.time, y: res.pivot_1.value },
+                        { x: p2.time, y: res.pivot_2.value }
+                    ],
+                    projection: [
+                        { x: p2.time, y: res.pivot_2.value },
+                        { x: current.time, y: Math.max(0, Math.min(100, currentY)) }
+                    ]
+                };
+            }
+        }
+
+        // Support trendline
+        if (pair.observability.rsi_visuals.support) {
+            const sup = pair.observability.rsi_visuals.support;
+            const p1 = sourceData[sup.pivot_1.index];
+            const p2 = sourceData[sup.pivot_2.index];
+            const current = sourceData[sourceData.length - 1];
+
+            if (p1 && p2 && current) {
+                const currentY = sup.slope * (sourceData.length - 1) + sup.intercept;
+                result.support = {
+                    segment: [
+                        { x: p1.time, y: sup.pivot_1.value },
+                        { x: p2.time, y: sup.pivot_2.value }
+                    ],
+                    projection: [
+                        { x: p2.time, y: sup.pivot_2.value },
+                        { x: current.time, y: Math.max(0, Math.min(100, currentY)) }
+                    ]
+                };
+            }
+        }
+
+        return result;
+    };
+
+    const observabilityTrendlines = getObservabilityTrendlines();
+
     return (
         <div className="bg-gray-900/50 p-6 space-y-6">
 
@@ -293,6 +352,44 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                             {trendLineProjection && (
                                                 <ReferenceLine segment={trendLineProjection} stroke="#eab308" strokeDasharray="4 4" strokeWidth={2} isFront />
                                             )}
+                                        </>
+                                    )}
+
+                                    {/* Observability RSI Trendlines - Resistance */}
+                                    {observabilityTrendlines.resistance && (
+                                        <>
+                                            <ReferenceLine 
+                                                segment={observabilityTrendlines.resistance.segment} 
+                                                stroke="#ef4444" 
+                                                strokeWidth={2} 
+                                                isFront 
+                                            />
+                                            <ReferenceLine 
+                                                segment={observabilityTrendlines.resistance.projection} 
+                                                stroke="#ef4444" 
+                                                strokeDasharray="4 4" 
+                                                strokeWidth={2} 
+                                                isFront 
+                                            />
+                                        </>
+                                    )}
+
+                                    {/* Observability RSI Trendlines - Support */}
+                                    {observabilityTrendlines.support && (
+                                        <>
+                                            <ReferenceLine 
+                                                segment={observabilityTrendlines.support.segment} 
+                                                stroke="#22c55e" 
+                                                strokeWidth={2} 
+                                                isFront 
+                                            />
+                                            <ReferenceLine 
+                                                segment={observabilityTrendlines.support.projection} 
+                                                stroke="#22c55e" 
+                                                strokeDasharray="4 4" 
+                                                strokeWidth={2} 
+                                                isFront 
+                                            />
                                         </>
                                     )}
                                 </LineChart>
@@ -473,6 +570,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
+                    </div>
+
+                    {/* Observability Panel - Enhanced Visual Data Enrichment */}
+                    <div className="col-span-2">
+                        <ObservabilityPanel signal={pair} />
                     </div>
                 </div>
 

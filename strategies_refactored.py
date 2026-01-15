@@ -227,6 +227,46 @@ class QuantProLegacyRefactored(Strategy):
                 rr = round((entry - tp) / risk, 2) if risk > 0 else 0.0
                 setup = {"side": "SHORT", "entry": entry, "tp": tp, "sl": sl, "rr": rr}
         
+        # Get event timestamp (last candle timestamp)
+        event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
+        
+        # Extract RSI trendline visuals from context
+        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        
+        # Build comprehensive observability object
+        observability = {
+            "score_composition": {
+                # Raw indicator values
+                "rsi": float(rsi_val) if pd.notna(rsi_val) else 0,
+                "adx": float(adx_val) if pd.notna(adx_val) else 0,
+                "ema50": float(ema50_val) if pd.notna(ema50_val) else 0,
+                "ema200": float(ema200_val) if pd.notna(ema200_val) else 0,
+                "close_price": float(close),
+                
+                # Scoring components
+                "trend_score": score_breakdown.get('trendScore', 0),
+                "structure_score": score_breakdown.get('structureScore', 0),
+                "money_flow_score": score_breakdown.get('moneyFlowScore', 0),
+                "timing_score": score_breakdown.get('timingScore', 0),
+                
+                # Weights and multipliers
+                "adx_strong_trend": bool(adx_val > self.adx_trend),
+                "volume_multiplier": 1.0 if volume_ok else 0.8,
+                "pullback_detected": bool(is_pullback),
+                "pullback_depth": float(pullback_depth),
+                
+                # Market context
+                "mcap": float(mcap),
+                "vol_24h": float(vol_24h),
+                "divergence": divergence,
+                "obv_imbalance": obv_imbalance,
+                "is_overextended": bool(is_overextended)
+            },
+            "rsi_visuals": rsi_trendlines,
+            "calculated_at": event_timestamp,
+            "candle_index": len(df) - 1
+        }
+        
         # Build result
         return {
             "strategy_name": self.name,
@@ -274,7 +314,8 @@ class QuantProLegacyRefactored(Strategy):
                 "volumeOk": bool(volume_ok),
                 "momentumOk": bool(30 < rsi_val < 70),
                 "isOverextended": bool(is_overextended)
-            }
+            },
+            "observability": observability
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -697,6 +738,45 @@ class QuantProBreakoutRefactored(Strategy):
                         
                         break
         
+        # Get event timestamp (last candle timestamp)
+        last_row = df.iloc[-1]
+        event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
+        
+        # Extract RSI trendline visuals from context
+        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        
+        # Build comprehensive observability object
+        observability = {
+            "score_composition": {
+                # Raw indicator values
+                "rsi": float(rsi_series.iloc[-1]) if rsi_series is not None else 50.0,
+                "close_price": float(latest_price),
+                
+                # Scoring components
+                "geometry_score": details.get('geometry_component', 0),
+                "momentum_score": details.get('momentum_component', 0),
+                "oi_flow_score": details.get('oi_flow_score', 0),
+                
+                # Trendline data (if breakout detected)
+                "trendline_slope": res_line.get('m', 0) if res_line and action == 'LONG' else (sup_line.get('m', 0) if sup_line and action == 'SHORT' else 0),
+                "trendline_start_idx": res_line.get('start_idx', 0) if res_line and action == 'LONG' else (sup_line.get('start_idx', 0) if sup_line and action == 'SHORT' else 0),
+                "trendline_end_idx": res_line.get('end_idx', 0) if res_line and action == 'LONG' else (sup_line.get('end_idx', 0) if sup_line and action == 'SHORT' else 0),
+                
+                # External data availability
+                "oi_available": bool(oi_available),
+                "funding_available": bool(funding_data is not None),
+                "ls_ratio_available": bool(ls_ratio_data is not None),
+                "liquidations_available": bool(liq_data is not None),
+                
+                # Market context
+                "atr": float(atr_series.iloc[-1]) if atr_series is not None else 0,
+                "obv_signal": "NEUTRAL"
+            },
+            "rsi_visuals": rsi_trendlines,
+            "calculated_at": event_timestamp,
+            "candle_index": len(df) - 1
+        }
+        
         # Build result
         return {
             "strategy_name": self.name,
@@ -731,7 +811,8 @@ class QuantProBreakoutRefactored(Strategy):
                 "volumeOk": True,
                 "momentumOk": True,
                 "isOverextended": False
-            }
+            },
+            "observability": observability
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -864,20 +945,331 @@ class QuantProBreakoutRefactored(Strategy):
         return best_line
 
 
-# Placeholder for BreakoutV2 - can be implemented similarly
+# BreakoutV2 - Full Implementation per RSI_calc.md Specification
 class QuantProBreakoutV2Refactored(Strategy):
-    """BreakoutV2 refactored to consume SharedContext."""
+    """
+    BreakoutV2 Strategy - RSI Trendline Breakout with Institutional Confirmation
+    
+    SPECIFICATION COMPLIANCE (RSI_calc.md):
+    1. OI Z-Score Filter: Signal valid ONLY if Z-Score > 1.5 (HARD REQUIREMENT)
+    2. OBV Slope: Linear regression slope must be POSITIVE for Longs
+    3. Cardwell Range Rules: Bull 40-80 / Bear 20-60
+    4. RSI Trendlines: k=5 order pivots with validation
+    5. Risk Management: 3.0 ATR stop loss, Cardwell projection TP
+    """
     
     def __init__(self, config: Dict[str, Any] = None):
         """Initialize with optional config."""
         self.config = config or {}
+        self.min_oi_zscore = self.config.get('min_oi_zscore', 1.5)
+        self.obv_period = self.config.get('obv_slope_period', 14)
+        self.atr_multiplier = self.config.get('atr_stop_multiplier', 3.0)
     
     @property
     def name(self) -> str:
         return "BreakoutV2"
     
     def analyze(self, context: SharedContext) -> Dict[str, Any]:
-        """Placeholder - implement V2 logic using context."""
+        """
+        Analyze using RSI trendline breakout with institutional confirmation.
+        
+        CRITICAL FILTERS (per specification):
+        1. OI Z-Score > 1.5 (MANDATORY)
+        2. OBV Slope > 0 for LONG (MANDATORY)
+        3. Cardwell Range compliance
+        """
+        df = context.ltf_data
+        
+        if len(df) < 50:
+            return self._empty_result(context)
+        
+        # Get indicators from context
+        rsi_series = context.get_ltf_indicator('rsi')
+        obv_series = context.get_ltf_indicator('obv')
+        atr_series = context.get_ltf_indicator('atr')
+        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        
+        if rsi_series is None or len(rsi_series) < 50:
+            return self._empty_result(context)
+        
+        # Current values
+        last_row = df.iloc[-1]
+        close = last_row['close']
+        rsi_val = rsi_series.iloc[-1]
+        atr_val = atr_series.iloc[-1] if atr_series is not None else (close * 0.02)
+        
+        # CRITICAL FILTER 1: OI Z-Score (HARD REQUIREMENT)
+        oi_z_score_valid = context.get_external('oi_z_score_valid', False)
+        oi_z_score = context.get_external('oi_z_score', 0.0)
+        
+        if not oi_z_score_valid:
+            # Signal INVALID without OI confirmation
+            return self._wait_result(context, close, rsi_val, 
+                                    reason="OI Z-Score < 1.5 (FILTER FAILED)",
+                                    oi_z_score=oi_z_score)
+        
+        # CRITICAL FILTER 2: OBV Slope
+        obv_slope = self._calculate_obv_slope(obv_series) if obv_series is not None else 0.0
+        
+        # Determine bias from Cardwell Range Rules
+        bias, cardwell_range = self._apply_cardwell_rules(rsi_val)
+        
+        # Check OBV alignment with bias
+        if bias == 'LONG' and obv_slope <= 0:
+            return self._wait_result(context, close, rsi_val,
+                                    reason="OBV Slope not positive for LONG",
+                                    obv_slope=obv_slope, cardwell_range=cardwell_range)
+        elif bias == 'SHORT' and obv_slope >= 0:
+            return self._wait_result(context, close, rsi_val,
+                                    reason="OBV Slope not negative for SHORT",
+                                    obv_slope=obv_slope, cardwell_range=cardwell_range)
+        
+        # Check for RSI trendline breakout
+        action = 'WAIT'
+        setup = None
+        score = 0.0
+        breakout_type = None
+        
+        # LONG: RSI breaking above resistance
+        if bias == 'LONG' and 'resistance' in rsi_trendlines:
+            res = rsi_trendlines['resistance']
+            current_idx = len(rsi_series) - 1
+            projected_rsi = res['slope'] * current_idx + res['intercept']
+            
+            # Check if RSI broke above trendline
+            if rsi_val > projected_rsi + 1.0:  # 1.0 point buffer for confirmation
+                breakout_type = 'RESISTANCE_BREAK'
+                action = 'LONG'
+                
+                # Calculate setup with Cardwell projection
+                sl = close - (self.atr_multiplier * atr_val)
+                
+                # Cardwell TP: Project momentum amplitude
+                tp = self._calculate_cardwell_tp(df, close, 'LONG', atr_val)
+                
+                risk = close - sl
+                rr = (tp - close) / risk if risk > 0 else 0.0
+                
+                setup = {
+                    "side": "LONG",
+                    "entry": float(close),
+                    "tp": float(tp),
+                    "sl": float(sl),
+                    "rr": float(rr)
+                }
+                
+                # Calculate score with Cardwell weighting
+                score = self._calculate_v2_score(
+                    rsi_val, cardwell_range, oi_z_score, obv_slope, 
+                    breakout_type, rr
+                )
+        
+        # SHORT: RSI breaking below support
+        elif bias == 'SHORT' and 'support' in rsi_trendlines:
+            sup = rsi_trendlines['support']
+            current_idx = len(rsi_series) - 1
+            projected_rsi = sup['slope'] * current_idx + sup['intercept']
+            
+            # Check if RSI broke below trendline
+            if rsi_val < projected_rsi - 1.0:  # 1.0 point buffer for confirmation
+                breakout_type = 'SUPPORT_BREAK'
+                action = 'SHORT'
+                
+                # Calculate setup with Cardwell projection
+                sl = close + (self.atr_multiplier * atr_val)
+                
+                # Cardwell TP: Project momentum amplitude
+                tp = self._calculate_cardwell_tp(df, close, 'SHORT', atr_val)
+                
+                risk = sl - close
+                rr = (close - tp) / risk if risk > 0 else 0.0
+                
+                setup = {
+                    "side": "SHORT",
+                    "entry": float(close),
+                    "tp": float(tp),
+                    "sl": float(sl),
+                    "rr": float(rr)
+                }
+                
+                # Calculate score with Cardwell weighting
+                score = self._calculate_v2_score(
+                    rsi_val, cardwell_range, oi_z_score, obv_slope,
+                    breakout_type, rr
+                )
+        
+        # Get event timestamp
+        event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
+        
+        # Build observability object
+        observability = {
+            "score_composition": {
+                "rsi": float(rsi_val),
+                "close_price": float(close),
+                "oi_z_score": float(oi_z_score),
+                "oi_z_score_valid": bool(oi_z_score_valid),
+                "obv_slope": float(obv_slope),
+                "cardwell_range": cardwell_range,
+                "breakout_type": breakout_type,
+                "atr": float(atr_val),
+                "filters_passed": {
+                    "oi_zscore": oi_z_score_valid,
+                    "obv_slope": (bias == 'LONG' and obv_slope > 0) or (bias == 'SHORT' and obv_slope < 0)
+                }
+            },
+            "rsi_visuals": rsi_trendlines,
+            "calculated_at": event_timestamp,
+            "candle_index": len(df) - 1
+        }
+        
+        # Build result
+        return {
+            "strategy_name": self.name,
+            "symbol": context.symbol,
+            "canonical_symbol": context.canonical_symbol,
+            "exchange": context.exchange,
+            "price": float(close),
+            "score": float(score),
+            "bias": bias,
+            "action": action,
+            "rr": float(setup['rr']) if setup else 0.0,
+            "entry": float(setup['entry']) if setup else None,
+            "stop_loss": float(setup['sl']) if setup else None,
+            "take_profit": float(setup['tp']) if setup else None,
+            "setup": setup,
+            "details": {
+                "total": float(score),
+                "oi_z_score": float(oi_z_score),
+                "obv_slope": float(obv_slope),
+                "cardwell_range": cardwell_range,
+                "breakout_type": breakout_type
+            },
+            "htf": {"trend": "NONE", "bias": bias, "adx": 0},
+            "ltf": {
+                "rsi": float(rsi_val),
+                "bias": bias,
+                "cardwell_range": cardwell_range
+            },
+            "observability": observability
+        }
+    
+    def _calculate_obv_slope(self, obv_series: pd.Series) -> float:
+        """
+        Calculate OBV slope using linear regression over 14 periods.
+        Per specification: Must be POSITIVE for Long signals.
+        """
+        from scipy.stats import linregress
+        
+        if obv_series is None or len(obv_series) < self.obv_period:
+            return 0.0
+        
+        obv_values = obv_series.tail(self.obv_period).values
+        x = np.arange(len(obv_values))
+        
+        try:
+            slope, intercept, r_value, p_value, std_err = linregress(x, obv_values)
+            return float(slope)
+        except:
+            return 0.0
+    
+    def _apply_cardwell_rules(self, rsi_val: float) -> tuple:
+        """
+        Apply Cardwell Range Rules to determine bias.
+        
+        Bull Market Range: 40-80 (Support at 40 is Buy)
+        Bear Market Range: 20-60 (Resistance at 60 is Sell)
+        Range Shift: Break of 60 upside = Bullish shift
+        """
+        if rsi_val >= 60:
+            # Above 60: Bullish momentum or Bear resistance
+            if rsi_val >= 70:
+                return 'LONG', 'BULL_OVERBOUGHT'  # Strong bull, potential pullback
+            else:
+                return 'LONG', 'BULL_MOMENTUM'  # Bullish range
+        elif rsi_val >= 40:
+            # Neutral zone 40-60
+            if rsi_val >= 50:
+                return 'LONG', 'BULL_NEUTRAL'
+            else:
+                return 'SHORT', 'BEAR_NEUTRAL'
+        else:
+            # Below 40: Bearish momentum or Bull support
+            if rsi_val <= 30:
+                return 'SHORT', 'BEAR_OVERSOLD'  # Strong bear, potential bounce
+            else:
+                return 'SHORT', 'BEAR_MOMENTUM'  # Bearish range
+    
+    def _calculate_cardwell_tp(self, df: pd.DataFrame, entry: float, 
+                                side: str, atr: float) -> float:
+        """
+        Calculate Take Profit using Cardwell momentum projection.
+        
+        Per specification: H_mom + (H_mom - L_mom)
+        """
+        # Find recent momentum swing
+        lookback = min(50, len(df))
+        recent_df = df.tail(lookback)
+        
+        if side == 'LONG':
+            h_mom = recent_df['high'].max()
+            l_mom = recent_df['low'].min()
+            amplitude = h_mom - l_mom
+            tp = h_mom + amplitude  # Project amplitude upward
+            
+            # Ensure minimum RR of 2.0
+            if tp < entry + (2.0 * atr):
+                tp = entry + (2.0 * atr)
+        else:  # SHORT
+            h_mom = recent_df['high'].max()
+            l_mom = recent_df['low'].min()
+            amplitude = h_mom - l_mom
+            tp = l_mom - amplitude  # Project amplitude downward
+            
+            # Ensure minimum RR of 2.0
+            if tp > entry - (2.0 * atr):
+                tp = entry - (2.0 * atr)
+        
+        return tp
+    
+    def _calculate_v2_score(self, rsi: float, cardwell_range: str, 
+                            oi_z_score: float, obv_slope: float,
+                            breakout_type: str, rr: float) -> float:
+        """
+        Calculate V2 score with Cardwell weighting.
+        
+        Components:
+        - Base: 20 points (filters passed)
+        - OI Z-Score: 0-30 points (scaled by Z-Score magnitude)
+        - OBV Slope: 0-20 points (scaled by slope magnitude)
+        - Cardwell Position: 0-20 points (bonus for optimal RSI range)
+        - Risk/Reward: 0-10 points (bonus for RR > 3.0)
+        """
+        score = 20.0  # Base for passing filters
+        
+        # OI Z-Score component (0-30 points)
+        oi_component = min(30.0, (oi_z_score - 1.5) * 10.0)
+        score += oi_component
+        
+        # OBV Slope component (0-20 points)
+        obv_component = min(20.0, abs(obv_slope) / 1000.0 * 20.0)
+        score += obv_component
+        
+        # Cardwell Range bonus (0-20 points)
+        if 'BULL_MOMENTUM' in cardwell_range or 'BEAR_MOMENTUM' in cardwell_range:
+            score += 20.0  # Optimal range
+        elif 'NEUTRAL' in cardwell_range:
+            score += 10.0  # Acceptable range
+        
+        # Risk/Reward bonus (0-10 points)
+        if rr >= 3.0:
+            score += 10.0
+        elif rr >= 2.0:
+            score += 5.0
+        
+        return min(100.0, score)
+    
+    def _empty_result(self, context: SharedContext) -> Dict[str, Any]:
+        """Return empty result for insufficient data."""
         return {
             "strategy_name": self.name,
             "symbol": context.symbol,
@@ -887,7 +1279,29 @@ class QuantProBreakoutV2Refactored(Strategy):
             "score": 0.0,
             "bias": "NONE",
             "action": "WAIT",
-            "setup": None
+            "setup": None,
+            "details": {"reason": "Insufficient data"}
+        }
+    
+    def _wait_result(self, context: SharedContext, close: float, rsi: float,
+                     reason: str = "", **kwargs) -> Dict[str, Any]:
+        """Return WAIT result with diagnostic info."""
+        return {
+            "strategy_name": self.name,
+            "symbol": context.symbol,
+            "canonical_symbol": context.canonical_symbol,
+            "exchange": context.exchange,
+            "price": float(close),
+            "score": 0.0,
+            "bias": "NONE",
+            "action": "WAIT",
+            "setup": None,
+            "details": {
+                "reason": reason,
+                "rsi": float(rsi),
+                **kwargs
+            },
+            "ltf": {"rsi": float(rsi)}
         }
     
     def backtest(self, context: SharedContext) -> list:

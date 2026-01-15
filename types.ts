@@ -29,6 +29,75 @@ export interface TrendlineInfo {
   current_projected_rsi: number;
 }
 
+export interface RsiTrendlinePivot {
+  index: number;
+  value: number;
+}
+
+export interface RsiTrendline {
+  pivot_1: RsiTrendlinePivot;
+  pivot_2: RsiTrendlinePivot;
+  slope: number;
+  intercept: number;
+  equation: string;
+}
+
+export interface RsiVisuals {
+  resistance?: RsiTrendline;
+  support?: RsiTrendline;
+}
+
+export interface ScoreComposition {
+  // Raw indicator values
+  rsi?: number;
+  adx?: number;
+  ema50?: number;
+  ema200?: number;
+  close_price?: number;
+  
+  // Scoring components
+  trend_score?: number;
+  structure_score?: number;
+  money_flow_score?: number;
+  timing_score?: number;
+  geometry_score?: number;
+  momentum_score?: number;
+  oi_flow_score?: number;
+  
+  // Weights and multipliers
+  adx_strong_trend?: boolean;
+  volume_multiplier?: number;
+  pullback_detected?: boolean;
+  pullback_depth?: number;
+  
+  // Trendline data (Breakout strategy)
+  trendline_slope?: number;
+  trendline_start_idx?: number;
+  trendline_end_idx?: number;
+  
+  // External data availability
+  oi_available?: boolean;
+  funding_available?: boolean;
+  ls_ratio_available?: boolean;
+  liquidations_available?: boolean;
+  
+  // Market context
+  mcap?: number;
+  vol_24h?: number;
+  divergence?: string;
+  obv_imbalance?: string;
+  is_overextended?: boolean;
+  atr?: number;
+  obv_signal?: string;
+}
+
+export interface Observability {
+  score_composition: ScoreComposition;
+  rsi_visuals: RsiVisuals;
+  calculated_at: number;
+  candle_index: number;
+}
+
 export interface TradeSetup {
   entry: number;
   sl: number;
@@ -138,6 +207,7 @@ export interface AnalysisResult {
     isOverextended: boolean;    // Outside Bollinger Bands
   };
   timestamp: number;
+  observability?: Observability; // Enhanced visual data enrichment
 }
 
 export interface AnalysisState {

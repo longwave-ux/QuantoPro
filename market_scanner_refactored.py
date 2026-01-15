@@ -11,6 +11,10 @@ import pandas as pd
 import numpy as np
 from typing import Dict, Any, List, Optional
 
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+
 # Import canonical architecture components
 from symbol_mapper import to_canonical, get_mapper
 from shared_context import SharedContext, FeatureFactory, create_default_config
@@ -23,6 +27,7 @@ from strategies_refactored import (
 
 # DEBUG: Check API Key visibility
 print(f"[ENV-DEBUG] Coinalyze Key Present: {bool(os.getenv('COINALYZE_API_KEY'))}", file=sys.stderr)
+print(f"[ENV-DEBUG] Coinalyze Key (first 10 chars): {os.getenv('COINALYZE_API_KEY', '')[:10]}...", file=sys.stderr)
 
 
 def load_data(filename: str) -> pd.DataFrame:

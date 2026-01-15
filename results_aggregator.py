@@ -110,6 +110,16 @@ def sanitize_result(item):
                 for k, v in meta_def.items():
                     if k not in sanitized['details'][meta_key]:
                          sanitized['details'][meta_key][k] = v
+    
+    # 5. Preserve observability object (enhanced visual data enrichment)
+    # This contains score_composition, RSI trendline visuals, and event timestamps
+    if 'observability' not in sanitized:
+        sanitized['observability'] = {
+            'score_composition': {},
+            'rsi_visuals': {},
+            'calculated_at': 0,
+            'candle_index': 0
+        }
                          
     return sanitized
 

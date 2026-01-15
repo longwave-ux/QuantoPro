@@ -149,7 +149,14 @@ class FeatureFactory:
         if self._is_enabled('rsi'):
             try:
                 period = self.config.get('rsi_period', 14)
-                context.ltf_indicators['rsi'] = ta.rsi(df['close'], length=period)
+                rsi_series = ta.rsi(df['close'], length=period)
+                context.ltf_indicators['rsi'] = rsi_series
+                
+                # RSI Trendline Pivot Detection for Observability
+                if rsi_series is not None and len(rsi_series) > 50:
+                    trendline_data = self._detect_rsi_trendlines(rsi_series)
+                    if trendline_data:
+                        context.ltf_indicators['rsi_trendlines'] = trendline_data
             except Exception as e:
                 print(f"[FEATURE_FACTORY] Warning: RSI calculation failed for {context.symbol}: {e}", flush=True)
         
@@ -285,43 +292,78 @@ class FeatureFactory:
             client = CoinalyzeClient(api_key)
             symbol = context.symbol
             
-            # Open Interest - isolated error handling
+            # Open Interest - isolated error handling with caching
             if self._is_enabled('open_interest'):
                 try:
-                    oi_data = client.get_open_interest(symbol)
-                    if oi_data:
+                    # Fetch OI history (24 hours) - uses local cache with 15min TTL
+                    oi_data = client.get_open_interest_history(symbol, hours=24)
+                    if oi_data and len(oi_data) > 0:
                         context.external_data['open_interest'] = oi_data
                         context.external_data['oi_available'] = True
+                        
+                        print(f"[COINALYZE] Fetched OI for {symbol}: {len(oi_data)} data points (cached)", flush=True)
+                        
+                        # Calculate OI Z-Score per RSI_calc.md specification
+                        # Z-Score = (Current_OI - Mean_OI) / StdDev_OI
+                        # Signal valid ONLY if Z-Score > 1.5
+                        try:
+                            oi_values = [float(x.get('value', 0)) for x in oi_data if 'value' in x]
+                            if len(oi_values) >= 14:  # Need sufficient data for statistics
+                                current_oi = oi_values[-1]
+                                mean_oi = np.mean(oi_values[-30:])  # 30-period mean
+                                std_oi = np.std(oi_values[-30:])    # 30-period std dev
+                                
+                                if std_oi > 0:
+                                    oi_z_score = (current_oi - mean_oi) / std_oi
+                                    context.external_data['oi_z_score'] = float(oi_z_score)
+                                    context.external_data['oi_z_score_valid'] = oi_z_score > 1.5
+                                    print(f"[COINALYZE] OI Z-Score for {symbol}: {oi_z_score:.2f} (Valid: {oi_z_score > 1.5})", flush=True)
+                                else:
+                                    context.external_data['oi_z_score'] = 0.0
+                                    context.external_data['oi_z_score_valid'] = False
+                            else:
+                                context.external_data['oi_z_score'] = 0.0
+                                context.external_data['oi_z_score_valid'] = False
+                        except Exception as z_err:
+                            print(f"[FEATURE_FACTORY] Warning: OI Z-Score calculation failed: {z_err}", flush=True)
+                            context.external_data['oi_z_score'] = 0.0
+                            context.external_data['oi_z_score_valid'] = False
                     else:
                         context.external_data['oi_available'] = False
+                        context.external_data['oi_z_score_valid'] = False
+                        print(f"[COINALYZE] No OI data for {symbol}", flush=True)
                 except Exception as e:
                     print(f"[FEATURE_FACTORY] Warning: Open Interest fetch failed for {symbol}: {e}", flush=True)
                     context.external_data['oi_available'] = False
+                    context.external_data['oi_z_score_valid'] = False
             
-            # Funding Rate - isolated error handling
+            # Funding Rate - isolated error handling with caching
             if self._is_enabled('funding_rate'):
                 try:
-                    funding_data = client.get_funding_rate(symbol)
-                    if funding_data:
-                        context.external_data['funding_rate'] = funding_data
+                    funding_rate = client.get_funding_rate(symbol)
+                    if funding_rate is not None:
+                        context.external_data['funding_rate'] = funding_rate
+                        print(f"[COINALYZE] Funding Rate for {symbol}: {funding_rate:.4f}% (cached)", flush=True)
                 except Exception as e:
                     print(f"[FEATURE_FACTORY] Warning: Funding Rate fetch failed for {symbol}: {e}", flush=True)
             
-            # Long/Short Ratio - isolated error handling
+            # Long/Short Ratio - isolated error handling with caching
             if self._is_enabled('long_short_ratio'):
                 try:
-                    ls_data = client.get_long_short_ratio(symbol)
-                    if ls_data:
-                        context.external_data['long_short_ratio'] = ls_data
+                    ls_ratio = client.get_ls_ratio_top_traders(symbol)
+                    if ls_ratio is not None:
+                        context.external_data['long_short_ratio'] = ls_ratio
+                        print(f"[COINALYZE] L/S Ratio for {symbol}: {ls_ratio:.2f} (cached)", flush=True)
                 except Exception as e:
                     print(f"[FEATURE_FACTORY] Warning: Long/Short Ratio fetch failed for {symbol}: {e}", flush=True)
             
-            # Liquidations - isolated error handling
+            # Liquidations - isolated error handling with caching
             if self._is_enabled('liquidations'):
                 try:
-                    liq_data = client.get_liquidations(symbol)
+                    liq_data = client.get_liquidation_history(symbol, interval='15min', lookback=3)
                     if liq_data:
                         context.external_data['liquidations'] = liq_data
+                        print(f"[COINALYZE] Liquidations for {symbol}: L={liq_data.get('longs', 0):.0f}, S={liq_data.get('shorts', 0):.0f} (cached)", flush=True)
                 except Exception as e:
                     print(f"[FEATURE_FACTORY] Warning: Liquidations fetch failed for {symbol}: {e}", flush=True)
         
@@ -335,6 +377,200 @@ class FeatureFactory:
         if not self.enabled_features:
             return True
         return feature in self.enabled_features
+    
+    def _detect_rsi_trendlines(self, rsi_series: pd.Series) -> Dict[str, Any]:
+        """
+        Detect RSI trendline pivots using k-order pivot logic per RSI_calc.md specification.
+        
+        SPECIFICATION COMPLIANCE:
+        - Order (k): 5 bars (configurable 5-7)
+        - A point is a Pivot High if: RSI_t > RSI_{t +/- i} for i in [1, k]
+        - Trendline Validation: No intermediate RSI points can violate the line
+        
+        Args:
+            rsi_series: RSI values as pandas Series
+            
+        Returns:
+            Dictionary containing validated pivot coordinates and trendline parameters
+        """
+        result = {}
+        rsi_values = rsi_series.dropna().values
+        
+        if len(rsi_values) < 50:
+            return result
+        
+        # Configuration per spec
+        k_order = self.config.get('rsi_pivot_order', 5)  # 5 to 7 bars
+        lookback = self.config.get('rsi_trendline_lookback', 100)
+        
+        # Use only recent data
+        recent_rsi = rsi_values[-lookback:] if len(rsi_values) > lookback else rsi_values
+        offset = len(rsi_values) - len(recent_rsi)
+        
+        # Detect RESISTANCE (Pivot Highs)
+        try:
+            pivot_highs = self._find_k_order_pivots(recent_rsi, k_order, 'HIGH')
+            
+            if len(pivot_highs) >= 2:
+                # Find best valid trendline (chronological, no violations)
+                trendline = self._find_valid_trendline(recent_rsi, pivot_highs, 'RESISTANCE')
+                
+                if trendline:
+                    p1_idx = int(trendline['p1_idx'] + offset)
+                    p2_idx = int(trendline['p2_idx'] + offset)
+                    p1_val = float(rsi_values[p1_idx])
+                    p2_val = float(rsi_values[p2_idx])
+                    slope = trendline['slope']
+                    intercept = trendline['intercept']
+                    
+                    # Calculate Reverse RSI (breakout price)
+                    reverse_rsi_data = self._calculate_reverse_rsi(
+                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
+                    )
+                    
+                    result['resistance'] = {
+                        'pivot_1': {'index': p1_idx, 'value': p1_val},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val},
+                        'slope': float(slope),
+                        'intercept': float(intercept),
+                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
+                        'reverse_rsi': reverse_rsi_data  # Breakout price calculation
+                    }
+        except Exception as e:
+            print(f"[FEATURE_FACTORY] Warning: RSI resistance trendline detection failed: {e}", flush=True)
+        
+        # Detect SUPPORT (Pivot Lows)
+        try:
+            pivot_lows = self._find_k_order_pivots(recent_rsi, k_order, 'LOW')
+            
+            if len(pivot_lows) >= 2:
+                # Find best valid trendline (chronological, no violations)
+                trendline = self._find_valid_trendline(recent_rsi, pivot_lows, 'SUPPORT')
+                
+                if trendline:
+                    p1_idx = int(trendline['p1_idx'] + offset)
+                    p2_idx = int(trendline['p2_idx'] + offset)
+                    p1_val = float(rsi_values[p1_idx])
+                    p2_val = float(rsi_values[p2_idx])
+                    slope = trendline['slope']
+                    intercept = trendline['intercept']
+                    
+                    # Calculate Reverse RSI (breakout price)
+                    reverse_rsi_data = self._calculate_reverse_rsi(
+                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
+                    )
+                    
+                    result['support'] = {
+                        'pivot_1': {'index': p1_idx, 'value': p1_val},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val},
+                        'slope': float(slope),
+                        'intercept': float(intercept),
+                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
+                        'reverse_rsi': reverse_rsi_data  # Breakout price calculation
+                    }
+        except Exception as e:
+            print(f"[FEATURE_FACTORY] Warning: RSI support trendline detection failed: {e}", flush=True)
+        
+        return result
+    
+    def _find_k_order_pivots(self, rsi_values: np.ndarray, k: int, pivot_type: str) -> list:
+        """
+        Find k-order pivots per specification.
+        
+        A point is a Pivot High if: RSI_t > RSI_{t +/- i} for i in [1, k]
+        A point is a Pivot Low if: RSI_t < RSI_{t +/- i} for i in [1, k]
+        """
+        pivots = []
+        
+        for i in range(k, len(rsi_values) - k):
+            is_pivot = True
+            
+            # Check k bars before and after
+            for offset in range(1, k + 1):
+                if pivot_type == 'HIGH':
+                    # Must be higher than all surrounding bars
+                    if rsi_values[i] <= rsi_values[i - offset] or rsi_values[i] <= rsi_values[i + offset]:
+                        is_pivot = False
+                        break
+                else:  # LOW
+                    # Must be lower than all surrounding bars
+                    if rsi_values[i] >= rsi_values[i - offset] or rsi_values[i] >= rsi_values[i + offset]:
+                        is_pivot = False
+                        break
+            
+            if is_pivot:
+                pivots.append({'index': i, 'value': rsi_values[i]})
+        
+        return pivots
+    
+    def _find_valid_trendline(self, rsi_values: np.ndarray, pivots: list, direction: str) -> Dict[str, Any]:
+        """
+        Find valid trendline with NO violations between pivots.
+        
+        Trendline Validation: No intermediate RSI points between Pivot 1 and Pivot 2 can violate the line.
+        """
+        if len(pivots) < 2:
+            return None
+        
+        # Try pairs of pivots chronologically
+        for i in range(len(pivots) - 1):
+            for j in range(i + 1, len(pivots)):
+                p1 = pivots[i]
+                p2 = pivots[j]
+                
+                # Calculate trendline
+                slope = (p2['value'] - p1['value']) / (p2['index'] - p1['index'])
+                intercept = p1['value'] - (slope * p1['index'])
+                
+                # Validate: check all intermediate points
+                valid = True
+                for idx in range(p1['index'] + 1, p2['index']):
+                    projected = slope * idx + intercept
+                    actual = rsi_values[idx]
+                    
+                    if direction == 'RESISTANCE':
+                        # No point should be above the resistance line
+                        if actual > projected + 0.5:  # Small tolerance for noise
+                            valid = False
+                            break
+                    else:  # SUPPORT
+                        # No point should be below the support line
+                        if actual < projected - 0.5:  # Small tolerance for noise
+                            valid = False
+                            break
+                
+                if valid:
+                    return {
+                        'p1_idx': p1['index'],
+                        'p2_idx': p2['index'],
+                        'slope': slope,
+                        'intercept': intercept
+                    }
+        
+        return None
+    
+    def _calculate_reverse_rsi(self, rsi_values: np.ndarray, last_pivot_idx: int, 
+                                slope: float, intercept: float, current_idx: int) -> Dict[str, Any]:
+        """
+        Calculate Reverse RSI: the exact price where RSI will hit the trendline.
+        
+        Per RSI_calc.md specification:
+        - RS_target = RSI_TL / (100 - RSI_TL)
+        - P_entry = Close_prev + [(RS_target * AvgD_prev * 13) - (AvgU_prev * 13)] / (1 + RS_target)
+        
+        Note: This requires access to AvgU and AvgD from RSI calculation.
+        For now, we return the projected RSI value and index.
+        Full implementation requires storing AvgU/AvgD in context.
+        """
+        # Project RSI at current candle
+        rsi_tl = slope * current_idx + intercept
+        rsi_tl = max(0, min(100, rsi_tl))  # Clamp to valid RSI range
+        
+        return {
+            'projected_rsi': float(rsi_tl),
+            'projection_index': int(current_idx),
+            'note': 'Full Reverse RSI price calculation requires AvgU/AvgD from RSI internals'
+        }
 
 
 def create_default_config() -> Dict[str, Any]:
