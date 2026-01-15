@@ -113,12 +113,18 @@ def sanitize_result(item):
                          
     return sanitized
 
-def get_base_symbol(symbol):
+def get_canonical_symbol(signal):
     """
-    Removes common suffixes to find the 'true' coin name.
-    Ex: BTCUSDT -> BTC, PEPEUSDTM -> PEPE
+    Extract canonical symbol from signal.
+    Prioritizes canonical_symbol field from new scanner, falls back to deriving from symbol.
     """
-    for suffix in ['USDTM', 'PERP', 'USDT', 'USD']:
+    # Use canonical_symbol if present (from canonical architecture)
+    if 'canonical_symbol' in signal and signal['canonical_symbol']:
+        return signal['canonical_symbol']
+    
+    # Fallback: derive from symbol (legacy compatibility)
+    symbol = signal.get('symbol', 'UNKNOWN')
+    for suffix in ['USDTM', 'PERP', 'USDT', 'USDC', 'USD']:
         if symbol.endswith(suffix):
             return symbol[:-len(suffix)]
     return symbol
@@ -189,12 +195,12 @@ def main():
         if vol == 0 and key in vol_map:
             vol = vol_map[key]
             
-        base_sym = get_base_symbol(sym)
+        canonical_sym = get_canonical_symbol(s)
         
         # Add Tags
         s['enrich_vol'] = vol
-        s['base_symbol'] = base_sym
-        s['priority_score'] = SOURCE_PRIORITY.get(src, 0)
+        s['canonical_symbol'] = canonical_sym  # Ensure canonical_symbol is set
+        s['base_symbol'] = canonical_sym  # Keep for backward compatibility
         s['priority_score'] = SOURCE_PRIORITY.get(src, 0)
         s['exchange_tag'] = SOURCE_TAGS.get(src, src[:3]) # Fallback to first 3 chars
         
@@ -218,34 +224,39 @@ def main():
         
         processed_signals.append(s)
 
-    # 3. De-duplication (Grouping by Strategy + Base Symbol)
-    grouped = {}
+    # 3. Strategy Merge: Group by Canonical Symbol
+    # For each canonical symbol, preserve ALL strategies in a combined structure
+    canonical_groups = {}
     
     for s in processed_signals:
-        strat = s.get('strategy_name', 'Unknown')
-        base = s['base_symbol']
+        canonical = s['canonical_symbol']
         
-        # Group Key: e.g. "Breakout|BTC"
-        group_key = f"{strat}|{base}"
-        
-        if group_key not in grouped:
-            grouped[group_key] = []
-        grouped[group_key].append(s)
-        
-    # 4. Selection
+        if canonical not in canonical_groups:
+            canonical_groups[canonical] = []
+        canonical_groups[canonical].append(s)
+    
+    # 4. Build Final List with Strategy Merge
     final_list = []
     
-    for group_key, candidates in grouped.items():
-        # Sort by:
-        # 1. Volume (Desc)
-        # 2. Priority (Desc)
-        # 3. Score (Desc)
-        candidates.sort(key=lambda x: (x['enrich_vol'], x['priority_score'], x['score']), reverse=True)
+    for canonical, signals in canonical_groups.items():
+        # Group by strategy within this canonical symbol
+        strategy_groups = {}
+        for s in signals:
+            strat = s.get('strategy_name', 'Unknown')
+            if strat not in strategy_groups:
+                strategy_groups[strat] = []
+            strategy_groups[strat].append(s)
         
-        winner = candidates[0]
-        # SANITIZE RESULT TO PREVENTION FRONTEND CRASH
-        winner = sanitize_result(winner)
-        final_list.append(winner)
+        # For each strategy, pick the best signal (highest volume/priority/score)
+        strategy_signals = []
+        for strat, candidates in strategy_groups.items():
+            candidates.sort(key=lambda x: (x['enrich_vol'], x['priority_score'], x['score']), reverse=True)
+            winner = candidates[0]
+            winner = sanitize_result(winner)
+            strategy_signals.append(winner)
+        
+        # Add all strategy signals for this canonical symbol
+        final_list.extend(strategy_signals)
 
     print(f"[*] Final unique signals: {len(final_list)}")
     

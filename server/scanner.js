@@ -143,7 +143,7 @@ const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, 
             let resultBase = null;
 
             try {
-                const pythonScript = path.join(process.cwd(), 'market_scanner.py');
+                const pythonScript = path.join(process.cwd(), 'market_scanner_refactored.py');
                 const venvPython = path.join(process.cwd(), 'venv/bin/python');
 
                 // Pass the requested strategy to Python with TIMEOUT and ENV

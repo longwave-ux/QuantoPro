@@ -1,0 +1,360 @@
+"""
+SharedContext - Centralized Data and Indicator Storage
+Feature Factory for calculating indicators and external data ONCE per canonical symbol.
+"""
+
+from dataclasses import dataclass, field
+from typing import Dict, Any, Optional, List
+import pandas as pd
+import numpy as np
+from symbol_mapper import to_canonical
+
+
+@dataclass
+class SharedContext:
+    """
+    Centralized context object containing all pre-calculated data and indicators.
+    Strategies read from this context instead of computing indicators themselves.
+    """
+    # Core Identity
+    symbol: str  # Original exchange symbol
+    canonical_symbol: str  # Canonical base symbol (e.g., BTC)
+    exchange: str  # Source exchange
+    
+    # Price Data
+    ltf_data: pd.DataFrame  # Low timeframe candles
+    htf_data: Optional[pd.DataFrame] = None  # High timeframe candles
+    
+    # Technical Indicators (LTF)
+    ltf_indicators: Dict[str, Any] = field(default_factory=dict)
+    
+    # Technical Indicators (HTF)
+    htf_indicators: Dict[str, Any] = field(default_factory=dict)
+    
+    # External Data (Institutional)
+    external_data: Dict[str, Any] = field(default_factory=dict)
+    
+    # Market Metadata
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    
+    # Configuration
+    config: Dict[str, Any] = field(default_factory=dict)
+    
+    def get_ltf_indicator(self, name: str, default=None):
+        """Safely retrieve LTF indicator."""
+        return self.ltf_indicators.get(name, default)
+    
+    def get_htf_indicator(self, name: str, default=None):
+        """Safely retrieve HTF indicator."""
+        return self.htf_indicators.get(name, default)
+    
+    def get_external(self, name: str, default=None):
+        """Safely retrieve external data."""
+        return self.external_data.get(name, default)
+    
+    def get_metadata(self, name: str, default=None):
+        """Safely retrieve metadata."""
+        return self.metadata.get(name, default)
+    
+    def has_htf_data(self) -> bool:
+        """Check if HTF data is available."""
+        return self.htf_data is not None and len(self.htf_data) > 0
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert context to dictionary for serialization."""
+        return {
+            'symbol': self.symbol,
+            'canonical_symbol': self.canonical_symbol,
+            'exchange': self.exchange,
+            'ltf_indicators': self.ltf_indicators,
+            'htf_indicators': self.htf_indicators,
+            'external_data': self.external_data,
+            'metadata': self.metadata,
+        }
+
+
+class FeatureFactory:
+    """
+    Factory for calculating indicators and external data.
+    Plug & Play: Add new indicators by adding methods and config keys.
+    """
+    
+    def __init__(self, config: Dict[str, Any]):
+        """
+        Initialize the feature factory with configuration.
+        
+        Args:
+            config: Configuration dict containing indicator settings
+        """
+        self.config = config
+        self.enabled_features = config.get('enabled_features', [])
+    
+    def build_context(
+        self,
+        symbol: str,
+        exchange: str,
+        ltf_data: pd.DataFrame,
+        htf_data: Optional[pd.DataFrame] = None,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> SharedContext:
+        """
+        Build a complete SharedContext with all enabled features.
+        
+        Args:
+            symbol: Exchange-specific symbol
+            exchange: Source exchange
+            ltf_data: Low timeframe DataFrame
+            htf_data: Optional high timeframe DataFrame
+            metadata: Optional metadata dict
+            
+        Returns:
+            Fully populated SharedContext
+        """
+        # Create canonical symbol
+        canonical = to_canonical(symbol, exchange)
+        
+        # Initialize context
+        context = SharedContext(
+            symbol=symbol,
+            canonical_symbol=canonical,
+            exchange=exchange,
+            ltf_data=ltf_data,
+            htf_data=htf_data,
+            metadata=metadata or {},
+            config=self.config
+        )
+        
+        # Calculate all features
+        self._calculate_ltf_indicators(context)
+        
+        if context.has_htf_data():
+            self._calculate_htf_indicators(context)
+        
+        self._fetch_external_data(context)
+        
+        return context
+    
+    def _calculate_ltf_indicators(self, context: SharedContext):
+        """Calculate all LTF technical indicators with error handling."""
+        df = context.ltf_data
+        
+        if len(df) < 50:
+            print(f"[FEATURE_FACTORY] Insufficient LTF data ({len(df)} candles) for {context.symbol}", flush=True)
+            return  # Insufficient data
+        
+        # Import pandas_ta here to avoid circular imports
+        import pandas_ta as ta
+        
+        # RSI
+        if self._is_enabled('rsi'):
+            try:
+                period = self.config.get('rsi_period', 14)
+                context.ltf_indicators['rsi'] = ta.rsi(df['close'], length=period)
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: RSI calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # EMA
+        if self._is_enabled('ema'):
+            try:
+                fast = self.config.get('ema_fast', 50)
+                slow = self.config.get('ema_slow', 200)
+                context.ltf_indicators['ema_fast'] = ta.ema(df['close'], length=fast)
+                context.ltf_indicators['ema_slow'] = ta.ema(df['close'], length=slow)
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: EMA calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # ADX
+        if self._is_enabled('adx'):
+            try:
+                period = self.config.get('adx_period', 14)
+                adx_df = ta.adx(df['high'], df['low'], df['close'], length=period)
+                if adx_df is not None and not adx_df.empty:
+                    context.ltf_indicators['adx'] = adx_df[f'ADX_{period}']
+                    context.ltf_indicators['di_plus'] = adx_df[f'DMP_{period}']
+                    context.ltf_indicators['di_minus'] = adx_df[f'DMN_{period}']
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: ADX calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # ATR
+        if self._is_enabled('atr'):
+            try:
+                period = self.config.get('atr_period', 14)
+                context.ltf_indicators['atr'] = ta.atr(df['high'], df['low'], df['close'], length=period)
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: ATR calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # Bollinger Bands
+        if self._is_enabled('bollinger'):
+            try:
+                period = self.config.get('bb_period', 20)
+                std = self.config.get('bb_std', 2)
+                bb_df = ta.bbands(df['close'], length=period, std=std)
+                if bb_df is not None and not bb_df.empty:
+                    # Flexible column detection for different pandas_ta versions
+                    cols = bb_df.columns.tolist()
+                    bb_upper_col = [c for c in cols if 'BBU' in str(c)]
+                    bb_middle_col = [c for c in cols if 'BBM' in str(c)]
+                    bb_lower_col = [c for c in cols if 'BBL' in str(c)]
+                    
+                    if bb_upper_col and bb_middle_col and bb_lower_col:
+                        context.ltf_indicators['bb_upper'] = bb_df[bb_upper_col[0]]
+                        context.ltf_indicators['bb_middle'] = bb_df[bb_middle_col[0]]
+                        context.ltf_indicators['bb_lower'] = bb_df[bb_lower_col[0]]
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: Bollinger Bands calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # OBV
+        if self._is_enabled('obv'):
+            try:
+                context.ltf_indicators['obv'] = ta.obv(df['close'], df['volume'])
+            except Exception as e:
+                print(f"[FEATURE_FACTORY] Warning: OBV calculation failed for {context.symbol}: {e}", flush=True)
+        
+        # MACD (example of plug & play)
+        if self._is_enabled('macd'):
+            fast = self.config.get('macd_fast', 12)
+            slow = self.config.get('macd_slow', 26)
+            signal = self.config.get('macd_signal', 9)
+            macd_df = ta.macd(df['close'], fast=fast, slow=slow, signal=signal)
+            if macd_df is not None and not macd_df.empty:
+                context.ltf_indicators['macd'] = macd_df[f'MACD_{fast}_{slow}_{signal}']
+                context.ltf_indicators['macd_signal'] = macd_df[f'MACDs_{fast}_{slow}_{signal}']
+                context.ltf_indicators['macd_histogram'] = macd_df[f'MACDh_{fast}_{slow}_{signal}']
+        
+        # Volume SMA
+        if self._is_enabled('volume_sma'):
+            period = self.config.get('volume_sma_period', 20)
+            context.ltf_indicators['volume_sma'] = ta.sma(df['volume'], length=period)
+        
+        # Stochastic RSI (example of additional indicator)
+        if self._is_enabled('stoch_rsi'):
+            period = self.config.get('stoch_rsi_period', 14)
+            stoch_df = ta.stochrsi(df['close'], length=period)
+            if stoch_df is not None and not stoch_df.empty:
+                context.ltf_indicators['stoch_rsi_k'] = stoch_df[f'STOCHRSIk_{period}_14_3_3']
+                context.ltf_indicators['stoch_rsi_d'] = stoch_df[f'STOCHRSId_{period}_14_3_3']
+    
+    def _calculate_htf_indicators(self, context: SharedContext):
+        """Calculate all HTF technical indicators."""
+        df = context.htf_data
+        
+        if df is None or len(df) < 50:
+            return
+        
+        import pandas_ta as ta
+        
+        # HTF EMA
+        if self._is_enabled('ema'):
+            fast = self.config.get('ema_fast', 50)
+            slow = self.config.get('ema_slow', 200)
+            context.htf_indicators['ema_fast'] = ta.ema(df['close'], length=fast)
+            context.htf_indicators['ema_slow'] = ta.ema(df['close'], length=slow)
+        
+        # HTF ADX
+        if self._is_enabled('adx'):
+            period = self.config.get('adx_period', 14)
+            adx_df = ta.adx(df['high'], df['low'], df['close'], length=period)
+            if adx_df is not None and not adx_df.empty:
+                context.htf_indicators['adx'] = adx_df[f'ADX_{period}']
+        
+        # HTF RSI
+        if self._is_enabled('rsi'):
+            period = self.config.get('rsi_period', 14)
+            context.htf_indicators['rsi'] = ta.rsi(df['close'], length=period)
+        
+        # HTF ATR
+        if self._is_enabled('atr'):
+            period = self.config.get('atr_period', 14)
+            context.htf_indicators['atr'] = ta.atr(df['high'], df['low'], df['close'], length=period)
+    
+    def _fetch_external_data(self, context: SharedContext):
+        """Fetch external data (OI, funding, sentiment) if enabled with granular error handling."""
+        if not self._is_enabled('external_data'):
+            return
+        
+        try:
+            from data_fetcher import CoinalyzeClient
+            import os
+            
+            api_key = os.environ.get('COINALYZE_API_KEY')
+            if not api_key:
+                # Silently skip external data if API key not configured
+                context.external_data['oi_available'] = False
+                return
+            
+            client = CoinalyzeClient(api_key)
+            symbol = context.symbol
+            
+            # Open Interest - isolated error handling
+            if self._is_enabled('open_interest'):
+                try:
+                    oi_data = client.get_open_interest(symbol)
+                    if oi_data:
+                        context.external_data['open_interest'] = oi_data
+                        context.external_data['oi_available'] = True
+                    else:
+                        context.external_data['oi_available'] = False
+                except Exception as e:
+                    print(f"[FEATURE_FACTORY] Warning: Open Interest fetch failed for {symbol}: {e}", flush=True)
+                    context.external_data['oi_available'] = False
+            
+            # Funding Rate - isolated error handling
+            if self._is_enabled('funding_rate'):
+                try:
+                    funding_data = client.get_funding_rate(symbol)
+                    if funding_data:
+                        context.external_data['funding_rate'] = funding_data
+                except Exception as e:
+                    print(f"[FEATURE_FACTORY] Warning: Funding Rate fetch failed for {symbol}: {e}", flush=True)
+            
+            # Long/Short Ratio - isolated error handling
+            if self._is_enabled('long_short_ratio'):
+                try:
+                    ls_data = client.get_long_short_ratio(symbol)
+                    if ls_data:
+                        context.external_data['long_short_ratio'] = ls_data
+                except Exception as e:
+                    print(f"[FEATURE_FACTORY] Warning: Long/Short Ratio fetch failed for {symbol}: {e}", flush=True)
+            
+            # Liquidations - isolated error handling
+            if self._is_enabled('liquidations'):
+                try:
+                    liq_data = client.get_liquidations(symbol)
+                    if liq_data:
+                        context.external_data['liquidations'] = liq_data
+                except Exception as e:
+                    print(f"[FEATURE_FACTORY] Warning: Liquidations fetch failed for {symbol}: {e}", flush=True)
+        
+        except Exception as e:
+            print(f"[FEATURE_FACTORY] Error initializing external data client for {context.symbol}: {e}", flush=True)
+            context.external_data['oi_available'] = False
+    
+    def _is_enabled(self, feature: str) -> bool:
+        """Check if a feature is enabled in config."""
+        # If no enabled_features list, enable all by default
+        if not self.enabled_features:
+            return True
+        return feature in self.enabled_features
+
+
+def create_default_config() -> Dict[str, Any]:
+    """Create default configuration for FeatureFactory."""
+    return {
+        'enabled_features': [
+            'rsi', 'ema', 'adx', 'atr', 'bollinger', 'obv',
+            'volume_sma', 'external_data', 'open_interest',
+            'funding_rate', 'long_short_ratio', 'liquidations'
+        ],
+        'rsi_period': 14,
+        'ema_fast': 50,
+        'ema_slow': 200,
+        'adx_period': 14,
+        'atr_period': 14,
+        'bb_period': 20,
+        'bb_std': 2,
+        'volume_sma_period': 20,
+        'macd_fast': 12,
+        'macd_slow': 26,
+        'macd_signal': 9,
+        'stoch_rsi_period': 14,
+    }

@@ -128,8 +128,17 @@ app.get('/api/scan/status', (req, res) => {
 // ==========================================
 
 app.get('/api/results', async (req, res) => {
-    const results = await getMasterFeed();
-    res.json(results);
+    const { source } = req.query;
+    
+    // If source specified, return source-specific results with accurate timestamps
+    if (source) {
+        const sourceResults = await getLatestResults(source);
+        res.json(sourceResults);
+    } else {
+        // Otherwise return aggregated master feed
+        const results = await getMasterFeed();
+        res.json(results);
+    }
 });
 
 app.post('/api/settings', async (req, res) => {

@@ -30,3 +30,43 @@ node_modules/
 
 # OS
 .DS_Store
+# --- SECURITY (Secrets) ---
+.env
+data/settings.json
+data/v2_state.json
+*private_key*
+
+# --- DATA & CACHE (The noise) ---
+# Escludiamo tutti i dati scaricati e i risultati generati
+data/*.json
+data/coinalyze_cache/
+logs/
+*.log
+
+# Ma vogliamo mantenere la struttura della cartella data (opzionale)
+!data/.gitkeep
+
+# --- PYTHON (Environment & Bytecode) ---
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- NODE.JS & FRONTEND ---
+node_modules/
+dist/
+build/
+.eslintcache
+
+# --- IDE & OS (Noise) ---
+.DS_Store
+.vscode/
+.windsurf/
+.idea/
+*.swp
+
+# --- TEST & MISC ---
+test_results/
+compare_results.txt
