@@ -95,7 +95,8 @@ class FeatureFactory:
         exchange: str,
         ltf_data: pd.DataFrame,
         htf_data: Optional[pd.DataFrame] = None,
-        metadata: Optional[Dict[str, Any]] = None
+        metadata: Optional[Dict[str, Any]] = None,
+        external_data: Optional[Dict[str, Any]] = None
     ) -> SharedContext:
         """
         Build a complete SharedContext with all enabled features.
@@ -106,6 +107,7 @@ class FeatureFactory:
             ltf_data: Low timeframe DataFrame
             htf_data: Optional high timeframe DataFrame
             metadata: Optional metadata dict
+            external_data: Pre-fetched external data from batch processor (optional)
             
         Returns:
             Fully populated SharedContext
@@ -130,7 +132,11 @@ class FeatureFactory:
         if context.has_htf_data():
             self._calculate_htf_indicators(context)
         
-        self._fetch_external_data(context)
+        # Use pre-fetched data if available, otherwise fetch
+        if external_data:
+            self._use_prefetched_data(context, external_data)
+        else:
+            self._fetch_external_data(context)
         
         return context
     
@@ -273,6 +279,82 @@ class FeatureFactory:
         if self._is_enabled('atr'):
             period = self.config.get('atr_period', 14)
             context.htf_indicators['atr'] = ta.atr(df['high'], df['low'], df['close'], length=period)
+    
+    def _use_prefetched_data(self, context: SharedContext, external_data: Dict[str, Any]):
+        """
+        Use pre-fetched external data from batch processor.
+        
+        Args:
+            context: SharedContext to populate
+            external_data: Pre-fetched data dict with keys:
+                - oi_history: List of OI data points
+                - funding_rate: Float or None
+                - ls_ratio: Float or None
+                - liquidations: Dict with 'longs' and 'shorts'
+                - oi_status: "resolved" | "aggregated" | "neutral"
+        """
+        import numpy as np
+        
+        oi_status = external_data.get('oi_status', 'neutral')
+        
+        # Open Interest
+        oi_history = external_data.get('oi_history', [])
+        if oi_history and len(oi_history) > 0:
+            context.external_data['open_interest'] = oi_history
+            context.external_data['oi_available'] = True
+            context.external_data['oi_status'] = oi_status
+            
+            # Calculate OI Z-Score
+            try:
+                oi_values = [float(x.get('value', 0)) for x in oi_history if 'value' in x]
+                if len(oi_values) >= 14:
+                    current_oi = oi_values[-1]
+                    mean_oi = np.mean(oi_values[-30:])
+                    std_oi = np.std(oi_values[-30:])
+                    
+                    if std_oi > 0:
+                        oi_z_score = (current_oi - mean_oi) / std_oi
+                        context.external_data['oi_z_score'] = float(oi_z_score)
+                        context.external_data['oi_z_score_valid'] = oi_z_score > 1.5
+                    else:
+                        context.external_data['oi_z_score'] = 0.0
+                        context.external_data['oi_z_score_valid'] = False
+                else:
+                    context.external_data['oi_z_score'] = 0.0
+                    context.external_data['oi_z_score_valid'] = False
+            except Exception as e:
+                print(f"[BATCH] OI Z-Score calculation failed: {e}", flush=True)
+                context.external_data['oi_z_score'] = 0.0
+                context.external_data['oi_z_score_valid'] = False
+        else:
+            # Neutral - no OI data available
+            context.external_data['oi_available'] = False
+            context.external_data['oi_z_score_valid'] = False
+            context.external_data['oi_status'] = 'neutral'
+        
+        # Funding Rate
+        funding_rate = external_data.get('funding_rate')
+        if funding_rate is not None:
+            context.external_data['funding_rate'] = funding_rate
+            context.external_data['funding_available'] = True
+        else:
+            context.external_data['funding_available'] = False
+        
+        # Long/Short Ratio
+        ls_ratio = external_data.get('ls_ratio')
+        if ls_ratio is not None:
+            context.external_data['long_short_ratio'] = ls_ratio
+            context.external_data['ls_ratio_available'] = True
+        else:
+            context.external_data['ls_ratio_available'] = False
+        
+        # Liquidations
+        liquidations = external_data.get('liquidations', {})
+        if liquidations:
+            context.external_data['liquidations'] = liquidations
+            context.external_data['liquidations_available'] = True
+        else:
+            context.external_data['liquidations_available'] = False
     
     def _fetch_external_data(self, context: SharedContext):
         """Fetch external data (OI, funding, sentiment) if enabled with granular error handling."""

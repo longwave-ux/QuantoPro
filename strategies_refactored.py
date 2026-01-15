@@ -315,7 +315,11 @@ class QuantProLegacyRefactored(Strategy):
                 "momentumOk": bool(30 < rsi_val < 70),
                 "isOverextended": bool(is_overextended)
             },
-            "observability": observability
+            "observability": observability,
+            "oi_metadata": {
+                "status": context.get_external('oi_status') or 'neutral',
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+            }
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -812,7 +816,11 @@ class QuantProBreakoutRefactored(Strategy):
                 "momentumOk": True,
                 "isOverextended": False
             },
-            "observability": observability
+            "observability": observability,
+            "oi_metadata": {
+                "status": context.get_external('oi_status') or 'neutral',
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+            }
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -1150,7 +1158,11 @@ class QuantProBreakoutV2Refactored(Strategy):
                 "bias": bias,
                 "cardwell_range": cardwell_range
             },
-            "observability": observability
+            "observability": observability,
+            "oi_metadata": {
+                "status": context.get_external('oi_status') or 'neutral',
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None
+            }
         }
     
     def _calculate_obv_slope(self, obv_series: pd.Series) -> float:

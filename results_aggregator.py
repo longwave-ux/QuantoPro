@@ -270,17 +270,26 @@ def main():
 
     print(f"[*] Final unique signals: {len(final_list)}")
     
-    # 5. Save to Master Feed
+    # 5. Save to Master Feed with timestamp
     try:
         abs_path = os.path.abspath(OUTPUT_FILE)
         print(f"[FILESYSTEM-DEBUG] Saving {len(final_list)} symbols to {abs_path}")
+        
+        # Create structured format with timestamp
+        import time
+        master_feed = {
+            'last_updated': int(time.time() * 1000),  # Unix timestamp in milliseconds
+            'signals': final_list
+        }
+        
         # Atomic Write
         temp_file = OUTPUT_FILE + ".tmp"
         with open(temp_file, 'w') as f:
-            json.dump(final_list, f, indent=2)
+            json.dump(master_feed, f, indent=2)
             
         os.replace(temp_file, OUTPUT_FILE) # Atomic rename
-        print(f"[SUCCESS] Saved to {OUTPUT_FILE} (Automically)")
+        print(f"[SUCCESS] Saved to {OUTPUT_FILE} (Atomically)")
+        print(f"[TIMESTAMP] Last Updated: {master_feed['last_updated']}")
     except Exception as e:
         print(f"[ERROR] Failed to save master feed: {e}")
 

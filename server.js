@@ -137,7 +137,9 @@ app.get('/api/results', async (req, res) => {
     } else {
         // Otherwise return aggregated master feed
         const results = await getMasterFeed();
-        res.json(results);
+        // HARD-FIX: Always extract and return flat signals array
+        const signals = results.signals || (Array.isArray(results) ? results : []);
+        res.json(signals);
     }
 });
 

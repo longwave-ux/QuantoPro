@@ -28,6 +28,12 @@ const DEFAULT_SETTINGS: NotificationSettings = {
 };
 
 export default function App() {
+    // CLEAR CACHE: Remove old exchange filter that was causing 0 results
+    if (typeof window !== 'undefined' && localStorage.getItem('cs_datasource') === 'HYPERLIQUID') {
+        localStorage.removeItem('cs_datasource');
+        localStorage.removeItem('cs_last_results_HYPERLIQUID');
+    }
+    
     // PERSISTENT STATE: View Settings & Data
     const [timeframe, setTimeframe] = useState(() => localStorage.getItem('cs_timeframe') || '15m');
     const [dataSource, setDataSource] = useState(() => localStorage.getItem('cs_datasource') || 'MEXC');
@@ -40,9 +46,7 @@ export default function App() {
     });
 
     // Derived State for Consistency
-    const lastUpdated = (data && data.length > 0 && data[0].timestamp)
-        ? new Date(data[0].timestamp)
-        : null;
+    const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
     const [isScanning, setIsScanning] = useState(false);
     const [scanError, setScanError] = useState<string | null>(null);
@@ -303,24 +307,44 @@ export default function App() {
 
             // 2. Try to fetch pre-calculated results from the 24/7 server loop
             try {
-                const res = await fetch(`/api/results?source=${dataSource}`);
+                const res = await fetch(`/api/results`);
+                console.log(`[FETCH] /api/results - Status:`, res.status);
+                
                 if (res.ok) {
                     const serverResults = await res.json();
-                    if (Array.isArray(serverResults) && serverResults.length > 0) {
-                        console.log("Loaded results from server cache");
-                        setData(serverResults);
-                        // Use the timestamp from the first result or current time
-                        // Use the timestamp from the first result or current time
-                        // const resultTime = serverResults[0].timestamp ? new Date(serverResults[0].timestamp) : new Date();
-                        // setLastUpdated(resultTime);
-
+                    console.log("[DATA RECEIVED]", {
+                        type: typeof serverResults,
+                        isArray: Array.isArray(serverResults),
+                        length: Array.isArray(serverResults) ? serverResults.length : 'N/A',
+                        hasSignals: serverResults?.signals ? true : false,
+                        signalsLength: serverResults?.signals?.length || 0,
+                        firstItem: Array.isArray(serverResults) ? serverResults[0] : null
+                    });
+                    
+                    // Handle both formats: { last_updated, signals } or flat array
+                    const signals = serverResults.signals || serverResults;
+                    const dataArray = Array.isArray(signals) ? signals : [];
+                    
+                    console.log(`[EXTRACTED] ${dataArray.length} signals ready for display`);
+                    
+                    if (dataArray.length > 0) {
+                        console.log("✅ Loaded results from server cache");
+                        setData(dataArray);
+                        
+                        // Update last_updated timestamp if present
+                        if (serverResults.last_updated) {
+                            setLastUpdated(new Date(serverResults.last_updated));
+                        }
+                        
                         // Update local storage with fresh server data
-                        localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(serverResults));
+                        localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(dataArray));
                         return;
+                    } else {
+                        console.error("❌ CRITICAL: dataArray is empty despite data existing!");
                     }
                 }
             } catch (e) {
-                console.log("Server cache unavailable, running local scan...");
+                console.error("Server cache error:", e);
             }
 
             // 3. Fallback to local scan ONLY if we have absolutely no data
@@ -368,13 +392,22 @@ export default function App() {
                     if (status.status === 'IDLE' && status.progress === 100) {
                         // Scan Finished
                         // Fetch latest data
-                        const dataRes = await fetch(`/api/results?source=${dataSource}`);
+                        const dataRes = await fetch(`/api/results`);
                         if (dataRes.ok) {
                             const newData = await dataRes.json();
-                            setData(newData);
-                            setData(newData);
-                            // setLastUpdated(new Date()); // Derived state now handles this
-                            localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(newData));
+                            
+                            // Handle both formats: { last_updated, signals } or flat array
+                            const signals = newData.signals || newData;
+                            const dataArray = Array.isArray(signals) ? signals : [];
+                            
+                            setData(dataArray);
+                            
+                            // Update last_updated timestamp if present
+                            if (newData.last_updated) {
+                                setLastUpdated(new Date(newData.last_updated));
+                            }
+                            
+                            localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(dataArray));
                         }
                         setIsScanning(false);
                         clearInterval(interval);

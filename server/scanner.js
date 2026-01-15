@@ -84,7 +84,19 @@ export const getMasterFeed = async () => {
     try {
         const filePath = path.join(DATA_DIR, 'master_feed.json');
         const data = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        
+        // Handle new structured format: { last_updated, signals }
+        if (parsed && typeof parsed === 'object' && 'signals' in parsed) {
+            return parsed; // Return the full object with timestamp
+        }
+        
+        // Handle legacy flat array format
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+        
+        return [];
     } catch {
         return [];
     }

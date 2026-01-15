@@ -24,6 +24,7 @@ from strategies_refactored import (
     QuantProBreakoutV2Refactored,
     clean_nans
 )
+from batch_processor import get_batch_processor
 
 # DEBUG: Check API Key visibility
 print(f"[ENV-DEBUG] Coinalyze Key Present: {bool(os.getenv('COINALYZE_API_KEY'))}", file=sys.stderr)
@@ -110,7 +111,8 @@ def analyze_symbol(
     df_htf: Optional[pd.DataFrame],
     strategies: List[Any],
     feature_factory: FeatureFactory,
-    metadata: Optional[Dict[str, Any]] = None
+    metadata: Optional[Dict[str, Any]] = None,
+    external_data: Optional[Dict[str, Any]] = None
 ) -> List[Dict[str, Any]]:
     """
     Analyze a symbol using the canonical architecture.
@@ -120,6 +122,9 @@ def analyze_symbol(
     2. Build SharedContext with pre-calculated features
     3. Execute strategies using SharedContext
     4. Return results with canonical metadata
+    
+    Args:
+        external_data: Pre-fetched external data from batch processor (optional)
     """
     
     # Step 1: Normalize symbol
@@ -132,7 +137,8 @@ def analyze_symbol(
         exchange=exchange,
         ltf_data=df_ltf,
         htf_data=df_htf,
-        metadata=metadata or {}
+        metadata=metadata or {},
+        external_data=external_data
     )
     
     print(f"[CONTEXT] Built for {canonical_symbol} | LTF: {len(df_ltf)} candles | HTF: {len(df_htf) if df_htf is not None else 0} candles", file=sys.stderr)
@@ -166,7 +172,7 @@ def analyze_symbol(
 
 def main():
     parser = argparse.ArgumentParser(description='QuantPro Market Scanner (Canonical Architecture)')
-    parser.add_argument('file', help='Input JSON data file')
+    parser.add_argument('file', help='Input JSON data file or directory')
     parser.add_argument('--strategy', default='all', help='Strategy name (default: all)')
     parser.add_argument('--config', help='JSON Configuration string', default='{}')
     parser.add_argument('--backtest', action='store_true', help='Run in backtest mode')
@@ -174,6 +180,7 @@ def main():
     parser.add_argument('--limit', type=int, help='Limit data rows', default=0)
     parser.add_argument('--symbol', help='Specific symbol to scan', default=None)
     parser.add_argument('--htf-file', help='HTF data file path', default=None)
+    parser.add_argument('--output', help='Output file for master feed', default='data/master_feed.json')
     
     args = parser.parse_args()
     
@@ -208,8 +215,118 @@ def main():
             print(f"[ERROR] Unknown strategy: {args.strategy}", file=sys.stderr)
             sys.exit(1)
         
+        # Check if directory mode
+        if os.path.isdir(args.file):
+            print(f"[DIRECTORY MODE] Scanning all JSON files in {args.file}", file=sys.stderr)
+            
+            # Find all JSON files in directory
+            json_files = []
+            symbols_list = []  # For batch processing
+            
+            for filename in os.listdir(args.file):
+                if filename.endswith('.json') and '_15m.json' in filename:
+                    data_file = os.path.join(args.file, filename)
+                    json_files.append(data_file)
+                    
+                    # Extract symbol and exchange for batch processing
+                    symbol = extract_symbol_from_filename(data_file)
+                    exchange = extract_exchange_from_filename(data_file)
+                    
+                    # Filter by symbol if requested
+                    if args.symbol and args.symbol.upper() not in symbol.upper():
+                        continue
+                    
+                    symbols_list.append((symbol, exchange))
+            
+            print(f"[DIRECTORY MODE] Found {len(json_files)} data files", file=sys.stderr)
+            print(f"[DIRECTORY MODE] Processing {len(symbols_list)} symbols", file=sys.stderr)
+            
+            # BATCH PROCESSING: Fetch all external data in batches
+            print(f"[BATCH] Initializing batch processor...", file=sys.stderr)
+            batch_processor = get_batch_processor()
+            batch_data = batch_processor.process_symbols(symbols_list)
+            
+            # Now process each file with pre-fetched data
+            all_results = []
+            processed = 0
+            
+            for data_file in json_files:
+                try:
+                    # Extract symbol and exchange
+                    symbol = extract_symbol_from_filename(data_file)
+                    exchange = extract_exchange_from_filename(data_file)
+                    
+                    # Filter by symbol if requested
+                    if args.symbol and args.symbol.upper() not in symbol.upper():
+                        continue
+                    
+                    # Load LTF data
+                    df_ltf = load_data(data_file)
+                    if args.limit > 0:
+                        df_ltf = df_ltf.tail(args.limit)
+                    
+                    # Load HTF data
+                    htf_filename = data_file.replace('15m.json', '4h.json')
+                    df_htf = None
+                    if os.path.exists(htf_filename):
+                        try:
+                            df_htf = load_data(htf_filename)
+                            if len(df_htf) < 50:
+                                df_htf = None
+                        except:
+                            pass
+                    
+                    # Get pre-fetched external data
+                    external_data = batch_processor.get_data_for_symbol(symbol, exchange, batch_data)
+                    
+                    # Analyze with pre-fetched data
+                    results = analyze_symbol(
+                        symbol=symbol,
+                        exchange=exchange,
+                        df_ltf=df_ltf,
+                        df_htf=df_htf,
+                        strategies=strategies_to_run,
+                        feature_factory=feature_factory,
+                        metadata={'mcap': 0},
+                        external_data=external_data
+                    )
+                    
+                    all_results.extend(results)
+                    processed += 1
+                    
+                    if processed % 10 == 0:
+                        print(f"[PROGRESS] Processed {processed}/{len(json_files)} files", file=sys.stderr)
+                
+                except Exception as e:
+                    print(f"[ERROR] Processing {data_file}: {e}", file=sys.stderr)
+            
+            print(f"[DIRECTORY MODE] Processed {processed} files, generated {len(all_results)} signals", file=sys.stderr)
+            
+            # Create structured master feed with timestamp
+            import time
+            master_feed = {
+                'last_updated': int(time.time() * 1000),
+                'signals': clean_nans(all_results)
+            }
+            
+            # Save to master feed file
+            output_file = args.output
+            os.makedirs(os.path.dirname(output_file), exist_ok=True)
+            temp_file = output_file + '.tmp'
+            
+            with open(temp_file, 'w') as f:
+                json.dump(master_feed, f, indent=2)
+            
+            os.replace(temp_file, output_file)
+            print(f"[SUCCESS] Saved {len(all_results)} signals to {output_file}", file=sys.stderr)
+            print(f"[TIMESTAMP] Last Updated: {master_feed['last_updated']}", file=sys.stderr)
+            
+            # Also output to stdout for compatibility
+            print(json.dumps(master_feed))
+            sys.exit(0)
+        
         # Check if batch mode (text file with list of symbols)
-        if args.file.endswith('.txt'):
+        elif args.file.endswith('.txt'):
             with open(args.file, 'r') as f:
                 symbols = [line.strip() for line in f if line.strip()]
             
