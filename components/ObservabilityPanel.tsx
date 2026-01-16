@@ -38,61 +38,61 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
             <div className="grid grid-cols-2 gap-2">
               {/* Standard Components (V2, Legacy) */}
               {score_composition.trend_score !== undefined && (
-                <ScoreBar 
-                  label="Trend" 
-                  value={score_composition.trend_score} 
-                  max={25} 
-                  color="blue" 
+                <ScoreBar
+                  label="Trend"
+                  value={score_composition.trend_score}
+                  max={25}
+                  color="blue"
                 />
               )}
               {score_composition.structure_score !== undefined && (
-                <ScoreBar 
-                  label="Structure" 
-                  value={score_composition.structure_score} 
-                  max={25} 
-                  color="green" 
+                <ScoreBar
+                  label="Structure"
+                  value={score_composition.structure_score}
+                  max={25}
+                  color="green"
                 />
               )}
               {score_composition.money_flow_score !== undefined && (
-                <ScoreBar 
-                  label="Money Flow" 
-                  value={score_composition.money_flow_score} 
-                  max={25} 
-                  color="purple" 
+                <ScoreBar
+                  label="Money Flow"
+                  value={score_composition.money_flow_score}
+                  max={25}
+                  color="purple"
                 />
               )}
               {score_composition.timing_score !== undefined && (
-                <ScoreBar 
-                  label="Timing" 
-                  value={score_composition.timing_score} 
-                  max={25} 
-                  color="yellow" 
+                <ScoreBar
+                  label="Timing"
+                  value={score_composition.timing_score}
+                  max={25}
+                  color="yellow"
                 />
               )}
-              
+
               {/* Breakout Strategy Components */}
               {score_composition.geometry_score !== undefined && (
-                <ScoreBar 
-                  label="Geometry" 
-                  value={score_composition.geometry_score} 
-                  max={40} 
-                  color="cyan" 
+                <ScoreBar
+                  label="Geometry"
+                  value={score_composition.geometry_score}
+                  max={40}
+                  color="cyan"
                 />
               )}
               {score_composition.momentum_score !== undefined && (
-                <ScoreBar 
-                  label="Momentum" 
-                  value={score_composition.momentum_score} 
-                  max={40} 
-                  color="orange" 
+                <ScoreBar
+                  label="Momentum"
+                  value={score_composition.momentum_score}
+                  max={40}
+                  color="orange"
                 />
               )}
               {score_composition.oi_flow_score !== undefined && (
-                <ScoreBar 
-                  label="OI Flow" 
-                  value={score_composition.oi_flow_score} 
-                  max={20} 
-                  color="pink" 
+                <ScoreBar
+                  label="OI Flow"
+                  value={score_composition.oi_flow_score}
+                  max={20}
+                  color="pink"
                 />
               )}
             </div>
@@ -141,44 +141,43 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
                   {signal.exchange}
                 </div>
               )}
-              
+
               {/* Cardwell Range Badge (V2) */}
               {score_composition.cardwell_range && (
-                <div className={`px-2 py-1 rounded border text-xs ${
-                  score_composition.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' :
-                  score_composition.cardwell_range === 'BEARISH' ? 'bg-red-500/20 border-red-500/50 text-red-300' :
-                  score_composition.cardwell_range === 'OVERBOUGHT' ? 'bg-orange-500/20 border-orange-500/50 text-orange-300' :
-                  score_composition.cardwell_range === 'OVERSOLD' ? 'bg-purple-500/20 border-purple-500/50 text-purple-300' :
-                  'bg-gray-500/20 border-gray-500/50 text-gray-300'
-                }`}>
+                <div className={`px-2 py-1 rounded border text-xs ${score_composition.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' :
+                    score_composition.cardwell_range === 'BEARISH' ? 'bg-red-500/20 border-red-500/50 text-red-300' :
+                      score_composition.cardwell_range === 'OVERBOUGHT' ? 'bg-orange-500/20 border-orange-500/50 text-orange-300' :
+                        score_composition.cardwell_range === 'OVERSOLD' ? 'bg-purple-500/20 border-purple-500/50 text-purple-300' :
+                          'bg-gray-500/20 border-gray-500/50 text-gray-300'
+                  }`}>
                   {score_composition.cardwell_range}
                 </div>
               )}
-              
+
               {score_composition.pullback_detected !== undefined && (
-                <ConditionBadge 
-                  label="Pullback" 
+                <ConditionBadge
+                  label="Pullback"
                   active={score_composition.pullback_detected}
-                  detail={score_composition.pullback_depth ? 
+                  detail={score_composition.pullback_depth ?
                     `${(score_composition.pullback_depth * 100).toFixed(1)}%` : undefined}
                 />
               )}
               {score_composition.adx_strong_trend !== undefined && (
-                <ConditionBadge 
-                  label="Strong Trend" 
+                <ConditionBadge
+                  label="Strong Trend"
                   active={score_composition.adx_strong_trend}
                 />
               )}
               {score_composition.is_overextended !== undefined && (
-                <ConditionBadge 
-                  label="Overextended" 
+                <ConditionBadge
+                  label="Overextended"
                   active={score_composition.is_overextended}
                   warning
                 />
               )}
               {score_composition.oi_available !== undefined && (
-                <ConditionBadge 
-                  label="OI Data" 
+                <ConditionBadge
+                  label="OI Data"
                   active={score_composition.oi_available}
                 />
               )}
@@ -197,15 +196,15 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
 
           <div className="space-y-3">
             {rsi_visuals.resistance && (
-              <TrendlineInfo 
-                type="resistance" 
+              <TrendlineInfo
+                type="resistance"
                 trendline={rsi_visuals.resistance}
                 icon={<TrendingDown className="w-4 h-4" />}
               />
             )}
             {rsi_visuals.support && (
-              <TrendlineInfo 
-                type="support" 
+              <TrendlineInfo
+                type="support"
                 trendline={rsi_visuals.support}
                 icon={<TrendingUp className="w-4 h-4" />}
               />
@@ -234,7 +233,7 @@ interface ScoreBarProps {
 
 const ScoreBar: React.FC<ScoreBarProps> = ({ label, value, max, color }) => {
   const percentage = Math.min((value / max) * 100, 100);
-  
+
   const colorClasses = {
     blue: 'bg-blue-500',
     green: 'bg-green-500',
@@ -252,7 +251,7 @@ const ScoreBar: React.FC<ScoreBarProps> = ({ label, value, max, color }) => {
         <span className="text-white font-mono">{value.toFixed(1)}</span>
       </div>
       <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
-        <div 
+        <div
           className={`h-full ${colorClasses[color]} transition-all duration-300`}
           style={{ width: `${percentage}%` }}
         />
@@ -269,11 +268,11 @@ interface ConditionBadgeProps {
 }
 
 const ConditionBadge: React.FC<ConditionBadgeProps> = ({ label, active, detail, warning }) => {
-  const bgColor = active 
+  const bgColor = active
     ? (warning ? 'bg-red-500/20 border-red-500/50' : 'bg-green-500/20 border-green-500/50')
     : 'bg-gray-700/50 border-gray-600/50';
-  
-  const textColor = active 
+
+  const textColor = active
     ? (warning ? 'text-red-300' : 'text-green-300')
     : 'text-gray-500';
 

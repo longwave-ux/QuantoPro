@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { AnalysisResult, OHLCV } from '../types';
+import { AnalysisResult, OHLCV, DataSource } from '../types';
 import { getChartData } from '../services/dataService';
 import { analyzeWithGemini } from '../services/geminiService';
 import { executeLimitOrder } from '../services/tradeService';
@@ -46,9 +46,25 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
         setAiAnalysis('');
         setTradeStatus('IDLE');
         setTradeMessage('');
+
         // Use the specific intervals that generated this result AND the source
         const { htfInterval = '4h', ltfInterval = '15m' } = pair?.meta || {};
-        getChartData(pair.symbol, htfInterval, ltfInterval, pair.source).then(setChartData);
+
+        // DEFENSIVE: Derive source from exchange if source is undefined
+        let dataSource: DataSource = pair.source || 'MEXC'; // Default fallback
+
+        if (!pair.source && pair.exchange) {
+            // Map exchange names to DataSource
+            const exchangeMap: Record<string, DataSource> = {
+                'BINANCE': 'MEXC',  // BINANCE uses same API format as MEXC
+                'MEXC': 'MEXC',
+                'HYPERLIQUID': 'HYPERLIQUID',
+                'KUCOIN': 'KUCOIN'
+            };
+            dataSource = exchangeMap[pair.exchange] || 'MEXC';
+        }
+
+        getChartData(pair.symbol, htfInterval, ltfInterval, dataSource).then(setChartData);
 
         // Auto-trigger AI Analysis REMOVED to save quota
         // handleAskAI();
@@ -355,8 +371,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                     <ReferenceLine y={30} stroke="#4b5563" strokeDasharray="3 3" />
                                     <Line type="monotone" dataKey="rsi" stroke="#a855f7" dot={false} strokeWidth={2} isAnimationActive={false} />
 
-                                    {/* Draw Trendline if Breakout */}
-                                    {pair.strategy_name === 'Breakout' && trendLineSegment && (
+                                    {/* Draw Trendline if Breakout or BreakoutV2 */}
+                                    {(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') && trendLineSegment && (
                                         <>
                                             {/* Historic Segment */}
                                             <ReferenceLine segment={trendLineSegment} stroke="#eab308" strokeWidth={2} isFront />
@@ -370,18 +386,18 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                     {/* Observability RSI Trendlines - Resistance */}
                                     {observabilityTrendlines.resistance && (
                                         <>
-                                            <ReferenceLine 
-                                                segment={observabilityTrendlines.resistance.segment} 
-                                                stroke="#ef4444" 
-                                                strokeWidth={2} 
-                                                isFront 
+                                            <ReferenceLine
+                                                segment={observabilityTrendlines.resistance.segment}
+                                                stroke="#ef4444"
+                                                strokeWidth={2}
+                                                isFront
                                             />
-                                            <ReferenceLine 
-                                                segment={observabilityTrendlines.resistance.projection} 
-                                                stroke="#ef4444" 
-                                                strokeDasharray="4 4" 
-                                                strokeWidth={2} 
-                                                isFront 
+                                            <ReferenceLine
+                                                segment={observabilityTrendlines.resistance.projection}
+                                                stroke="#ef4444"
+                                                strokeDasharray="4 4"
+                                                strokeWidth={2}
+                                                isFront
                                             />
                                         </>
                                     )}
@@ -389,18 +405,18 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                     {/* Observability RSI Trendlines - Support */}
                                     {observabilityTrendlines.support && (
                                         <>
-                                            <ReferenceLine 
-                                                segment={observabilityTrendlines.support.segment} 
-                                                stroke="#22c55e" 
-                                                strokeWidth={2} 
-                                                isFront 
+                                            <ReferenceLine
+                                                segment={observabilityTrendlines.support.segment}
+                                                stroke="#22c55e"
+                                                strokeWidth={2}
+                                                isFront
                                             />
-                                            <ReferenceLine 
-                                                segment={observabilityTrendlines.support.projection} 
-                                                stroke="#22c55e" 
-                                                strokeDasharray="4 4" 
-                                                strokeWidth={2} 
-                                                isFront 
+                                            <ReferenceLine
+                                                segment={observabilityTrendlines.support.projection}
+                                                stroke="#22c55e"
+                                                strokeDasharray="4 4"
+                                                strokeWidth={2}
+                                                isFront
                                             />
                                         </>
                                     )}
@@ -485,109 +501,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                         </div>
                     )}
 
-                    {/* SCORE BREAKDOWN - ONLY SHOW FOR CLICKED STRATEGY */}
-                    <div className="bg-gray-900 rounded-lg border border-gray-800 p-4">
-                        <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2 justify-between">
-                            <span className="flex items-center gap-2"><BarChart3 className="w-3 h-3 text-purple-400" /> Score Composition</span>
-                            <span className="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded border border-gray-700">{pair.strategy_name}</span>
-                        </h4>
-                        <div className="space-y-3">
-                            {pair.strategy_name === 'Breakout' ? (
-                                <>
-                                    <ScoreBar
-                                        label="Geometry"
-                                        value={pair.details.score_breakdown?.geometry || 0}
-                                        max={40}
-                                        color="bg-purple-500"
-                                        description="Trendline Force: (Price% × Duration) / Target Area"
-                                    />
-                                    <ScoreBar
-                                        label="Momentum"
-                                        value={pair.details.score_breakdown?.momentum || 0}
-                                        max={30}
-                                        color="bg-blue-500"
-                                        description="RSI Divergence + Slope Decoupling"
-                                    />
-                                    <ScoreBar
-                                        label="Sentiment"
-                                        value={pair.details.score_breakdown?.sentiment || 0}
-                                        max={10}
-                                        color="bg-pink-500"
-                                        description="Liquidation Ratio + Top Traders"
-                                    />
-                                    <ScoreBar
-                                        label="Action Bonuses"
-                                        value={pair.details.score_breakdown?.bonuses || 0}
-                                        max={25}
-                                        color="bg-green-500"
-                                        description="Retest (+15), Squeeze (+10), Deep RSI (+5)"
-                                    />
-                                </>
-                            ) : pair.strategy_name === 'BreakoutV2' ? (
-                                <>
-                                    <ScoreBar
-                                        label="Trend (OI Z-Score)"
-                                        value={pair.observability?.score_composition?.trend_score || 0}
-                                        max={25}
-                                        color="bg-blue-500"
-                                        description="Institutional Flow Confirmation"
-                                    />
-                                    <ScoreBar
-                                        label="Structure (OBV Slope)"
-                                        value={pair.observability?.score_composition?.structure_score || 0}
-                                        max={25}
-                                        color="bg-purple-500"
-                                        description="Money Flow Structure"
-                                    />
-                                    <ScoreBar
-                                        label="Money Flow (RSI)"
-                                        value={pair.observability?.score_composition?.money_flow_score || 0}
-                                        max={25}
-                                        color="bg-cyan-500"
-                                        description="RSI Scaled (0-25)"
-                                    />
-                                    <ScoreBar
-                                        label="Timing (Cardwell)"
-                                        value={pair.observability?.score_composition?.timing_score || 0}
-                                        max={25}
-                                        color="bg-green-500"
-                                        description="Cardwell Range Score"
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    <ScoreBar
-                                        label="Money Flow (OBV)"
-                                        value={pair.details.moneyFlowScore || 0}
-                                        max={40}
-                                        color="bg-purple-500"
-                                        description="Volume Flow & Divergences (40pts)"
-                                    />
-                                    <ScoreBar
-                                        label="Trend & Bias"
-                                        value={pair.details.trendScore || 0}
-                                        max={25}
-                                        color="bg-blue-500"
-                                        description="EMA Alignment & ADX Strength (25pts)"
-                                    />
-                                    <ScoreBar
-                                        label="Market Structure"
-                                        value={pair.details.structureScore || 0}
-                                        max={25}
-                                        color="bg-indigo-500"
-                                        description="Support/Resistance & Fib Levels (25pts)"
-                                    />
-                                    <ScoreBar
-                                        label="Timing"
-                                        value={pair.details.timingScore || 0}
-                                        max={10}
-                                        color="bg-green-500"
-                                        description="Pullback Depth & Wick Rejections (10pts)"
-                                    />
-                                </>
-                            )}
-                        </div>
-                    </div>
+                    {/* SCORE BREAKDOWN REMOVED - Now displayed in ObservabilityPanel to avoid duplication */}
 
                     {/* OBV (Moved here as RSI is now main) */}
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-32 flex flex-col">

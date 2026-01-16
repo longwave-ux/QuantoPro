@@ -33,7 +33,7 @@ export default function App() {
         localStorage.removeItem('cs_datasource');
         localStorage.removeItem('cs_last_results_HYPERLIQUID');
     }
-    
+
     // PERSISTENT STATE: View Settings & Data
     const [timeframe, setTimeframe] = useState(() => localStorage.getItem('cs_timeframe') || '15m');
     const [dataSource, setDataSource] = useState(() => localStorage.getItem('cs_datasource') || 'MEXC');
@@ -309,38 +309,65 @@ export default function App() {
             try {
                 const res = await fetch(`/api/results`);
                 console.log(`[FETCH] /api/results - Status:`, res.status);
-                
+
                 if (res.ok) {
                     const serverResults = await res.json();
                     console.log("[DATA RECEIVED]", {
                         type: typeof serverResults,
                         isArray: Array.isArray(serverResults),
-                        length: Array.isArray(serverResults) ? serverResults.length : 'N/A',
-                        hasSignals: serverResults?.signals ? true : false,
-                        signalsLength: serverResults?.signals?.length || 0,
-                        firstItem: Array.isArray(serverResults) ? serverResults[0] : null
+                        keys: typeof serverResults === 'object' ? Object.keys(serverResults) : []
                     });
-                    
-                    // Handle both formats: { last_updated, signals } or flat array
-                    const signals = serverResults.signals || serverResults;
-                    const dataArray = Array.isArray(signals) ? signals : [];
-                    
-                    console.log(`[EXTRACTED] ${dataArray.length} signals ready for display`);
-                    
-                    if (dataArray.length > 0) {
-                        console.log("✅ Loaded results from server cache");
-                        setData(dataArray);
-                        
+
+                    let dataArray: AnalysisResult[] = [];
+
+                    // Handle multiple response formats:
+                    // Format 1: Flat array [...signals...]
+                    if (Array.isArray(serverResults)) {
+                        dataArray = serverResults;
+                        console.log(`[FORMAT 1] Flat array: ${dataArray.length} signals`);
+                    }
+                    // Format 2: Wrapper object { signals: [...], last_updated: "..." }
+                    else if (serverResults.signals && Array.isArray(serverResults.signals)) {
+                        dataArray = serverResults.signals;
+                        console.log(`[FORMAT 2] Wrapper object: ${dataArray.length} signals`);
+
                         // Update last_updated timestamp if present
                         if (serverResults.last_updated) {
                             setLastUpdated(new Date(serverResults.last_updated));
                         }
-                        
+                    }
+                    // Format 3: Exchange-keyed object { "MEXC": [...], "HYPERLIQUID": [...] }
+                    else if (typeof serverResults === 'object') {
+                        const allSignals: AnalysisResult[] = [];
+                        for (const key of Object.keys(serverResults)) {
+                            if (Array.isArray(serverResults[key])) {
+                                console.log(`[FORMAT 3] Found ${serverResults[key].length} signals for exchange: ${key}`);
+                                allSignals.push(...serverResults[key]);
+                            }
+                        }
+                        if (allSignals.length > 0) {
+                            dataArray = allSignals;
+                            console.log(`[FORMAT 3] Total signals from all exchanges: ${dataArray.length}`);
+                        }
+                    }
+
+                    console.log(`[EXTRACTED] ${dataArray.length} signals ready for display`);
+
+                    if (dataArray.length > 0) {
+                        console.log("✅ Loaded results from server cache");
+                        setData(dataArray);
+
                         // Update local storage with fresh server data
                         localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(dataArray));
                         return;
                     } else {
-                        console.error("❌ CRITICAL: dataArray is empty despite data existing!");
+                        console.error("⚠️ DIAGNOSTIC: Data extraction resulted in 0 signals", {
+                            serverResultsType: typeof serverResults,
+                            isArray: Array.isArray(serverResults),
+                            keys: typeof serverResults === 'object' ? Object.keys(serverResults) : [],
+                            sampleData: typeof serverResults === 'object' ? JSON.stringify(serverResults).substring(0, 200) : 'N/A',
+                            hint: "This may indicate: (1) Backend returned empty data, (2) Incorrect JSON structure, or (3) Stale browser cache. Try clearing localStorage and reloading."
+                        });
                     }
                 }
             } catch (e) {
@@ -395,18 +422,18 @@ export default function App() {
                         const dataRes = await fetch(`/api/results`);
                         if (dataRes.ok) {
                             const newData = await dataRes.json();
-                            
+
                             // Handle both formats: { last_updated, signals } or flat array
                             const signals = newData.signals || newData;
                             const dataArray = Array.isArray(signals) ? signals : [];
-                            
+
                             setData(dataArray);
-                            
+
                             // Update last_updated timestamp if present
                             if (newData.last_updated) {
                                 setLastUpdated(new Date(newData.last_updated));
                             }
-                            
+
                             localStorage.setItem(`cs_last_results_${dataSource}`, JSON.stringify(dataArray));
                         }
                         setIsScanning(false);

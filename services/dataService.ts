@@ -270,14 +270,14 @@ const getKuCoinGranularity = (interval: string): number => {
 export const fetchCandles = async (symbol: string, interval: string, source: DataSource, limit: number = 1000): Promise<OHLCV[]> => {
     try {
         const baseUrl = BASE_URLS[source];
-        
+
         // CRITICAL: Validate baseUrl before proceeding
         if (!baseUrl || baseUrl === 'undefined') {
             addLog('ERROR', `Invalid baseUrl for source ${source}: ${baseUrl}`);
-            console.error(`[FETCH ERROR] Invalid baseUrl for ${source}. Check BASE_URLS configuration.`);
+            console.error(`[FETCH ERROR] Invalid baseUrl for source "${source}". This usually means the signal is missing the 'source' field. Check if the signal has an 'exchange' field that can be mapped to a DataSource.`);
             return [];
         }
-        
+
         // Validate symbol
         if (!symbol || symbol === 'undefined') {
             addLog('ERROR', `Invalid symbol: ${symbol}`);

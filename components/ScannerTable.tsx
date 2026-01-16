@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AnalysisResult } from '../types';
 import { TrendingUp, TrendingDown, Minus, ChevronDown, ChevronUp, BarChart3, Clock, Flame, Anchor } from 'lucide-react';
 import { DetailPanel } from './DetailPanel';
+import { cleanSymbol } from '../utils/symbolUtils';
 
 interface ScannerTableProps {
   data: AnalysisResult[];
@@ -9,15 +10,16 @@ interface ScannerTableProps {
 }
 
 export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange = 'MEXC' }) => {
-  const [expandedSymbol, setExpandedSymbol] = useState<string | null>(null);
+  const [expandedKey, setExpandedKey] = useState<string | null>(null);
   const [strategyFilter, setStrategyFilter] = useState<string>('ALL');
   const [biasFilter, setBiasFilter] = useState<string>('ALL');
   const [exchangeFilter, setExchangeFilter] = useState<string>('ALL');
   const [sortKey, setSortKey] = useState<'score' | 'risk_reward' | 'symbol'>('score');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-  const toggleExpand = (symbol: string) => {
-    setExpandedSymbol(expandedSymbol === symbol ? null : symbol);
+  const toggleExpand = (symbol: string, strategy: string) => {
+    const key = `${symbol}-${strategy}`;
+    setExpandedKey(expandedKey === key ? null : key);
   };
 
   const getBiasIcon = (bias: string) => {
@@ -87,7 +89,8 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
             className="bg-gray-800 text-gray-300 text-xs rounded border border-gray-700 px-2 py-1 outline-none focus:border-blue-500"
           >
             <option value="ALL">ALL</option>
-            <option value="Breakout">BREAKOUT</option>
+            <option value="Breakout">BREAKOUT V1</option>
+            <option value="BreakoutV2">BREAKOUT V2</option>
             <option value="Legacy">LEGACY</option>
           </select>
         </div>
@@ -179,7 +182,7 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
               .sort((a, b) => {
                 let aValue: number | string;
                 let bValue: number | string;
-                
+
                 switch (sortKey) {
                   case 'score':
                     aValue = a.score || 0;
@@ -196,13 +199,13 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                   default:
                     return 0;
                 }
-                
+
                 if (typeof aValue === 'string' && typeof bValue === 'string') {
-                  return sortOrder === 'asc' 
+                  return sortOrder === 'asc'
                     ? aValue.localeCompare(bValue)
                     : bValue.localeCompare(aValue);
                 } else {
-                  return sortOrder === 'asc' 
+                  return sortOrder === 'asc'
                     ? (aValue as number) - (bValue as number)
                     : (bValue as number) - (aValue as number);
                 }
@@ -213,8 +216,8 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                 return (
                   <React.Fragment key={`${pair.symbol}-${pair.strategy_name}-${index}`}>
                     <tr
-                      onClick={() => toggleExpand(pair.symbol)}
-                      className={`hover:bg-gray-800 cursor-pointer transition-colors ${expandedSymbol === pair.symbol ? 'bg-gray-800 border-l-4 border-blue-500' : 'border-l-4 border-transparent'}`}
+                      onClick={() => toggleExpand(pair.symbol, pair.strategy_name || '')}
+                      className={`hover:bg-gray-800 cursor-pointer transition-colors ${expandedKey === `${pair.symbol}-${pair.strategy_name}` ? 'bg-gray-800 border-l-4 border-blue-500' : 'border-l-4 border-transparent'}`}
                     >
                       <td className="px-6 py-4 font-mono text-xs">
                         {pair.exchange_tag === 'BIN' && <span className="text-yellow-400 font-bold">BIN</span>}
@@ -225,12 +228,16 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                       </td>
                       <td className="px-6 py-4 font-medium text-white flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${pair.score > 70 ? 'bg-green-500' : 'bg-gray-600'}`}></div>
-                        {pair.symbol}
+                        {cleanSymbol(pair.symbol)}
                       </td>
                       <td className="px-6 py-4">
                         {pair.strategy_name?.toUpperCase() === 'BREAKOUT' ? (
                           <span className="px-2 py-0.5 rounded text-[10px] bg-purple-900/40 text-purple-300 border border-purple-800 font-bold tracking-wide">
-                            BREAKOUT
+                            BREAKOUT V1
+                          </span>
+                        ) : pair.strategy_name?.toUpperCase() === 'BREAKOUTV2' ? (
+                          <span className="px-2 py-0.5 rounded text-[10px] bg-indigo-900/40 text-indigo-300 border border-indigo-800 font-bold tracking-wide">
+                            BREAKOUT V2
                           </span>
                         ) : pair.strategy_name?.toUpperCase() === 'LEGACY' ? (
                           <span className="px-2 py-0.5 rounded text-[10px] bg-blue-900/20 text-blue-400 border border-blue-900/50">
@@ -365,10 +372,10 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                         )}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        {expandedSymbol === pair.symbol ? <ChevronUp className="w-5 h-5 ml-auto text-blue-400" /> : <ChevronDown className="w-5 h-5 ml-auto" />}
+                        {expandedKey === `${pair.symbol}-${pair.strategy_name}` ? <ChevronUp className="w-5 h-5 ml-auto text-blue-400" /> : <ChevronDown className="w-5 h-5 ml-auto" />}
                       </td>
                     </tr>
-                    {expandedSymbol === pair.symbol && (
+                    {expandedKey === `${pair.symbol}-${pair.strategy_name}` && (
                       <tr>
                         <td colSpan={11} className="bg-gray-950/50 p-0 border-b border-gray-800 animate-in fade-in slide-in-from-top-2 duration-200">
                           <DetailPanel pair={pair} activeExchange={activeExchange} />
