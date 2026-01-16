@@ -55,6 +55,17 @@ export interface ScoreComposition {
   ema200?: number;
   close_price?: number;
   
+  // V2 Strategy specific
+  oi_z_score?: number;
+  oi_z_score_valid?: boolean;
+  obv_slope?: number;
+  cardwell_range?: string;
+  breakout_type?: string | null;
+  filters_passed?: {
+    oi_zscore?: boolean;
+    obv_slope?: boolean;
+  };
+  
   // Scoring components
   trend_score?: number;
   structure_score?: number;
@@ -113,13 +124,15 @@ export type DataSource = 'KUCOIN' | 'MEXC' | 'HYPERLIQUID';
 export interface AnalysisResult {
   symbol: string;
   source: DataSource;
+  exchange?: string;        // Exchange name (BINANCE, MEXC, etc.)
+  canonical_symbol?: string; // Base asset (BTC, ETH, etc.)
   strategy_name?: string;
-  strategy?: string;
+  strategy?: string;        // ADDED
   bias?: string;
-  action?: string; // Added for Breakout Watch/Wait
+  action?: string;
   price: number;
   score: number;
-  total_score?: number;
+  total_score?: number;     // ADDED
   setup: TradeSetup | null;
   history?: {
     consecutiveScans: number;

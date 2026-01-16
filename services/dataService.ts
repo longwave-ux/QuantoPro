@@ -270,6 +270,20 @@ const getKuCoinGranularity = (interval: string): number => {
 export const fetchCandles = async (symbol: string, interval: string, source: DataSource, limit: number = 1000): Promise<OHLCV[]> => {
     try {
         const baseUrl = BASE_URLS[source];
+        
+        // CRITICAL: Validate baseUrl before proceeding
+        if (!baseUrl || baseUrl === 'undefined') {
+            addLog('ERROR', `Invalid baseUrl for source ${source}: ${baseUrl}`);
+            console.error(`[FETCH ERROR] Invalid baseUrl for ${source}. Check BASE_URLS configuration.`);
+            return [];
+        }
+        
+        // Validate symbol
+        if (!symbol || symbol === 'undefined') {
+            addLog('ERROR', `Invalid symbol: ${symbol}`);
+            console.error(`[FETCH ERROR] Invalid symbol: ${symbol}`);
+            return [];
+        }
 
         // 1. Try Cache
         const cached = await getCachedCandles(symbol, interval, source);

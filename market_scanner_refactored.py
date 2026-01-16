@@ -7,6 +7,7 @@ import sys
 import json
 import argparse
 import os
+import time
 import pandas as pd
 import numpy as np
 from typing import Dict, Any, List, Optional
@@ -48,6 +49,50 @@ def sanitize_for_json(data):
     Recursively sanitize data structure to ensure all values are JSON-serializable.
     """
     return json_serializable(data)
+
+
+def atomic_save_json(data: Dict[str, Any], filename: str) -> None:
+    """
+    Atomically save JSON data to file.
+    Writes to temporary file first, then replaces the target file.
+    This ensures the dashboard sees old data until scan is 100% complete.
+    """
+    # Ensure directory exists
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
+    # Create temporary file
+    temp_file = filename + '.tmp'
+    
+    try:
+        # Sanitize and save to temporary file
+        sanitized_data = sanitize_for_json(data)
+        with open(temp_file, 'w') as f:
+            json.dump(sanitized_data, f, indent=2)
+        
+        # Atomically replace the target file
+        os.replace(temp_file, filename)
+        
+    except Exception as e:
+        # Clean up temp file on error
+        if os.path.exists(temp_file):
+            os.remove(temp_file)
+        raise e
+
+
+def ensure_data_contract(signals: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Ensure every signal has required fields according to data contract.
+    """
+    for signal in signals:
+        # Ensure total_score field exists (copy from score if missing)
+        if 'score' in signal and 'total_score' not in signal:
+            signal['total_score'] = signal['score']
+        
+        # Ensure strategy field is populated
+        if 'strategy_name' in signal and 'strategy' not in signal:
+            signal['strategy'] = signal['strategy_name']
+    
+    return signals
 from strategies_refactored import (
     QuantProLegacyRefactored,
     QuantProBreakoutRefactored,
@@ -159,7 +204,15 @@ def analyze_symbol(
     
     # Step 1: Normalize symbol
     canonical_symbol = to_canonical(symbol, exchange)
-    print(f"[CANONICAL] {symbol} ({exchange}) → {canonical_symbol}", file=sys.stderr)
+    
+    # Create display_symbol by stripping USDT/USDTM suffixes
+    display_symbol = symbol
+    if symbol.endswith('USDTM'):
+        display_symbol = symbol[:-5] + 'USDT'  # Convert USDTM to USDT for charts
+    elif symbol.endswith('USDT'):
+        display_symbol = symbol  # Keep as is
+    
+    print(f"[CANONICAL] {symbol} ({exchange}) → {canonical_symbol} (Display: {display_symbol})", file=sys.stderr)
     
     # Step 2: Build SharedContext
     context = feature_factory.build_context(
@@ -183,6 +236,7 @@ def analyze_symbol(
             result['canonical_symbol'] = canonical_symbol
             result['exchange'] = exchange
             result['symbol'] = symbol
+            result['display_symbol'] = display_symbol
             
             # Add metadata
             if metadata:
@@ -256,7 +310,6 @@ def main():
             for filename in os.listdir(args.file):
                 if filename.endswith('.json') and '_15m.json' in filename:
                     data_file = os.path.join(args.file, filename)
-                    json_files.append(data_file)
                     
                     # Extract symbol and exchange for batch processing
                     symbol = extract_symbol_from_filename(data_file)
@@ -266,7 +319,13 @@ def main():
                     if args.symbol and args.symbol.upper() not in symbol.upper():
                         continue
                     
+                    json_files.append(data_file)
                     symbols_list.append((symbol, exchange))
+                    
+                    # Apply limit during scanning phase to avoid loading unnecessary files
+                    if args.limit > 0 and len(json_files) >= args.limit:
+                        print(f"[DIRECTORY MODE] Limit reached: {args.limit} files", file=sys.stderr)
+                        break
             
             print(f"[DIRECTORY MODE] Found {len(json_files)} data files", file=sys.stderr)
             print(f"[DIRECTORY MODE] Processing {len(symbols_list)} symbols", file=sys.stderr)
@@ -292,8 +351,6 @@ def main():
                     
                     # Load LTF data
                     df_ltf = load_data(data_file)
-                    if args.limit > 0:
-                        df_ltf = df_ltf.tail(args.limit)
                     
                     # Load HTF data
                     htf_filename = data_file.replace('15m.json', '4h.json')
@@ -325,35 +382,32 @@ def main():
                     processed += 1
                     
                     if processed % 10 == 0:
-                        print(f"[PROGRESS] Processed {processed}/{len(json_files)} files", file=sys.stderr)
+                        current_time = time.strftime('%H:%M:%S')
+                        print(f"[PROGRESS] {current_time} | Processed {processed}/{len(json_files)} files", flush=True)
                 
                 except Exception as e:
                     print(f"[ERROR] Processing {data_file}: {e}", file=sys.stderr)
             
             print(f"[DIRECTORY MODE] Processed {processed} files, generated {len(all_results)} signals", file=sys.stderr)
             
+            # Ensure data contract compliance
+            all_results = ensure_data_contract(all_results)
+            
             # Create structured master feed with timestamp
-            import time
             master_feed = {
                 'last_updated': int(time.time() * 1000),
                 'signals': clean_nans(all_results)
             }
             
-            # Save to master feed file
+            # Atomic save to master feed file
             output_file = args.output
-            os.makedirs(os.path.dirname(output_file), exist_ok=True)
-            temp_file = output_file + '.tmp'
+            atomic_save_json(master_feed, output_file)
             
-            with open(temp_file, 'w') as f:
-                # Sanitize data to ensure JSON serializability
-                sanitized_feed = sanitize_for_json(master_feed)
-                json.dump(sanitized_feed, f, indent=2)
-            
-            os.replace(temp_file, output_file)
             print(f"[SUCCESS] Saved {len(all_results)} signals to {output_file}", file=sys.stderr)
             print(f"[TIMESTAMP] Last Updated: {master_feed['last_updated']}", file=sys.stderr)
             
             # Also output to stdout for compatibility
+            sanitized_feed = sanitize_for_json(master_feed)
             print(json.dumps(sanitized_feed))
             sys.exit(0)
         
@@ -366,10 +420,11 @@ def main():
             total_symbols = len(symbols)
             
             for i, symbol in enumerate(symbols):
-                # Progress output
-                if i % 5 == 0 or i == total_symbols - 1:
-                    print(f"[PROGRESS] {i+1}/{total_symbols}", file=sys.stderr)
-                    sys.stderr.flush()
+                # Progress heartbeat with timestamp and batch info
+                current_time = time.strftime('%H:%M:%S')
+                batch_size = min(5, total_symbols - i)  # Show next 5 symbols
+                symbols_list = ', '.join(symbols[i:i+batch_size])
+                print(f"[PROGRESS] {current_time} | Processing Batch {i+1}/{total_symbols} | Symbols: {symbols_list}", flush=True)
                 
                 try:
                     # Filter by symbol if requested
@@ -433,8 +488,9 @@ def main():
                     print(f"[ERROR] Processing {symbol}: {e}", file=sys.stderr)
                     pass
             
-            # Output batch results
-            print(json.dumps(clean_nans(all_batch_results)))
+            # Output batch results with sanitization
+            sanitized_results = sanitize_for_json(clean_nans(all_batch_results))
+            print(json.dumps(sanitized_results))
             sys.exit(0)
         
         # Single file mode
@@ -478,8 +534,9 @@ def main():
             metadata={'mcap': 0}
         )
         
-        # Output results
-        print(json.dumps(clean_nans(results)))
+        # Output results with sanitization
+        sanitized_results = sanitize_for_json(clean_nans(results))
+        print(json.dumps(sanitized_results))
     
     except Exception as e:
         print(f"[FATAL ERROR] {e}", file=sys.stderr)

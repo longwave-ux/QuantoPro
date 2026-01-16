@@ -28,7 +28,7 @@ export const sendTelegramAlert = async (
 <b>Score: ${pair.score}/100</b>
 Price: $${pair.price}
 Bias: ${pair.htf.bias}
-Timeframe: ${pair.meta.htfInterval}
+Timeframe: ${pair?.meta?.htfInterval || '4h'}
 
 <b>Setup Details:</b>
 • Entry: $${pair.setup?.entry.toFixed(4)}

@@ -1,0 +1,364 @@
+# QuantPro - Global Project Rules for AI Agents
+
+## CRITICAL DOCUMENTATION RULES
+
+### Rule 1: Documentation-Code Synchronization
+**CRITICAL:** Documentation must ALWAYS be synced with code changes.
+
+- **Before** making ANY code change that affects data structures, JSON keys, or API contracts:
+  1. Read the relevant documentation (README.md, ARCHITECTURE.md, STRATEGY_V2_SPEC.md)
+  2. Plan the documentation updates required
+  3. Make code changes
+  4. Update documentation immediately
+  5. Verify consistency
+
+- **After** making code changes:
+  1. Update DATA DICTIONARY in STRATEGY_V2_SPEC.md if backend variables changed
+  2. Update ARCHITECTURE.md if data flow or components changed
+  3. Update README.md if usage or configuration changed
+  4. Commit documentation WITH code changes, not separately
+
+### Rule 2: Backend-Frontend Contract Verification
+**CRITICAL:** Any change to backend JSON keys must be reflected in STRATEGY_V2_SPEC.md and verified in React components.
+
+- **When changing backend JSON structure:**
+  1. Update the DATA DICTIONARY table in STRATEGY_V2_SPEC.md
+  2. Map backend variable → JSON key → Frontend label
+  3. Verify ObservabilityPanel.tsx uses correct paths
+  4. Verify DetailPanel.tsx uses correct paths
+  5. Update TypeScript types in types.ts
+  6. Test with `--limit 2` to verify JSON output
+  7. Verify Dashboard displays data correctly
+
+- **Verification Checklist:**
+  ```bash
+  # 1. Check JSON structure
+  cat data/master_feed.json | jq '.signals[0] | keys'
+  
+  # 2. Verify observability
+  cat data/master_feed.json | jq '.signals[0].observability.score_composition | keys'
+  
+  # 3. Check TypeScript types compile
+  npm run build
+  
+  # 4. Verify no null values
+  cat data/master_feed.json | jq '[.signals[] | select(.observability == null)] | length'
+  ```
+
+### Rule 3: Data Dictionary Completeness
+**CRITICAL:** The DATA DICTIONARY in STRATEGY_V2_SPEC.md must be complete and accurate.
+
+- **Every backend variable** used in strategies must have an entry
+- **Every JSON key** must be documented with its source
+- **Every Frontend label** must be mapped to its JSON path
+- **Update immediately** when adding new metrics or fields
+
+---
+
+## ARCHITECTURAL PRINCIPLES
+
+### Principle 1: Modular, Scalable, Clear Blocks (Jan 15 Principle)
+
+**Modularity:**
+- Each strategy is a separate class
+- Each component has a single responsibility
+- Helper methods for reusable logic (e.g., `_build_observability_dict`)
+
+**Scalability:**
+- Batch processing for API efficiency
+- Caching with configurable TTL
+- --limit parameter for testing/development
+
+**Clarity:**
+- Separate math logic from formatting logic
+- Inline comments for complex algorithms
+- Descriptive variable names (e.g., `oi_z_score_valid` not `oiv`)
+
+### Principle 2: Observability First
+
+**Every signal must include full observability:**
+- LONG signals: Full score composition + setup
+- SHORT signals: Full score composition + setup
+- WAIT signals: Full score composition + reason
+
+**No exceptions:**
+- `_wait_result()` must include observability
+- `_empty_result()` must include observability
+- `analyze()` must include observability
+
+### Principle 3: Fail-Safe Defaults
+
+**Handle missing data gracefully:**
+- Use `.get()` with defaults for external data
+- Return `_empty_result()` for insufficient data
+- Provide fallback values (e.g., `atr_val = close * 0.02`)
+
+**Never crash on missing data:**
+```python
+# Good
+oi_z_score = context.get_external('oi_z_score', 0.0)
+
+# Bad
+oi_z_score = context.external_data['oi_z_score']  # May crash
+```
+
+---
+
+## CODE QUALITY STANDARDS
+
+### File Organization
+
+```
+QuantPro/
+├── README.md                      # Project overview, quick start
+├── ARCHITECTURE.md                # System design, data flow
+├── STRATEGY_V2_SPEC.md            # Complete V2 spec with DATA DICTIONARY
+├── .cursorrules                   # This file
+├── market_scanner_refactored.py   # Scanner entry point
+├── strategies_refactored.py       # Strategy implementations
+├── shared_context.py              # Context builder
+├── batch_processor.py             # Batch orchestrator
+├── coinalyze_batch_client.py      # API client
+├── server.js                      # Backend API
+├── App.tsx                        # Frontend main
+└── components/                    # React components
+```
+
+### Naming Conventions
+
+**Python:**
+- Classes: `PascalCase` (e.g., `QuantProBreakoutV2Refactored`)
+- Functions/Methods: `snake_case` (e.g., `_build_observability_dict`)
+- Constants: `UPPER_SNAKE_CASE` (e.g., `CACHE_TTL`)
+- Private methods: `_leading_underscore` (e.g., `_wait_result`)
+
+**TypeScript:**
+- Interfaces: `PascalCase` (e.g., `AnalysisResult`)
+- Components: `PascalCase` (e.g., `ObservabilityPanel`)
+- Functions: `camelCase` (e.g., `buildObservability`)
+- Constants: `UPPER_SNAKE_CASE` (e.g., `DEFAULT_SETTINGS`)
+
+**JSON Keys:**
+- Use `snake_case` for consistency with Python backend
+- Exception: Legacy fields may use `camelCase` (maintain compatibility)
+
+### Testing Requirements
+
+**Before committing:**
+1. Test with `--limit 2` (quick verification)
+2. Verify JSON structure with `jq`
+3. Check TypeScript compilation
+4. Verify Dashboard displays correctly
+
+**Test commands:**
+```bash
+# Quick test
+python market_scanner_refactored.py data/ --strategy BreakoutV2 --limit 2
+
+# Verify observability
+cat data/master_feed.json | jq '.signals[0].observability != null'
+
+# Check TypeScript
+npm run build
+```
+
+---
+
+## COMMON TASKS
+
+### Adding a New Metric to Strategy V2
+
+1. **Add to backend** (`strategies_refactored.py`):
+   ```python
+   new_metric = calculate_new_metric(context)
+   ```
+
+2. **Add to observability** (`_build_observability_dict`):
+   ```python
+   "score_composition": {
+       "new_metric": float(new_metric),
+       # ... existing metrics
+   }
+   ```
+
+3. **Update DATA DICTIONARY** (`STRATEGY_V2_SPEC.md`):
+   ```markdown
+   | `new_metric` | `observability.score_composition.new_metric` | New Metric | float | Description |
+   ```
+
+4. **Update TypeScript types** (`types.ts`):
+   ```typescript
+   interface ScoreComposition {
+       new_metric?: number;
+       // ... existing fields
+   }
+   ```
+
+5. **Update Frontend** (`ObservabilityPanel.tsx`):
+   ```typescript
+   {score_composition.new_metric !== undefined && (
+       <div>New Metric: {score_composition.new_metric.toFixed(2)}</div>
+   )}
+   ```
+
+6. **Test and verify:**
+   ```bash
+   python market_scanner_refactored.py data/ --strategy BreakoutV2 --limit 2
+   cat data/master_feed.json | jq '.signals[0].observability.score_composition.new_metric'
+   ```
+
+### Changing a JSON Key
+
+**NEVER change JSON keys without following this process:**
+
+1. **Document the change:**
+   - Update DATA DICTIONARY in STRATEGY_V2_SPEC.md
+   - Note the old key → new key mapping
+   - Document migration path
+
+2. **Update backend:**
+   - Change key in strategy return dict
+   - Update observability builder if applicable
+
+3. **Update frontend:**
+   - Update TypeScript interface
+   - Update all component references
+   - Add fallback for backward compatibility
+
+4. **Test thoroughly:**
+   - Generate fresh scan data
+   - Verify Dashboard displays correctly
+   - Check for TypeScript errors
+
+5. **Document in README:**
+   - Add to version history
+   - Note breaking change if applicable
+
+### Debugging Missing Observability
+
+**If observability is null in JSON:**
+
+1. **Check strategy return:**
+   ```python
+   # Ensure all return paths include observability
+   return {
+       # ... other fields
+       "observability": observability,  # Must be present
+   }
+   ```
+
+2. **Check helper method:**
+   ```python
+   # Verify _build_observability_dict is called
+   observability = self._build_observability_dict(...)
+   ```
+
+3. **Check _wait_result and _empty_result:**
+   ```python
+   # Both must include observability
+   def _wait_result(self, ...):
+       observability = self._build_observability_dict(...)
+       return { "observability": observability, ... }
+   ```
+
+4. **Verify with test:**
+   ```bash
+   python market_scanner_refactored.py data/ --strategy BreakoutV2 --limit 2
+   cat data/master_feed.json | jq '.signals[] | select(.observability == null)'
+   ```
+
+---
+
+## ERROR PREVENTION
+
+### Common Mistakes to Avoid
+
+1. **Forgetting to update documentation** when changing code
+2. **Changing JSON keys** without updating TypeScript types
+3. **Missing observability** in _wait_result or _empty_result
+4. **Hardcoding values** instead of using configuration
+5. **Not testing with --limit** before full scan
+6. **Ignoring TypeScript errors** during development
+7. **Breaking backward compatibility** without migration plan
+
+### Pre-Commit Checklist
+
+- [ ] Code changes documented in relevant .md files
+- [ ] DATA DICTIONARY updated if JSON structure changed
+- [ ] TypeScript types updated if data structure changed
+- [ ] Tested with `--limit 2`
+- [ ] Verified JSON structure with `jq`
+- [ ] TypeScript compiles without errors
+- [ ] Dashboard displays data correctly
+- [ ] No breaking changes (or documented migration)
+
+---
+
+## PERFORMANCE GUIDELINES
+
+### API Usage
+
+- **Always use batch processing** for Coinalyze API
+- **Respect cache TTL** (currently 1 hour)
+- **Use --limit** for testing to avoid rate limits
+- **Monitor API statistics** in logs
+
+### Scan Optimization
+
+- **Apply --limit early** (during directory scanning, not after)
+- **Cache aggressively** (1-hour TTL for external data)
+- **Batch symbols** (max 20 per request)
+- **Rate limit** (1.5s spacing between requests)
+
+---
+
+## DEPLOYMENT
+
+### Production Checklist
+
+- [ ] All documentation up-to-date
+- [ ] Environment variables configured
+- [ ] API keys valid
+- [ ] Cache directory writable
+- [ ] Dependencies installed (Python + Node.js)
+- [ ] Frontend built (`npm run build`)
+- [ ] Backend running (`node server.js`)
+- [ ] Test scan successful
+
+### Monitoring
+
+- **Watch for:**
+  - Rate limiting errors (429)
+  - Missing observability in signals
+  - TypeScript compilation errors
+  - Dashboard display issues
+
+- **Log locations:**
+  - Scanner: Console output
+  - Backend: Express logs
+  - Frontend: Browser console
+
+---
+
+## SUPPORT & ESCALATION
+
+### When to Ask for Help
+
+1. **Breaking changes required** - Discuss migration strategy
+2. **API contract changes** - Verify with team
+3. **Performance issues** - Profile before optimizing
+4. **Unclear requirements** - Clarify before implementing
+
+### Documentation Hierarchy
+
+1. **README.md** - Start here for overview and quick start
+2. **ARCHITECTURE.md** - System design and data flow
+3. **STRATEGY_V2_SPEC.md** - Complete V2 specification with DATA DICTIONARY
+4. **.cursorrules** - This file for project rules
+
+---
+
+**Last Updated:** January 16, 2026  
+**Version:** 2.0
+
+**Remember:** Documentation is code. Treat it with the same rigor as your Python and TypeScript files.

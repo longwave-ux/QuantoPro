@@ -7,6 +7,7 @@ import { calculateOBV, calculateRSI, findKeyLevels, calculateVolumeProfile } fro
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine, LineChart, Line, BarChart, Bar } from 'recharts';
 import { Bot, Loader2, FileText, TrendingUp, Target, Shield, Crosshair, BarChart3, Anchor, Zap, AlertTriangle, Info, Wallet, ArrowRight, RefreshCw } from 'lucide-react';
 import { ObservabilityPanel } from './ObservabilityPanel';
+import { cleanSymbol, getTradingViewSymbol } from '../utils/symbolUtils';
 
 interface DetailPanelProps {
     pair: AnalysisResult;
@@ -46,7 +47,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
         setTradeStatus('IDLE');
         setTradeMessage('');
         // Use the specific intervals that generated this result AND the source
-        const { htfInterval, ltfInterval } = pair.meta;
+        const { htfInterval = '4h', ltfInterval = '15m' } = pair?.meta || {};
         getChartData(pair.symbol, htfInterval, ltfInterval, pair.source).then(setChartData);
 
         // Auto-trigger AI Analysis REMOVED to save quota
@@ -233,8 +234,19 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     const observabilityTrendlines = getObservabilityTrendlines();
 
+    // Get cleaned symbol for display - FORCED CLEANING with inline fallback
+    const displaySymbol = cleanSymbol(pair.symbol) || pair.symbol.replace(/USDTM?$/, '').replace(/-USDTM?$/, '');
+    const tvSymbol = getTradingViewSymbol(pair.symbol);
+
     return (
         <div className="bg-gray-900/50 p-6 space-y-6">
+            {/* Header with cleaned symbol - FORCED INLINE CLEANING */}
+            <div className="flex items-center justify-between mb-2">
+                <h2 className="text-2xl font-bold text-white">
+                    {displaySymbol || pair.symbol.replace(/USDTM?$/, '')}
+                </h2>
+                <span className="text-xs text-gray-500 bg-gray-800 px-3 py-1 rounded-full border border-gray-700">{pair.strategy_name}</span>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -245,7 +257,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 shadow-inner flex flex-col">
                         <div className="flex justify-between items-center mb-4">
                             <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider flex items-center gap-2">
-                                <TrendingUp className="w-4 h-4 text-blue-500" /> Price Action ({pair.meta.ltfInterval})
+                                <TrendingUp className="w-4 h-4 text-blue-500" /> Price Action ({pair?.meta?.ltfInterval || '15m'})
                             </h3>
                             <div className="flex gap-2 text-xs">
                                 {pair.setup && (
@@ -473,14 +485,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                         </div>
                     )}
 
-                    {/* SCORE BREAKDOWN (FIXED KEYS) */}
+                    {/* SCORE BREAKDOWN - ONLY SHOW FOR CLICKED STRATEGY */}
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4">
                         <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2 justify-between">
                             <span className="flex items-center gap-2"><BarChart3 className="w-3 h-3 text-purple-400" /> Score Composition</span>
                             <span className="text-xs text-gray-500 bg-gray-800 px-2 py-0.5 rounded border border-gray-700">{pair.strategy_name}</span>
                         </h4>
                         <div className="space-y-3">
-                            {(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') ? (
+                            {pair.strategy_name === 'Breakout' ? (
                                 <>
                                     <ScoreBar
                                         label="Geometry"
@@ -497,13 +509,6 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                         description="RSI Divergence + Slope Decoupling"
                                     />
                                     <ScoreBar
-                                        label="OI Flow"
-                                        value={pair.details.score_breakdown?.oi_flow || 0}
-                                        max={20}
-                                        color="bg-cyan-500"
-                                        description="Open Interest Slope & Delta"
-                                    />
-                                    <ScoreBar
                                         label="Sentiment"
                                         value={pair.details.score_breakdown?.sentiment || 0}
                                         max={10}
@@ -518,32 +523,63 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                         description="Retest (+15), Squeeze (+10), Deep RSI (+5)"
                                     />
                                 </>
+                            ) : pair.strategy_name === 'BreakoutV2' ? (
+                                <>
+                                    <ScoreBar
+                                        label="Trend (OI Z-Score)"
+                                        value={pair.observability?.score_composition?.trend_score || 0}
+                                        max={25}
+                                        color="bg-blue-500"
+                                        description="Institutional Flow Confirmation"
+                                    />
+                                    <ScoreBar
+                                        label="Structure (OBV Slope)"
+                                        value={pair.observability?.score_composition?.structure_score || 0}
+                                        max={25}
+                                        color="bg-purple-500"
+                                        description="Money Flow Structure"
+                                    />
+                                    <ScoreBar
+                                        label="Money Flow (RSI)"
+                                        value={pair.observability?.score_composition?.money_flow_score || 0}
+                                        max={25}
+                                        color="bg-cyan-500"
+                                        description="RSI Scaled (0-25)"
+                                    />
+                                    <ScoreBar
+                                        label="Timing (Cardwell)"
+                                        value={pair.observability?.score_composition?.timing_score || 0}
+                                        max={25}
+                                        color="bg-green-500"
+                                        description="Cardwell Range Score"
+                                    />
+                                </>
                             ) : (
                                 <>
                                     <ScoreBar
                                         label="Money Flow (OBV)"
-                                        value={pair.details.moneyFlowScore}
+                                        value={pair.details.moneyFlowScore || 0}
                                         max={40}
                                         color="bg-purple-500"
                                         description="Volume Flow & Divergences (40pts)"
                                     />
                                     <ScoreBar
                                         label="Trend & Bias"
-                                        value={pair.details.trendScore}
+                                        value={pair.details.trendScore || 0}
                                         max={25}
                                         color="bg-blue-500"
                                         description="EMA Alignment & ADX Strength (25pts)"
                                     />
                                     <ScoreBar
                                         label="Market Structure"
-                                        value={pair.details.structureScore}
+                                        value={pair.details.structureScore || 0}
                                         max={25}
                                         color="bg-indigo-500"
                                         description="Support/Resistance & Fib Levels (25pts)"
                                     />
                                     <ScoreBar
                                         label="Timing"
-                                        value={pair.details.timingScore}
+                                        value={pair.details.timingScore || 0}
                                         max={10}
                                         color="bg-green-500"
                                         description="Pullback Depth & Wick Rejections (10pts)"

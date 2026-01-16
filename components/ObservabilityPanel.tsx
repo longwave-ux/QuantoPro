@@ -32,84 +32,71 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
         </div>
 
         <div className="space-y-3">
-          {/* Scoring Components */}
-          {(score_composition.trend_score !== undefined || 
-            score_composition.structure_score !== undefined ||
-            score_composition.money_flow_score !== undefined ||
-            score_composition.timing_score !== undefined) && (
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Components</div>
-              <div className="grid grid-cols-2 gap-2">
-                {score_composition.trend_score !== undefined && (
-                  <ScoreBar 
-                    label="Trend" 
-                    value={score_composition.trend_score} 
-                    max={25} 
-                    color="blue" 
-                  />
-                )}
-                {score_composition.structure_score !== undefined && (
-                  <ScoreBar 
-                    label="Structure" 
-                    value={score_composition.structure_score} 
-                    max={25} 
-                    color="green" 
-                  />
-                )}
-                {score_composition.money_flow_score !== undefined && (
-                  <ScoreBar 
-                    label="Money Flow" 
-                    value={score_composition.money_flow_score} 
-                    max={25} 
-                    color="purple" 
-                  />
-                )}
-                {score_composition.timing_score !== undefined && (
-                  <ScoreBar 
-                    label="Timing" 
-                    value={score_composition.timing_score} 
-                    max={25} 
-                    color="yellow" 
-                  />
-                )}
-              </div>
+          {/* Unified Score Components - All Strategies */}
+          <div>
+            <div className="text-xs text-gray-400 mb-2">Score Components</div>
+            <div className="grid grid-cols-2 gap-2">
+              {/* Standard Components (V2, Legacy) */}
+              {score_composition.trend_score !== undefined && (
+                <ScoreBar 
+                  label="Trend" 
+                  value={score_composition.trend_score} 
+                  max={25} 
+                  color="blue" 
+                />
+              )}
+              {score_composition.structure_score !== undefined && (
+                <ScoreBar 
+                  label="Structure" 
+                  value={score_composition.structure_score} 
+                  max={25} 
+                  color="green" 
+                />
+              )}
+              {score_composition.money_flow_score !== undefined && (
+                <ScoreBar 
+                  label="Money Flow" 
+                  value={score_composition.money_flow_score} 
+                  max={25} 
+                  color="purple" 
+                />
+              )}
+              {score_composition.timing_score !== undefined && (
+                <ScoreBar 
+                  label="Timing" 
+                  value={score_composition.timing_score} 
+                  max={25} 
+                  color="yellow" 
+                />
+              )}
+              
+              {/* Breakout Strategy Components */}
+              {score_composition.geometry_score !== undefined && (
+                <ScoreBar 
+                  label="Geometry" 
+                  value={score_composition.geometry_score} 
+                  max={40} 
+                  color="cyan" 
+                />
+              )}
+              {score_composition.momentum_score !== undefined && (
+                <ScoreBar 
+                  label="Momentum" 
+                  value={score_composition.momentum_score} 
+                  max={40} 
+                  color="orange" 
+                />
+              )}
+              {score_composition.oi_flow_score !== undefined && (
+                <ScoreBar 
+                  label="OI Flow" 
+                  value={score_composition.oi_flow_score} 
+                  max={20} 
+                  color="pink" 
+                />
+              )}
             </div>
-          )}
-
-          {/* Breakout Strategy Components */}
-          {(score_composition.geometry_score !== undefined || 
-            score_composition.momentum_score !== undefined ||
-            score_composition.oi_flow_score !== undefined) && (
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Breakout Components</div>
-              <div className="grid grid-cols-2 gap-2">
-                {score_composition.geometry_score !== undefined && (
-                  <ScoreBar 
-                    label="Geometry" 
-                    value={score_composition.geometry_score} 
-                    max={40} 
-                    color="cyan" 
-                  />
-                )}
-                {score_composition.momentum_score !== undefined && (
-                  <ScoreBar 
-                    label="Momentum" 
-                    value={score_composition.momentum_score} 
-                    max={40} 
-                    color="orange" 
-                  />
-                )}
-                {score_composition.oi_flow_score !== undefined && (
-                  <ScoreBar 
-                    label="OI Flow" 
-                    value={score_composition.oi_flow_score} 
-                    max={20} 
-                    color="pink" 
-                  />
-                )}
-              </div>
-            </div>
-          )}
+          </div>
 
           {/* Raw Indicators */}
           <div>
@@ -144,10 +131,30 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
             </div>
           </div>
 
-          {/* Conditions */}
+          {/* Conditions & Context */}
           <div>
-            <div className="text-xs text-gray-400 mb-2">Conditions</div>
+            <div className="text-xs text-gray-400 mb-2">Context & Conditions</div>
             <div className="flex flex-wrap gap-2">
+              {/* Exchange Badge */}
+              {signal.exchange && (
+                <div className="px-2 py-1 rounded border bg-blue-500/20 border-blue-500/50 text-blue-300 text-xs">
+                  {signal.exchange}
+                </div>
+              )}
+              
+              {/* Cardwell Range Badge (V2) */}
+              {score_composition.cardwell_range && (
+                <div className={`px-2 py-1 rounded border text-xs ${
+                  score_composition.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' :
+                  score_composition.cardwell_range === 'BEARISH' ? 'bg-red-500/20 border-red-500/50 text-red-300' :
+                  score_composition.cardwell_range === 'OVERBOUGHT' ? 'bg-orange-500/20 border-orange-500/50 text-orange-300' :
+                  score_composition.cardwell_range === 'OVERSOLD' ? 'bg-purple-500/20 border-purple-500/50 text-purple-300' :
+                  'bg-gray-500/20 border-gray-500/50 text-gray-300'
+                }`}>
+                  {score_composition.cardwell_range}
+                </div>
+              )}
+              
               {score_composition.pullback_detected !== undefined && (
                 <ConditionBadge 
                   label="Pullback" 

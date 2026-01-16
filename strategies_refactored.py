@@ -322,7 +322,12 @@ class QuantProLegacyRefactored(Strategy):
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
             },
-            "strategy": self.name
+            "strategy": self.name,
+            "meta": {
+                "htfInterval": context.htf_interval if hasattr(context, 'htf_interval') else "4h",
+                "ltfInterval": context.ltf_interval if hasattr(context, 'ltf_interval') else "15m",
+                "strategy_type": "legacy"
+            }
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -826,7 +831,12 @@ class QuantProBreakoutRefactored(Strategy):
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
             },
-            "strategy": self.name
+            "strategy": self.name,
+            "meta": {
+                "htfInterval": context.htf_interval if hasattr(context, 'htf_interval') else "4h",
+                "ltfInterval": context.ltf_interval if hasattr(context, 'ltf_interval') else "15m",
+                "strategy_type": "breakout"
+            }
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -1012,6 +1022,9 @@ class QuantProBreakoutV2Refactored(Strategy):
         rsi_val = rsi_series.iloc[-1]
         atr_val = atr_series.iloc[-1] if atr_series is not None else (close * 0.02)
         
+        # Calculate OBV slope early (needed for diagnostics even if filters fail)
+        obv_slope = self._calculate_obv_slope(obv_series) if obv_series is not None else 0.0
+        
         # CRITICAL FILTER 1: OI Z-Score (HARD REQUIREMENT)
         oi_z_score_valid = context.get_external('oi_z_score_valid', False)
         oi_z_score = context.get_external('oi_z_score', 0.0)
@@ -1020,10 +1033,8 @@ class QuantProBreakoutV2Refactored(Strategy):
             # Signal INVALID without OI confirmation
             return self._wait_result(context, close, rsi_val, 
                                     reason="OI Z-Score < 1.5 (FILTER FAILED)",
-                                    oi_z_score=oi_z_score)
-        
-        # CRITICAL FILTER 2: OBV Slope
-        obv_slope = self._calculate_obv_slope(obv_series) if obv_series is not None else 0.0
+                                    oi_z_score=oi_z_score,
+                                    obv_slope=obv_slope)
         
         # Determine bias from Cardwell Range Rules
         bias, cardwell_range = self._apply_cardwell_rules(rsi_val)
@@ -1112,29 +1123,11 @@ class QuantProBreakoutV2Refactored(Strategy):
                     breakout_type, rr
                 )
         
-        # Get event timestamp
-        event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
-        
-        # Build observability object
-        observability = {
-            "score_composition": {
-                "rsi": float(rsi_val),
-                "close_price": float(close),
-                "oi_z_score": float(oi_z_score),
-                "oi_z_score_valid": bool(oi_z_score_valid),
-                "obv_slope": float(obv_slope),
-                "cardwell_range": cardwell_range,
-                "breakout_type": breakout_type,
-                "atr": float(atr_val),
-                "filters_passed": {
-                    "oi_zscore": oi_z_score_valid,
-                    "obv_slope": (bias == 'LONG' and obv_slope > 0) or (bias == 'SHORT' and obv_slope < 0)
-                }
-            },
-            "rsi_visuals": rsi_trendlines,
-            "calculated_at": event_timestamp,
-            "candle_index": len(df) - 1
-        }
+        # Build observability object using helper method
+        observability = self._build_observability_dict(
+            context, rsi_val, close, oi_z_score, oi_z_score_valid,
+            obv_slope, cardwell_range, breakout_type, atr_val, bias
+        )
         
         # Build result
         return {
@@ -1171,7 +1164,78 @@ class QuantProBreakoutV2Refactored(Strategy):
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
             },
-            "strategy": self.name
+            "strategy": self.name,
+            "meta": {
+                "htfInterval": context.htf_interval if hasattr(context, 'htf_interval') else "4h",
+                "ltfInterval": context.ltf_interval if hasattr(context, 'ltf_interval') else "15m",
+                "strategy_type": "breakout_v2"
+            }
+        }
+    
+    def _build_observability_dict(self, context: SharedContext, rsi_val: float, 
+                                   close: float, oi_z_score: float, oi_z_score_valid: bool,
+                                   obv_slope: float, cardwell_range: str, breakout_type: str = None,
+                                   atr_val: float = 0.0, bias: str = "NONE") -> Dict[str, Any]:
+        """
+        Build observability dictionary with V2 metrics mapped to standard Dashboard keys.
+        
+        Mapping:
+        - trend_score: OI Z-Score (institutional flow)
+        - structure_score: OBV Slope (money flow structure)
+        - money_flow_score: RSI value (momentum flow)
+        - timing_score: Cardwell range score (timing classification)
+        """
+        # Get RSI trendlines from context
+        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        
+        # Get event timestamp
+        df = context.ltf_data
+        last_row = df.iloc[-1] if len(df) > 0 else None
+        event_timestamp = int(last_row.get('timestamp', 0)) if last_row is not None and 'timestamp' in last_row else 0
+        
+        # Map Cardwell range to timing score (0-25 scale)
+        cardwell_timing_map = {
+            'BULLISH': 20.0,
+            'BEARISH': 20.0,
+            'NEUTRAL': 10.0,
+            'OVERBOUGHT': 5.0,
+            'OVERSOLD': 5.0
+        }
+        timing_score = cardwell_timing_map.get(cardwell_range, 0.0)
+        
+        return {
+            "score_composition": {
+                # Raw V2 metrics (for reference)
+                "rsi": float(rsi_val),
+                "close_price": float(close),
+                "oi_z_score": float(oi_z_score),
+                "oi_z_score_valid": bool(oi_z_score_valid),
+                "obv_slope": float(obv_slope),
+                "cardwell_range": cardwell_range,
+                "breakout_type": breakout_type,
+                "atr": float(atr_val),
+                
+                # Mapped to standard Dashboard keys
+                "trend_score": float(min(25.0, oi_z_score * 10)),  # OI Z-Score as trend (scale to 0-25)
+                "structure_score": float(min(25.0, abs(obv_slope) / 10000)),  # OBV Slope normalized (0-25 scale)
+                "money_flow_score": float(rsi_val / 4),  # RSI as money flow (0-25 scale)
+                "timing_score": timing_score,  # Cardwell range as timing
+                
+                # Filter status
+                "filters_passed": {
+                    "oi_zscore": oi_z_score_valid,
+                    "obv_slope": (bias == 'LONG' and obv_slope > 0) or (bias == 'SHORT' and obv_slope < 0)
+                },
+                
+                # Data availability
+                "oi_available": context.get_external('oi_available', False),
+                "funding_available": context.get_external('funding_available', False),
+                "ls_ratio_available": context.get_external('ls_ratio_available', False),
+                "liquidations_available": context.get_external('liquidations_available', False)
+            },
+            "rsi_visuals": rsi_trendlines,
+            "calculated_at": event_timestamp,
+            "candle_index": len(df) - 1
         }
     
     def _calculate_obv_slope(self, obv_series: pd.Series) -> float:
@@ -1291,6 +1355,11 @@ class QuantProBreakoutV2Refactored(Strategy):
     
     def _empty_result(self, context: SharedContext) -> Dict[str, Any]:
         """Return empty result for insufficient data."""
+        # Build minimal observability even for empty results
+        observability = self._build_observability_dict(
+            context, 0.0, 0.0, 0.0, False, 0.0, "NEUTRAL", None, 0.0, "NONE"
+        )
+        
         return {
             "strategy_name": self.name,
             "symbol": context.symbol,
@@ -1298,15 +1367,51 @@ class QuantProBreakoutV2Refactored(Strategy):
             "exchange": context.exchange,
             "price": 0.0,
             "score": 0.0,
+            "total_score": 0.0,
             "bias": "NONE",
             "action": "WAIT",
             "setup": None,
-            "details": {"reason": "Insufficient data"}
+            "details": {"reason": "Insufficient data"},
+            "htf": {"trend": "NONE", "bias": "NONE", "adx": 0},
+            "ltf": {"rsi": 0.0, "bias": "NONE", "cardwell_range": "NEUTRAL"},
+            "observability": observability,
+            "oi_metadata": {
+                "status": context.get_external('oi_status') or 'neutral',
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
+                "value": context.get_external('oi_value', 0)
+            },
+            "strategy": self.name,
+            "meta": {
+                "htfInterval": context.htf_interval if hasattr(context, 'htf_interval') else "4h",
+                "ltfInterval": context.ltf_interval if hasattr(context, 'ltf_interval') else "15m",
+                "strategy_type": "breakout_v2"
+            }
         }
     
-    def _wait_result(self, context: SharedContext, close: float, rsi: float,
+    def _wait_result(self, context: SharedContext, close: float, rsi_val: float,
                      reason: str = "", **kwargs) -> Dict[str, Any]:
-        """Return WAIT result with diagnostic info."""
+        """Return WAIT result with diagnostic info and full observability."""
+        # Extract metrics from kwargs for observability
+        oi_z_score = kwargs.get('oi_z_score', 0.0)
+        obv_slope = kwargs.get('obv_slope', 0.0)
+        cardwell_range = kwargs.get('cardwell_range', 'NEUTRAL')
+        
+        # Get OI Z-Score validity from context
+        oi_z_score_valid = context.get_external('oi_z_score_valid', False)
+        
+        # Get ATR
+        atr_series = context.get_ltf_indicator('atr')
+        atr_val = atr_series.iloc[-1] if atr_series is not None and len(atr_series) > 0 else (close * 0.02)
+        
+        # Determine bias from Cardwell range
+        bias = "LONG" if cardwell_range == "BULLISH" else ("SHORT" if cardwell_range == "BEARISH" else "NONE")
+        
+        # Build observability with actual calculated values
+        observability = self._build_observability_dict(
+            context, rsi_val, close, oi_z_score, oi_z_score_valid,
+            obv_slope, cardwell_range, None, atr_val, bias
+        )
+        
         return {
             "strategy_name": self.name,
             "symbol": context.symbol,
@@ -1314,15 +1419,36 @@ class QuantProBreakoutV2Refactored(Strategy):
             "exchange": context.exchange,
             "price": float(close),
             "score": 0.0,
-            "bias": "NONE",
+            "total_score": 0.0,
+            "bias": bias,
             "action": "WAIT",
             "setup": None,
             "details": {
                 "reason": reason,
-                "rsi": float(rsi),
+                "rsi": float(rsi_val),
+                "oi_z_score": float(oi_z_score),
+                "obv_slope": float(obv_slope),
+                "cardwell_range": cardwell_range,
                 **kwargs
             },
-            "ltf": {"rsi": float(rsi)}
+            "htf": {"trend": "NONE", "bias": bias, "adx": 0},
+            "ltf": {
+                "rsi": float(rsi_val),
+                "bias": bias,
+                "cardwell_range": cardwell_range
+            },
+            "observability": observability,
+            "oi_metadata": {
+                "status": context.get_external('oi_status') or 'neutral',
+                "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
+                "value": context.get_external('oi_value', 0)
+            },
+            "strategy": self.name,
+            "meta": {
+                "htfInterval": context.htf_interval if hasattr(context, 'htf_interval') else "4h",
+                "ltfInterval": context.ltf_interval if hasattr(context, 'ltf_interval') else "15m",
+                "strategy_type": "breakout_v2"
+            }
         }
     
     def backtest(self, context: SharedContext) -> list:

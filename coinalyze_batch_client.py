@@ -85,7 +85,7 @@ class CoinalyzeBatchClient:
         self.last_req_time = 0
         self.req_interval = 1.5  # Rate limit: 40 requests/min = 1 req every 1.5s
         self.cache_dir = "data/coinalyze_cache"
-        self.cache_ttl = 900  # 15 minutes
+        self.cache_ttl = 3600  # 1 hour (3600 seconds)
         self.successful_requests = 0
         self.failed_requests = 0
         
