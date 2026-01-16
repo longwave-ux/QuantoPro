@@ -114,10 +114,12 @@ export interface AnalysisResult {
   symbol: string;
   source: DataSource;
   strategy_name?: string;
+  strategy?: string;
   bias?: string;
   action?: string; // Added for Breakout Watch/Wait
   price: number;
   score: number;
+  total_score?: number;
   setup: TradeSetup | null;
   history?: {
     consecutiveScans: number;

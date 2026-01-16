@@ -275,6 +275,7 @@ class QuantProLegacyRefactored(Strategy):
             "exchange": context.exchange,
             "price": float(close),
             "score": float(score_breakdown['total']),
+            "total_score": float(score_breakdown['total']),
             "bias": bias,
             "action": setup['side'] if setup else "WAIT",
             "rr": float(setup['rr']) if setup and 'rr' in setup else 0.0,
@@ -320,7 +321,8 @@ class QuantProLegacyRefactored(Strategy):
                 "status": context.get_external('oi_status') or 'neutral',
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
-            }
+            },
+            "strategy": self.name
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -790,6 +792,7 @@ class QuantProBreakoutRefactored(Strategy):
             "exchange": context.exchange,
             "price": float(latest_price),
             "score": float(details.get('total', 0)),
+            "total_score": float(details.get('total', 0)),
             "bias": bias,
             "action": action,
             "rr": float(setup['rr']) if setup else 0.0,
@@ -822,7 +825,8 @@ class QuantProBreakoutRefactored(Strategy):
                 "status": context.get_external('oi_status') or 'neutral',
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
-            }
+            },
+            "strategy": self.name
         }
     
     def backtest(self, context: SharedContext) -> list:
@@ -1140,6 +1144,7 @@ class QuantProBreakoutV2Refactored(Strategy):
             "exchange": context.exchange,
             "price": float(close),
             "score": float(score),
+            "total_score": float(score),
             "bias": bias,
             "action": action,
             "rr": float(setup['rr']) if setup else 0.0,
@@ -1165,7 +1170,8 @@ class QuantProBreakoutV2Refactored(Strategy):
                 "status": context.get_external('oi_status') or 'neutral',
                 "coinalyze_symbol": context.get_external('coinalyze_symbol') or None,
                 "value": context.get_external('oi_value', 0)
-            }
+            },
+            "strategy": self.name
         }
     
     def _calculate_obv_slope(self, obv_series: pd.Series) -> float:

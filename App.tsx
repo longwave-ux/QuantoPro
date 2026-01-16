@@ -454,7 +454,7 @@ export default function App() {
         const rows = data.map(d => [
             d.symbol,
             d.price.toFixed(4),
-            d.score,
+            d.total_score || d.score,
             d.htf.bias,
             d.setup ? d.setup.side : 'WAIT',
             d.setup ? d.setup.entry.toFixed(4) : '-',
