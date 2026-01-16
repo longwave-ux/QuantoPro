@@ -32,6 +32,7 @@ export interface TrendlineInfo {
 export interface RsiTrendlinePivot {
   index: number;
   value: number;
+  time?: number; // Timestamp for robust matching
 }
 
 export interface RsiTrendline {
@@ -54,7 +55,7 @@ export interface ScoreComposition {
   ema50?: number;
   ema200?: number;
   close_price?: number;
-  
+
   // V2 Strategy specific
   oi_z_score?: number;
   oi_z_score_valid?: boolean;
@@ -65,7 +66,7 @@ export interface ScoreComposition {
     oi_zscore?: boolean;
     obv_slope?: boolean;
   };
-  
+
   // Scoring components
   trend_score?: number;
   structure_score?: number;
@@ -74,24 +75,24 @@ export interface ScoreComposition {
   geometry_score?: number;
   momentum_score?: number;
   oi_flow_score?: number;
-  
+
   // Weights and multipliers
   adx_strong_trend?: boolean;
   volume_multiplier?: number;
   pullback_detected?: boolean;
   pullback_depth?: number;
-  
+
   // Trendline data (Breakout strategy)
   trendline_slope?: number;
   trendline_start_idx?: number;
   trendline_end_idx?: number;
-  
+
   // External data availability
   oi_available?: boolean;
   funding_available?: boolean;
   ls_ratio_available?: boolean;
   liquidations_available?: boolean;
-  
+
   // Market context
   mcap?: number;
   vol_24h?: number;

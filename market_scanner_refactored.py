@@ -238,6 +238,15 @@ def analyze_symbol(
             result['symbol'] = symbol
             result['display_symbol'] = display_symbol
             
+            # Map exchange to DataSource for frontend chart fetching
+            exchange_to_source = {
+                'BINANCE': 'MEXC',      # Use MEXC as fallback for Binance
+                'MEXC': 'MEXC',
+                'KUCOIN': 'KUCOIN',
+                'HYPERLIQUID': 'HYPERLIQUID'
+            }
+            result['source'] = exchange_to_source.get(exchange.upper(), 'MEXC')
+            
             # Add metadata
             if metadata:
                 result['metadata'] = metadata

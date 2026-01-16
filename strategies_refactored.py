@@ -542,15 +542,22 @@ class QuantProBreakoutRefactored(Strategy):
     
     def analyze(self, context: SharedContext) -> Dict[str, Any]:
         """Analyze using pre-calculated indicators and external data from context."""
-        df = context.ltf_data
+        # USE HTF DATA for Breakout Strategy (4H)
+        df = context.htf_data
         
-        if len(df) < 50:
+        if df is None or len(df) < 50:
             return self._empty_result(context)
         
-        # Read indicators from context
-        rsi_series = context.get_ltf_indicator('rsi')
-        obv_series = context.get_ltf_indicator('obv')
-        atr_series = context.get_ltf_indicator('atr')
+        # Read indicators from context (HTF)
+        rsi_series = context.get_htf_indicator('rsi')
+        obv_series = context.get_htf_indicator('obv') # OBV usually LTF? keeping htf for consistency if avail, else fallback
+        if obv_series is None:
+             obv_series = context.get_ltf_indicator('obv')
+             
+        atr_series = context.get_htf_indicator('atr')
+        
+        # Get Pre-calculated Trendlines (HTF)
+        rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
         
         if rsi_series is None:
             return self._empty_result(context)
@@ -574,9 +581,11 @@ class QuantProBreakoutRefactored(Strategy):
         details = {'total': 0}
         
         # LONG LOGIC
-        res_line = self._find_trendlines(rsi_series, 'RESISTANCE')
+        # Use FeatureFactory trendlines (WYSIWYT)
+        res_line = rsi_trendlines.get('resistance')
+        
         if res_line:
-            # Check for breakout (simplified - check last 3 candles)
+            # Check for breakout (check last 3 candles)
             for offset in range(3):
                 scan_i = curr_i - offset
                 if scan_i < 50:
@@ -584,9 +593,14 @@ class QuantProBreakoutRefactored(Strategy):
                 
                 # Check if RSI broke above resistance
                 rsi_val = rsi_series.iloc[scan_i]
-                line_val = res_line['m'] * scan_i + res_line['c']
+                
+                # FeatureFactory keys: slope, intercept
+                m = res_line['slope']
+                c = res_line['intercept']
+                
+                line_val = m * scan_i + c
                 rsi_prev = rsi_series.iloc[scan_i - 1]
-                line_prev = res_line['m'] * (scan_i - 1) + res_line['c']
+                line_prev = m * (scan_i - 1) + c
                 
                 if rsi_val > line_val and rsi_prev <= line_prev:
                     # Breakout detected
@@ -598,8 +612,12 @@ class QuantProBreakoutRefactored(Strategy):
                     vol_sl = entry_price - (2.5 * atr_val)
                     sl = max(struct_sl, vol_sl)
                     
-                    p_max = df['high'].iloc[res_line['start_idx']:res_line['end_idx']].max()
-                    p_min = df['low'].iloc[res_line['start_idx']:res_line['end_idx']].min()
+                    # FeatureFactory keys: pivot_1.index, pivot_2.index
+                    start_idx = res_line['pivot_1']['index']
+                    end_idx = res_line['pivot_2']['index']
+                    
+                    p_max = df['high'].iloc[start_idx:end_idx].max()
+                    p_min = df['low'].iloc[start_idx:end_idx].min()
                     structure_height = p_max - p_min
                     tp = entry_price + (1.618 * structure_height)
                     
@@ -615,18 +633,22 @@ class QuantProBreakoutRefactored(Strategy):
                         continue
                     
                     # Calculate score using external data
-                    p_start = df['close'].iloc[res_line['start_idx']]
-                    p_end = df['close'].iloc[res_line['end_idx']]
+                    p_start = df['close'].iloc[start_idx]
+                    p_end = df['close'].iloc[end_idx]
                     price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
-                    duration = res_line['end_idx'] - res_line['start_idx']
+                    duration = end_idx - start_idx
                     duration = max(1, duration)
+                    
+                    # Value keys: pivot_1.value, pivot_2.value
+                    rsi_start_val = res_line['pivot_1']['value']
+                    rsi_end_val = res_line['pivot_2']['value']
                     
                     scoring_data = {
                         "symbol": context.symbol,
                         "price_change_pct": float(price_change_pct),
                         "duration_candles": int(duration),
                         "price_slope": float(price_change_pct / duration),
-                        "rsi_slope": float((res_line['end_val'] - res_line['start_val']) / duration),
+                        "rsi_slope": float((rsi_end_val - rsi_start_val) / duration),
                         "divergence_type": 0
                     }
                     
@@ -667,7 +689,7 @@ class QuantProBreakoutRefactored(Strategy):
         
         # SHORT LOGIC (similar pattern)
         if action == 'WAIT':
-            sup_line = self._find_trendlines(rsi_series, 'SUPPORT')
+            sup_line = rsi_trendlines.get('support')
             if sup_line:
                 for offset in range(3):
                     scan_i = curr_i - offset
@@ -675,9 +697,12 @@ class QuantProBreakoutRefactored(Strategy):
                         continue
                     
                     rsi_val = rsi_series.iloc[scan_i]
-                    line_val = sup_line['m'] * scan_i + sup_line['c']
+                    m = sup_line['slope']
+                    c = sup_line['intercept']
+                    
+                    line_val = m * scan_i + c
                     rsi_prev = rsi_series.iloc[scan_i - 1]
-                    line_prev = sup_line['m'] * (scan_i - 1) + sup_line['c']
+                    line_prev = m * (scan_i - 1) + c
                     
                     if rsi_val < line_val and rsi_prev >= line_prev:
                         entry_price = df['close'].iloc[scan_i]
@@ -687,8 +712,11 @@ class QuantProBreakoutRefactored(Strategy):
                         vol_sl = entry_price + (2.5 * atr_val)
                         sl = min(struct_sl, vol_sl)
                         
-                        p_max = df['high'].iloc[sup_line['start_idx']:sup_line['end_idx']].max()
-                        p_min = df['low'].iloc[sup_line['start_idx']:sup_line['end_idx']].min()
+                        start_idx = sup_line['pivot_1']['index']
+                        end_idx = sup_line['pivot_2']['index']
+                        
+                        p_max = df['high'].iloc[start_idx:end_idx].max()
+                        p_min = df['low'].iloc[start_idx:end_idx].min()
                         structure_height = p_max - p_min
                         tp = entry_price - (1.618 * structure_height)
                         
@@ -702,18 +730,21 @@ class QuantProBreakoutRefactored(Strategy):
                         if latest_price < entry_price * 0.97:
                             continue
                         
-                        p_start = df['close'].iloc[sup_line['start_idx']]
-                        p_end = df['close'].iloc[sup_line['end_idx']]
+                        p_start = df['close'].iloc[start_idx]
+                        p_end = df['close'].iloc[end_idx]
                         price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
-                        duration = sup_line['end_idx'] - sup_line['start_idx']
+                        duration = end_idx - start_idx
                         duration = max(1, duration)
+                        
+                        rsi_start_val = sup_line['pivot_1']['value']
+                        rsi_end_val = sup_line['pivot_2']['value']
                         
                         scoring_data = {
                             "symbol": context.symbol,
                             "price_change_pct": float(price_change_pct),
                             "duration_candles": int(duration),
                             "price_slope": float(price_change_pct / duration),
-                            "rsi_slope": float((sup_line['end_val'] - sup_line['start_val']) / duration),
+                            "rsi_slope": float((rsi_end_val - rsi_start_val) / duration),
                             "divergence_type": 0
                         }
                         
@@ -754,8 +785,8 @@ class QuantProBreakoutRefactored(Strategy):
         last_row = df.iloc[-1]
         event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
         
-        # Extract RSI trendline visuals from context
-        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        # Extract RSI trendline visuals from context (Already HTF now)
+        # rsi_trendlines already retrieved above
         
         # Build comprehensive observability object
         observability = {
@@ -769,10 +800,10 @@ class QuantProBreakoutRefactored(Strategy):
                 "momentum_score": details.get('momentum_component', 0),
                 "oi_flow_score": details.get('oi_flow_score', 0),
                 
-                # Trendline data (if breakout detected)
-                "trendline_slope": res_line.get('m', 0) if res_line and action == 'LONG' else (sup_line.get('m', 0) if sup_line and action == 'SHORT' else 0),
-                "trendline_start_idx": res_line.get('start_idx', 0) if res_line and action == 'LONG' else (sup_line.get('start_idx', 0) if sup_line and action == 'SHORT' else 0),
-                "trendline_end_idx": res_line.get('end_idx', 0) if res_line and action == 'LONG' else (sup_line.get('end_idx', 0) if sup_line and action == 'SHORT' else 0),
+                # Trendline data (if breakout detected) using safe access
+                "trendline_slope": res_line.get('slope', 0) if res_line and action == 'LONG' else (sup_line.get('slope', 0) if sup_line and action == 'SHORT' else 0),
+                "trendline_start_idx": res_line['pivot_1']['index'] if res_line and action == 'LONG' else (sup_line['pivot_1']['index'] if sup_line and action == 'SHORT' else 0),
+                "trendline_end_idx": res_line['pivot_2']['index'] if res_line and action == 'LONG' else (sup_line['pivot_2']['index'] if sup_line and action == 'SHORT' else 0),
                 
                 # External data availability
                 "oi_available": bool(oi_available),
@@ -859,114 +890,6 @@ class QuantProBreakoutRefactored(Strategy):
             "htf": {},
             "ltf": {}
         }
-    
-    def _find_trendlines(self, rsi_series, direction='RESISTANCE'):
-        """Find trendlines on RSI."""
-        rsi = rsi_series.values
-        if len(rsi) < 50:
-            return None
-        
-        if direction == 'RESISTANCE':
-            peaks, _ = find_peaks(rsi, distance=10)
-            pivots = peaks
-        else:
-            peaks, _ = find_peaks(-rsi, distance=10)
-            pivots = peaks
-        
-        if len(pivots) < 2:
-            return None
-        
-        return self._find_best_line_in_pivots(pivots, rsi, direction)
-    
-    def _find_best_line_in_pivots(self, pivots, rsi, direction):
-        """Find best trendline in pivots."""
-        MIN_SLOPE = 0.015
-        MAX_SLOPE = 0.6
-        ORIGIN_RES_MIN = 60
-        ORIGIN_SUP_MAX = 40
-        
-        best_line = None
-        best_score = -1
-        
-        for i in range(len(pivots)):
-            for j in range(i + 1, len(pivots)):
-                p1_idx = pivots[i]
-                p2_idx = pivots[j]
-                
-                if (p2_idx - p1_idx) < 20:
-                    continue
-                
-                x1, y1 = p1_idx, rsi[p1_idx]
-                x2, y2 = p2_idx, rsi[p2_idx]
-                
-                if x2 == x1:
-                    continue
-                m = (y2 - y1) / (x2 - x1)
-                c = y1 - m * x1
-                
-                if direction == 'RESISTANCE':
-                    if m >= 0:
-                        continue
-                    if abs(m) < MIN_SLOPE or abs(m) > MAX_SLOPE:
-                        continue
-                    if y1 < ORIGIN_RES_MIN:
-                        continue
-                else:
-                    if m <= 0:
-                        continue
-                    if abs(m) < MIN_SLOPE or abs(m) > MAX_SLOPE:
-                        continue
-                    if y1 > ORIGIN_SUP_MAX:
-                        continue
-                
-                touches = 0
-                valid_line = True
-                
-                for k in range(p1_idx, p2_idx + 1):
-                    model_y = m * k + c
-                    actual_y = rsi[k]
-                    diff = actual_y - model_y
-                    
-                    if direction == 'RESISTANCE':
-                        if diff > 2.0:
-                            valid_line = False
-                            break
-                    else:
-                        if diff < -2.0:
-                            valid_line = False
-                            break
-                    
-                    if abs(diff) < 1.5:
-                        touches += 1
-                
-                if not valid_line:
-                    continue
-                
-                future_hits = 0
-                for k_idx in range(j + 1, len(pivots)):
-                    p_k = pivots[k_idx]
-                    model_k = m * p_k + c
-                    if abs(rsi[p_k] - model_k) < 2.5:
-                        future_hits += 1
-                
-                score = (touches * 1) + (future_hits * 15) + ((p2_idx - p1_idx) * 0.05)
-                
-                if score > best_score:
-                    best_score = score
-                    segment = rsi[p1_idx:p2_idx+1]
-                    best_line = {
-                        'm': float(m),
-                        'c': float(c),
-                        'touches': int(touches + future_hits),
-                        'start_idx': int(p1_idx),
-                        'end_idx': int(p2_idx),
-                        'start_val': float(y1),
-                        'end_val': float(y2),
-                        'min_val_in_range': float(np.min(segment)) if len(segment) > 0 else 0,
-                        'max_val_in_range': float(np.max(segment)) if len(segment) > 0 else 100
-                    }
-        
-        return best_line
 
 
 # BreakoutV2 - Full Implementation per RSI_calc.md Specification

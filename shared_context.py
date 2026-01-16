@@ -160,7 +160,9 @@ class FeatureFactory:
                 
                 # RSI Trendline Pivot Detection for Observability
                 if rsi_series is not None and len(rsi_series) > 50:
-                    trendline_data = self._detect_rsi_trendlines(rsi_series)
+                    # Pass timestamps for LTF
+                    timestamps = df['timestamp'] if 'timestamp' in df.columns else None
+                    trendline_data = self._detect_rsi_trendlines(rsi_series, timestamps)
                     if trendline_data:
                         context.ltf_indicators['rsi_trendlines'] = trendline_data
             except Exception as e:
@@ -273,7 +275,16 @@ class FeatureFactory:
         # HTF RSI
         if self._is_enabled('rsi'):
             period = self.config.get('rsi_period', 14)
-            context.htf_indicators['rsi'] = ta.rsi(df['close'], length=period)
+            period = self.config.get('rsi_period', 14)
+            rsi_series = ta.rsi(df['close'], length=period)
+            context.htf_indicators['rsi'] = rsi_series
+            
+            # HTF RSI Trendlines (Critical for Breakout V2)
+            if rsi_series is not None and len(rsi_series) > 50:
+                timestamps = df['timestamp'] if 'timestamp' in df.columns else None
+                trendline_data = self._detect_rsi_trendlines(rsi_series, timestamps)
+                if trendline_data:
+                    context.htf_indicators['rsi_trendlines'] = trendline_data
         
         # HTF ATR
         if self._is_enabled('atr'):
@@ -481,7 +492,7 @@ class FeatureFactory:
             return True
         return feature in self.enabled_features
     
-    def _detect_rsi_trendlines(self, rsi_series: pd.Series, context: SharedContext = None) -> Dict[str, Any]:
+    def _detect_rsi_trendlines(self, rsi_series: pd.Series, timestamp_series: pd.Series = None) -> Dict[str, Any]:
         """
         Detect RSI trendline pivots using k-order pivot logic per RSI_calc.md specification.
         
@@ -492,7 +503,7 @@ class FeatureFactory:
         
         Args:
             rsi_series: RSI values as pandas Series
-            context: SharedContext (required to access timestamps)
+            timestamp_series: Optional Series of timestamps corresponding to RSI series
             
         Returns:
             Dictionary containing validated pivot coordinates and trendline parameters
@@ -502,6 +513,105 @@ class FeatureFactory:
         
         if len(rsi_values) < 50:
             return result
+        
+        # Configuration per spec
+        k_order = self.config.get('rsi_pivot_order', 5)  # 5 to 7 bars
+        lookback = self.config.get('rsi_trendline_lookback', 100)
+        
+        # Use only recent data
+        recent_rsi = rsi_values[-lookback:] if len(rsi_values) > lookback else rsi_values
+        offset = len(rsi_values) - len(recent_rsi)
+        
+        # Dataframe/Series alignment for Timestamps
+        timestamps = None
+        if timestamp_series is not None:
+             # Align timestamps: RSI array index -> Original Index -> Timestamp
+             # If RSI has dropped NaNs (first 14), we need to handle that.
+             # rsi_series has same index as original df (if strictly computed), but rsi_values is a numpy array (no index).
+             # We assume rsi_values represents the TAIL of the data if NaNs were validly handled by caller
+             # But here we used rsi_series.dropna().values.
+             
+             # Re-align:
+             valid_indices = rsi_series.dropna().index
+             if len(valid_indices) == len(rsi_values):
+                 timestamps = timestamp_series.loc[valid_indices].values
+        
+        # Helper to get timestamp
+        def get_ts(idx_in_recent):
+            if timestamps is None:
+                return 0
+            # idx_in_recent + offset = index in rsi_values
+            # rsi_values corresponds 1:1 with timestamps array we just built
+            abs_idx = idx_in_recent + offset
+            if abs_idx < len(timestamps):
+                return int(timestamps[abs_idx])
+            return 0
+
+        # Detect RESISTANCE (Pivot Highs)
+        try:
+            pivot_highs = self._find_k_order_pivots(recent_rsi, k_order, 'HIGH')
+            
+            if len(pivot_highs) >= 2:
+                # Find best valid trendline (chronological, no violations)
+                trendline = self._find_valid_trendline(recent_rsi, pivot_highs, 'RESISTANCE')
+                
+                if trendline:
+                    p1_idx = int(trendline['p1_idx'] + offset)
+                    p2_idx = int(trendline['p2_idx'] + offset)
+                    p1_val = float(rsi_values[p1_idx])
+                    p2_val = float(rsi_values[p2_idx])
+                    slope = trendline['slope']
+                    intercept = trendline['intercept']
+                    
+                    # Calculate Reverse RSI (breakout price)
+                    reverse_rsi_data = self._calculate_reverse_rsi(
+                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
+                    )
+                    
+                    result['resistance'] = {
+                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
+                        'slope': float(slope),
+                        'intercept': float(intercept),
+                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
+                        'reverse_rsi': reverse_rsi_data
+                    }
+        except Exception as e:
+            print(f"[FEATURE_FACTORY] Warning: RSI resistance trendline detection failed: {e}", flush=True)
+        
+        # Detect SUPPORT (Pivot Lows)
+        try:
+            pivot_lows = self._find_k_order_pivots(recent_rsi, k_order, 'LOW')
+            
+            if len(pivot_lows) >= 2:
+                # Find best valid trendline (chronological, no violations)
+                trendline = self._find_valid_trendline(recent_rsi, pivot_lows, 'SUPPORT')
+                
+                if trendline:
+                    p1_idx = int(trendline['p1_idx'] + offset)
+                    p2_idx = int(trendline['p2_idx'] + offset)
+                    p1_val = float(rsi_values[p1_idx])
+                    p2_val = float(rsi_values[p2_idx])
+                    slope = trendline['slope']
+                    intercept = trendline['intercept']
+                    
+                    # Calculate Reverse RSI (breakout price)
+                    reverse_rsi_data = self._calculate_reverse_rsi(
+                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
+                    )
+                    
+                    result['support'] = {
+                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
+                        'slope': float(slope),
+                        'intercept': float(intercept),
+                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
+                        'reverse_rsi': reverse_rsi_data
+                    }
+        except Exception as e:
+            print(f"[FEATURE_FACTORY] Warning: RSI support trendline detection failed: {e}", flush=True)
+        
+        return result
         
         # Configuration per spec
         k_order = self.config.get('rsi_pivot_order', 5)  # 5 to 7 bars

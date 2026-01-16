@@ -149,8 +149,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
         if (!pair.setup?.trendline) return { segment: null, projection: null };
 
-        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
-        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
+        const usesHTF = pair.strategy_name === 'Breakout';
+        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
 
         // Get timestamps instead of indices
         const startCandle = sourceData[pair.setup.trendline.start_idx];
@@ -176,8 +177,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     // Calculate Slice Start for Zoomed View
     const getZoomedData = () => {
-        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
-        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
+        const usesHTF = pair.strategy_name === 'Breakout';
+        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
 
         let sliceStart = 0;
         if (pair.setup?.trendline?.start_idx) {
@@ -196,27 +198,54 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
     const getObservabilityTrendlines = () => {
         if (!pair.observability?.rsi_visuals) return { resistance: null, support: null };
 
-        const isBreakout = pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2';
-        const sourceData = isBreakout ? indicators.htfData : indicators.ltfData;
+        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
+        const usesHTF = pair.strategy_name === 'Breakout';
+        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
 
         const result: any = {};
+
+        // Helper to find data point by time or index
+        const findPoint = (pivot: { index: number, value: number, time?: number }) => {
+            if (!sourceData || sourceData.length === 0) return null;
+
+            // 1. Try Timestamp Match (Precision)
+            if (pivot.time) {
+                const match = sourceData.find(d => Math.abs(d.time - pivot.time!) < 60000); // 1 min tolerance
+                if (match) return { x: match.time, y: pivot.value };
+            }
+
+            // 2. Fallback to Index (Legacy/Approximate)
+            if (sourceData[pivot.index]) {
+                return { x: sourceData[pivot.index].time, y: pivot.value };
+            }
+
+            return null;
+        };
 
         // Resistance trendline
         if (pair.observability.rsi_visuals.resistance) {
             const res = pair.observability.rsi_visuals.resistance;
-            const p1 = sourceData[res.pivot_1.index];
-            const p2 = sourceData[res.pivot_2.index];
+            const p1 = findPoint(res.pivot_1);
+            const p2 = findPoint(res.pivot_2);
             const current = sourceData[sourceData.length - 1];
 
             if (p1 && p2 && current) {
-                const currentY = res.slope * (sourceData.length - 1) + res.intercept;
+                // To project correctly, we need the time difference for slope calc in time domain
+                // But slope is likely in "candles/index" units.
+                // If we plotted by time, we'd need time-based slope.
+                // However, Recharts X-axis is categorical or time.
+                // Ideally, we just draw the segment p1->p2.
+                // And projection p2->current based on equation.
+
+                // Re-calculating Y for current based on index distance from p2 (assuming linear time/candle)
+                // This is an approximation if there are gaps, but better than nothing.
+                const candlesSinceP2 = (current.time - p2.x) / (sourceData[1].time - sourceData[0].time);
+                const currentY = res.pivot_2.value + (res.slope * candlesSinceP2);
+
                 result.resistance = {
-                    segment: [
-                        { x: p1.time, y: res.pivot_1.value },
-                        { x: p2.time, y: res.pivot_2.value }
-                    ],
+                    segment: [p1, p2],
                     projection: [
-                        { x: p2.time, y: res.pivot_2.value },
+                        p2,
                         { x: current.time, y: Math.max(0, Math.min(100, currentY)) }
                     ]
                 };
@@ -226,19 +255,18 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
         // Support trendline
         if (pair.observability.rsi_visuals.support) {
             const sup = pair.observability.rsi_visuals.support;
-            const p1 = sourceData[sup.pivot_1.index];
-            const p2 = sourceData[sup.pivot_2.index];
+            const p1 = findPoint(sup.pivot_1);
+            const p2 = findPoint(sup.pivot_2);
             const current = sourceData[sourceData.length - 1];
 
             if (p1 && p2 && current) {
-                const currentY = sup.slope * (sourceData.length - 1) + sup.intercept;
+                const candlesSinceP2 = (current.time - p2.x) / (sourceData[1].time - sourceData[0].time);
+                const currentY = sup.pivot_2.value + (sup.slope * candlesSinceP2);
+
                 result.support = {
-                    segment: [
-                        { x: p1.time, y: sup.pivot_1.value },
-                        { x: p2.time, y: sup.pivot_2.value }
-                    ],
+                    segment: [p1, p2],
                     projection: [
-                        { x: p2.time, y: sup.pivot_2.value },
+                        p2,
                         { x: current.time, y: Math.max(0, Math.min(100, currentY)) }
                     ]
                 };
@@ -333,7 +361,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-64 flex flex-col relative">
                         <div className="flex justify-between items-center mb-2">
                             <div className="text-sm font-semibold text-gray-300 uppercase flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis ({(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') ? '4H' : '15m'})
+                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis ({pair.strategy_name === 'Breakout' ? '4H' : '15m'})
                             </div>
 
                             {/* CONDITION LABEL FOR WATCH */}
@@ -371,8 +399,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                                     <ReferenceLine y={30} stroke="#4b5563" strokeDasharray="3 3" />
                                     <Line type="monotone" dataKey="rsi" stroke="#a855f7" dot={false} strokeWidth={2} isAnimationActive={false} />
 
-                                    {/* Draw Trendline if Breakout or BreakoutV2 */}
-                                    {(pair.strategy_name === 'Breakout' || pair.strategy_name === 'BreakoutV2') && trendLineSegment && (
+                                    {/* Draw Trendline for Breakout strategy (uses setup.trendline) */}
+                                    {pair.strategy_name === 'Breakout' && trendLineSegment && (
                                         <>
                                             {/* Historic Segment */}
                                             <ReferenceLine segment={trendLineSegment} stroke="#eab308" strokeWidth={2} isFront />
