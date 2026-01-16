@@ -481,7 +481,7 @@ class FeatureFactory:
             return True
         return feature in self.enabled_features
     
-    def _detect_rsi_trendlines(self, rsi_series: pd.Series) -> Dict[str, Any]:
+    def _detect_rsi_trendlines(self, rsi_series: pd.Series, context: SharedContext = None) -> Dict[str, Any]:
         """
         Detect RSI trendline pivots using k-order pivot logic per RSI_calc.md specification.
         
@@ -492,6 +492,7 @@ class FeatureFactory:
         
         Args:
             rsi_series: RSI values as pandas Series
+            context: SharedContext (required to access timestamps)
             
         Returns:
             Dictionary containing validated pivot coordinates and trendline parameters
@@ -510,6 +511,34 @@ class FeatureFactory:
         recent_rsi = rsi_values[-lookback:] if len(rsi_values) > lookback else rsi_values
         offset = len(rsi_values) - len(recent_rsi)
         
+        # Access Timestamps if context is provided
+        timestamps = None
+        if context and context.ltf_data is not None and 'timestamp' in context.ltf_data.columns:
+            # Align timestamps with RSI series (RSI might be shorter due to NaN)
+            # RSI Series index aligns with DataFrame index
+            df_timestamps = context.ltf_data['timestamp'].values
+            
+            # Map RSI array indices back to DataFrame indices using the series index
+            # efficient way: just use tail if we took tail
+            if len(rsi_values) < len(df_timestamps):
+                # RSI has NaNs at start, so it is shorter. 
+                # rsi_series.index gives the original df indices
+                valid_indices = rsi_series.dropna().index
+                timestamps = df_timestamps[valid_indices]
+            else:
+                timestamps = df_timestamps
+                
+        # Helper to get timestamp for an index in the 'recent_rsi' array
+        def get_ts(idx_in_recent):
+            if timestamps is None:
+                return 0
+            # idx_in_recent is relative to recent_rsi
+            # absolute index in rsi_values is idx_in_recent + offset
+            abs_idx = idx_in_recent + offset
+            if abs_idx < len(timestamps):
+                return int(timestamps[abs_idx])
+            return 0
+
         # Detect RESISTANCE (Pivot Highs)
         try:
             pivot_highs = self._find_k_order_pivots(recent_rsi, k_order, 'HIGH')
@@ -532,8 +561,8 @@ class FeatureFactory:
                     )
                     
                     result['resistance'] = {
-                        'pivot_1': {'index': p1_idx, 'value': p1_val},
-                        'pivot_2': {'index': p2_idx, 'value': p2_val},
+                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
                         'slope': float(slope),
                         'intercept': float(intercept),
                         'equation': f"y = {slope:.4f}x + {intercept:.2f}",
@@ -564,8 +593,8 @@ class FeatureFactory:
                     )
                     
                     result['support'] = {
-                        'pivot_1': {'index': p1_idx, 'value': p1_val},
-                        'pivot_2': {'index': p2_idx, 'value': p2_val},
+                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
+                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
                         'slope': float(slope),
                         'intercept': float(intercept),
                         'equation': f"y = {slope:.4f}x + {intercept:.2f}",

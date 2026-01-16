@@ -37,6 +37,10 @@ export default function App() {
     // PERSISTENT STATE: View Settings & Data
     const [timeframe, setTimeframe] = useState(() => localStorage.getItem('cs_timeframe') || '15m');
     const [dataSource, setDataSource] = useState(() => localStorage.getItem('cs_datasource') || 'MEXC');
+    const [minScoreFilter, setMinScoreFilter] = useState(() => {
+        const saved = localStorage.getItem('cs_min_score_filter');
+        return saved ? parseInt(saved) : 10;
+    });
 
     // Initial Data Load (Prevent Flash)
     const [data, setData] = useState<AnalysisResult[]>(() => {
@@ -143,6 +147,7 @@ export default function App() {
     // Sync View Settings to Storage
     useEffect(() => { localStorage.setItem('cs_timeframe', timeframe); }, [timeframe]);
     useEffect(() => { localStorage.setItem('cs_datasource', dataSource); }, [dataSource]);
+    useEffect(() => { localStorage.setItem('cs_min_score_filter', minScoreFilter.toString()); }, [minScoreFilter]);
 
 
     // ==========================================
@@ -985,6 +990,21 @@ export default function App() {
 
                 <div className="flex flex-col md:flex-row items-center gap-4 w-full xl:w-auto justify-between">
 
+                    {/* Min Score Filter */}
+                    <div className="flex items-center gap-3 bg-gray-900 p-3 rounded-lg border border-gray-800">
+                        <label className="text-xs font-bold text-gray-400 whitespace-nowrap">Min Score:</label>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            step="10"
+                            value={minScoreFilter}
+                            onChange={(e) => setMinScoreFilter(parseInt(e.target.value))}
+                            className="w-32 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                        />
+                        <span className="text-sm font-mono text-white bg-gray-800 px-2 py-1 rounded min-w-[3rem] text-center">{minScoreFilter}</span>
+                    </div>
+
                     {/* Exchange Toggle */}
                     <div className="flex items-center bg-gray-900 p-1 rounded-lg border border-gray-800">
                         <button
@@ -1208,6 +1228,7 @@ export default function App() {
                         <ScannerTable
                             data={data}
                             activeExchange={settings.activeExchange}
+                            minScoreFilter={minScoreFilter}
                         />
                     )
                 )}

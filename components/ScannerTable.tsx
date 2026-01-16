@@ -7,9 +7,10 @@ import { cleanSymbol } from '../utils/symbolUtils';
 interface ScannerTableProps {
   data: AnalysisResult[];
   activeExchange?: 'MEXC' | 'HYPERLIQUID';
+  minScoreFilter?: number;
 }
 
-export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange = 'MEXC' }) => {
+export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange = 'MEXC', minScoreFilter = 0 }) => {
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
   const [strategyFilter, setStrategyFilter] = useState<string>('ALL');
   const [biasFilter, setBiasFilter] = useState<string>('ALL');
@@ -137,6 +138,7 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
 
         <div className="ml-auto text-xs text-gray-600 whitespace-nowrap">
           Showing {data.filter(r =>
+            r.score >= minScoreFilter &&
             (strategyFilter === 'ALL' || r.strategy_name === strategyFilter) &&
             (biasFilter === 'ALL' || (r.htf?.bias || r.bias || 'NONE') === biasFilter) &&
             (exchangeFilter === 'ALL' || r.exchange_tag === exchangeFilter)
@@ -173,9 +175,14 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
           <tbody className="divide-y divide-gray-800">
             {data
               .filter(pair => {
+                // Min Score Filter
+                if (pair.score < minScoreFilter) return false;
+                // Strategy Filter
                 if (strategyFilter !== 'ALL' && pair.strategy_name !== strategyFilter) return false;
+                // Bias Filter
                 const checkBias = pair.htf?.bias || pair.bias || 'NONE';
                 if (biasFilter !== 'ALL' && checkBias !== biasFilter) return false;
+                // Exchange Filter
                 if (exchangeFilter !== 'ALL' && pair.exchange_tag !== exchangeFilter) return false;
                 return true;
               })
