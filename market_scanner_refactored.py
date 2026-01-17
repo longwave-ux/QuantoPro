@@ -101,6 +101,63 @@ from strategies_refactored import (
 )
 from batch_processor import get_batch_processor
 
+# Coinalyze data directory
+COINALYZE_CACHE_DIR = os.path.join(os.path.dirname(__file__), 'data', 'coinalyze')
+
+
+def load_coinalyze_data_from_cache(symbol: str, exchange: str) -> Dict[str, Any]:
+    """
+    Load Coinalyze data from cached JSON file (unified format from JS fetch loop).
+    Falls back to neutral data if file doesn't exist.
+    
+    Args:
+        symbol: Trading symbol (e.g., 'BTCUSDT', 'ETHUSDT')
+        exchange: Exchange name (e.g., 'HYPERLIQUID', 'MEXC')
+    
+    Returns:
+        Dict with oi_history, funding_rate, ls_ratio, liquidations, oi_status, coinalyze_symbol
+    """
+    try:
+        # File format: {SYMBOL}_{EXCHANGE}.json (e.g., BTCUSDT_HYPERLIQUID.json)
+        cache_file = os.path.join(COINALYZE_CACHE_DIR, f"{symbol}_{exchange}.json")
+        
+        if os.path.exists(cache_file):
+            with open(cache_file, 'r') as f:
+                data = json.load(f)
+            
+            # Data is already in correct format from JS fetch loop
+            return {
+                'oi_history': data.get('oi_history', []),
+                'funding_rate': data.get('funding_rate'),
+                'ls_ratio': data.get('ls_ratio'),
+                'liquidations': data.get('liquidations', {'longs': 0, 'shorts': 0}),
+                'oi_status': data.get('oi_status', 'neutral'),
+                'coinalyze_symbol': data.get('coinalyze_symbol')
+            }
+        
+        # File doesn't exist - return neutral data
+        return {
+            'oi_history': [],
+            'funding_rate': None,
+            'ls_ratio': None,
+            'liquidations': {'longs': 0, 'shorts': 0},
+            'oi_status': 'neutral',
+            'coinalyze_symbol': None
+        }
+    
+    except Exception as e:
+        print(f"[CACHE-ERROR] Failed to load Coinalyze data for {symbol}_{exchange}: {e}", file=sys.stderr)
+        # Return neutral data on error
+        return {
+            'oi_history': [],
+            'funding_rate': None,
+            'ls_ratio': None,
+            'liquidations': {'longs': 0, 'shorts': 0},
+            'oi_status': 'neutral',
+            'coinalyze_symbol': None
+        }
+
+
 # DEBUG: Check API Key visibility
 print(f"[ENV-DEBUG] Coinalyze Key Present: {bool(os.getenv('COINALYZE_API_KEY'))}", file=sys.stderr)
 print(f"[ENV-DEBUG] Coinalyze Key (first 10 chars): {os.getenv('COINALYZE_API_KEY', '')[:10]}...", file=sys.stderr)
@@ -351,12 +408,10 @@ def main():
             print(f"[DIRECTORY MODE] Found {len(json_files)} data files", file=sys.stderr)
             print(f"[DIRECTORY MODE] Processing {len(symbols_list)} symbols", file=sys.stderr)
             
-            # BATCH PROCESSING: Fetch all external data in batches
-            print(f"[BATCH] Initializing batch processor...", file=sys.stderr)
-            batch_processor = get_batch_processor()
-            batch_data = batch_processor.process_symbols(symbols_list)
+            # CACHE-BASED: Reading Coinalyze data from cached files
+            print(f"[CACHE] Using cached Coinalyze data from {COINALYZE_CACHE_DIR}", file=sys.stderr)
             
-            # Now process each file with pre-fetched data
+            # Now process each file with cached data
             all_results = []
             processed = 0
             
@@ -384,10 +439,10 @@ def main():
                         except:
                             pass
                     
-                    # Get pre-fetched external data
-                    external_data = batch_processor.get_data_for_symbol(symbol, exchange, batch_data)
+                    # Get cached external data from files
+                    external_data = load_coinalyze_data_from_cache(symbol, exchange)
                     
-                    # Analyze with pre-fetched data
+                    # Analyze with cached data
                     results = analyze_symbol(
                         symbol=symbol,
                         exchange=exchange,

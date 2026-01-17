@@ -120,9 +120,10 @@ export default function App() {
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     };
-    const [activeTab, setActiveTab] = useState<'ALERTS' | 'DATA' | 'LOGS' | 'TRADING' | 'AI' | 'STRATEGY'>('ALERTS');
+    const [activeTab, setActiveTab] = useState<'ALERTS' | 'DATA' | 'LOGS' | 'TRADING' | 'AI' | 'STRATEGY' | 'PROCESSES'>('ALERTS');
     const [systemLogs, setSystemLogs] = useState<LogEntry[]>([]);
     const [testMsgStatus, setTestMsgStatus] = useState<'IDLE' | 'SENDING' | 'SUCCESS' | 'ERROR'>('IDLE');
+    const [processStatus, setProcessStatus] = useState<any>(null);
 
     const [settings, setSettings] = useState<NotificationSettings>(() => {
         try {
@@ -238,6 +239,26 @@ export default function App() {
         if (showSettings && activeTab === 'LOGS') {
             updateLogs();
             const interval = setInterval(updateLogs, 2000);
+            return () => clearInterval(interval);
+        }
+    }, [showSettings, activeTab]);
+
+    // Poll process status
+    useEffect(() => {
+        if (showSettings && activeTab === 'PROCESSES') {
+            const fetchProcessStatus = async () => {
+                try {
+                    const res = await fetch('/api/processes/status');
+                    if (res.ok) {
+                        const data = await res.json();
+                        setProcessStatus(data);
+                    }
+                } catch (e) {
+                    console.error('Failed to fetch process status', e);
+                }
+            };
+            fetchProcessStatus();
+            const interval = setInterval(fetchProcessStatus, 2000);
             return () => clearInterval(interval);
         }
     }, [showSettings, activeTab]);
@@ -646,6 +667,12 @@ export default function App() {
                             >
                                 Sys Logs
                             </button>
+                            <button
+                                onClick={() => setActiveTab('PROCESSES')}
+                                className={`flex-1 py-3 text-xs font-bold uppercase tracking-wide transition-colors border-b-2 ${activeTab === 'PROCESSES' ? 'border-cyan-500 text-cyan-400 bg-cyan-900/10' : 'border-transparent text-gray-500 hover:text-gray-300'}`}
+                            >
+                                Processes
+                            </button>
                         </div>
 
                         <div className="p-6 overflow-y-auto flex-1 custom-scrollbar">
@@ -933,6 +960,194 @@ export default function App() {
                                             Local Storage Usage: {((JSON.stringify(localStorage).length / 1024) / 1024).toFixed(2)} MB
                                         </div>
                                     </div>
+                                </div>
+                            )}
+
+                            {activeTab === 'PROCESSES' && (
+                                <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-200">
+                                    <h4 className="text-xs uppercase font-bold text-cyan-400 flex items-center gap-2">
+                                        <Database className="w-3 h-3" /> Background Processes
+                                    </h4>
+                                    <p className="text-[10px] text-gray-500 leading-relaxed">
+                                        Real-time monitoring of background data fetch processes.
+                                    </p>
+
+                                    {!processStatus ? (
+                                        <div className="text-center py-8 text-gray-500">Loading process status...</div>
+                                    ) : (
+                                        <div className="space-y-4">
+                                            {/* Coinalyze Fetch Process */}
+                                            <div className="bg-gray-950/50 border border-indigo-500/20 rounded-lg p-4">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className={`w-2 h-2 rounded-full ${processStatus.coinalyze?.status === 'RUNNING' ? 'bg-yellow-500 animate-pulse' :
+                                                                processStatus.coinalyze?.status === 'ERROR' ? 'bg-red-500' :
+                                                                    processStatus.coinalyze?.status === 'DISABLED' ? 'bg-gray-500' :
+                                                                        'bg-green-500'
+                                                            }`}></div>
+                                                        <h5 className="text-sm font-bold text-indigo-300">Coinalyze Data Fetch</h5>
+                                                    </div>
+                                                    <span className="text-[10px] font-mono px-2 py-1 rounded bg-indigo-900/30 text-indigo-400">
+                                                        {processStatus.coinalyze?.status || 'UNKNOWN'}
+                                                    </span>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                                                    <div>
+                                                        <div className="text-gray-500 text-[10px] uppercase mb-1">Last Run</div>
+                                                        <div className="text-gray-300 font-mono">
+                                                            {processStatus.coinalyze?.lastRun
+                                                                ? new Date(processStatus.coinalyze.lastRun).toLocaleTimeString()
+                                                                : 'Never'}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-gray-500 text-[10px] uppercase mb-1">Next Run</div>
+                                                        <div className="text-gray-300 font-mono">
+                                                            {processStatus.coinalyze?.nextRunIn
+                                                                ? `in ${Math.floor(processStatus.coinalyze.nextRunIn / 60000)}m`
+                                                                : 'N/A'}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-3 text-xs mb-3 pt-3 border-t border-gray-800">
+                                                    <div>
+                                                        <div className="text-green-500 text-[10px] uppercase mb-1">Success</div>
+                                                        <div className="text-green-400 font-bold font-mono">
+                                                            {processStatus.coinalyze?.symbolsProcessed || 0}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-red-500 text-[10px] uppercase mb-1">Failed</div>
+                                                        <div className="text-red-400 font-bold font-mono">
+                                                            {processStatus.coinalyze?.symbolsFailed || 0}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {processStatus.coinalyze?.apiStats && (
+                                                    <div className="pt-3 border-t border-gray-800">
+                                                        <div className="text-[10px] text-gray-500 uppercase mb-2">API Requests</div>
+                                                        <div className="flex items-center gap-2 text-xs">
+                                                            <span className="text-green-400 font-mono">
+                                                                {processStatus.coinalyze.apiStats.successful}
+                                                            </span>
+                                                            <span className="text-gray-600">/</span>
+                                                            <span className="text-gray-400 font-mono">
+                                                                {processStatus.coinalyze.apiStats.total}
+                                                            </span>
+                                                            <span className="text-gray-500 text-[10px]">successful</span>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {processStatus.coinalyze?.errors?.length > 0 && (
+                                                    <div className="pt-3 border-t border-gray-800">
+                                                        <div className="text-[10px] text-red-400 uppercase mb-2">
+                                                            Recent Errors ({processStatus.coinalyze.errors.length})
+                                                        </div>
+                                                        <div className="space-y-1 max-h-20 overflow-y-auto custom-scrollbar">
+                                                            {processStatus.coinalyze.errors.slice(0, 5).map((err: any, i: number) => (
+                                                                <div key={i} className="text-[10px] text-red-300 bg-red-900/10 p-1 rounded">
+                                                                    <span className="text-gray-500">
+                                                                        {new Date(err.timestamp).toLocaleTimeString()}
+                                                                    </span>
+                                                                    {' '}- {err.message}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Candle Fetch Process */}
+                                            <div className="bg-gray-950/50 border border-blue-500/20 rounded-lg p-4">
+                                                <div className="flex items-center justify-between mb-3">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className={`w-2 h-2 rounded-full ${processStatus.candles?.status === 'RUNNING' ? 'bg-yellow-500 animate-pulse' :
+                                                                processStatus.candles?.status === 'ERROR' ? 'bg-red-500' :
+                                                                    'bg-green-500'
+                                                            }`}></div>
+                                                        <h5 className="text-sm font-bold text-blue-300">Candle Data Fetch</h5>
+                                                    </div>
+                                                    <span className="text-[10px] font-mono px-2 py-1 rounded bg-blue-900/30 text-blue-400">
+                                                        {processStatus.candles?.status || 'UNKNOWN'}
+                                                    </span>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-3 text-xs mb-3">
+                                                    <div>
+                                                        <div className="text-gray-500 text-[10px] uppercase mb-1">Last Run</div>
+                                                        <div className="text-gray-300 font-mono">
+                                                            {processStatus.candles?.lastRun
+                                                                ? new Date(processStatus.candles.lastRun).toLocaleTimeString()
+                                                                : 'Never'}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-gray-500 text-[10px] uppercase mb-1">Next Run</div>
+                                                        <div className="text-gray-300 font-mono">
+                                                            {processStatus.candles?.nextRunIn
+                                                                ? `in ${Math.floor(processStatus.candles.nextRunIn / 60000)}m`
+                                                                : 'N/A'}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-2 gap-3 text-xs mb-3 pt-3 border-t border-gray-800">
+                                                    <div>
+                                                        <div className="text-green-500 text-[10px] uppercase mb-1">Success</div>
+                                                        <div className="text-green-400 font-bold font-mono">
+                                                            {processStatus.candles?.symbolsProcessed || 0}
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-red-500 text-[10px] uppercase mb-1">Failed</div>
+                                                        <div className="text-red-400 font-bold font-mono">
+                                                            {processStatus.candles?.symbolsFailed || 0}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {processStatus.candles?.exchanges && Object.keys(processStatus.candles.exchanges).length > 0 && (
+                                                    <div className="pt-3 border-t border-gray-800">
+                                                        <div className="text-[10px] text-gray-500 uppercase mb-2">Per-Exchange Stats</div>
+                                                        <div className="space-y-1">
+                                                            {Object.entries(processStatus.candles.exchanges).map(([exchange, stats]: [string, any]) => (
+                                                                <div key={exchange} className="flex items-center justify-between text-xs bg-gray-900/50 p-2 rounded">
+                                                                    <span className="text-gray-400 font-bold">{exchange}</span>
+                                                                    <div className="flex gap-3">
+                                                                        <span className="text-green-400 font-mono">{stats.successful}</span>
+                                                                        <span className="text-red-400 font-mono">{stats.failed}</span>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {processStatus.candles?.errors?.length > 0 && (
+                                                    <div className="pt-3 border-t border-gray-800">
+                                                        <div className="text-[10px] text-red-400 uppercase mb-2">
+                                                            Recent Errors ({processStatus.candles.errors.length})
+                                                        </div>
+                                                        <div className="space-y-1 max-h-20 overflow-y-auto custom-scrollbar">
+                                                            {processStatus.candles.errors.slice(0, 5).map((err: any, i: number) => (
+                                                                <div key={i} className="text-[10px] text-red-300 bg-red-900/10 p-1 rounded">
+                                                                    <span className="text-gray-500">
+                                                                        {new Date(err.timestamp).toLocaleTimeString()}
+                                                                    </span>
+                                                                    {err.exchange && <span className="text-orange-400"> [{err.exchange}]</span>}
+                                                                    {' '}- {err.message}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
 

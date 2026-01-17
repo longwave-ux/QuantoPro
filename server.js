@@ -60,11 +60,199 @@ app.use(express.static(path.join(__dirname, 'dist'), {
 }));
 
 // ==========================================
+// COINALYZE DATA FETCH BACKGROUND LOOP
+// ==========================================
+
+import { CoinalyzeClient } from './server/coinalyzeClient.js';
+import { getResolver } from './server/coinalyzeResolver.js';
+
+// Global status trackers
+let coinalyzeStatus = {
+    status: 'IDLE',
+    lastRun: null,
+    nextRun: null,
+    symbolsProcessed: 0,
+    symbolsFailed: 0,
+    errors: [],
+    apiStats: { successful: 0, failed: 0, total: 0 }
+};
+
+let candleStatus = {
+    status: 'IDLE',
+    lastRun: null,
+    nextRun: null,
+    symbolsProcessed: 0,
+    symbolsFailed: 0,
+    errors: [],
+    exchanges: {}
+};
+
+const startCoinalyzeFetchLoop = async () => {
+    console.log('[SYSTEM] Starting Coinalyze Fetch Loop (Every 1 hour)...');
+
+    const FETCH_INTERVAL = 60 * 60 * 1000; // 1 hour
+    const apiKey = process.env.COINALYZE_API_KEY;
+
+    if (!apiKey) {
+        console.error('[COINALYZE] No API key found. Loop disabled.');
+        coinalyzeStatus.status = 'DISABLED';
+        coinalyzeStatus.errors.push({ timestamp: Date.now(), message: 'No API key configured' });
+        return;
+    }
+
+    const client = new CoinalyzeClient(apiKey);
+    const resolver = getResolver();
+
+    // Initialize resolver
+    await resolver.ensureInitialized(apiKey);
+
+    // Helper to get symbols from data directory
+    const getSymbolsFromDataDir = async () => {
+        const dataDir = path.join(__dirname, 'data');
+        const files = await fsPromises.readdir(dataDir);
+
+        // Parse filenames like HYPERLIQUID_BTCUSDT_15m.json
+        const symbols = new Set();
+        for (const file of files) {
+            const match = file.match(/^([A-Z]+)_([A-Z0-9]+USDT)_(15m|4h)\.json$/);
+            if (match) {
+                const [, exchange, symbol] = match;
+                symbols.add(`${symbol}_${exchange}`); // e.g., BTCUSDT_HYPERLIQUID
+            }
+        }
+
+        return Array.from(symbols).map(s => {
+            const [symbol, exchange] = s.split('_');
+            return { symbol, exchange };
+        });
+    };
+
+    // Helper to save Coinalyze data (unified format)
+    const saveCoinalyzeData = async (symbol, exchange, data, coinalyzeSymbol, status) => {
+        try {
+            const coinalyzeDir = path.join(__dirname, 'data', 'coinalyze');
+            await fsPromises.mkdir(coinalyzeDir, { recursive: true });
+
+            const filename = `${symbol}_${exchange}.json`;
+            const filepath = path.join(coinalyzeDir, filename);
+
+            // Match Python's data structure exactly
+            const payload = {
+                oi_history: data.oi_history || [],
+                funding_rate: data.funding_rate || null,
+                ls_ratio: data.ls_ratio || null,
+                liquidations: data.liquidations || { longs: 0, shorts: 0 },
+                oi_status: status || 'neutral',
+                coinalyze_symbol: coinalyzeSymbol || null,
+                fetched_at: Date.now()
+            };
+
+            await fsPromises.writeFile(filepath, JSON.stringify(payload, null, 2));
+        } catch (e) {
+            console.error(`[COINALYZE] Failed to save ${symbol}_${exchange}:`, e.message);
+        }
+    };
+
+    // Main fetch loop
+    while (true) {
+        const startTime = Date.now();
+        coinalyzeStatus.status = 'RUNNING';
+        coinalyzeStatus.lastRun = startTime;
+        coinalyzeStatus.errors = coinalyzeStatus.errors.slice(-10); // Keep last 10 errors
+        console.log(`[COINALYZE] Starting update cycle at ${new Date().toISOString()}`);
+
+        try {
+            // Get symbols from data directory
+            const localSymbols = await getSymbolsFromDataDir();
+            console.log(`[COINALYZE] Found ${localSymbols.length} unique symbols`);
+
+            // Resolve symbols to Coinalyze format
+            const resolvedMap = new Map();
+            const coinalyzeSymbols = [];
+
+            for (const { symbol, exchange } of localSymbols) {
+                const [coinalyzeSymbol, status] = resolver.resolve(symbol, exchange);
+                if (coinalyzeSymbol) {
+                    coinalyzeSymbols.push(coinalyzeSymbol);
+                    resolvedMap.set(coinalyzeSymbol, { symbol, exchange, status });
+                }
+            }
+
+            const uniqueCoinalyzeSymbols = [...new Set(coinalyzeSymbols)];
+            console.log(`[COINALYZE] Resolved ${uniqueCoinalyzeSymbols.length} unique Coinalyze symbols`);
+
+            let fetched = 0;
+            let failed = 0;
+
+            // Fetch in batches of 20
+            const BATCH_SIZE = 20;
+            for (let i = 0; i < uniqueCoinalyzeSymbols.length; i += BATCH_SIZE) {
+                const batch = uniqueCoinalyzeSymbols.slice(i, i + BATCH_SIZE);
+
+                try {
+                    // Fetch all data for this batch
+                    const batchData = await client.fetchAllDataBatch(batch);
+
+                    // Save unified files for each symbol
+                    for (const [coinalyzeSymbol, data] of Object.entries(batchData)) {
+                        const localInfo = resolvedMap.get(coinalyzeSymbol);
+                        if (localInfo) {
+                            // Save all data in one file per (symbol, exchange)
+                            await saveCoinalyzeData(
+                                localInfo.symbol,
+                                localInfo.exchange,
+                                data,
+                                coinalyzeSymbol,
+                                localInfo.status
+                            );
+
+                            fetched++;
+                        }
+                    }
+
+                } catch (e) {
+                    console.error(`[COINALYZE] Batch ${Math.floor(i / BATCH_SIZE) + 1} failed:`, e.message);
+                    failed += batch.length;
+                }
+            }
+
+            console.log(`[COINALYZE] Fetch completed: ${fetched} successful, ${failed} failed`);
+
+            // Display API statistics
+            const stats = client.getStats();
+            console.log(`[COINALYZE] API Stats: ${stats.successful} successful, ${stats.failed} failed, ${stats.total} total requests`);
+
+            // Update status
+            coinalyzeStatus.symbolsProcessed = fetched;
+            coinalyzeStatus.symbolsFailed = failed;
+            coinalyzeStatus.apiStats = stats;
+            coinalyzeStatus.status = 'IDLE';
+
+        } catch (e) {
+            console.error(`[COINALYZE] Fetch cycle error:`, e.message);
+            coinalyzeStatus.errors.push({ timestamp: Date.now(), message: e.message });
+            coinalyzeStatus.status = 'ERROR';
+        }
+
+        const elapsed = Date.now() - startTime;
+        console.log(`[COINALYZE] Cycle completed in ${(elapsed / 1000).toFixed(1)}s`);
+
+        // Wait for next interval
+        const waitTime = Math.max(FETCH_INTERVAL - elapsed, 60000); // Minimum 1 minute
+        console.log(`[COINALYZE] Next update in ${(waitTime / 60000).toFixed(1)} minutes`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+};
+
+// Start the Coinalyze fetch loop
+startCoinalyzeFetchLoop().catch(e => console.error('[FATAL COINALYZE ERROR]', e));
+
+// ==========================================
 // CANDLE FETCH BACKGROUND LOOP
 // ==========================================
 
 import { fetchCandles, fetchTopVolumePairs } from './server/marketData.js';
-import fs from 'fs/promises';
+import fsPromises from 'fs/promises';
 
 const startCandleFetchLoop = async () => {
     console.log('[SYSTEM] Starting Candle Fetch Loop (Every 15 minutes)...');
@@ -77,8 +265,9 @@ const startCandleFetchLoop = async () => {
     const saveCandles = async (source, symbol, timeframe, data) => {
         try {
             const filename = `${source}_${symbol}_${timeframe}.json`;
-            const filepath = path.join(__dirname, 'data', filename);
-            await fs.writeFile(filepath, JSON.stringify(data, null, 2));
+            const dataDir = path.join(__dirname, 'data');
+            const filepath = path.join(dataDir, filename);
+            await fsPromises.writeFile(filepath, JSON.stringify(data, null, 2));
         } catch (e) {
             console.error(`[FETCH ERROR] Failed to save ${source}_${symbol}_${timeframe}:`, e.message);
         }
@@ -87,6 +276,9 @@ const startCandleFetchLoop = async () => {
     // Main fetch loop
     while (true) {
         const startTime = Date.now();
+        candleStatus.status = 'RUNNING';
+        candleStatus.lastRun = startTime;
+        candleStatus.errors = candleStatus.errors.slice(-10); // Keep last 10 errors
         console.log(`[CANDLE FETCH] Starting update cycle at ${new Date().toISOString()}`);
 
         for (const exchange of exchanges) {
@@ -132,10 +324,23 @@ const startCandleFetchLoop = async () => {
 
                 console.log(`[CANDLE FETCH] ${exchange}: ${fetched} successful, ${failed} failed`);
 
+                // Update per-exchange stats
+                candleStatus.exchanges[exchange] = {
+                    successful: fetched,
+                    failed: failed,
+                    lastUpdate: Date.now()
+                };
+
             } catch (e) {
                 console.error(`[CANDLE FETCH] Error fetching from ${exchange}:`, e.message);
+                candleStatus.errors.push({ timestamp: Date.now(), exchange, message: e.message });
             }
         }
+
+        // Calculate totals
+        candleStatus.symbolsProcessed = Object.values(candleStatus.exchanges).reduce((sum, ex) => sum + ex.successful, 0);
+        candleStatus.symbolsFailed = Object.values(candleStatus.exchanges).reduce((sum, ex) => sum + ex.failed, 0);
+        candleStatus.status = 'IDLE';
 
         const elapsed = Date.now() - startTime;
         console.log(`[CANDLE FETCH] Cycle completed in ${(elapsed / 1000).toFixed(1)}s`);
@@ -212,6 +417,22 @@ app.post('/api/scan/manual', async (req, res) => {
 
 app.get('/api/scan/status', (req, res) => {
     res.json(scanStatus);
+});
+
+// ==========================================
+// API: PROCESS MONITORING
+// ==========================================
+app.get('/api/processes/status', (req, res) => {
+    res.json({
+        coinalyze: {
+            ...coinalyzeStatus,
+            nextRunIn: coinalyzeStatus.nextRun ? Math.max(0, coinalyzeStatus.nextRun - Date.now()) : null
+        },
+        candles: {
+            ...candleStatus,
+            nextRunIn: candleStatus.nextRun ? Math.max(0, candleStatus.nextRun - Date.now()) : null
+        }
+    });
 });
 
 // ==========================================
