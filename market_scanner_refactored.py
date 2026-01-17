@@ -263,7 +263,18 @@ def analyze_symbol(
     return results
 
 
+
 def main():
+    # Initialize status tracking
+    scan_status = {
+        'timestamp': int(time.time() * 1000),
+        'command': ' '.join(sys.argv),
+        'total_files': 0,
+        'processed_files': 0,
+        'generated_signals': 0,
+        'errors': []
+    }
+
     parser = argparse.ArgumentParser(description='QuantPro Market Scanner (Canonical Architecture)')
     parser.add_argument('file', help='Input JSON data file or directory')
     parser.add_argument('--strategy', default='all', help='Strategy name (default: all)')
@@ -336,6 +347,7 @@ def main():
                         print(f"[DIRECTORY MODE] Limit reached: {args.limit} files", file=sys.stderr)
                         break
             
+            scan_status['total_files'] = len(json_files)
             print(f"[DIRECTORY MODE] Found {len(json_files)} data files", file=sys.stderr)
             print(f"[DIRECTORY MODE] Processing {len(symbols_list)} symbols", file=sys.stderr)
             
@@ -395,7 +407,15 @@ def main():
                         print(f"[PROGRESS] {current_time} | Processed {processed}/{len(json_files)} files", flush=True)
                 
                 except Exception as e:
-                    print(f"[ERROR] Processing {data_file}: {e}", file=sys.stderr)
+                    error_msg = f"{type(e).__name__}: {str(e)}"
+                    print(f"[ERROR] Processing {data_file}: {error_msg}", file=sys.stderr)
+                    scan_status['errors'].append({
+                        'file': data_file,
+                        'error': error_msg
+                    })
+            
+            scan_status['processed_files'] = processed
+            scan_status['generated_signals'] = len(all_results)
             
             print(f"[DIRECTORY MODE] Processed {processed} files, generated {len(all_results)} signals", file=sys.stderr)
             
@@ -411,6 +431,10 @@ def main():
             # Atomic save to master feed file
             output_file = args.output
             atomic_save_json(master_feed, output_file)
+            
+            # Save scan status
+            with open('data/scan_status.json', 'w') as f:
+                json.dump(scan_status, f, indent=2)
             
             print(f"[SUCCESS] Saved {len(all_results)} signals to {output_file}", file=sys.stderr)
             print(f"[TIMESTAMP] Last Updated: {master_feed['last_updated']}", file=sys.stderr)
@@ -546,11 +570,19 @@ def main():
         # Output results with sanitization
         sanitized_results = sanitize_for_json(clean_nans(results))
         print(json.dumps(sanitized_results))
-    
+
+
     except Exception as e:
+        scan_status['fatal_error'] = str(e)
         print(f"[FATAL ERROR] {e}", file=sys.stderr)
         import traceback
         traceback.print_exc(file=sys.stderr)
+        # Try to save status even on fatal error
+        try:
+            with open('data/scan_status.json', 'w') as f:
+                json.dump(scan_status, f, indent=2)
+        except:
+            pass
         sys.exit(1)
 
 

@@ -149,9 +149,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
         if (!pair.setup?.trendline) return { segment: null, projection: null };
 
-        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
-        const usesHTF = pair.strategy_name === 'Breakout';
-        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
+        // ALL strategies now use HTF (4h) for RSI trendlines
+        const sourceData = indicators.htfData;
 
         // Get timestamps instead of indices
         const startCandle = sourceData[pair.setup.trendline.start_idx];
@@ -177,9 +176,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     // Calculate Slice Start for Zoomed View
     const getZoomedData = () => {
-        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
-        const usesHTF = pair.strategy_name === 'Breakout';
-        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
+        // ALL strategies now use HTF (4h) for RSI trendlines
+        const sourceData = indicators.htfData;
 
         let sliceStart = 0;
         if (pair.setup?.trendline?.start_idx) {
@@ -198,9 +196,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
     const getObservabilityTrendlines = () => {
         if (!pair.observability?.rsi_visuals) return { resistance: null, support: null };
 
-        // CRITICAL: Only 'Breakout' uses HTF (4h), BreakoutV2 and Legacy use LTF (15m)
-        const usesHTF = pair.strategy_name === 'Breakout';
-        const sourceData = usesHTF ? indicators.htfData : indicators.ltfData;
+        // ALL strategies now use HTF (4h) for RSI trendlines
+        const sourceData = indicators.htfData;
 
         const result: any = {};
 
@@ -361,7 +358,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
                     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 h-64 flex flex-col relative">
                         <div className="flex justify-between items-center mb-2">
                             <div className="text-sm font-semibold text-gray-300 uppercase flex items-center gap-2">
-                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis ({pair.strategy_name === 'Breakout' ? '4H' : '15m'})
+                                <Zap className="w-4 h-4 text-purple-500" /> RSI Analysis (4H)
                             </div>
 
                             {/* CONDITION LABEL FOR WATCH */}

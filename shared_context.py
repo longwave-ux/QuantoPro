@@ -8,6 +8,7 @@ from typing import Dict, Any, Optional, List
 import pandas as pd
 import numpy as np
 from symbol_mapper import to_canonical
+import os
 
 
 @dataclass
@@ -281,7 +282,12 @@ class FeatureFactory:
             
             # HTF RSI Trendlines (Critical for Breakout V2)
             if rsi_series is not None and len(rsi_series) > 50:
-                timestamps = df['timestamp'] if 'timestamp' in df.columns else None
+                timestamps = None
+                if 'timestamp' in df.columns:
+                     timestamps = df['timestamp']
+                elif 'time' in df.columns:
+                     timestamps = df['time']
+                
                 trendline_data = self._detect_rsi_trendlines(rsi_series, timestamps)
                 if trendline_data:
                     context.htf_indicators['rsi_trendlines'] = trendline_data
@@ -514,6 +520,7 @@ class FeatureFactory:
         if len(rsi_values) < 50:
             return result
         
+        
         # Configuration per spec
         k_order = self.config.get('rsi_pivot_order', 5)  # 5 to 7 bars
         lookback = self.config.get('rsi_trendline_lookback', 100)
@@ -535,108 +542,6 @@ class FeatureFactory:
              valid_indices = rsi_series.dropna().index
              if len(valid_indices) == len(rsi_values):
                  timestamps = timestamp_series.loc[valid_indices].values
-        
-        # Helper to get timestamp
-        def get_ts(idx_in_recent):
-            if timestamps is None:
-                return 0
-            # idx_in_recent + offset = index in rsi_values
-            # rsi_values corresponds 1:1 with timestamps array we just built
-            abs_idx = idx_in_recent + offset
-            if abs_idx < len(timestamps):
-                return int(timestamps[abs_idx])
-            return 0
-
-        # Detect RESISTANCE (Pivot Highs)
-        try:
-            pivot_highs = self._find_k_order_pivots(recent_rsi, k_order, 'HIGH')
-            
-            if len(pivot_highs) >= 2:
-                # Find best valid trendline (chronological, no violations)
-                trendline = self._find_valid_trendline(recent_rsi, pivot_highs, 'RESISTANCE')
-                
-                if trendline:
-                    p1_idx = int(trendline['p1_idx'] + offset)
-                    p2_idx = int(trendline['p2_idx'] + offset)
-                    p1_val = float(rsi_values[p1_idx])
-                    p2_val = float(rsi_values[p2_idx])
-                    slope = trendline['slope']
-                    intercept = trendline['intercept']
-                    
-                    # Calculate Reverse RSI (breakout price)
-                    reverse_rsi_data = self._calculate_reverse_rsi(
-                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
-                    )
-                    
-                    result['resistance'] = {
-                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
-                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
-                        'slope': float(slope),
-                        'intercept': float(intercept),
-                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
-                        'reverse_rsi': reverse_rsi_data
-                    }
-        except Exception as e:
-            print(f"[FEATURE_FACTORY] Warning: RSI resistance trendline detection failed: {e}", flush=True)
-        
-        # Detect SUPPORT (Pivot Lows)
-        try:
-            pivot_lows = self._find_k_order_pivots(recent_rsi, k_order, 'LOW')
-            
-            if len(pivot_lows) >= 2:
-                # Find best valid trendline (chronological, no violations)
-                trendline = self._find_valid_trendline(recent_rsi, pivot_lows, 'SUPPORT')
-                
-                if trendline:
-                    p1_idx = int(trendline['p1_idx'] + offset)
-                    p2_idx = int(trendline['p2_idx'] + offset)
-                    p1_val = float(rsi_values[p1_idx])
-                    p2_val = float(rsi_values[p2_idx])
-                    slope = trendline['slope']
-                    intercept = trendline['intercept']
-                    
-                    # Calculate Reverse RSI (breakout price)
-                    reverse_rsi_data = self._calculate_reverse_rsi(
-                        rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
-                    )
-                    
-                    result['support'] = {
-                        'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
-                        'pivot_2': {'index': p2_idx, 'value': p2_val, 'time': get_ts(trendline['p2_idx'])},
-                        'slope': float(slope),
-                        'intercept': float(intercept),
-                        'equation': f"y = {slope:.4f}x + {intercept:.2f}",
-                        'reverse_rsi': reverse_rsi_data
-                    }
-        except Exception as e:
-            print(f"[FEATURE_FACTORY] Warning: RSI support trendline detection failed: {e}", flush=True)
-        
-        return result
-        
-        # Configuration per spec
-        k_order = self.config.get('rsi_pivot_order', 5)  # 5 to 7 bars
-        lookback = self.config.get('rsi_trendline_lookback', 100)
-        
-        # Use only recent data
-        recent_rsi = rsi_values[-lookback:] if len(rsi_values) > lookback else rsi_values
-        offset = len(rsi_values) - len(recent_rsi)
-        
-        # Access Timestamps if context is provided
-        timestamps = None
-        if context and context.ltf_data is not None and 'timestamp' in context.ltf_data.columns:
-            # Align timestamps with RSI series (RSI might be shorter due to NaN)
-            # RSI Series index aligns with DataFrame index
-            df_timestamps = context.ltf_data['timestamp'].values
-            
-            # Map RSI array indices back to DataFrame indices using the series index
-            # efficient way: just use tail if we took tail
-            if len(rsi_values) < len(df_timestamps):
-                # RSI has NaNs at start, so it is shorter. 
-                # rsi_series.index gives the original df indices
-                valid_indices = rsi_series.dropna().index
-                timestamps = df_timestamps[valid_indices]
-            else:
-                timestamps = df_timestamps
                 
         # Helper to get timestamp for an index in the 'recent_rsi' array
         def get_ts(idx_in_recent):
@@ -658,17 +563,24 @@ class FeatureFactory:
                 trendline = self._find_valid_trendline(recent_rsi, pivot_highs, 'RESISTANCE')
                 
                 if trendline:
+                    # Convert relative indices to absolute
                     p1_idx = int(trendline['p1_idx'] + offset)
                     p2_idx = int(trendline['p2_idx'] + offset)
                     p1_val = float(rsi_values[p1_idx])
                     p2_val = float(rsi_values[p2_idx])
                     slope = trendline['slope']
-                    intercept = trendline['intercept']
+                    
+                    # CRITICAL: Recalculate intercept with ABSOLUTE indices
+                    # Slope is same, but intercept changes when we shift coordinates
+                    intercept = p1_val - (slope * p1_idx)
                     
                     # Calculate Reverse RSI (breakout price)
                     reverse_rsi_data = self._calculate_reverse_rsi(
                         rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
                     )
+                    
+                    # Convert relative pivot indices to absolute
+                    touch_indices = [int(idx + offset) for idx in trendline.get('pivot_indices', [])]
                     
                     result['resistance'] = {
                         'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
@@ -676,7 +588,9 @@ class FeatureFactory:
                         'slope': float(slope),
                         'intercept': float(intercept),
                         'equation': f"y = {slope:.4f}x + {intercept:.2f}",
-                        'reverse_rsi': reverse_rsi_data  # Breakout price calculation
+                        'reverse_rsi': reverse_rsi_data,  # Breakout price calculation
+                        'touches_count': trendline.get('pivots_touched', 2),
+                        'touch_indices': touch_indices
                     }
         except Exception as e:
             print(f"[FEATURE_FACTORY] Warning: RSI resistance trendline detection failed: {e}", flush=True)
@@ -690,17 +604,24 @@ class FeatureFactory:
                 trendline = self._find_valid_trendline(recent_rsi, pivot_lows, 'SUPPORT')
                 
                 if trendline:
+                    # Convert relative indices to absolute
                     p1_idx = int(trendline['p1_idx'] + offset)
                     p2_idx = int(trendline['p2_idx'] + offset)
                     p1_val = float(rsi_values[p1_idx])
                     p2_val = float(rsi_values[p2_idx])
                     slope = trendline['slope']
-                    intercept = trendline['intercept']
+                    
+                    # CRITICAL: Recalculate intercept with ABSOLUTE indices
+                    # Slope is same, but intercept changes when we shift coordinates
+                    intercept = p1_val - (slope * p1_idx)
                     
                     # Calculate Reverse RSI (breakout price)
                     reverse_rsi_data = self._calculate_reverse_rsi(
                         rsi_values, p2_idx, slope, intercept, len(rsi_values) - 1
                     )
+                    
+                    # Convert relative pivot indices to absolute
+                    touch_indices = [int(idx + offset) for idx in trendline.get('pivot_indices', [])]
                     
                     result['support'] = {
                         'pivot_1': {'index': p1_idx, 'value': p1_val, 'time': get_ts(trendline['p1_idx'])},
@@ -708,7 +629,9 @@ class FeatureFactory:
                         'slope': float(slope),
                         'intercept': float(intercept),
                         'equation': f"y = {slope:.4f}x + {intercept:.2f}",
-                        'reverse_rsi': reverse_rsi_data  # Breakout price calculation
+                        'reverse_rsi': reverse_rsi_data,  # Breakout price calculation
+                        'touches_count': trendline.get('pivots_touched', 2),
+                        'touch_indices': touch_indices
                     }
         except Exception as e:
             print(f"[FEATURE_FACTORY] Warning: RSI support trendline detection failed: {e}", flush=True)
@@ -747,49 +670,203 @@ class FeatureFactory:
     
     def _find_valid_trendline(self, rsi_values: np.ndarray, pivots: list, direction: str) -> Dict[str, Any]:
         """
-        Find valid trendline with NO violations between pivots.
+        Find trendline touching MAXIMUM pivots (TradingView-style).
         
-        Trendline Validation: No intermediate RSI points between Pivot 1 and Pivot 2 can violate the line.
+        KEY PHILOSOPHY: Best trendline = Most pivot touches + Long duration
+        
+        This is how professional traders draw trendlines:
+        - Start from extreme zone pivot
+        - Draw line that touches as many pivots as possible
+        - Longer + more touches = More significant
+        
+        FILTERS:
+        1. First pivot must be in extreme zone (>70 for resistance, <30 for support)
+        2. Minimum distance between first and last pivot (at least 14 candles)
+        3. Slope must be meaningful (not too flat or too steep)
+        
+        SCORING:
+        - Primary: NUMBER OF PIVOTS TOUCHED (like your TradingView line with 5+ touches)
+        - Secondary: Duration (longer is better)
+        - Bonus: Optimal slope range
+        
+        Trendline Validation: No intermediate RSI points can violate the line.
         """
         if len(pivots) < 2:
             return None
         
-        # Try pairs of pivots chronologically
-        for i in range(len(pivots) - 1):
-            for j in range(i + 1, len(pivots)):
-                p1 = pivots[i]
+        # Get configuration parameters
+        min_slope = self.config.get('rsi_min_slope', 0.05)
+        max_slope = self.config.get('rsi_max_slope', 2.0)
+        tolerance = self.config.get('rsi_tolerance', 0.5)
+        min_distance = self.config.get('rsi_min_pivot_distance', 14)
+        
+        # First pivot thresholds
+        if direction == 'RESISTANCE':
+            first_pivot_threshold = self.config.get('rsi_first_pivot_resistance_min', 70)
+        else:
+            first_pivot_threshold = self.config.get('rsi_first_pivot_support_max', 30)
+        
+        # Track all valid trendlines with scores
+        valid_trendlines = []
+        
+        # OPTIMIZATION: Limit pivot search to first 5-10 pivots in extreme zone
+        # This prevents exponential slowdown with k=3
+        extreme_pivots = [p for p in pivots if (direction == 'RESISTANCE' and p['value'] >= first_pivot_threshold) or
+                          (direction == 'SUPPORT' and p['value'] <= first_pivot_threshold)]
+        
+        # Use only first 10 extreme pivots to avoid combinatorial explosion
+        search_pivots = extreme_pivots[:10] if len(extreme_pivots) > 10 else extreme_pivots
+        
+        # Try pairs of pivots to define possible trendlines
+        # OPTIMIZATION: Only check reasonable pairs (not all combinations)
+        # Try pairs of pivots to define possible trendlines
+        # OPTIMIZATION: P1 must be extreme, but P2 can be any pivot after P1
+        p1_candidates = extreme_pivots[:5]  # Only try first 5 extreme pivots as start points
+        
+        for i in range(len(p1_candidates)):
+            p1 = p1_candidates[i]
+            
+            # Find P2 candidates: all pivots after p1
+            # We can limit search depth if needed, but checking all usually fine for k=3 (15-20 pivots total)
+            start_j_idx = -1
+            for idx, p in enumerate(pivots):
+                if p['index'] == p1['index']:
+                    start_j_idx = idx
+                    break
+            
+            if start_j_idx == -1: continue
+            
+            # Check potential P2s
+            for j in range(start_j_idx + 1, len(pivots)):
                 p2 = pivots[j]
                 
-                # Calculate trendline
-                slope = (p2['value'] - p1['value']) / (p2['index'] - p1['index'])
+                # Calculate distance between defining pivots
+                duration = p2['index'] - p1['index']
+                
+                # FILTER: Minimum distance between first and last pivot
+                if duration < min_distance:
+                    continue  # Skip, pivots too close together
+                
+                # Calculate trendline parameters
+                slope = (p2['value'] - p1['value']) / duration
                 intercept = p1['value'] - (slope * p1['index'])
                 
-                # Validate: check all intermediate points
+                # CRITICAL FILTER: Reject lines that project outside RSI bounds
+                # Project to END of recent data (not just P2+20)
+                last_idx = len(rsi_values) - 1  # Last index in the recent RSI data
+                projected_end = slope * last_idx + intercept
+                
+                # Skip lines that go way out of bounds (prevents -200 RSI lines)
+                if projected_end < -10 or projected_end > 110:
+                    continue  # Line will go too far out of range
+                
+                # FILTER: Slope must be meaningful (not too flat or steep)
+                if abs(slope) < min_slope or abs(slope) > max_slope:
+                    continue  # Skip, slope not meaningful
+                
+                # Validate line and COUNT ALL PIVOTS IT TOUCHES
                 valid = True
+                pivots_touched = []  # List of pivot indices this line touches
+                
+                # Check if P1 and P2 touch the line (they define it, so they do)
+                # Check P1-P2 context
+                # Check ALL points between p1 and p2
                 for idx in range(p1['index'] + 1, p2['index']):
                     projected = slope * idx + intercept
                     actual = rsi_values[idx]
                     
+                    # Check if this index is a pivot point
+                    is_pivot_at_idx = any(p['index'] == idx for p in pivots)
+                    
+                    # If it's a pivot, check if it touches the line
+                    if is_pivot_at_idx:
+                        dist = abs(actual - projected)
+                        if dist <= tolerance:
+                            pivots_touched.append(idx)  # This pivot touches the line!
+                    
+                    # Validate non-violation for ALL points (pivot or not)
                     if direction == 'RESISTANCE':
                         # No point should be above the resistance line
-                        if actual > projected + 0.5:  # Small tolerance for noise
+                        if actual > projected + tolerance:
                             valid = False
                             break
                     else:  # SUPPORT
                         # No point should be below the support line
-                        if actual < projected - 0.5:  # Small tolerance for noise
+                        if actual < projected - tolerance:
                             valid = False
                             break
                 
-                if valid:
-                    return {
-                        'p1_idx': p1['index'],
-                        'p2_idx': p2['index'],
-                        'slope': slope,
-                        'intercept': intercept
-                    }
+                if not valid:
+                    continue  # Line has violations, skip it
+                
+                # Restore P1 and P2 (accidentally removed)
+                pivots_touched.append(p1['index'])
+                pivots_touched.append(p2['index'])
+
+                # EXTENDED CHECK: Count touches AFTER P2
+                # This helps find lines that align with future pivots even if they aren't the defining P2
+                for idx in range(p2['index'] + 1, len(rsi_values)):
+                    projected = slope * idx + intercept
+                    actual = rsi_values[idx]
+                    is_pivot_at_idx = any(p['index'] == idx for p in pivots)
+                    if is_pivot_at_idx:
+                        dist = abs(actual - projected)
+                        if dist <= tolerance:
+                            pivots_touched.append(idx)
+                
+                # CRITICAL FILTER: Reject lines that project WAY outside RSI bounds
+                # Project to P2 + 20 candles to see if line stays reasonable
+                future_idx = p2['index'] + 20
+                projected_future = slope * future_idx + intercept
+                
+                # Skip lines that go way out of bounds (prevents -200 RSI lines)
+                if projected_future < -10 or projected_future > 110:
+                    continue  # Line will go too far out of range
+                
+                # Count unique pivots touched
+                total_pivots_touched = len(set(pivots_touched))
+                
+                # SCORING: Prioritize PIVOT TOUCHES (like TradingView manual drawing)
+                # A 5-touch line is MUCH better than a 2-touch line
+                
+                # Base score: Pivots touched (WEIGHTED HEAVILY)
+                # Each pivot touch is worth 20 points
+                pivot_score = total_pivots_touched * 20
+                
+                # Duration bonus (longer is better, but secondary to touches)
+                # Each candle is worth 1 point
+                duration_score = duration
+                
+                # Bonus for optimal slope (within ideal range)
+                slope_bonus = 0
+                ideal_slope_min = 0.1
+                ideal_slope_max = 1.0
+                if ideal_slope_min <= abs(slope) <= ideal_slope_max:
+                    slope_bonus = 10  # Bonus for ideal slope
+                
+                # Total score = (Pivots × 20) + Duration + Slope Bonus
+                # Example: 5 pivots + 71 duration + 10 slope = 100 + 71 + 10 = 181 points
+                total_score = pivot_score + duration_score + slope_bonus
+                
+                valid_trendlines.append({
+                    'p1_idx': p1['index'],
+                    'p2_idx': p2['index'],
+                    'slope': slope,
+                    'intercept': intercept,
+                    'duration': duration,
+                    'pivots_touched': total_pivots_touched,
+                    'pivot_indices': pivots_touched,  # For debugging
+                    'score': total_score
+                })
         
-        return None
+        # Select best trendline (most pivots touched + longest duration)
+        if not valid_trendlines:
+            return None
+        
+        # Sort by score (descending) and return best
+        best_trendline = max(valid_trendlines, key=lambda x: x['score'])
+        
+        return best_trendline
     
     def _calculate_reverse_rsi(self, rsi_values: np.ndarray, last_pivot_idx: int, 
                                 slope: float, intercept: float, current_idx: int) -> Dict[str, Any]:
@@ -835,4 +912,13 @@ def create_default_config() -> Dict[str, Any]:
         'macd_slow': 26,
         'macd_signal': 9,
         'stoch_rsi_period': 14,
+        # RSI Trendline Detection Parameters
+        'rsi_pivot_order': 3,  # k-order for pivot detection (lower = more pivots, like TradingView)
+        'rsi_trendline_lookback': 150,  # 150 4H candles = ~25 days lookback
+        'rsi_min_slope': 0.05,  # Minimum absolute slope to avoid flat lines
+        'rsi_max_slope': 2.0,  # Maximum absolute slope to avoid steep lines
+        'rsi_tolerance': 1.0,  # Tolerance for trendline validation (±1.0 RSI points, more lenient)
+        'rsi_first_pivot_resistance_min': 70,  # Minimum RSI for first resistance pivot
+        'rsi_first_pivot_support_max': 30,  # Maximum RSI for first support pivot
+        'rsi_min_pivot_distance': 14,  # Minimum candles between p1 and p2 (longer = better)
     }

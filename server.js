@@ -6,7 +6,7 @@ import crypto from 'crypto'; // Native Node crypto for signing
 import { ethers } from 'ethers'; // For Hyperliquid Signing
 import { fileURLToPath } from 'url';
 import { CONFIG, loadConfig, saveConfig } from './server/config.js';
-import { runServerScan, getLatestResults, getMasterFeed, scanStatus } from './server/scanner.js';
+import { runServerScan, getMasterFeed, scanStatus } from './server/scanner.js';
 import { saveSettings, getSettings } from './server/telegram.js';
 import { getTradeHistory, getPerformanceStats, updateOutcomes } from './server/tracker.js';
 
@@ -58,6 +58,97 @@ app.use(express.static(path.join(__dirname, 'dist'), {
         res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
     }
 }));
+
+// ==========================================
+// CANDLE FETCH BACKGROUND LOOP
+// ==========================================
+
+import { fetchCandles, fetchTopVolumePairs } from './server/marketData.js';
+import fs from 'fs/promises';
+
+const startCandleFetchLoop = async () => {
+    console.log('[SYSTEM] Starting Candle Fetch Loop (Every 15 minutes)...');
+
+    const FETCH_INTERVAL = 15 * 60 * 1000; // 15 minutes
+    const exchanges = ['HYPERLIQUID', 'MEXC', 'KUCOIN'];
+    const timeframes = { ltf: '15m', htf: '4h' };
+
+    // Helper to save candles to disk
+    const saveCandles = async (source, symbol, timeframe, data) => {
+        try {
+            const filename = `${source}_${symbol}_${timeframe}.json`;
+            const filepath = path.join(__dirname, 'data', filename);
+            await fs.writeFile(filepath, JSON.stringify(data, null, 2));
+        } catch (e) {
+            console.error(`[FETCH ERROR] Failed to save ${source}_${symbol}_${timeframe}:`, e.message);
+        }
+    };
+
+    // Main fetch loop
+    while (true) {
+        const startTime = Date.now();
+        console.log(`[CANDLE FETCH] Starting update cycle at ${new Date().toISOString()}`);
+
+        for (const exchange of exchanges) {
+            try {
+                // Get top volume pairs for this exchange
+                const pairs = await fetchTopVolumePairs(exchange);
+                console.log(`[CANDLE FETCH] Fetching ${pairs.length} pairs from ${exchange}...`);
+
+                let fetched = 0;
+                let failed = 0;
+
+                // Fetch in small batches to avoid rate limits
+                const BATCH_SIZE = 5;
+                for (let i = 0; i < pairs.length; i += BATCH_SIZE) {
+                    const batch = pairs.slice(i, i + BATCH_SIZE);
+
+                    await Promise.all(batch.map(async (symbol) => {
+                        try {
+                            // Fetch both timeframes
+                            const [ltfData, htfData] = await Promise.all([
+                                fetchCandles(symbol, timeframes.ltf, exchange),
+                                fetchCandles(symbol, timeframes.htf, exchange)
+                            ]);
+
+                            // Save to disk
+                            if (ltfData.length > 0) {
+                                await saveCandles(exchange, symbol, timeframes.ltf, ltfData);
+                            }
+                            if (htfData.length > 0) {
+                                await saveCandles(exchange, symbol, timeframes.htf, htfData);
+                            }
+
+                            fetched++;
+                        } catch (e) {
+                            failed++;
+                            // Silent fail for individual symbols to prevent log spam
+                        }
+                    }));
+
+                    // Small delay between batches to respect rate limits
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }
+
+                console.log(`[CANDLE FETCH] ${exchange}: ${fetched} successful, ${failed} failed`);
+
+            } catch (e) {
+                console.error(`[CANDLE FETCH] Error fetching from ${exchange}:`, e.message);
+            }
+        }
+
+        const elapsed = Date.now() - startTime;
+        console.log(`[CANDLE FETCH] Cycle completed in ${(elapsed / 1000).toFixed(1)}s`);
+
+        // Wait for next interval
+        const waitTime = Math.max(FETCH_INTERVAL - elapsed, 60000); // Minimum 1 minute
+        console.log(`[CANDLE FETCH] Next update in ${(waitTime / 60000).toFixed(1)} minutes`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+};
+
+// Start the candle fetch loop
+startCandleFetchLoop().catch(e => console.error('[FATAL CANDLE FETCH ERROR]', e));
 
 // ==========================================
 // SERVER-SIDE SCANNER LOOP
@@ -128,19 +219,11 @@ app.get('/api/scan/status', (req, res) => {
 // ==========================================
 
 app.get('/api/results', async (req, res) => {
-    const { source } = req.query;
-    
-    // If source specified, return source-specific results with accurate timestamps
-    if (source) {
-        const sourceResults = await getLatestResults(source);
-        res.json(sourceResults);
-    } else {
-        // Otherwise return aggregated master feed
-        const results = await getMasterFeed();
-        // HARD-FIX: Always extract and return flat signals array
-        const signals = results.signals || (Array.isArray(results) ? results : []);
-        res.json(signals);
-    }
+    // Return aggregated master feed
+    const results = await getMasterFeed();
+    // Always extract and return flat signals array
+    const signals = results.signals || (Array.isArray(results) ? results : []);
+    res.json(signals);
 });
 
 app.post('/api/settings', async (req, res) => {

@@ -42,60 +42,22 @@ const saveScanHistory = async (history) => {
     }
 };
 
-export const saveLatestResults = async (results, source = 'KUCOIN') => {
-    try {
-        const filePath = path.join(DATA_DIR, `latest_results_${source}.json`);
-        const tempPath = path.join(DATA_DIR, `latest_results_${source}.tmp`);
-
-        // Atomic Write: Write to temp file, then rename
-        if (results.length === 0) {
-            Logger.warn(`[STORAGE WARNING] Attempted to save empty results for ${source}. Aborting to preserve previous data.`);
-            return; // Abort save
-        }
-
-        // Atomic Write: Write to temp file, then rename
-        await fs.writeFile(tempPath, JSON.stringify(results, null, 2));
-        await fs.rename(tempPath, filePath);
-    } catch (e) {
-        Logger.error(`[STORAGE ERROR] Failed to save latest results for ${source}`, e);
-    }
-};
-
-export const getLatestResults = async (source = 'KUCOIN') => {
-    try {
-        // Fallback for backward compatibility or if specific file doesn't exist
-        let filePath = path.join(DATA_DIR, `latest_results_${source}.json`);
-
-        // Check if file exists, if not try the old generic file
-        try {
-            await fs.access(filePath);
-        } catch {
-            filePath = path.join(DATA_DIR, 'latest_results.json');
-        }
-
-        const data = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(data);
-    } catch {
-        return [];
-    }
-};
-
 export const getMasterFeed = async () => {
     try {
         const filePath = path.join(DATA_DIR, 'master_feed.json');
         const data = await fs.readFile(filePath, 'utf-8');
         const parsed = JSON.parse(data);
-        
+
         // Handle new structured format: { last_updated, signals }
         if (parsed && typeof parsed === 'object' && 'signals' in parsed) {
             return parsed; // Return the full object with timestamp
         }
-        
+
         // Handle legacy flat array format
         if (Array.isArray(parsed)) {
             return parsed;
         }
-        
+
         return [];
     } catch {
         return [];
@@ -124,144 +86,10 @@ const appendSignalLog = async (results) => {
     }
 };
 
+
 // ==========================================
 // WORKFLOW
 // ==========================================
-
-const processBatch = async (pairs, htf, ltf, source, now, history, nextHistory, strategy = 'all') => {
-    // BATCH PROCESSING TO PREVENT CPU THRASHING
-    const CHUNK_SIZE = 10;
-    const chunks = [];
-    for (let i = 0; i < pairs.length; i += CHUNK_SIZE) {
-        chunks.push(pairs.slice(i, i + CHUNK_SIZE));
-    }
-
-    const allResults = [];
-
-    for (const chunk of chunks) {
-        const promises = chunk.map(async (symbol) => {
-            const [htfData, ltfData] = await Promise.all([
-                fetchCandles(symbol, htf, source),
-                fetchCandles(symbol, ltf, source)
-            ]);
-
-            if (htfData.length === 0 || ltfData.length === 0) return null;
-
-            const mcap = McapService.getMcap(symbol);
-            const ltfFilename = `${source}_${symbol}_${ltf}.json`;
-            const ltfFilePath = path.join(DATA_DIR, ltfFilename);
-            const configStr = JSON.stringify(CONFIG);
-
-            let resultBase = null;
-
-            try {
-                const pythonScript = path.join(process.cwd(), 'market_scanner_refactored.py');
-                const venvPython = path.join(process.cwd(), 'venv/bin/python');
-
-                // Pass the requested strategy to Python with TIMEOUT and ENV
-                const { stdout, stderr } = await execFilePromise(venvPython, [pythonScript, ltfFilePath, '--strategy', strategy, '--symbol', symbol, '--config', configStr], {
-                    timeout: 60000,
-                    env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
-                });
-
-                if (stderr) {
-                    const lines = stderr.split('\n');
-                    lines.forEach(line => {
-                        // Pass through critical debug info
-                        if (line.includes('[SCORE-DEBUG]') ||
-                            line.includes('[V2') ||
-                            line.includes('Coinalyze') ||
-                            line.includes(' - INFO - ') ||
-                            line.includes('[DATA-DEBUG]')) {
-                            // Use Logger to ensure it hits the log file
-                            Logger.info(`[PY] ${line}`);
-                        }
-                        // Log 429 errors explicitly
-                        if (line.includes('429')) {
-                            Logger.error(line);
-                        }
-                    });
-                }
-
-                try {
-                    const pyResult = JSON.parse(stdout);
-                    const pyResArray = Array.isArray(pyResult) ? pyResult : [pyResult];
-
-                    resultBase = pyResArray.map(res => ({
-                        ...res,
-                        strategy_name: res.strategy_name || 'Legacy',
-                        timestamp: now,
-                        source: source,
-                        meta: { htfInterval: htf, ltfInterval: ltf },
-                        details: { ...res.details, mcap: mcap }
-                    }));
-
-                } catch (jsonErr) {
-                    console.error(`[PYTHON PARSE ERROR] ${symbol}`, stdout);
-                    return null;
-                }
-
-            } catch (pyErr) {
-                console.error(`[PYTHON EXEC ERROR] ${symbol}`, pyErr.message);
-                return null;
-            }
-
-            if (!resultBase) return [];
-
-            const resultsArray = Array.isArray(resultBase) ? resultBase : [resultBase];
-            const processedResults = [];
-
-            resultsArray.forEach(res => {
-                let historyEntry = { consecutiveScans: 1, prevScore: 0, status: 'NEW' };
-
-                if (history[symbol]) {
-                    const prev = history[symbol];
-                    const isRecent = (now - prev.timestamp) < (45 * 60 * 1000);
-
-                    if (isRecent) {
-                        let status = 'STABLE';
-                        if (res.score > prev.score + 5) status = 'STRENGTHENING';
-                        else if (res.score < prev.score - 5) status = 'WEAKENING';
-
-                        historyEntry = {
-                            consecutiveScans: prev.consecutiveScans + 1,
-                            prevScore: prev.score,
-                            status
-                        };
-                    }
-                }
-
-                if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || (history[symbol] && res.score > CONFIG.THRESHOLDS.MIN_SCORE_TO_SAVE)) {
-                    let nextConsecutive = 1;
-                    if (history[symbol]) {
-                        if (res.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING) {
-                            nextConsecutive = historyEntry.consecutiveScans;
-                        } else {
-                            nextConsecutive = history[symbol].consecutiveScans;
-                        }
-                    }
-                    nextHistory[symbol] = {
-                        score: res.score,
-                        timestamp: now,
-                        consecutiveScans: nextConsecutive
-                    };
-                }
-
-                processedResults.push({
-                    ...res,
-                    history: historyEntry
-                });
-            });
-
-            return processedResults;
-        });
-
-        const chunkResults = await Promise.all(promises);
-        allResults.push(...chunkResults.filter(r => r !== null).flat());
-    }
-
-    return allResults;
-};
 
 // Global Scan Progress Tracker
 export let scanStatus = { status: 'IDLE', progress: 0, total: 0, current: 0, eta: 0 };
@@ -306,9 +134,7 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
     }
     isScanning = true;
 
-    // Determine which strategies to run based on Last Run Time (if 'all' is requested)
-    // If specific strategy requested (manual override), run it.
-    // If force=true, skip interval checks and run immediately
+    // Determine which strategies to run based on Last Run Time
     let targetStrategy = strategy;
     const now = Date.now();
 
@@ -320,10 +146,9 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
         const runBreakout = (now - lastBrk) > CONFIG.SYSTEM.BREAKOUT_INTERVAL;
 
         if (runLegacy && runBreakout) targetStrategy = 'all';
-        else if (runBreakout) targetStrategy = 'Breakout';
-        else if (runLegacy) targetStrategy = 'Legacy';
+        else if (runBreakout) targetStrategy = 'breakout';
+        else if (runLegacy) targetStrategy = 'legacy';
         else {
-            // Nothing due yet
             Logger.info(`[SERVER SCAN] Skipped ${source}: No strategies due for execution.`);
             isScanning = false;
             return [];
@@ -332,13 +157,11 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
         if (runLegacy) lastLegacyScan[source] = now;
         if (runBreakout) lastBreakoutScan[source] = now;
 
-        // Persist to disk
         await saveLastScanTimestamps({
             legacy: lastLegacyScan,
             breakout: lastBreakoutScan
         });
     } else if (force) {
-        // Force mode: Update both timestamps to current time
         Logger.info(`[SERVER SCAN] Force mode enabled - bypassing interval checks`);
         lastLegacyScan[source] = now;
         lastBreakoutScan[source] = now;
@@ -348,178 +171,92 @@ export const runServerScan = async (source = 'KUCOIN', strategy = 'all', force =
         });
     }
 
-    Logger.info(`[SERVER SCAN] Starting scan for ${source} (Strategy: ${targetStrategy})...`);
+    Logger.info(`[SERVER SCAN] Starting unified scan (Strategy: ${targetStrategy})...`);
 
-    // 1. Update outcomes of previous signals (Foretesting)
-    await updateOutcomes();
-
-    // 2. Refresh MCap Cache
-    await McapService.init();
-    const topPairs = await fetchTopVolumePairs(source);
-    await McapService.refreshIfNeeded(topPairs);
-
-    const results = [];
-    const htf = CONFIG.SCANNERS.HTF;
-    const ltf = CONFIG.SCANNERS.LTF;
-
-    const history = await getScanHistory();
-    const nextHistory = {};
-
-    const BATCH_SIZE = 5; // Reduced from Config for Stability (Parallel V1/V2 execution)
-
-    // Initialize Progress
-    scanStatus = { status: 'RUNNING', progress: 0, total: topPairs.length, current: 0, eta: 0 };
-    const startTime = Date.now();
-
-    for (let i = 0; i < topPairs.length; i += BATCH_SIZE) {
-        const batchPairs = topPairs.slice(i, i + BATCH_SIZE);
-        const batchResults = await processBatch(batchPairs, htf, ltf, source, now, history, nextHistory, strategy);
-        results.push(...batchResults.flat());
-
-        // Update Progress
-        const processed = Math.min(i + BATCH_SIZE, topPairs.length);
-        const progress = Math.round((processed / topPairs.length) * 100);
-
-        // Calculate ETA
-        const elapsed = (Date.now() - startTime) / 1000; // seconds
-        const rate = processed / (elapsed || 1); // symbols per second
-        const remaining = topPairs.length - processed;
-        const eta = Math.round(remaining / (rate || 0.1));
-
-        scanStatus = {
-            status: 'RUNNING',
-            progress: progress,
-            total: topPairs.length,
-            current: processed,
-            eta: eta
-        };
-
-        if (i + BATCH_SIZE < topPairs.length) {
-            await new Promise(r => setTimeout(r, 1000));
-        }
-    }
-
-    await saveScanHistory(nextHistory);
-
-    // --- PERSISTENCE & MERGE LOGIC ---
-    let previousResults = [];
     try {
-        const prevFile = path.join(DATA_DIR, `latest_results_${source}.json`);
-        const data = await fs.readFile(prevFile, 'utf8');
-        previousResults = JSON.parse(data);
-    } catch (e) {
-        // Ignore file not found
-    }
+        // 1. Update outcomes of previous signals (Foretesting)
+        await updateOutcomes();
 
-    const resultMap = new Map();
+        // 2. Refresh MCap Cache
+        await McapService.init();
+        const topPairs = await fetchTopVolumePairs(source);
+        await McapService.refreshIfNeeded(topPairs);
 
-    // 0. Preserve OTHER strategies if we are doing a partial update
-    if (strategy !== 'all') {
-        const preserved = previousResults.filter(r => r.strategy_name.toLowerCase() !== strategy.toLowerCase());
-        preserved.forEach(r => {
-            const key = `${r.symbol}_${r.strategy_name}`;
-            resultMap.set(key, r);
+        // 3. Run Scanner in Directory Mode (Unified Processing)
+        const pythonScript = path.join(process.cwd(), 'market_scanner_refactored.py');
+        const venvPython = path.join(process.cwd(), 'venv/bin/python');
+        const dataDir = path.join(process.cwd(), 'data');
+
+        Logger.info(`[SERVER SCAN] Executing: ${pythonScript} ${dataDir} --strategy ${targetStrategy}`);
+
+        scanStatus = { status: 'RUNNING', progress: 50, total: 1, current: 0, eta: 0 };
+
+        const { stdout, stderr } = await execFilePromise(venvPython, [
+            pythonScript,
+            dataDir,
+            '--strategy', targetStrategy
+        ], {
+            timeout: 600000, // 10 minute timeout for full scan
+            maxBuffer: 10 * 1024 * 1024, // 10MB buffer
+            env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
         });
-        Logger.info(`[SERVER SCAN] Preserved ${preserved.length} results from other strategies.`);
-    }
 
-    // 1. Add All New Results
-    results.forEach(r => {
-        const key = `${r.symbol}_${r.strategy_name}`;
-        resultMap.set(key, r);
-    });
-
-    // 2. Merge Sticky Signals (Breakout > 80, < 24h)
-    // Only if we are running Breakout or All? Or always check sticky?
-    // Always check sticky from previousResults to ensure they persist.
-
-    const STICKY_THRESHOLD = 80;
-    const STICKY_DURATION = 24 * 60 * 60 * 1000; // 24 Hours
-    const stickySignals = previousResults.filter(r => {
-        if (r.strategy_name !== 'Breakout') return false;
-        if (r.score < STICKY_THRESHOLD) return false;
-        const age = now - (r.timestamp || 0);
-        return age < STICKY_DURATION;
-    });
-
-    stickySignals.forEach(s => {
-        const key = `${s.symbol}_${s.strategy_name}`;
-        const existing = resultMap.get(key);
-
-        if (!existing) {
-            resultMap.set(key, s);
-        } else {
-            // Keep the one with higher score (Max Visibility)
-            if (existing.score < s.score) {
-                resultMap.set(key, s);
-            }
+        if (stderr) {
+            const lines = stderr.split('\n');
+            lines.forEach(line => {
+                if (line.includes('[SUCCESS]') ||
+                    line.includes('[DIRECTORY MODE]') ||
+                    line.includes('[BATCH]') ||
+                    line.includes('[CANONICAL]')) {
+                    Logger.info(`[SCANNER] ${line}`);
+                }
+                if (line.includes('[ERROR]') || line.includes('[WARN]')) {
+                    Logger.error(`[SCANNER] ${line}`);
+                }
+            });
         }
-    });
 
-    const mergedResults = Array.from(resultMap.values());
+        // 4. Read master_feed.json (already written by scanner)
+        const masterFeed = await getMasterFeed();
+        const signals = masterFeed.signals || (Array.isArray(masterFeed) ? masterFeed : []);
 
-    // [MERGE FIX] Load previous results to preserve strategies not updated in this run
-    let existingFeedData = [];
-    try {
-        const prevPath = path.join(DATA_DIR, `latest_results_${source}.json`);
-        const prevData = await fs.readFile(prevPath, 'utf-8');
-        existingFeedData = JSON.parse(prevData);
-    } catch (e) { }
+        Logger.info(`[SERVER SCAN] Scanner completed. Master feed has ${signals.length} signals.`);
 
-    const preservedResults = existingFeedData.filter(r => {
-        if (targetStrategy === 'all') return false;
-        if (targetStrategy === 'Legacy') return r.strategy_name !== 'Legacy';
-        if (targetStrategy === 'Breakout') return r.strategy_name !== 'Breakout'; // Preserves V2 if only V1 ran
-        if (targetStrategy === 'BreakoutV2') return r.strategy_name !== 'BreakoutV2';
-        return true;
-    });
+        // 5. Update History for Tracking
+        const history = await getScanHistory();
+        const nextHistory = {};
 
-    // Combine new and preserved
-    const allCandidates = [...preservedResults, ...mergedResults];
+        signals.forEach(s => {
+            const symbol = s.symbol;
+            if (s.score > CONFIG.THRESHOLDS.MIN_SCORE_TRENDING || history[symbol]) {
+                nextHistory[symbol] = {
+                    score: s.score,
+                    timestamp: now,
+                    consecutiveScans: (history[symbol]?.consecutiveScans || 0) + 1
+                };
+            }
+        });
 
-    await saveScanHistory(nextHistory);
+        await saveScanHistory(nextHistory);
 
-    // --- QUOTA LOGIC (Applied to Unified List) ---
-    const legacyAll = allCandidates.filter(r => r.strategy_name === 'Legacy').sort((a, b) => b.score - a.score);
-    const breakoutAll = allCandidates.filter(r => r.strategy_name === 'Breakout').sort((a, b) => b.score - a.score);
-    const breakoutV2All = allCandidates.filter(r => r.strategy_name === 'BreakoutV2').sort((a, b) => b.score - a.score);
+        // 6. Signal Tracking & Alerts
+        await appendSignalLog(signals);
+        await registerSignals(signals);
+        await sendTelegramAlert(signals);
 
-    Logger.info(`[SCAN DEBUG] Candidates Count: Legacy=${legacyAll.length}, Breakout=${breakoutAll.length}, BreakoutV2=${breakoutV2All.length}`);
+        Logger.info(`[SERVER SCAN] Complete. Processed ${signals.length} signals.`);
+        isScanning = false;
+        scanStatus = { status: 'IDLE', progress: 100, total: 0, current: 0, eta: 0 };
 
-    const legacySelected = legacyAll.slice(0, 20);
-    const breakoutSelected = breakoutAll.filter((r, index) => {
-        const isTop20 = index < 20;
-        const isHighValue = r.score > 80;
-        return isTop20 || isHighValue;
-    });
+        return signals;
 
-    // Select V2 with same logic as Breakout
-    const breakoutV2Selected = breakoutV2All.filter((r, index) => {
-        const isTop20 = index < 20;
-        const isHighValue = r.score > 80;
-        return isTop20 || isHighValue;
-    });
-
-    const finalResults = [...legacySelected, ...breakoutSelected, ...breakoutV2Selected].sort((a, b) => b.score - a.score);
-
-    await saveLatestResults(finalResults, source);
-
-    // [NEW] Trigger Master Aggregator
-    try {
-        const aggregatorScript = path.join(process.cwd(), 'results_aggregator.py');
-        const venvPython = path.join(process.cwd(), 'venv/bin/python'); // Use venv python
-        await execFilePromise(venvPython, [aggregatorScript]);
-        Logger.info('[AGGREGATOR] Master feed updated.');
     } catch (e) {
-        Logger.error('[AGGREGATOR] Failed to update master feed', e);
+        Logger.error(`[SERVER SCAN] Failed for ${source}:`, e.message);
+        if (e.stderr) {
+            Logger.error(`[SCANNER STDERR]`, e.stderr);
+        }
+        isScanning = false;
+        scanStatus = { status: 'IDLE', progress: 0, total: 0, current: 0, eta: 0 };
+        return [];
     }
-
-    await appendSignalLog(finalResults);
-    await registerSignals(finalResults);
-    await sendTelegramAlert(finalResults);
-
-    Logger.info(`[SERVER SCAN] Complete. Saved ${finalResults.length} results.`);
-    isScanning = false;
-    scanStatus = { status: 'IDLE', progress: 100, total: 0, current: 0, eta: 0 };
-    return finalResults;
 };

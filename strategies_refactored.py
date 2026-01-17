@@ -230,8 +230,8 @@ class QuantProLegacyRefactored(Strategy):
         # Get event timestamp (last candle timestamp)
         event_timestamp = int(last_row.get('timestamp', 0)) if 'timestamp' in last_row else 0
         
-        # Extract RSI trendline visuals from context
-        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        # Extract RSI trendline visuals from context (HTF for all strategies)
+        rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
         
         # Build comprehensive observability object
         observability = {
@@ -925,16 +925,20 @@ class QuantProBreakoutV2Refactored(Strategy):
         2. OBV Slope > 0 for LONG (MANDATORY)
         3. Cardwell Range compliance
         """
-        df = context.ltf_data
+        # USE HTF DATA for Breakout V2 Strategy (4H) - Aligned with V1
+        df = context.htf_data
         
-        if len(df) < 50:
+        if df is None or len(df) < 50:
             return self._empty_result(context)
         
-        # Get indicators from context
-        rsi_series = context.get_ltf_indicator('rsi')
-        obv_series = context.get_ltf_indicator('obv')
-        atr_series = context.get_ltf_indicator('atr')
-        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        # Get indicators from context (HTF for RSI, fallback for OBV/ATR)
+        rsi_series = context.get_htf_indicator('rsi')
+        obv_series = context.get_htf_indicator('obv') # HTF preferred, fallback to LTF if needed
+        if obv_series is None:
+            obv_series = context.get_ltf_indicator('obv')
+        atr_series = context.get_htf_indicator('atr')
+        # Use HTF RSI trendlines (4h timeframe)
+        rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
         
         if rsi_series is None or len(rsi_series) < 50:
             return self._empty_result(context)
@@ -1108,8 +1112,8 @@ class QuantProBreakoutV2Refactored(Strategy):
         - money_flow_score: RSI value (momentum flow)
         - timing_score: Cardwell range score (timing classification)
         """
-        # Get RSI trendlines from context
-        rsi_trendlines = context.get_ltf_indicator('rsi_trendlines', {})
+        # Get RSI trendlines from context (HTF for all strategies)
+        rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
         
         # Get event timestamp
         df = context.ltf_data
