@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 28652580
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 28635635
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 28575046
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 28579934
-    },
-    {
       "timestamp": 1768685400,
       "value": 28582489
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 28748296
+      "value": 28714673
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 28732507
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 28741644
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 28719662
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 28730325
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.8653236336504384,
+  "ls_ratio": 0.886080724254998,
   "liquidations": {
     "longs": 7737,
     "shorts": 247
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "LDOUSDT_PERP.A",
-  "fetched_at": 1768768468517
+  "fetched_at": 1768772013386
 }

@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 13013388.9
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 13016195.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 13000195.4
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 12982869.7
-    },
-    {
       "timestamp": 1768685400,
       "value": 13002899.8
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 16067628.5
+      "value": 16176327.1
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 16576036.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 16955793.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 17095234.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 17078286.7
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5406504065040652,
+  "ls_ratio": 1.5214321734745337,
   "liquidations": {
-    "longs": 349.5,
-    "shorts": 3964.5999999999995
+    "longs": 232.5,
+    "shorts": 61732.2
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "IPUSDT_PERP.A",
-  "fetched_at": 1768768468514
+  "fetched_at": 1768772013382
 }

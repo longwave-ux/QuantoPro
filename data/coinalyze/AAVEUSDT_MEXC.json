@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 272903.8
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 272684.2
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 272675.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 272164.6
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 272793.1
-    },
-    {
       "timestamp": 1768685400,
       "value": 272891.2
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 268485.4
+      "value": 268574
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 268867.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 271672.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 269240.6
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 269204.8
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 269060.7
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.698327037236913,
+  "ls_ratio": 1.7292576419213974,
   "liquidations": {
-    "longs": 1.9,
+    "longs": 6.4,
     "shorts": 3.1
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "AAVEUSDT_PERP.A",
-  "fetched_at": 1768768106161
+  "fetched_at": 1768772436692
 }

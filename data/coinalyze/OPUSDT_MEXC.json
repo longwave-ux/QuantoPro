@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 81301858.5
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 81306519.8
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 81240097
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 81339463.3
-    },
-    {
       "timestamp": 1768685400,
       "value": 81414775.6
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 80631372.6
+      "value": 80571264.8
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 80522778.8
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 80507661.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 80502988.5
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 80448702.6
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5994281258123213,
+  "ls_ratio": 1.5933609958506223,
   "liquidations": {
     "longs": 29511.9,
     "shorts": 2923.6
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "OPUSDT_PERP.A",
-  "fetched_at": 1768768709136
+  "fetched_at": 1768772254962
 }

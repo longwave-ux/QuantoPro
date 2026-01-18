@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 5051231655
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 5040286072
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 5040668313
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 5073264925
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 5071695768
-    },
-    {
       "timestamp": 1768685400,
       "value": 5079258547
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 5145185879
+      "value": 5147931214
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 5160030126
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 5163068544
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 5163966649
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 5166101234
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 5165166338
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2306491188935982,
+  "ls_ratio": 1.2222222222222223,
   "liquidations": {
     "longs": 21986525,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BOMEUSDT_PERP.A",
-  "fetched_at": 1768768227903
+  "fetched_at": 1768772558307
 }

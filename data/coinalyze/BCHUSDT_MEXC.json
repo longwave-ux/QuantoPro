@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 357723.041
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 357756.659
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 357758.814
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 357817.784
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 357739.508
-    },
-    {
       "timestamp": 1768685400,
       "value": 357881.487
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 360044.168
+      "value": 360034.82
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 360135.73
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 359943.801
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 359953.704
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 359853.002
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 359844.419
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0751193193608632,
+  "ls_ratio": 1.0764119601328905,
   "liquidations": {
     "longs": 3.51,
     "shorts": 1
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BCHUSDT_PERP.A",
-  "fetched_at": 1768768227900
+  "fetched_at": 1768772558303
 }

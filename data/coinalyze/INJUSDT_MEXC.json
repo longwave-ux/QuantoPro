@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 3092948.7
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 3088171
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 3084619.3
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 3085263.1
-    },
-    {
       "timestamp": 1768685400,
       "value": 3088583.3
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 3060801.2
+      "value": 3060198.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 3063511.9
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 3066410.9
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 3062755.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 3065390.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3397285914833879,
+  "ls_ratio": 1.3310023310023311,
   "liquidations": {
-    "longs": 67.9,
+    "longs": 100.9,
     "shorts": 190.5
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "INJUSDT_PERP.A",
-  "fetched_at": 1768768468512
+  "fetched_at": 1768772013380
 }

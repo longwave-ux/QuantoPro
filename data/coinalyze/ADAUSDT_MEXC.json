@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 291624779
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 291174479
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 291177751
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 290043714
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 289965393
-    },
-    {
       "timestamp": 1768685400,
       "value": 289871401
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 286910934
+      "value": 286981590
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 286640854
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 286348761
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 286444813
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 286241447
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 286444399
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.399048266485384,
+  "ls_ratio": 2.361344537815126,
   "liquidations": {
     "longs": 5605,
     "shorts": 2631
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ADAUSDT_PERP.A",
-  "fetched_at": 1768768106163
+  "fetched_at": 1768772436693
 }

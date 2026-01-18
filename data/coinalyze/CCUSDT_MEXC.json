@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 44275133
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 44218250
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 44257408
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 44269564
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 44252090
-    },
-    {
       "timestamp": 1768685400,
       "value": 44208847
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 46488827
+      "value": 46489232
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 46443797
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 46514494
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 46630620
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 46429982
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 46524697
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.4086491055078181,
+  "ls_ratio": 0.4110342881332016,
   "liquidations": {
     "longs": 5000,
-    "shorts": 110455
+    "shorts": 97336
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CCUSDT_PERP.A",
-  "fetched_at": 1768768227905
+  "fetched_at": 1768772558309
 }

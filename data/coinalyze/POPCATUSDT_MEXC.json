@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 38868954
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 38864030
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 38923848
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 38942732
-    },
-    {
       "timestamp": 1768685400,
       "value": 38933981
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 40457068
+      "value": 40459084
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 40502445
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 40453561
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 40456606
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 40445578
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3803856224708404,
+  "ls_ratio": 1.3912003825920611,
   "liquidations": {
-    "longs": 49159,
+    "longs": 18449,
     "shorts": 251
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "POPCATUSDT_PERP.A",
-  "fetched_at": 1768768709142
+  "fetched_at": 1768772254968
 }

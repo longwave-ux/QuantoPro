@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 214954.688
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 215514.788
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 215614.017
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 215994.721
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 216025.92
-    },
-    {
       "timestamp": 1768685400,
       "value": 216225.666
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 219822.322
+      "value": 219742.211
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 219133.682
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 219115.745
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 219015.65
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 219090.165
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 218182.525
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.312673450508788,
+  "ls_ratio": 1.3068050749711648,
   "liquidations": {
     "longs": 15.381,
     "shorts": 4.377
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "COMPUSDT_PERP.A",
-  "fetched_at": 1768768227907
+  "fetched_at": 1768772558311
 }

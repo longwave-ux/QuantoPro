@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 11804529
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 11796276.8
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 11786751.3
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 11773647.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 11763084
-    },
-    {
       "timestamp": 1768685400,
       "value": 11754833.2
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 11477537.9
+      "value": 11474487.4
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 11465035.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 11456159.6
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 11447118.3
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 11445018.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 11452343.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1290185224611455,
+  "ls_ratio": 1.1119324181626187,
   "liquidations": {
     "longs": 5372.799999999999,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "AEROUSDT_PERP.A",
-  "fetched_at": 1768768106164
+  "fetched_at": 1768772436693
 }

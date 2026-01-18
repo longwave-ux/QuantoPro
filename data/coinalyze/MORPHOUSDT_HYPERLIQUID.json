@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 3319415.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 3318583.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 3323381.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 3322591.3
-    },
-    {
       "timestamp": 1768685400,
       "value": 3323340.4
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 3273907.6
+      "value": 3274834.6
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 3273329
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 3274178.8
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 3273530.9
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 3273358.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1663778162911613,
+  "ls_ratio": 1.1710811984368215,
   "liquidations": {
     "longs": 660.2,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MORPHOUSDT_PERP.A",
-  "fetched_at": 1768768588840
+  "fetched_at": 1768772133678
 }

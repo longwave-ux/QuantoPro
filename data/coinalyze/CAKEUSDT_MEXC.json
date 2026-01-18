@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 6903784
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 6905279
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 6904297
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 6906183
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 6900018
-    },
-    {
       "timestamp": 1768685400,
       "value": 6898554
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 6693886
+      "value": 6693892
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 6686498
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 6683924
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 6680921
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 6678138
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 6686489
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4545900834560628,
+  "ls_ratio": 1.4551927326295115,
   "liquidations": {
     "longs": 2732,
     "shorts": 459
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CAKEUSDT_PERP.A",
-  "fetched_at": 1768768227904
+  "fetched_at": 1768772558309
 }

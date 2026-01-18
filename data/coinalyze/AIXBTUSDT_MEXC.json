@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 93980180
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 93653506
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 93629398
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 93684757
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 93792306
-    },
-    {
       "timestamp": 1768685400,
       "value": 93946853
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 100137715
+      "value": 100180349
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 99587340
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 99662808
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 99944798
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 100254377
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 100109988
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.7565431231336729,
+  "ls_ratio": 0.7611835153222966,
   "liquidations": {
     "longs": 115643,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "AIXBTUSDT_PERP.A",
-  "fetched_at": 1768768106165
+  "fetched_at": 1768772436693
 }

@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 1879803264
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 1879613439
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 1883683490
-    },
-    {
       "timestamp": 1768684500,
       "value": 1870307065
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 1680158413
+      "value": 1674251696
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1669172334
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 1668455239
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 1668248132
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.5248501938667602,
+  "ls_ratio": 2.4281796366129584,
   "liquidations": {
     "longs": 91877,
     "shorts": 7849
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GALAUSDT_PERP.A",
-  "fetched_at": 1768768348211
+  "fetched_at": 1768771893131
 }

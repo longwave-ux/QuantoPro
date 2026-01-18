@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 37751948.5
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 37719381.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 37702205.4
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 37768090.1
-    },
-    {
       "timestamp": 1768685400,
       "value": 37704807.7
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 37101334.3
+      "value": 37094270.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 37107089.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 37116213.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 37124291.9
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 37126575.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6215339711366953,
+  "ls_ratio": 0.6194331983805668,
   "liquidations": {
     "longs": 1762.8999999999999,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "KAITOUSDT_PERP.A",
-  "fetched_at": 1768768468516
+  "fetched_at": 1768772013384
 }

@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 417572457
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 417390339
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 417695422
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 418034317
-    },
-    {
       "timestamp": 1768685400,
       "value": 418019359
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 411005879
+      "value": 411214050
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 411165574
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 410868028
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 410009285
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 409438896
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8563267637817766,
+  "ls_ratio": 1.8727377190462509,
   "liquidations": {
     "longs": 21267,
     "shorts": 803
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PEOPLEUSDT_PERP.A",
-  "fetched_at": 1768768709139
+  "fetched_at": 1768772254965
 }

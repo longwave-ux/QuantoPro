@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 24529130.5
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 24177771.1
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 24168359
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 24198662.7
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 24276103.5
-    },
-    {
       "timestamp": 1768685400,
       "value": 24183929.8
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 23757784.6
+      "value": 23757824.5
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 23477550.1
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 23439064.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 23657337.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 23644047.6
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 23650519
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6469031233456854,
+  "ls_ratio": 1.5374270489723423,
   "liquidations": {
     "longs": 71.4,
     "shorts": 667.3
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CELOUSDT_PERP.A",
-  "fetched_at": 1768768227905
+  "fetched_at": 1768772558310
 }

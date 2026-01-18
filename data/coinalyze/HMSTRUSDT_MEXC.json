@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 10797698697
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 10817325223
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 10799920952
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 10790247907
-    },
-    {
       "timestamp": 1768685400,
       "value": 10783426782
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 10171465227
+      "value": 10132739308
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 10131806278
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 10093832599
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 10091236525
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 10094344064
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9824038174768863,
+  "ls_ratio": 2.013863773357444,
   "liquidations": {
     "longs": 1714863,
     "shorts": 1941317
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HMSTRUSDT_PERP.A",
-  "fetched_at": 1768768468508
+  "fetched_at": 1768772013374
 }

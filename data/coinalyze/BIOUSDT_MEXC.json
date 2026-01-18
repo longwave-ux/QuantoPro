@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 178772972
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 178606378
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 178406619
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 178132789
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 178331305
-    },
-    {
       "timestamp": 1768685400,
       "value": 178709508
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 195085631
+      "value": 195087981
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 194347722
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 193062348
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 191717757
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 191031047
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 191369806
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2820629849383842,
+  "ls_ratio": 1.4096385542168675,
   "liquidations": {
-    "longs": 18047,
-    "shorts": 717031
+    "longs": 257628,
+    "shorts": 395892
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BIOUSDT_PERP.A",
-  "fetched_at": 1768768227902
+  "fetched_at": 1768772558306
 }

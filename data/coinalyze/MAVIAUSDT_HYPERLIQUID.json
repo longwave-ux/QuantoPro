@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 14725109
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 14753783
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 14790704
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 14786759
-    },
-    {
       "timestamp": 1768685400,
       "value": 14779334
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 14014899
+      "value": 14055238
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 14078035
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 14182720
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 14144798
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 14207098
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 3.284490145672665,
+  "ls_ratio": 3.3233895373973197,
   "liquidations": {
     "longs": 701,
     "shorts": 653
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MAVIAUSDT_PERP.A",
-  "fetched_at": 1768768588834
+  "fetched_at": 1768772133671
 }

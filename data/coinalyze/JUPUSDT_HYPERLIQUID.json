@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 58615712
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 58600920
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 58578354
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 58572827
-    },
-    {
       "timestamp": 1768685400,
       "value": 58555825
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 58561094
+      "value": 58561958
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 58570358
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 58548234
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 58541286
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 58533501
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4576062914721064,
+  "ls_ratio": 1.4551927326295115,
   "liquidations": {
     "longs": 3916,
     "shorts": 51
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "JUPUSDT_PERP.A",
-  "fetched_at": 1768768468515
+  "fetched_at": 1768772013383
 }

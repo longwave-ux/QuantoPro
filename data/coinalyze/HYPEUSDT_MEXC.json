@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 5917609.98
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 5916124.68
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 5918199.14
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 5919144.12
-    },
-    {
       "timestamp": 1768685400,
       "value": 5917290.86
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 5965391.73
+      "value": 5963798.09
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 5960985.11
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 5953375.1
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 5961524.99
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 5964183.12
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9568302779420463,
+  "ls_ratio": 1.9726516052318668,
   "liquidations": {
-    "longs": 1339.2199999999998,
-    "shorts": 0
+    "longs": 1335.3999999999999,
+    "shorts": 9.07
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HYPEUSDT_PERP.A",
-  "fetched_at": 1768768468510
+  "fetched_at": 1768772013377
 }

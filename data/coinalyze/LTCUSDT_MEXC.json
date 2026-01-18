@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 1826720.783
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 1825140.532
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 1823356.979
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 1818944.27
-    },
-    {
       "timestamp": 1768685400,
       "value": 1816628.308
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 1803764.181
+      "value": 1805643.426
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1806272.183
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 1805328.22
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 1806675.411
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 1806186.231
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.445899379738112,
+  "ls_ratio": 2.461405330564209,
   "liquidations": {
     "longs": 122.253,
     "shorts": 4.6
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "LTCUSDT_PERP.A",
-  "fetched_at": 1768768588832
+  "fetched_at": 1768772133670
 }

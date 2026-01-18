@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 18217945
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 18222372
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 18192625
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 18179214
-    },
-    {
       "timestamp": 1768685400,
       "value": 18172208
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 17669277
+      "value": 17670964
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 17672721
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 17663578
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 17671719
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 17670988
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3014959723820483,
+  "ls_ratio": 1.2904260192395787,
   "liquidations": {
     "longs": 1361,
     "shorts": 586
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "NXPCUSDT_PERP.A",
-  "fetched_at": 1768768709134
+  "fetched_at": 1768772254960
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 74168211.7
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 73929385.1
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 73700336.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 73457456.2
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 73529451.2
-    },
-    {
       "timestamp": 1768685400,
       "value": 73563198.4
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 71689771.1
+      "value": 71640223.2
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 71912996.1
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 71511626.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 71472488.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 71483703.3
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 71606430.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3758612497030172,
+  "ls_ratio": 1.3546032493524842,
   "liquidations": {
     "longs": 11925.699999999999,
     "shorts": 704.6999999999999
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ALGOUSDT_PERP.A",
-  "fetched_at": 1768768106166
+  "fetched_at": 1768772436694
 }

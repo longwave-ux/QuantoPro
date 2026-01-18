@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 42244834
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 42262011
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 42255418
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 42110358
-    },
-    {
       "timestamp": 1768685400,
       "value": 42426326
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 38823821
+      "value": 38821085
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 38770290
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 38820123
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 38778510
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 38757253
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1312872975277066,
+  "ls_ratio": 1.133560913164071,
   "liquidations": {
-    "longs": 3348,
-    "shorts": 976
+    "longs": 4994,
+    "shorts": 7167
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "METUSDT_PERP.A",
-  "fetched_at": 1768768588837
+  "fetched_at": 1768772133674
 }

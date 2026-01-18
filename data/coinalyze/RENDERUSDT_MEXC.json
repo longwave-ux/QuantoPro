@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 6493208.4
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 6498394.1
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 6498033.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 6515589.6
-    },
-    {
       "timestamp": 1768685400,
       "value": 6521708.9
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 6577068.5
+      "value": 6579065.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 6554128.4
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 6559802.5
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 6540534.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 6540699.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6761649346295676,
+  "ls_ratio": 0.6750418760469011,
   "liquidations": {
     "longs": 0,
     "shorts": 4374
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "RENDERUSDT_PERP.A",
-  "fetched_at": 1768768709145
+  "fetched_at": 1768772254971
 }

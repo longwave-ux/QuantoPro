@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 9219724.78
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 9223075.56
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 9207707.14
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 9144262.63
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 9695021.22
-    },
-    {
       "timestamp": 1768685400,
       "value": 9372786.5
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 8268763.46
+      "value": 8267555.46
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 8244521.18
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 8244800.76
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 8295829.06
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 8300956.66
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 8229810.01
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5680534155110428,
+  "ls_ratio": 1.6226068712300024,
   "liquidations": {
-    "longs": 4441.88,
+    "longs": 1462.23,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ACEUSDT_PERP.A",
-  "fetched_at": 1768768106162
+  "fetched_at": 1768772436692
 }

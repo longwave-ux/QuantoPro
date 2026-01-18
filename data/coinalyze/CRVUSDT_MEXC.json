@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 57548273.6
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 57368136.9
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 57335478.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 56846048.9
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 56485048.7
-    },
-    {
       "timestamp": 1768685400,
       "value": 56653383.6
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 56031411
+      "value": 56028359.6
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 55904316
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 55969117.2
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 55970689.3
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 55656680.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 55662888
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1729682746631898,
+  "ls_ratio": 1.1791239921551535,
   "liquidations": {
     "longs": 1522.1000000000001,
     "shorts": 8175.7
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CRVUSDT_PERP.A",
-  "fetched_at": 1768768227908
+  "fetched_at": 1768772558312
 }

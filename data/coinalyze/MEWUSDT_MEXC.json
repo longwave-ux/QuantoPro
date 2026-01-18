@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 2088327152
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 2083978790
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 2091583773
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 2082701159
-    },
-    {
       "timestamp": 1768685400,
       "value": 2093546932
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 2098865096
+      "value": 2097410602
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 2094488911
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 2090170273
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 2090336125
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 2090128336
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.7824151363383418,
+  "ls_ratio": 1.8360748723766307,
   "liquidations": {
     "longs": 677955,
     "shorts": 35275
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MEWUSDT_PERP.A",
-  "fetched_at": 1768768588838
+  "fetched_at": 1768772133676
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 21935951.2
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 21893167.2
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 21863736.2
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 21835854.4
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 21839139.4
-    },
-    {
       "timestamp": 1768685400,
       "value": 21822780.4
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 21608093.8
+      "value": 21605561.9
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 21599830.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 21606533.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 21609583.9
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 21607792.9
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 21598928.5
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.334267040149393,
+  "ls_ratio": 1.346316283435007,
   "liquidations": {
-    "longs": 707.3,
-    "shorts": 40.7
+    "longs": 589.4,
+    "shorts": 489.2
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "APTUSDT_PERP.A",
-  "fetched_at": 1768768106169
+  "fetched_at": 1768772436696
 }

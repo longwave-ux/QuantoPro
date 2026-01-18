@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 138825038
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 139023746
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 139012920
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 139132723
-    },
-    {
       "timestamp": 1768685400,
       "value": 139090859
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 139203272
+      "value": 139151690
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 139132076
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 139307200
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 139327151
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 139323828
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.1075201988812924,
+  "ls_ratio": 2.0902348578491967,
   "liquidations": {
     "longs": 362147,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HEMIUSDT_PERP.A",
-  "fetched_at": 1768768468507
+  "fetched_at": 1768772013374
 }

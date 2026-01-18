@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 104175704
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 104214421.1
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 104188411.3
-    },
-    {
       "timestamp": 1768684500,
       "value": 104182137.7
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 109762062.5
+      "value": 110128906.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 110055295.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 110073770.5
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 110220521.6
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2060445621001545,
+  "ls_ratio": 1.1953896816684964,
   "liquidations": {
-    "longs": 92.89999999999999,
-    "shorts": 942.3
+    "longs": 9175.1,
+    "shorts": 5674.700000000001
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FARTCOINUSDT_PERP.A",
-  "fetched_at": 1768768348209
+  "fetched_at": 1768771893129
 }

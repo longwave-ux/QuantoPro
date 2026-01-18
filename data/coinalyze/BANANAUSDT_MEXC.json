@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 354908.7
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 355094.2
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 354877.1
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 355044.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 354871.9
-    },
-    {
       "timestamp": 1768685400,
       "value": 355510.1
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 355850.3
+      "value": 355813.5
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 355818.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 355821.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 355843.3
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 356402.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 355196.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.315886984715146,
+  "ls_ratio": 1.2893772893772895,
   "liquidations": {
     "longs": 241.9,
     "shorts": 12.8
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BANANAUSDT_PERP.A",
-  "fetched_at": 1768768227900
+  "fetched_at": 1768772558303
 }

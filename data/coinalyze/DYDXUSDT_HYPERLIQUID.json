@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 36380036.3
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 36287203.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 36229123.1
-    },
-    {
       "timestamp": 1768684500,
       "value": 36234038.4
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 36869893.6
+      "value": 36546855.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 36520320.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 36368718
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 36352780.5
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.138731952291274,
+  "ls_ratio": 2.115264797507788,
   "liquidations": {
     "longs": 10655.3,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DYDXUSDT_PERP.A",
-  "fetched_at": 1768768348202
+  "fetched_at": 1768771893125
 }

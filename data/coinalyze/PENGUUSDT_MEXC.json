@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 2406995378
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 2408941887
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 2409067419
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 2408764738
-    },
-    {
       "timestamp": 1768685400,
       "value": 2407474188
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 2523722464
+      "value": 2520737152
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 2524149951
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 2517172053
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 2519740411
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 2520235429
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.7091095539224065,
+  "ls_ratio": 0.6926201760324984,
   "liquidations": {
-    "longs": 422452,
-    "shorts": 4645
+    "longs": 358509,
+    "shorts": 24239
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PENGUUSDT_PERP.A",
-  "fetched_at": 1768768709138
+  "fetched_at": 1768772254964
 }

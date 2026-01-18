@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 120811618
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 120832468.5
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 120775183.9
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 120696981.7
-    },
-    {
       "timestamp": 1768685400,
       "value": 120711178.8
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 121156735.7
+      "value": 121120382.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 121085447.9
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 121091751.1
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 121087372.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 121072243.7
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8943560057887123,
+  "ls_ratio": 1.915451895043732,
   "liquidations": {
-    "longs": 88622.2,
+    "longs": 88351.79999999999,
     "shorts": 73.3
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "OMUSDT_PERP.A",
-  "fetched_at": 1768768709135
+  "fetched_at": 1768772254961
 }

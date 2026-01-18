@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 30465354
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 30469462
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 30560927
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 30555273
-    },
-    {
       "timestamp": 1768685400,
       "value": 30551102
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 29529991
+      "value": 29506809
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 29491680
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 29462880
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 29448203
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 29446658
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9498525073746311,
+  "ls_ratio": 1.9291154071470415,
   "liquidations": {
     "longs": 6590,
     "shorts": 67189
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PROMPTUSDT_PERP.A",
-  "fetched_at": 1768768709142
+  "fetched_at": 1768772254968
 }

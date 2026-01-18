@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 39772882.71
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 39772439.09
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 39777141.97
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 39803010.78
-    },
-    {
       "timestamp": 1768685400,
       "value": 39793556.13
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 39682211.92
+      "value": 39678706.78
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 39689133.24
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 39697284.24
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 39693276.21
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 39691773.95
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9717682020802376,
+  "ls_ratio": 1.9761904761904763,
   "liquidations": {
     "longs": 9188,
     "shorts": 76.89
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MELANIAUSDT_PERP.A",
-  "fetched_at": 1768768588836
+  "fetched_at": 1768772133672
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 31281347
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 31271055
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 31140960
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 31097602
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 31077804
-    },
-    {
       "timestamp": 1768685400,
       "value": 31043302
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 31011746
+      "value": 31009484
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 31535615
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 31450519
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 31401479
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 31318263
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 31260463
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2670596236681024,
+  "ls_ratio": 1.2634676324128564,
   "liquidations": {
     "longs": 1556,
     "shorts": 156
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "2ZUSDT_PERP.A",
-  "fetched_at": 1768768106160
+  "fetched_at": 1768772436691
 }

@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 2228526.29
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 2226668.45
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 2220776.58
-    },
-    {
       "timestamp": 1768684500,
       "value": 2216374.87
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 2206912.09
+      "value": 2205290.28
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 2204761.47
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 2205039.71
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 2204603.82
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.803476310625175,
+  "ls_ratio": 1.8248587570621468,
   "liquidations": {
     "longs": 651.89,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ETCUSDT_PERP.A",
-  "fetched_at": 1768768348206
+  "fetched_at": 1768771893128
 }

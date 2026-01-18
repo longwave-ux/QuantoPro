@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 586124.15
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 586528.15
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 586277.66
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 586368.36
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 586468.97
-    },
-    {
       "timestamp": 1768685400,
       "value": 586635.19
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 581665.9
+      "value": 581716.18
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 581739.07
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 581795.84
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 581908.34
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 581824.79
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 581813.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.4188034188034186,
+  "ls_ratio": 2.4071550255536627,
   "liquidations": {
     "longs": 0,
     "shorts": 31.939999999999998
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BNBUSDT_PERP.A",
-  "fetched_at": 1768768227902
+  "fetched_at": 1768772558307
 }

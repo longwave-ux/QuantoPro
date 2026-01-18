@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 60621929
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 60693520
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 60678571
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 60756760
-    },
-    {
       "timestamp": 1768685400,
       "value": 60744732
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 62232658
+      "value": 62123056
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 62292049
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 62369115
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 62419486
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 62483752
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.322340919647004,
+  "ls_ratio": 1.315886984715146,
   "liquidations": {
     "longs": 14132,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MOODENGUSDT_PERP.A",
-  "fetched_at": 1768768588839
+  "fetched_at": 1768772133678
 }

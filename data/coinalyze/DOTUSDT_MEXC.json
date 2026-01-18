@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 20789209.7
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 20697682.2
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 20681392.9
-    },
-    {
       "timestamp": 1768684500,
       "value": 20694519.7
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 20607706.4
+      "value": 20597852.5
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 20577821
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 20569436.6
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 20571876.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.1338138514572234,
+  "ls_ratio": 2.197953309881676,
   "liquidations": {
     "longs": 1637.5,
     "shorts": 751.3
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DOTUSDT_PERP.A",
-  "fetched_at": 1768768348201
+  "fetched_at": 1768771893125
 }

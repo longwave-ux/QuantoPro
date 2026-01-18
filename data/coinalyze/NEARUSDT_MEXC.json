@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 36841955
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 36806756
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 36853001
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 36817063
-    },
-    {
       "timestamp": 1768685400,
       "value": 36804586
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 37629701
+      "value": 37606140
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 37599565
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 37634612
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 37630526
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 37647538
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.674511901577962,
+  "ls_ratio": 1.6702269692923897,
   "liquidations": {
-    "longs": 2099,
+    "longs": 764,
     "shorts": 45
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "NEARUSDT_PERP.A",
-  "fetched_at": 1768768588841
+  "fetched_at": 1768772133683
 }

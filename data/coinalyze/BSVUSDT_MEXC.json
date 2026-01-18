@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 148253
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 148253.7
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 148263.3
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 148279.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 148276
-    },
-    {
       "timestamp": 1768685400,
       "value": 148296.8
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 152451.8
+      "value": 152451.7
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 152644.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 152654.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 152670.5
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 153048
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 153111.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6322716504343247,
+  "ls_ratio": 1.6581605528973953,
   "liquidations": {
     "longs": 9.6,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BSVUSDT_PERP.A",
-  "fetched_at": 1768768227903
+  "fetched_at": 1768772558308
 }

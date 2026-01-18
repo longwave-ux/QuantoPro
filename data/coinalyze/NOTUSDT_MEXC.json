@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 4910522531
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 4907985297
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 4899718063
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 4894325862
-    },
-    {
       "timestamp": 1768685400,
       "value": 4882222099
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 4992921812
+      "value": 4996740822
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 4993599766
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 4992212433
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 4989302219
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 4990984274
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.4626038781163437,
+  "ls_ratio": 2.467406380027739,
   "liquidations": {
     "longs": 3566848,
     "shorts": 121729
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "NOTUSDT_PERP.A",
-  "fetched_at": 1768768709133
+  "fetched_at": 1768772254959
 }

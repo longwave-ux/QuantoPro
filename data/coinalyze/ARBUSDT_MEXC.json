@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 189284441
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 189135792.7
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 189176383.7
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 189209209
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 189194991.3
-    },
-    {
       "timestamp": 1768685400,
       "value": 189179373.5
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 187430112.5
+      "value": 187414674.9
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 187274329.5
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 187073030.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 187078319.9
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 186933972.8
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 186715697.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9533372711163615,
+  "ls_ratio": 1.9231218941829875,
   "liquidations": {
-    "longs": 1290.8999999999999,
-    "shorts": 47291.100000000006
+    "longs": 0,
+    "shorts": 132656.19999999998
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ARBUSDT_PERP.A",
-  "fetched_at": 1768768106170
+  "fetched_at": 1768772436696
 }

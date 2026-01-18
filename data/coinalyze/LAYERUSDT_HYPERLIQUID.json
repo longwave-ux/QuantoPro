@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 25647252.5
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 25645875.2
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 25660488.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 25702341.6
-    },
-    {
       "timestamp": 1768685400,
       "value": 25702600.5
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 27619398.4
+      "value": 27628352.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 27639480.7
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 27645122.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 27642258.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 27643235.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1929824561403508,
+  "ls_ratio": 1.1853146853146854,
   "liquidations": {
     "longs": 14380,
     "shorts": 305.7
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "LAYERUSDT_PERP.A",
-  "fetched_at": 1768768468517
+  "fetched_at": 1768772013385
 }

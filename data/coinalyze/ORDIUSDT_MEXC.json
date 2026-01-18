@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 1759028.9
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 1757131.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 1755701.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 1755586.3
-    },
-    {
       "timestamp": 1768685400,
       "value": 1755474
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 1764598.9
+      "value": 1749042.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1747870.8
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 1748457.3
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 1749848.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 1748415.6
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3685457129322596,
+  "ls_ratio": 1.3668639053254439,
   "liquidations": {
     "longs": 34.8,
-    "shorts": 139
+    "shorts": 28.5
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ORDIUSDT_PERP.A",
-  "fetched_at": 1768768709136
+  "fetched_at": 1768772254962
 }

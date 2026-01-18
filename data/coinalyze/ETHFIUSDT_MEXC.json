@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 20843540.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 20856011.7
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 20818253.5
-    },
-    {
       "timestamp": 1768684500,
       "value": 20819995.4
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 21644218.1
+      "value": 21656146.4
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 21690229.6
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 21732820.9
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 21705667.1
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3185717597959656,
+  "ls_ratio": 1.319109461966605,
   "liquidations": {
     "longs": 1649.3000000000002,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ETHFIUSDT_PERP.A",
-  "fetched_at": 1768768348207
+  "fetched_at": 1768771893128
 }

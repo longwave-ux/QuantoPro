@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 19627882
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 19584074
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 19589690
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 19553723
-    },
-    {
       "timestamp": 1768685400,
       "value": 19582823
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 18702471
+      "value": 18708428
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 18647171
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 18628262
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 18601416
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 18600230
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5335697998479858,
+  "ls_ratio": 1.50501002004008,
   "liquidations": {
     "longs": 389,
     "shorts": 785
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "IMXUSDT_PERP.A",
-  "fetched_at": 1768768468511
+  "fetched_at": 1768772013378
 }

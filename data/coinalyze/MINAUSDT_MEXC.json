@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 42151013
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 42168345
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 42123139
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 42130647
-    },
-    {
       "timestamp": 1768685400,
       "value": 42018329
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 41864260
+      "value": 41872455
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 41806205
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 41752077
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 41761192
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 41586019
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.7855153203342617,
+  "ls_ratio": 1.7940765576976807,
   "liquidations": {
     "longs": 0,
-    "shorts": 3850
+    "shorts": 9693
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MINAUSDT_PERP.A",
-  "fetched_at": 1768768588838
+  "fetched_at": 1768772133677
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 16895485
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 16871031
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 16891114
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 16953068
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 16945412
-    },
-    {
       "timestamp": 1768685400,
       "value": 16938203
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 16330013
+      "value": 16330401
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 16335310
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 16338010
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 16352198
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 16344242
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 16341491
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.5880578053041131,
+  "ls_ratio": 0.5956598053295037,
   "liquidations": {
-    "longs": 98,
-    "shorts": 20157
+    "longs": 771,
+    "shorts": 134
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "0GUSDT_PERP.A",
-  "fetched_at": 1768768106159
+  "fetched_at": 1768772436690
 }

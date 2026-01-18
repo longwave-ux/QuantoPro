@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 224275750
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 224229205
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 224098003
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 224379856
-    },
-    {
       "timestamp": 1768685400,
       "value": 224581235
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 216602140
+      "value": 216825092
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 216860358
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 216842937
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 217839402
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 218415976
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0008003201280513,
+  "ls_ratio": 0.9908421262193909,
   "liquidations": {
-    "longs": 3974,
+    "longs": 4657,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HBARUSDT_PERP.A",
-  "fetched_at": 1768768468507
+  "fetched_at": 1768772013373
 }

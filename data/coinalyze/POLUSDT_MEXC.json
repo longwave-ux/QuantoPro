@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 199791536
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 200165666
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 199837246
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 200193297
-    },
-    {
       "timestamp": 1768685400,
       "value": 200283892
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 194670158
+      "value": 194671602
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 194606434
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 194562104
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 194827914
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 194872710
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.8515089798185522,
+  "ls_ratio": 0.8549434242255612,
   "liquidations": {
     "longs": 6813,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "POLUSDT_PERP.A",
-  "fetched_at": 1768768709141
+  "fetched_at": 1768772254966
 }

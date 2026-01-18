@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 8084797.4
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 8086411.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 8086674
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 8087273.8
-    },
-    {
       "timestamp": 1768685400,
       "value": 8085974.9
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 7902527.3
+      "value": 7893701.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 7888607.9
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 7878179
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 7869303.5
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 7866277.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4166263895601738,
+  "ls_ratio": 1.4142926122646065,
   "liquidations": {
     "longs": 170.3,
     "shorts": 46.7
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PROVEUSDT_PERP.A",
-  "fetched_at": 1768768709143
+  "fetched_at": 1768772254969
 }

@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 304100749
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 303913884
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 303709972
-    },
-    {
       "timestamp": 1768684500,
       "value": 303669947
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 299562264
+      "value": 299462474
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 299421081
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 299498533
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 299457676
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.091190108191654,
+  "ls_ratio": 2.1113876789047916,
   "liquidations": {
     "longs": 785681,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DOODUSDT_PERP.A",
-  "fetched_at": 1768768348201
+  "fetched_at": 1768771893124
 }

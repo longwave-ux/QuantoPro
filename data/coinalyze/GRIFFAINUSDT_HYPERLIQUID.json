@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 106344239
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 106302586
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 106393660
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 106639283
-    },
-    {
       "timestamp": 1768685400,
       "value": 106768677
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 102197847
+      "value": 101893140
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 101916403
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 101757084
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 101650544
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 101640867
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.0030030030030033,
+  "ls_ratio": 1.9691211401425177,
   "liquidations": {
     "longs": 730,
     "shorts": 1902
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GRIFFAINUSDT_PERP.A",
-  "fetched_at": 1768768468506
+  "fetched_at": 1768772013372
 }

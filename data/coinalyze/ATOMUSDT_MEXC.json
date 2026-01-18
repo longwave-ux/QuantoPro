@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 9457733.99
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 9462294.36
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 9455276.58
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 9456491.01
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 9463506.29
-    },
-    {
       "timestamp": 1768685400,
       "value": 9454292.28
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 9110382.58
+      "value": 9109054.85
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 9110998.15
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 9114916.36
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 9171092.56
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 9177371.01
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 9176138.4
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2609088853719197,
+  "ls_ratio": 1.254791431792559,
   "liquidations": {
     "longs": 766.94,
     "shorts": 93.13
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ATOMUSDT_PERP.A",
-  "fetched_at": 1768768106171
+  "fetched_at": 1768772436698
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 152360744
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 153221027
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 153216358
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 151897773
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 151915338
-    },
-    {
       "timestamp": 1768685400,
       "value": 152321723
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 156071222
+      "value": 155691896
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 155271655
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 155254205
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 155417687
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 155287454
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 155736292
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5025025025025025,
+  "ls_ratio": 1.5367833587011668,
   "liquidations": {
     "longs": 50259,
     "shorts": 7039
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BLURUSDT_PERP.A",
-  "fetched_at": 1768768227902
+  "fetched_at": 1768772558306
 }

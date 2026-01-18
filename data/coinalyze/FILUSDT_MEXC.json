@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 31696569.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 31688543.5
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 31636407.7
-    },
-    {
       "timestamp": 1768684500,
       "value": 31640330.8
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 31630581.7
+      "value": 31685873
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 31628536.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 31542276.9
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 31564406.7
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9533372711163615,
+  "ls_ratio": 1.9489826010026543,
   "liquidations": {
     "longs": 511.6,
     "shorts": 95.3
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FILUSDT_PERP.A",
-  "fetched_at": 1768768348210
+  "fetched_at": 1768771893130
 }

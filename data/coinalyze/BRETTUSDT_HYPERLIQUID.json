@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 105619487
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 105627447
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 105725710
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 105984668
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 105952376
-    },
-    {
       "timestamp": 1768685400,
       "value": 105954784
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 109244324
+      "value": 110031653
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 109873332
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 109803884
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 109888149
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 109817451
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 109815128
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2670596236681024,
+  "ls_ratio": 1.2815423226100846,
   "liquidations": {
     "longs": 38918,
     "shorts": 311009
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BRETTUSDT_PERP.A",
-  "fetched_at": 1768768227903
+  "fetched_at": 1768772558308
 }

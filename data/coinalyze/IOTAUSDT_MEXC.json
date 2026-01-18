@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 50018840.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 49892832.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 49801130.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 49667031
-    },
-    {
       "timestamp": 1768685400,
       "value": 49644139.5
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 47910923.4
+      "value": 47841931.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 47869300.4
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 47813711.6
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 47810254.8
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 47849369.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9932230416583615,
+  "ls_ratio": 0.998800719568259,
   "liquidations": {
     "longs": 61854,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "IOTAUSDT_PERP.A",
-  "fetched_at": 1768768468513
+  "fetched_at": 1768772013381
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 140677478
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 140707172
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 140798004
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 140559857
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 140696204
-    },
-    {
       "timestamp": 1768685400,
       "value": 140502439
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 145436662
+      "value": 145465148
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 143687902
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 143642871
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 142759415
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 142347094
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 142318654
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.677376171352075,
+  "ls_ratio": 1.6455026455026458,
   "liquidations": {
     "longs": 43999,
     "shorts": 60344
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BIGTIMEUSDT_PERP.A",
-  "fetched_at": 1768768227901
+  "fetched_at": 1768772558305
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 592332789
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 592798481
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 593213004
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 592504507
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 591700462
-    },
-    {
       "timestamp": 1768685400,
       "value": 590691051
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 590789368
+      "value": 590808452
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 586515698
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 582716828
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 581645101
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 581015688
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 580383982
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.937984496124031,
+  "ls_ratio": 0.9550342130987293,
   "liquidations": {
     "longs": 956971,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ANIMEUSDT_PERP.A",
-  "fetched_at": 1768768106168
+  "fetched_at": 1768772436694
 }

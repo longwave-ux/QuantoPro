@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 23523742
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 23537502
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 23529062
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 23527719
-    },
-    {
       "timestamp": 1768685400,
       "value": 23511798
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 23230076
+      "value": 23256823
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 23237916
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 23119452
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 23077948
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 23053784
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.017501508750754,
+  "ls_ratio": 2.097893432465923,
   "liquidations": {
-    "longs": 2805,
-    "shorts": 1856
+    "longs": 2927,
+    "shorts": 103
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "INITUSDT_PERP.A",
-  "fetched_at": 1768768468512
+  "fetched_at": 1768772013379
 }

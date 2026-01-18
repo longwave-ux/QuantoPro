@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 30632490844
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 30680694515
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 30660133123
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 30689991737
-    },
-    {
       "timestamp": 1768685400,
       "value": 30641762841
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 28995862397
+      "value": 28978990270
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 28960766947
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 28969097449
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 28961873975
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 28954715764
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5859839668994051,
+  "ls_ratio": 1.554278416347382,
   "liquidations": {
-    "longs": 17371020,
-    "shorts": 208144
+    "longs": 17070975,
+    "shorts": 263636
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PUMPUSDT_PERP.A",
-  "fetched_at": 1768768709144
+  "fetched_at": 1768772254970
 }

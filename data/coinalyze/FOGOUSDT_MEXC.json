@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 330665042
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 332537482
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 331773342
-    },
-    {
       "timestamp": 1768684500,
       "value": 331341919
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 363142353
+      "value": 364542712
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 364436570
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 365030888
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 365663229
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9778481012658227,
+  "ls_ratio": 0.9685039370078741,
   "liquidations": {
-    "longs": 120214,
-    "shorts": 91237
+    "longs": 735,
+    "shorts": 12500
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FOGOUSDT_PERP.A",
-  "fetched_at": 1768768348211
+  "fetched_at": 1768771893130
 }

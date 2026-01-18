@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 24402703.5
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 24314978.5
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 24265722.1
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 24287934.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 24193127.8
-    },
-    {
       "timestamp": 1768685400,
       "value": 24162200.7
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 26416907.9
+      "value": 26411520
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 26275846.1
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 26309543.8
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 26323576.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 26286515.9
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 26318154.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8538812785388126,
+  "ls_ratio": 1.8409090909090906,
   "liquidations": {
-    "longs": 466.09999999999997,
-    "shorts": 139.3
+    "longs": 512.5,
+    "shorts": 15534
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BERAUSDT_PERP.A",
-  "fetched_at": 1768768227901
+  "fetched_at": 1768772558305
 }

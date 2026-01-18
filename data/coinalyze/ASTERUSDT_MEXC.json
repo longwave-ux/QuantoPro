@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 178096053
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 177968193
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 177951138
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 177957288
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 177908098
-    },
-    {
       "timestamp": 1768685400,
       "value": 177909542
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 179613870
+      "value": 179644519
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 179606085
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 179591892
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 179567207
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 179576496
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 179631000
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.5014005602240896,
+  "ls_ratio": 2.4734282737061477,
   "liquidations": {
     "longs": 3008,
     "shorts": 421
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ASTERUSDT_PERP.A",
-  "fetched_at": 1768768106171
+  "fetched_at": 1768772436697
 }

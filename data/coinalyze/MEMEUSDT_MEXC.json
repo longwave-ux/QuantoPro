@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 2960007248
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 2960328700
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 2964850390
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 2964438852
-    },
-    {
       "timestamp": 1768685400,
       "value": 2966694740
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 3018993701
+      "value": 3018732919
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 3017801936
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 3017291264
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 3015208628
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 3015389573
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.071253071253071,
+  "ls_ratio": 2.065603923973023,
   "liquidations": {
     "longs": 1533867,
     "shorts": 133390
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MEMEUSDT_PERP.A",
-  "fetched_at": 1768768588836
+  "fetched_at": 1768772133673
 }

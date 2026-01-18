@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 756557.959
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 758299.038
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 758212.257
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 765947.828
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 766023.274
-    },
-    {
       "timestamp": 1768685400,
       "value": 765236.444
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 751094.199
+      "value": 751406.923
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 752950.914
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 750531.407
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 749108.587
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 746345.893
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 742166.851
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0894274968658588,
+  "ls_ratio": 1.0695364238410596,
   "liquidations": {
-    "longs": 525.998,
-    "shorts": 203.53900000000002
+    "longs": 384.44300000000004,
+    "shorts": 194.052
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DASHUSDT_PERP.A",
-  "fetched_at": 1768768227909
+  "fetched_at": 1768772558312
 }

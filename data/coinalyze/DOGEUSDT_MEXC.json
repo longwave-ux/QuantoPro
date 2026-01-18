@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 1723392498
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 1724667507
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 1723363029
-    },
-    {
       "timestamp": 1768684500,
       "value": 1723823575
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 1791146972
+      "value": 1792017051
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1791522953
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 1790582763
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 1791163742
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.5816618911174785,
+  "ls_ratio": 2.595828838547285,
   "liquidations": {
-    "longs": 497,
-    "shorts": 57953
+    "longs": 597,
+    "shorts": 57235
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DOGEUSDT_PERP.A",
-  "fetched_at": 1768768348200
+  "fetched_at": 1768771893124
 }

@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 30662192.5
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 30502639.3
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 30485505.3
-    },
-    {
       "timestamp": 1768684500,
       "value": 30546070.1
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 30266793.2
+      "value": 30257807.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 30249315.7
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 30333225.6
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 30490116
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.017501508750754,
+  "ls_ratio": 2.006614552014432,
   "liquidations": {
     "longs": 6128.7,
     "shorts": 1059.5
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DYMUSDT_PERP.A",
-  "fetched_at": 1768768348203
+  "fetched_at": 1768771893126
 }

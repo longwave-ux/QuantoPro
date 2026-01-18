@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 1651394.5
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 1651270.2
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 1652883.8
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 1651446.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 1650757.5
-    },
-    {
       "timestamp": 1768685400,
       "value": 1641481.3
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 1656776.1
+      "value": 1658552.3
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 1653687.6
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1650789.8
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 1657760.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 1657079.9
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 1657456.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.566735112936345,
+  "ls_ratio": 1.5627883136852894,
   "liquidations": {
     "longs": 14.5,
     "shorts": 231.2
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ARUSDT_PERP.A",
-  "fetched_at": 1768768106170
+  "fetched_at": 1768772436697
 }

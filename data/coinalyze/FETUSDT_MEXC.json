@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 106443778
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 106470667
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 105918426
-    },
-    {
       "timestamp": 1768684500,
       "value": 106029873
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 106832621
+      "value": 106880085
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 106679816
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 106766924
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 106782721
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1376656690893543,
+  "ls_ratio": 1.1312872975277066,
   "liquidations": {
-    "longs": 17736,
-    "shorts": 10973
+    "longs": 7048,
+    "shorts": 10993
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FETUSDT_PERP.A",
-  "fetched_at": 1768768348210
+  "fetched_at": 1768771893129
 }

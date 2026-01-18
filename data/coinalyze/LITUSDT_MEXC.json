@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 26152234.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 26130755.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 26088817.1
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 26047793
-    },
-    {
       "timestamp": 1768685400,
       "value": 26027954.4
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 24770792.9
+      "value": 24783337.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 24765296.6
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 24751661.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 24779731.2
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 24787769.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9573302016050106,
+  "ls_ratio": 0.9519812609798947,
   "liquidations": {
     "longs": 2424.2000000000003,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "LITUSDT_PERP.A",
-  "fetched_at": 1768768588832
+  "fetched_at": 1768772133670
 }

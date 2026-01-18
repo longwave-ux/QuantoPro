@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 172587771
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 173073987
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 173067183
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 173468537
-    },
-    {
       "timestamp": 1768685400,
       "value": 173361040
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 183808214
+      "value": 183650020
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 182812449
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 182744064
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 182430850
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 182364522
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6845637583892616,
+  "ls_ratio": 1.7027027027027026,
   "liquidations": {
     "longs": 21293,
-    "shorts": 112532
+    "shorts": 103633
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MOVEUSDT_PERP.A",
-  "fetched_at": 1768768588841
+  "fetched_at": 1768772133679
 }

@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 63148215.8
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 63171514.5
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 63149731.5
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 63010551.1
-    },
-    {
       "timestamp": 1768685400,
       "value": 63000257.8
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 69145675.4
+      "value": 69035431.7
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 68982795.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 69131744.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 69073519.5
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 69082852.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1815008726003489,
+  "ls_ratio": 1.18435998252512,
   "liquidations": {
     "longs": 169068.7,
     "shorts": 1916.8
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ONDOUSDT_PERP.A",
-  "fetched_at": 1768768709135
+  "fetched_at": 1768772254961
 }

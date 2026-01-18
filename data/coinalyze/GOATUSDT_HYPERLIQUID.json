@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 51778353
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 51717372
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 51774619
-    },
-    {
       "timestamp": 1768684500,
       "value": 51829434
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 50522482
+      "value": 50497989
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 50492158
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 50781845
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 50856452
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.1645569620253164,
+  "ls_ratio": 2.1665611146295127,
   "liquidations": {
     "longs": 591,
     "shorts": 15471
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GOATUSDT_PERP.A",
-  "fetched_at": 1768768348214
+  "fetched_at": 1768771893134
 }

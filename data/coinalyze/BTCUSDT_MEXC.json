@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 95533.948
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 95548.687
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 95541.996
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 95573.641
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 95558.869
-    },
-    {
       "timestamp": 1768685400,
       "value": 95573.865
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 97684.452
+      "value": 97684.003
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 97673.287
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 97669.072
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 97677.319
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 97697.763
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 97686.593
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.451581269919098,
+  "ls_ratio": 1.4551927326295115,
   "liquidations": {
-    "longs": 0.003,
-    "shorts": 0.49700000000000005
+    "longs": 0.017,
+    "shorts": 0.002
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BTCUSDT_PERP.A",
-  "fetched_at": 1768768227904
+  "fetched_at": 1768772558309
 }

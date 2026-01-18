@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 109198488
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 109134647
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 108884942
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 108885503
-    },
-    {
       "timestamp": 1768685400,
       "value": 108809411
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 109064817
+      "value": 108981284
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 108126916
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 107967646
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 107954391
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 108079051
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0894274968658588,
+  "ls_ratio": 1.1088148460565161,
   "liquidations": {
     "longs": 399047,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "KASUSDT_PERP.A",
-  "fetched_at": 1768768468516
+  "fetched_at": 1768772013384
 }

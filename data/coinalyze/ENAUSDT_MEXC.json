@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 495817130
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 495746243
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 495990403
-    },
-    {
       "timestamp": 1768684500,
       "value": 496238218
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 507985559
+      "value": 507863309
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 507522184
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 507443748
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 507378647
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9524653085326247,
+  "ls_ratio": 1.9463759575721864,
   "liquidations": {
-    "longs": 90630,
-    "shorts": 8514
+    "longs": 91313,
+    "shorts": 5408
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ENAUSDT_PERP.A",
-  "fetched_at": 1768768348205
+  "fetched_at": 1768771893127
 }

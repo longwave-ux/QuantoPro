@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 257519187
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 257564915
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 257521043
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 257223818
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 257234141
-    },
-    {
       "timestamp": 1768685400,
       "value": 258210079
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 251489082
+      "value": 252213752
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 251963630
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 252053722
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 252176647
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 252371003
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 252282778
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.525890376357666,
+  "ls_ratio": 1.5562372188139062,
   "liquidations": {
     "longs": 45775,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ALTUSDT_PERP.A",
-  "fetched_at": 1768768106167
+  "fetched_at": 1768772436694
 }

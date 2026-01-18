@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 561429.8
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 561419
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 562212.6
-    },
-    {
       "timestamp": 1768684500,
       "value": 562378.5
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 556270.4
+      "value": 555546.4
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 555279.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 554869.4
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 554755.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1891418563922942,
+  "ls_ratio": 1.1838829438742084,
   "liquidations": {
     "longs": 247,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ENSUSDT_PERP.A",
-  "fetched_at": 1768768348205
+  "fetched_at": 1768771893128
 }

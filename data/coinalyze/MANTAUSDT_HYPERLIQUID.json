@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 25428102.7
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 25503213.6
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 25433664.9
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 25398025
-    },
-    {
       "timestamp": 1768685400,
       "value": 25423860.9
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 25616966.3
+      "value": 25601043.6
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 26053277.5
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 25910718.7
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 25913558.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 25855735.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.155569580309246,
+  "ls_ratio": 2.0229746070133015,
   "liquidations": {
     "longs": 2048.8,
-    "shorts": 6661
+    "shorts": 4604.4
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MANTAUSDT_PERP.A",
-  "fetched_at": 1768768588833
+  "fetched_at": 1768772133671
 }

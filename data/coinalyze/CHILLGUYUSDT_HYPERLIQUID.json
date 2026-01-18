@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 57928654
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 57971825
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 57935905
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 57944218
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 57940148
-    },
-    {
       "timestamp": 1768685400,
       "value": 57930817
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 57910090
+      "value": 57909739
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 58336153
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 58322146
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 58306182
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 58326664
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 58341720
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.620564808110065,
+  "ls_ratio": 2.6363636363636362,
   "liquidations": {
     "longs": 49797,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CHILLGUYUSDT_PERP.A",
-  "fetched_at": 1768768227907
+  "fetched_at": 1768772558311
 }

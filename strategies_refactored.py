@@ -1265,9 +1265,9 @@ class QuantProBreakoutV2Refactored(Strategy):
                 }
                 
                 # Calculate score with Cardwell weighting
-                score = self._calculate_v2_score(
+                total_score = self._calculate_v2_score(
                     rsi_val, cardwell_range, oi_z_score, obv_slope, 
-                    breakout_type, rr, hidden_div_detected
+                    breakout_type, rr, hidden_div_detected, setup_type, retest_quality
                 )
 
                 # Generate context badge for signal

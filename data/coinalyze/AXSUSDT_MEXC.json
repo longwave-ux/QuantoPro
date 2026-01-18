@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 20637189
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 20638446
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 20313651
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 19885336
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 19676619
-    },
-    {
       "timestamp": 1768685400,
       "value": 19468964
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 19131354
+      "value": 19114342
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 19091503
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 19169542
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 19127638
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 19026745
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 18922521
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1602937999567942,
+  "ls_ratio": 1.223210315695865,
   "liquidations": {
-    "longs": 11462,
-    "shorts": 1065
+    "longs": 1299,
+    "shorts": 101345
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "AXSUSDT_PERP.A",
-  "fetched_at": 1768768106173
+  "fetched_at": 1768772436700
 }

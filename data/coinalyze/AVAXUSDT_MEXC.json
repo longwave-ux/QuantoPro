@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 6654380
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 6644736
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 6635815
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 6603846
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 6584021
-    },
-    {
       "timestamp": 1768685400,
       "value": 6568736
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 6578056
+      "value": 6581188
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 6581555
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 6583888
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 6587063
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 6585382
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 6581825
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8993911278631488,
+  "ls_ratio": 1.9180040852057192,
   "liquidations": {
     "longs": 1483,
     "shorts": 113
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "AVAXUSDT_PERP.A",
-  "fetched_at": 1768768106172
+  "fetched_at": 1768772436699
 }

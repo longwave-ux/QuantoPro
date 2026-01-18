@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 79847213
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 79761079
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 79674056
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 79529455
-    },
-    {
       "timestamp": 1768685400,
       "value": 79608478
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 79462135
+      "value": 79393170
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 79441742
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 79529915
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 79509377
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 79558138
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.482005460412013,
+  "ls_ratio": 1.5265285497726124,
   "liquidations": {
     "longs": 0,
     "shorts": 7534
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PYTHUSDT_PERP.A",
-  "fetched_at": 1768768709144
+  "fetched_at": 1768772254971
 }

@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768680900,
-      "value": 196798658
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 197062904
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 197121827
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 197040618
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 197031501
-    },
-    {
       "timestamp": 1768685400,
       "value": 197029164
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768767300,
-      "value": 192914965
+      "value": 192911439
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 193107400
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 193068943
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 193036479
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 193064887
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 193075738
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9936204146730464,
+  "ls_ratio": 1.0132876988121602,
   "liquidations": {
-    "longs": 57398,
-    "shorts": 0
+    "longs": 54769,
+    "shorts": 10700
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BABYUSDT_PERP.A",
-  "fetched_at": 1768768227899
+  "fetched_at": 1768772558300
 }

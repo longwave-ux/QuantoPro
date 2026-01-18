@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 25423238.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 25420351.5
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 25342831.4
-    },
-    {
       "timestamp": 1768684500,
       "value": 25306215.2
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 28159006.8
+      "value": 28246931.8
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 28282610.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 28355523.6
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 28389080.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1565667457407809,
+  "ls_ratio": 1.1213406873143827,
   "liquidations": {
     "longs": 8588.8,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "EIGENUSDT_PERP.A",
-  "fetched_at": 1768768348204
+  "fetched_at": 1768771893126
 }

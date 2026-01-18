@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 27460344.1
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 27494065.4
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 27471495.7
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 27518456.3
-    },
-    {
       "timestamp": 1768685400,
       "value": 27515463.4
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 26750419.9
+      "value": 26751344.7
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 26741238.6
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 26774115.1
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 26775474.6
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 26784081.7
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6609898882384249,
+  "ls_ratio": 1.663825253063399,
   "liquidations": {
     "longs": 22336.1,
     "shorts": 4935.7
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "NILUSDT_PERP.A",
-  "fetched_at": 1768768709133
+  "fetched_at": 1768772254959
 }

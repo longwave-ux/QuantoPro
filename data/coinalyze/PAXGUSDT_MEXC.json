@@ -1,22 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 21235.486
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 21235.513
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 21239.028
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 21236.249
-    },
-    {
       "timestamp": 1768685400,
       "value": 21206.892
     },
@@ -386,16 +370,32 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 21677.167
+      "value": 21683.771
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 21717.533
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 21723.273
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 21716.67
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 21717.532
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4026910139356081,
+  "ls_ratio": 1.4177949709864603,
   "liquidations": {
     "longs": 0,
     "shorts": 1.673
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PAXGUSDT_PERP.A",
-  "fetched_at": 1768768709137
+  "fetched_at": 1768772254963
 }

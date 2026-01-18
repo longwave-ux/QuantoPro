@@ -1,18 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 372332107
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 372176555
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 376765378
-    },
-    {
       "timestamp": 1768684500,
       "value": 375989402
     },
@@ -386,16 +374,28 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 359123275
+      "value": 358985023
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 358843009
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 358466417
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 358413105
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4497795198432142,
+  "ls_ratio": 1.4491795248591723,
   "liquidations": {
     "longs": 101562,
     "shorts": 246
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GMTUSDT_PERP.A",
-  "fetched_at": 1768768348212
+  "fetched_at": 1768771893132
 }
