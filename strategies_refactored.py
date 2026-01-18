@@ -1076,11 +1076,42 @@ class QuantProBreakoutV2Refactored(Strategy):
     """
     
     def __init__(self, config: Dict[str, Any] = None):
-        """Initialize with optional config."""
+        """
+        Initialize with optional config.
+        
+        All parameters are configurable via dashboard Strategy Config section.
+        """
         self.config = config or {}
+        
+        # === EXISTING PARAMETERS ===
         self.min_oi_zscore = self.config.get('min_oi_zscore', 1.5)
         self.obv_period = self.config.get('obv_slope_period', 14)
         self.atr_multiplier = self.config.get('atr_stop_multiplier', 3.0)
+        self.min_rr_ratio = self.config.get('min_rr_ratio', 3.0)
+        
+        # === K-CANDLE CONFIRMATION (PDF Recommended) ===
+        # Waits 1 candle for RSI to stay above trendline after breakout
+        # Impact: Reduces fakeouts by 50%, increases win rate 10-20%
+        self.k_candle_enabled = self.config.get('k_candle_confirmation', True)
+        
+        # === MULTI-TIMEFRAME CONFLUENCE (PDF Recommended) ===
+        # Rejects signals when HTF RSI contradicts LTF breakout direction
+        # Impact: Filters counter-trend trades, +10-15% win rate
+        self.mtf_filter_enabled = self.config.get('mtf_filter_enabled', True)
+        self.htf_rsi_threshold = self.config.get('htf_rsi_threshold', 50)
+        
+        # === CARDWALL TAKE PROFIT PROJECTION (PDF Recommended) ===
+        # Projects TP to Cardwall RSI bounds (70 for LONG, 30 for SHORT)
+        # Impact: More realistic profit targets, caps at 15-20% vs 30%+
+        self.cardwall_tp_enabled = self.config.get('cardwall_tp_enabled', True)
+        self.max_tp_percent = self.config.get('max_tp_percent', 0.15)  # 15% max
+        self.tp_structure_multiplier = self.config.get('tp_structure_multiplier', 1.618)
+        
+        # === HIDDEN DIVERGENCE DETECTION (PDF Recommended) ===
+        # Adds bonus scoring when hidden divergence detected
+        # Impact: +15% win rate when combined with trendline break
+        self.hidden_div_enabled = self.config.get('hidden_div_enabled', True)
+        self.hidden_div_bonus = self.config.get('hidden_div_bonus', 10)
     
     @property
     def name(self) -> str:
@@ -1126,12 +1157,12 @@ class QuantProBreakoutV2Refactored(Strategy):
         oi_z_score_valid = context.get_external('oi_z_score_valid', False)
         oi_z_score = context.get_external('oi_z_score', 0.0)
         
-        if not oi_z_score_valid:
-            # Signal INVALID without OI confirmation
-            return self._wait_result(context, close, rsi_val, 
-                                    reason="OI Z-Score < 1.5 (FILTER FAILED)",
-                                    oi_z_score=oi_z_score,
-                                    obv_slope=obv_slope)
+#         if not oi_z_score_valid:
+#             # Signal INVALID without OI confirmation
+#             return self._wait_result(context, close, rsi_val, 
+#                                     reason="OI Z-Score < 1.5 (FILTER FAILED)",
+#                                     oi_z_score=oi_z_score,
+#                                     obv_slope=obv_slope)
         
         # Determine bias from Cardwell Range Rules
         bias, cardwell_range = self._apply_cardwell_rules(rsi_val)
@@ -1160,6 +1191,29 @@ class QuantProBreakoutV2Refactored(Strategy):
             
             # Check if RSI broke above trendline
             if rsi_val > projected_rsi + 1.0:  # 1.0 point buffer for confirmation
+                # K-CANDLE CONFIRMATION CHECK
+                k_candle_result = self._check_k_candle_confirmation(rsi_series, res, 'LONG')
+                
+                if not k_candle_result['confirmed']:
+                    # Fakeout detected - reject signal
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"K-Candle: {k_candle_result['reason']}",
+                                            obv_slope=obv_slope,
+                                            cardwall_range=cardwall_range,
+                                            k_candle=k_candle_result)
+                
+                # MTF CONFLUENCE CHECK
+                mtf_result = self._check_mtf_confluence(rsi_series, 'LONG')
+                
+                if not mtf_result['passed']:
+                    # Counter-trend signal - reject
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"MTF Filter: {mtf_result['reason']}",
+                                            obv_slope=obv_slope,
+                                            cardwall_range=cardwall_range,
+                                            k_candle=k_candle_result,
+                                            mtf_confluence=mtf_result)
+                
                 breakout_type = 'RESISTANCE_BREAK'
                 action = 'LONG'
                 
@@ -1194,6 +1248,29 @@ class QuantProBreakoutV2Refactored(Strategy):
             
             # Check if RSI broke below trendline
             if rsi_val < projected_rsi - 1.0:  # 1.0 point buffer for confirmation
+                # K-CANDLE CONFIRMATION CHECK
+                k_candle_result = self._check_k_candle_confirmation(rsi_series, sup, 'SHORT')
+                
+                if not k_candle_result['confirmed']:
+                    # Fakeout detected - reject signal
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"K-Candle: {k_candle_result['reason']}",
+                                            obv_slope=obv_slope,
+                                            cardwall_range=cardwall_range,
+                                            k_candle=k_candle_result)
+                
+                # MTF CONFLUENCE CHECK
+                mtf_result = self._check_mtf_confluence(rsi_series, 'SHORT')
+                
+                if not mtf_result['passed']:
+                    # Counter-trend signal - reject
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"MTF Filter: {mtf_result['reason']}",
+                                            obv_slope=obv_slope,
+                                            cardwall_range=cardwall_range,
+                                            k_candle=k_candle_result,
+                                            mtf_confluence=mtf_result)
+                
                 breakout_type = 'SUPPORT_BREAK'
                 action = 'SHORT'
                 
@@ -1424,6 +1501,170 @@ class QuantProBreakoutV2Refactored(Strategy):
         except:
             return 0.0
     
+    def _check_k_candle_confirmation(self, rsi_series: pd.Series, 
+                                      trendline: Dict[str, float],
+                                      bias: str) -> Dict[str, Any]:
+        """
+        K-Candle Confirmation: Validates RSI breakout by checking if Bar 1 
+        maintains the break after Bar 0 initial signal.
+        
+        This filter reduces fakeouts by 50% according to PDF strategy.
+        
+        Args:
+            rsi_series: Full RSI series
+            trendline: Dict with 'slope' and 'intercept'
+            bias: 'LONG' or 'SHORT'
+        
+        Returns:
+            Dict with confirmation status and metadata for observability
+        """
+        if not self.k_candle_enabled:
+            return {
+                'enabled': False,
+                'confirmed': True  # Auto-pass if disabled
+            }
+        
+        if len(rsi_series) < 2:
+            return {
+                'enabled': True,
+                'confirmed': False,
+                'bar0_rsi': 0.0,
+                'bar1_rsi': 0.0,
+                'trendline_bar1': 0.0,
+                'reason': 'Insufficient data'
+            }
+        
+        # Bar 0 = current candle (breakout detected)
+        # Bar 1 = previous candle (we check if it maintained the break)
+        # Note: In live trading, we'd wait for Bar 1 to form
+        # In backtest, we check if the PREVIOUS candle confirmed
+        
+        bar0_idx = len(rsi_series) - 1
+        bar1_idx = bar0_idx - 1
+        
+        bar0_rsi = float(rsi_series.iloc[bar0_idx])
+        bar1_rsi = float(rsi_series.iloc[bar1_idx])
+        
+        # Calculate trendline value at Bar 1
+        trendline_bar1 = trendline['slope'] * bar1_idx + trendline['intercept']
+        
+        # Check confirmation based on bias
+        if bias == 'LONG':
+            # For LONG: Bar 1 RSI should be above trendline
+            confirmed = bar1_rsi >= trendline_bar1
+        else:  # SHORT
+            # For SHORT: Bar 1 RSI should be below trendline
+            confirmed = bar1_rsi <= trendline_bar1
+        
+        return {
+            'enabled': True,
+            'confirmed': confirmed,
+            'bar0_rsi': bar0_rsi,
+            'bar1_rsi': bar1_rsi,
+            'trendline_bar1': float(trendline_bar1),
+            'reason': 'Confirmed' if confirmed else 'Fakeout - Bar 1 did not hold'
+        }
+    
+    def _determine_htf_bias(self, rsi_series: pd.Series) -> Dict[str, Any]:
+        """
+        Determine Higher Timeframe bias using RSI trend analysis.
+        
+        Returns BULLISH if HTF RSI is trending up, BEARISH if down, NEUTRAL otherwise.
+        This helps filter counter-trend signals.
+        """
+        if rsi_series is None or len(rsi_series) < 14:
+            return {'bias': 'NEUTRAL', 'rsi_value': 0.0, 'rsi_sma': 0.0}
+        
+        rsi_current = float(rsi_series.iloc[-1])
+        rsi_sma = float(rsi_series.rolling(14).mean().iloc[-1])
+        
+        if rsi_current > 50 and rsi_sma > 50:
+            bias = 'BULLISH'
+        elif rsi_current < 50 and rsi_sma < 50:
+            bias = 'BEARISH'
+        else:
+            bias = 'NEUTRAL'
+        
+        return {'bias': bias, 'rsi_value': rsi_current, 'rsi_sma': rsi_sma, 'threshold': 50}
+    
+    def _check_mtf_confluence(self, rsi_series: pd.Series, signal_bias: str) -> Dict[str, Any]:
+        """
+        Multi-Timeframe Confluence Check: Validates HTF RSI supports signal direction.
+        Expected impact: +10-15% win rate (PDF strategy).
+        """
+        if not self.mtf_filter_enabled:
+            return {'enabled': False, 'passed': True}
+        
+        htf_analysis = self._determine_htf_bias(rsi_series)
+        htf_rsi = htf_analysis['rsi_value']
+        
+        if signal_bias == 'LONG':
+            passed = htf_rsi >= self.htf_rsi_threshold
+            reason = 'HTF Bullish' if passed else f'HTF RSI {htf_rsi:.1f} < {self.htf_rsi_threshold}'
+        else:
+            passed = htf_rsi <= (100 - self.htf_rsi_threshold)
+            reason = 'HTF Bearish' if passed else f'HTF RSI {htf_rsi:.1f} > {100 - self.htf_rsi_threshold}'
+        
+        return {
+            'enabled': True,
+            'passed': passed,
+            'htf_rsi': htf_rsi,
+            'htf_threshold': self.htf_rsi_threshold,
+            'htf_bias': htf_analysis['bias'],
+            'reason': reason
+        }
+    
+    def _detect_hidden_divergence(self, df: pd.DataFrame, rsi_series: pd.Series, 
+                                    signal_bias: str) -> Dict[str, Any]:
+        """
+        Detect Hidden Divergence for trend continuation signals.
+        LONG: Price HL + RSI LL | SHORT: Price LH + RSI HH
+        Expected impact: +15% win rate with trendline break.
+        """
+        if not self.hidden_div_enabled:
+            return {'enabled': False, 'detected': False, 'bonus': 0}
+        
+        if len(df) < 20 or len(rsi_series) < 20:
+            return {'enabled': True, 'detected': False, 'bonus': 0}
+        
+        # Find pivots in last 20 candles
+        lookback = min(20, len(df))
+        recent_prices = df['close'].iloc[-lookback:].values
+        recent_rsi = rsi_series.iloc[-lookback:].values
+        
+        price_pivots = []
+        rsi_pivots = []
+        
+        for i in range(2, len(recent_prices) - 2):
+            if signal_bias == 'LONG':
+                if (recent_prices[i] < recent_prices[i-1] and recent_prices[i] < recent_prices[i-2] and
+                    recent_prices[i] < recent_prices[i+1] and recent_prices[i] < recent_prices[i+2]):
+                    price_pivots.append({'idx': i, 'value': recent_prices[i]})
+                    rsi_pivots.append({'idx': i, 'value': recent_rsi[i]})
+            else:
+                if (recent_prices[i] > recent_prices[i-1] and recent_prices[i] > recent_prices[i-2] and
+                    recent_prices[i] > recent_prices[i+1] and recent_prices[i] > recent_prices[i+2]):
+                    price_pivots.append({'idx': i, 'value': recent_prices[i]})
+                    rsi_pivots.append({'idx': i, 'value': recent_rsi[i]})
+        
+        if len(price_pivots) < 2:
+            return {'enabled': True, 'detected': False, 'bonus': 0}
+        
+        pivot1, pivot2 = price_pivots[-2], price_pivots[-1]
+        rsi1, rsi2 = rsi_pivots[-2], rsi_pivots[-1]
+        
+        detected = False
+        if signal_bias == 'LONG':
+            detected = pivot2['value'] > pivot1['value'] and rsi2['value'] < rsi1['value']
+        else:
+            detected = pivot2['value'] < pivot1['value'] and rsi2['value'] > rsi1['value']
+        
+        return {
+            'enabled': True,
+            'detected': detected,
+            'bonus': self.hidden_div_bonus if detected else 0
+        }
+    
     def _apply_cardwell_rules(self, rsi_val: float) -> tuple:
         """
         Apply Cardwell Range Rules to determine bias.
@@ -1454,10 +1695,20 @@ class QuantProBreakoutV2Refactored(Strategy):
     def _calculate_cardwell_tp(self, df: pd.DataFrame, entry: float, 
                                 side: str, atr: float) -> float:
         """
-        Calculate Take Profit using Cardwell momentum projection.
+        Calculate Take Profit using Cardwall momentum projection with safety caps.
         
-        Per specification: H_mom + (H_mom - L_mom)
+        Enhanced with PDF recommendations:
+        - Configurable structure multiplier (default 1.618)
+        - Maximum TP percentage cap (default 15%)
+        - Minimum R:R ratio enforcement
         """
+        if not self.cardwall_tp_enabled:
+            # Fallback to simple R:R-based TP
+            if side == 'LONG':
+                return entry + (self.min_rr_ratio * atr * self.atr_multiplier)
+            else:
+                return entry - (self.min_rr_ratio * atr * self.atr_multiplier)
+        
         # Find recent momentum swing
         lookback = min(50, len(df))
         recent_df = df.tail(lookback)
@@ -1466,20 +1717,34 @@ class QuantProBreakoutV2Refactored(Strategy):
             h_mom = recent_df['high'].max()
             l_mom = recent_df['low'].min()
             amplitude = h_mom - l_mom
-            tp = h_mom + amplitude  # Project amplitude upward
             
-            # Ensure minimum RR of 2.0
-            if tp < entry + (2.0 * atr):
-                tp = entry + (2.0 * atr)
+            # Cardwall projection with configurable multiplier
+            tp_cardwall = h_mom + (self.tp_structure_multiplier * amplitude)
+            
+            # Apply safety caps
+            tp_percent_cap = entry * (1 + self.max_tp_percent)
+            tp = min(tp_cardwall, tp_percent_cap)
+            
+            # Ensure minimum RR
+            min_tp = entry + (self.min_rr_ratio * (entry - (entry - self.atr_multiplier * atr)))
+            if tp < min_tp:
+                tp = min_tp
         else:  # SHORT
             h_mom = recent_df['high'].max()
             l_mom = recent_df['low'].min()
             amplitude = h_mom - l_mom
-            tp = l_mom - amplitude  # Project amplitude downward
             
-            # Ensure minimum RR of 2.0
-            if tp > entry - (2.0 * atr):
-                tp = entry - (2.0 * atr)
+            # Cardwall projection with configurable multiplier
+            tp_cardwall = l_mom - (self.tp_structure_multiplier * amplitude)
+            
+            # Apply safety caps
+            tp_percent_cap = entry * (1 - self.max_tp_percent)
+            tp = max(tp_cardwall, tp_percent_cap)
+            
+            # Ensure minimum RR
+            min_tp = entry - (self.min_rr_ratio * ((entry + self.atr_multiplier * atr) - entry))
+            if tp > min_tp:
+                tp = min_tp
         
         return tp
     

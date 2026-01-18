@@ -1,174 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768638600,
-      "value": 709994049
-    },
-    {
-      "timestamp": 1768639500,
-      "value": 709322609
-    },
-    {
-      "timestamp": 1768640400,
-      "value": 710760854
-    },
-    {
-      "timestamp": 1768641300,
-      "value": 712776585
-    },
-    {
-      "timestamp": 1768642200,
-      "value": 712197928
-    },
-    {
-      "timestamp": 1768643100,
-      "value": 712354785
-    },
-    {
-      "timestamp": 1768644000,
-      "value": 714133301
-    },
-    {
-      "timestamp": 1768644900,
-      "value": 713296049
-    },
-    {
-      "timestamp": 1768645800,
-      "value": 712643398
-    },
-    {
-      "timestamp": 1768646700,
-      "value": 712658647
-    },
-    {
-      "timestamp": 1768647600,
-      "value": 712801078
-    },
-    {
-      "timestamp": 1768648500,
-      "value": 711791169
-    },
-    {
-      "timestamp": 1768649400,
-      "value": 710838373
-    },
-    {
-      "timestamp": 1768650300,
-      "value": 709589017
-    },
-    {
-      "timestamp": 1768651200,
-      "value": 708969007
-    },
-    {
-      "timestamp": 1768652100,
-      "value": 710686138
-    },
-    {
-      "timestamp": 1768653000,
-      "value": 711715433
-    },
-    {
-      "timestamp": 1768653900,
-      "value": 712265037
-    },
-    {
-      "timestamp": 1768654800,
-      "value": 713032765
-    },
-    {
-      "timestamp": 1768655700,
-      "value": 713776005
-    },
-    {
-      "timestamp": 1768656600,
-      "value": 713821317
-    },
-    {
-      "timestamp": 1768657500,
-      "value": 712921820
-    },
-    {
-      "timestamp": 1768658400,
-      "value": 714087205
-    },
-    {
-      "timestamp": 1768659300,
-      "value": 714779596
-    },
-    {
-      "timestamp": 1768660200,
-      "value": 716707789
-    },
-    {
-      "timestamp": 1768661100,
-      "value": 718945155
-    },
-    {
-      "timestamp": 1768662000,
-      "value": 720153168
-    },
-    {
-      "timestamp": 1768662900,
-      "value": 719820672
-    },
-    {
-      "timestamp": 1768663800,
-      "value": 718287357
-    },
-    {
-      "timestamp": 1768664700,
-      "value": 719081323
-    },
-    {
-      "timestamp": 1768665600,
-      "value": 719068869
-    },
-    {
-      "timestamp": 1768666500,
-      "value": 717519884
-    },
-    {
-      "timestamp": 1768667400,
-      "value": 718717465
-    },
-    {
-      "timestamp": 1768668300,
-      "value": 720434724
-    },
-    {
-      "timestamp": 1768669200,
-      "value": 721391409
-    },
-    {
-      "timestamp": 1768670100,
-      "value": 720507095
-    },
-    {
-      "timestamp": 1768671000,
-      "value": 724052719
-    },
-    {
-      "timestamp": 1768671900,
-      "value": 724994505
-    },
-    {
-      "timestamp": 1768672800,
-      "value": 721966986
-    },
-    {
-      "timestamp": 1768673700,
-      "value": 721190049
-    },
-    {
-      "timestamp": 1768674600,
-      "value": 722212139
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 723503668
-    },
-    {
       "timestamp": 1768676400,
       "value": 724726765
     },
@@ -386,16 +218,184 @@
     },
     {
       "timestamp": 1768725000,
-      "value": 720181532
+      "value": 720207588
+    },
+    {
+      "timestamp": 1768725900,
+      "value": 721809918
+    },
+    {
+      "timestamp": 1768726800,
+      "value": 722086458
+    },
+    {
+      "timestamp": 1768727700,
+      "value": 721648068
+    },
+    {
+      "timestamp": 1768728600,
+      "value": 720914362
+    },
+    {
+      "timestamp": 1768729500,
+      "value": 720269850
+    },
+    {
+      "timestamp": 1768730400,
+      "value": 717734945
+    },
+    {
+      "timestamp": 1768731300,
+      "value": 717425013
+    },
+    {
+      "timestamp": 1768732200,
+      "value": 717490834
+    },
+    {
+      "timestamp": 1768733100,
+      "value": 717157866
+    },
+    {
+      "timestamp": 1768734000,
+      "value": 715992056
+    },
+    {
+      "timestamp": 1768734900,
+      "value": 715613493
+    },
+    {
+      "timestamp": 1768735800,
+      "value": 714127671
+    },
+    {
+      "timestamp": 1768736700,
+      "value": 714391617
+    },
+    {
+      "timestamp": 1768737600,
+      "value": 714720183
+    },
+    {
+      "timestamp": 1768738500,
+      "value": 714929804
+    },
+    {
+      "timestamp": 1768739400,
+      "value": 715303684
+    },
+    {
+      "timestamp": 1768740300,
+      "value": 713807720
+    },
+    {
+      "timestamp": 1768741200,
+      "value": 711666495
+    },
+    {
+      "timestamp": 1768742100,
+      "value": 714509046
+    },
+    {
+      "timestamp": 1768743000,
+      "value": 714809245
+    },
+    {
+      "timestamp": 1768743900,
+      "value": 714933606
+    },
+    {
+      "timestamp": 1768744800,
+      "value": 715210921
+    },
+    {
+      "timestamp": 1768745700,
+      "value": 711141278
+    },
+    {
+      "timestamp": 1768746600,
+      "value": 712745226
+    },
+    {
+      "timestamp": 1768747500,
+      "value": 712513828
+    },
+    {
+      "timestamp": 1768748400,
+      "value": 711021677
+    },
+    {
+      "timestamp": 1768749300,
+      "value": 710590122
+    },
+    {
+      "timestamp": 1768750200,
+      "value": 710505337
+    },
+    {
+      "timestamp": 1768751100,
+      "value": 710015677
+    },
+    {
+      "timestamp": 1768752000,
+      "value": 711593259
+    },
+    {
+      "timestamp": 1768752900,
+      "value": 714018077
+    },
+    {
+      "timestamp": 1768753800,
+      "value": 714208377
+    },
+    {
+      "timestamp": 1768754700,
+      "value": 713741114
+    },
+    {
+      "timestamp": 1768755600,
+      "value": 712782182
+    },
+    {
+      "timestamp": 1768756500,
+      "value": 712922424
+    },
+    {
+      "timestamp": 1768757400,
+      "value": 714238422
+    },
+    {
+      "timestamp": 1768758300,
+      "value": 715018669
+    },
+    {
+      "timestamp": 1768759200,
+      "value": 714537321
+    },
+    {
+      "timestamp": 1768760100,
+      "value": 714327980
+    },
+    {
+      "timestamp": 1768761000,
+      "value": 711243064
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 712270674
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 712576165
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.665245202558635,
+  "ls_ratio": 1.6673779674579887,
   "liquidations": {
-    "longs": 505799,
-    "shorts": 0
+    "longs": 574916,
+    "shorts": 374504
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "VETUSDT_PERP.A",
-  "fetched_at": 1768725358848
+  "fetched_at": 1768763321848
 }

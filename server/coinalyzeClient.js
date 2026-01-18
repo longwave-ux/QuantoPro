@@ -10,7 +10,7 @@ export class CoinalyzeClient {
         this.apiKey = apiKey;
         this.baseUrl = 'https://api.coinalyze.net/v1';
         this.lastReqTime = 0;
-        this.reqInterval = 1500; // 1.5s between requests (40 req/min limit)
+        this.reqInterval = 60000; // 60s between requests (prevent 429 errors)
         this.successfulRequests = 0;
         this.failedRequests = 0;
     }
