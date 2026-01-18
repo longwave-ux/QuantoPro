@@ -46,18 +46,13 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
     );
   }
 
+  // ENHANCED: Check for new structure, fallback to old
+  const coreStrategy = obs.core_strategy;
+  const marketContext = obs.market_context;
   const { score_composition, rsi_visuals } = obs;
 
-  // Filter parameters to only show those with values > 0 or defined
-  const activeParameters = SCORE_PARAMETERS.filter(param => {
-    const value = score_composition[param.key];
-    return value !== undefined && value !== null && value > 0;
-  });
-
-  // Group by category
-  const primaryParams = activeParameters.filter(p => p.category === 'primary');
-  const secondaryParams = activeParameters.filter(p => p.category === 'secondary');
-  const bonusParams = activeParameters.filter(p => p.category === 'bonus');
+  // Use enhanced structure if available
+  const useEnhanced = coreStrategy && marketContext;
 
   return (
     <div className="space-y-4">
@@ -68,147 +63,250 @@ export const ObservabilityPanel: React.FC<ObservabilityPanelProps> = ({ signal }
           <h3 className="font-semibold text-white">Score Composition</h3>
         </div>
 
-        <div className="space-y-3">
-          {/* Primary Score Components */}
-          {primaryParams.length > 0 && (
+        {useEnhanced ? (
+          // ENHANCED DISPLAY
+          <div className="space-y-3">
+            {/* Strategy Name & Method */}
+            <div className="text-xs text-gray-400 mb-2">
+              <span className="text-white font-semibold">{coreStrategy.name}</span> • {coreStrategy.scoring_method}
+            </div>
+
+            {/* LEGACY STRATEGY */}
+            {coreStrategy.name === 'Legacy' && (
+              <>
+                <div className="text-xs text-gray-400 mb-2">Core Components</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.entries(coreStrategy.components).map(([key, comp]: [string, any]) => (
+                    <ScoreBar
+                      key={key}
+                      label={comp.inputs ? key.charAt(0).toUpperCase() + key.slice(1) : key}
+                      value={comp.score || 0}
+                      max={comp.weight ? comp.weight * 100 : 25}
+                      color={
+                        key === 'trend' ? 'blue' :
+                          key === 'structure' ? 'green' :
+                            key === 'money_flow' ? 'purple' : 'yellow'
+                      }
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* BREAKOUT V1 STRATEGY */}
+            {coreStrategy.name === 'Breakout' && (
+              <>
+                <div className="text-xs text-gray-400 mb-2">Core Components</div>
+                <div className="grid grid-cols-2 gap-2">
+                  {coreStrategy.components.geometry && (
+                    <ScoreBar
+                      label="Geometry"
+                      value={coreStrategy.components.geometry.score || 0}
+                      max={40}
+                      color="cyan"
+                    />
+                  )}
+                  {coreStrategy.components.momentum && (
+                    <ScoreBar
+                      label="Momentum"
+                      value={coreStrategy.components.momentum.score || 0}
+                      max={30}
+                      color="orange"
+                    />
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* BREAKOUT V2 STRATEGY */}
+            {coreStrategy.name === 'BreakoutV2' && (
+              <>
+                {/* Breakout Detection */}
+                {coreStrategy.components.breakout_geometry && (
+                  <div>
+                    <div className="text-xs text-gray-400 mb-2">Breakout Detection</div>
+                    <div className="bg-gray-700/30 rounded p-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Type:</span>
+                        <span className={`font-mono ${coreStrategy.components.breakout_geometry.validated ? 'text-green-400' : 'text-gray-500'}`}>
+                          {coreStrategy.components.breakout_geometry.inputs.breakout_type || 'none'}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Validated:</span>
+                        <span className={`font-mono ${coreStrategy.components.breakout_geometry.validated ? 'text-green-400' : 'text-red-400'}`}>
+                          {coreStrategy.components.breakout_geometry.validated ? '✓' : '✗'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Institutional Filters */}
+                {coreStrategy.components.institutional_confirmation && (
+                  <div>
+                    <div className="text-xs text-gray-400 mb-2">Institutional Filters</div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="bg-gray-700/30 rounded p-2 text-sm">
+                        <div className="flex justify-between mb-1">
+                          <span className="text-gray-400">OI Z-Score:</span>
+                          <span className={`font-mono ${coreStrategy.components.institutional_confirmation.oi_filter.passed ? 'text-green-400' : 'text-red-400'}`}>
+                            {coreStrategy.components.institutional_confirmation.oi_filter.z_score.toFixed(2)}
+                          </span>
+                        </div>
+                        <div className={`text-xs px-1 py-0.5 rounded text-center ${coreStrategy.components.institutional_confirmation.oi_filter.passed ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
+                          {coreStrategy.components.institutional_confirmation.oi_filter.status}
+                        </div>
+                      </div>
+                      <div className="bg-gray-700/30 rounded p-2 text-sm">
+                        <div className="flex justify-between mb-1">
+                          <span className="text-gray-400">OBV Slope:</span>
+                          <span className={`font-mono ${coreStrategy.components.institutional_confirmation.obv_filter.passed ? 'text-green-400' : 'text-red-400'}`}>
+                            {coreStrategy.components.institutional_confirmation.obv_filter.slope.toFixed(2)}
+                          </span>
+                        </div>
+                        <div className={`text-xs px-1 py-0.5 rounded text-center ${coreStrategy.components.institutional_confirmation.obv_filter.passed ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'}`}>
+                          {coreStrategy.components.institutional_confirmation.obv_filter.status}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Indicators */}
             <div>
-              <div className="text-xs text-gray-400 mb-2">Core Components</div>
-              <div className="grid grid-cols-2 gap-2">
-                {primaryParams.map(param => (
-                  <ScoreBar
-                    key={param.key}
-                    label={param.label}
-                    value={score_composition[param.key] || 0}
-                    max={param.max}
-                    color={param.color}
-                  />
-                ))}
+              <div className="text-xs text-gray-400 mb-2">Indicators</div>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                {marketContext.rsi_analysis?.current !== undefined && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">RSI:</span>
+                    <span className={`font-mono ${getRsiColor(marketContext.rsi_analysis.current)}`}>
+                      {marketContext.rsi_analysis.current.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+                {marketContext.technical?.adx !== undefined && marketContext.technical.adx > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">ADX:</span>
+                    <span className="font-mono text-white">{marketContext.technical.adx.toFixed(2)}</span>
+                  </div>
+                )}
               </div>
             </div>
-          )}
 
-          {/* Secondary Score Components */}
-          {secondaryParams.length > 0 && (
+            {/* Context & Conditions */}
             <div>
-              <div className="text-xs text-gray-400 mb-2">Secondary Factors</div>
-              <div className="grid grid-cols-2 gap-2">
-                {secondaryParams.map(param => (
-                  <ScoreBar
-                    key={param.key}
-                    label={param.label}
-                    value={score_composition[param.key] || 0}
-                    max={param.max}
-                    color={param.color}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Bonus Components */}
-          {bonusParams.length > 0 && (
-            <div>
-              <div className="text-xs text-gray-400 mb-2">Bonuses</div>
-              <div className="grid grid-cols-2 gap-2">
-                {bonusParams.map(param => (
-                  <ScoreBar
-                    key={param.key}
-                    label={param.label}
-                    value={score_composition[param.key] || 0}
-                    max={param.max}
-                    color={param.color}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Raw Indicators */}
-          <div>
-            <div className="text-xs text-gray-400 mb-2">Indicators</div>
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              {score_composition.rsi !== undefined && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">RSI:</span>
-                  <span className={`font-mono ${getRsiColor(score_composition.rsi)}`}>
-                    {score_composition.rsi.toFixed(2)}
-                  </span>
-                </div>
-              )}
-              {score_composition.adx !== undefined && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">ADX:</span>
-                  <span className="font-mono text-white">{score_composition.adx.toFixed(2)}</span>
-                </div>
-              )}
-              {score_composition.ema50 !== undefined && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">EMA50:</span>
-                  <span className="font-mono text-white">{score_composition.ema50.toFixed(2)}</span>
-                </div>
-              )}
-              {score_composition.ema200 !== undefined && (
-                <div className="flex justify-between">
-                  <span className="text-gray-400">EMA200:</span>
-                  <span className="font-mono text-white">{score_composition.ema200.toFixed(2)}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Conditions & Context */}
-          <div>
-            <div className="text-xs text-gray-400 mb-2">Context & Conditions</div>
-            <div className="flex flex-wrap gap-2">
-              {/* Exchange Badge - from signal.exchange */}
-              {signal.exchange && (
-                <div className="px-2 py-1 rounded border bg-blue-500/20 border-blue-500/50 text-blue-300 text-xs">
-                  {signal.exchange}
-                </div>
-              )}
-
-              {/* Cardwell Range Badge (V2) */}
-              {score_composition.cardwell_range && (
-                <div className={`px-2 py-1 rounded border text-xs ${score_composition.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' :
-                  score_composition.cardwell_range === 'BEARISH' ? 'bg-red-500/20 border-red-500/50 text-red-300' :
-                    score_composition.cardwell_range === 'OVERBOUGHT' ? 'bg-orange-500/20 border-orange-500/50 text-orange-300' :
-                      score_composition.cardwell_range === 'OVERSOLD' ? 'bg-purple-500/20 border-purple-500/50 text-purple-300' :
+              <div className="text-xs text-gray-400 mb-2">Context & Conditions</div>
+              <div className="flex flex-wrap gap-2">
+                {signal.exchange && (
+                  <div className="px-2 py-1 rounded border bg-blue-500/20 border-blue-500/50 text-blue-300 text-xs">
+                    {signal.exchange}
+                  </div>
+                )}
+                {marketContext.rsi_analysis?.cardwell_range && marketContext.rsi_analysis.cardwell_range !== 'NEUTRAL' && (
+                  <div className={`px-2 py-1 rounded border text-xs ${marketContext.rsi_analysis.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' :
+                      marketContext.rsi_analysis.cardwell_range === 'BEARISH' ? 'bg-red-500/20 border-red-500/50 text-red-300' :
                         'bg-gray-500/20 border-gray-500/50 text-gray-300'
-                  }`}>
-                  {score_composition.cardwell_range}
-                </div>
-              )}
-
-              {score_composition.pullback_detected !== undefined && (
-                <ConditionBadge
-                  label="Pullback"
-                  active={score_composition.pullback_detected}
-                  detail={score_composition.pullback_depth ?
-                    `${(score_composition.pullback_depth * 100).toFixed(1)}%` : undefined}
-                />
-              )}
-              {score_composition.adx_strong_trend !== undefined && (
-                <ConditionBadge
-                  label="Strong Trend"
-                  active={score_composition.adx_strong_trend}
-                />
-              )}
-              {score_composition.is_overextended !== undefined && (
-                <ConditionBadge
-                  label="Overextended"
-                  active={score_composition.is_overextended}
-                  warning
-                />
-              )}
-              {score_composition.oi_available !== undefined && (
-                <ConditionBadge
-                  label="OI Data"
-                  active={score_composition.oi_available}
-                />
-              )}
+                    }`}>
+                    {marketContext.rsi_analysis.cardwell_range}
+                  </div>
+                )}
+                {marketContext.institutional?.oi_available && (
+                  <ConditionBadge
+                    label="OI Data"
+                    active={marketContext.institutional.oi_available}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          // FALLBACK: OLD DISPLAY (for backward compatibility)
+          <div className="space-y-3">
+            {/* Filter parameters to only show those with values > 0 or defined */}
+            {(() => {
+              const activeParameters = SCORE_PARAMETERS.filter(param => {
+                const value = score_composition[param.key];
+                return value !== undefined && value !== null && value > 0;
+              });
+              const primaryParams = activeParameters.filter(p => p.category === 'primary');
+              const secondaryParams = activeParameters.filter(p => p.category === 'secondary');
+
+              return (
+                <>
+                  {primaryParams.length > 0 && (
+                    <div>
+                      <div className="text-xs text-gray-400 mb-2">Core Components</div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {primaryParams.map(param => (
+                          <ScoreBar
+                            key={param.key}
+                            label={param.label}
+                            value={score_composition[param.key] || 0}
+                            max={param.max}
+                            color={param.color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {secondaryParams.length > 0 && (
+                    <div>
+                      <div className="text-xs text-gray-400 mb-2">Secondary Factors</div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {secondaryParams.map(param => (
+                          <ScoreBar
+                            key={param.key}
+                            label={param.label}
+                            value={score_composition[param.key] || 0}
+                            max={param.max}
+                            color={param.color}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* Indicators */}
+                  <div>
+                    <div className="text-xs text-gray-400 mb-2">Indicators</div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      {score_composition.rsi !== undefined && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">RSI:</span>
+                          <span className={`font-mono ${getRsiColor(score_composition.rsi)}`}>
+                            {score_composition.rsi.toFixed(2)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  {/* Context */}
+                  <div>
+                    <div className="text-xs text-gray-400 mb-2">Context & Conditions</div>
+                    <div className="flex flex-wrap gap-2">
+                      {signal.exchange && (
+                        <div className="px-2 py-1 rounded border bg-blue-500/20 border-blue-500/50 text-blue-300 text-xs">
+                          {signal.exchange}
+                        </div>
+                      )}
+                      {score_composition.cardwell_range && (
+                        <div className={`px-2 py-1 rounded border text-xs ${score_composition.cardwell_range === 'BULLISH' ? 'bg-green-500/20 border-green-500/50 text-green-300' : 'bg-gray-500/20 border-gray-500/50 text-gray-300'
+                          }`}>
+                          {score_composition.cardwell_range}
+                        </div>
+                      )}
+                      {score_composition.oi_available && (
+                        <ConditionBadge label="OI Data" active={score_composition.oi_available} />
+                      )}
+                    </div>
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        )}
       </div>
 
       {/* RSI Trendlines Section */}

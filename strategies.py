@@ -1074,7 +1074,262 @@ class QuantProBreakout(Strategy):
         return "Breakout"
 
     def backtest(self, df, df_htf=None, mcap=0):
-        return []
+        """
+        Backtest Breakout V1 strategy over historical data.
+        Scans all candles for RSI trendline breakouts and generates signals.
+        
+        Returns: List of signal dicts with timestamps
+        """
+        # Use HTF data for V1 (4h timeframe)
+        if df_htf is None or len(df_htf) < 100:
+            return []
+        
+        # Calculate indicators
+        df_htf['rsi'] = df_htf.ta.rsi(length=self.rsi_len)
+        df_htf['obv'] = df_htf.ta.obv()
+        df_htf['atr'] = df_htf.ta.atr(length=14)
+        
+        # Pre-calculate Wilder's smoothing components for reverse RSI
+        delta = df_htf['close'].diff()
+        gain = delta.clip(lower=0)
+        loss = -delta.clip(upper=0)
+        alpha = 1 / self.rsi_len
+        df_htf['avg_gain'] = gain.ewm(alpha=alpha, adjust=False).mean()
+        df_htf['avg_loss'] = loss.ewm(alpha=alpha, adjust=False).mean()
+        
+        rsi_series = df_htf['rsi'].fillna(50)
+        
+        all_signals = []
+        
+        # Find trendlines on FULL RSI history
+        res_line = self.find_trendlines(rsi_series, 'RESISTANCE')
+        sup_line = self.find_trendlines(rsi_series, 'SUPPORT')
+        
+        # Scan from index 100 to end-1 (avoid incomplete last candle)
+        for scan_i in range(100, len(df_htf) - 1):
+            latest_price = df_htf['close'].iloc[scan_i]
+            
+            # LONG: Check resistance breakout
+            if res_line and scan_i >= 50:
+                projected_rsi = res_line['m'] * scan_i + res_line['c']
+                avg_gain_prev = df_htf['avg_gain'].iloc[scan_i-1]
+                avg_loss_prev = df_htf['avg_loss'].iloc[scan_i-1]
+                close_prev = df_htf['close'].iloc[scan_i-1]
+                
+                entry_price = self.calculate_reverse_rsi(projected_rsi, close_prev, avg_gain_prev, avg_loss_prev)
+                
+                current_high = df_htf['high'].iloc[scan_i]
+                current_low = df_htf['low'].iloc[scan_i]
+                
+                is_breakout = current_high >= entry_price and entry_price > current_low * 0.9
+                
+                rsi_prev = rsi_series.iloc[scan_i-1]
+                line_prev = res_line['m'] * (scan_i-1) + res_line['c']
+                
+                if is_breakout and rsi_prev <= line_prev:
+                    # Calculate SL/TP
+                    atr = df_htf['atr'].iloc[scan_i]
+                    struct_sl = df_htf['low'].iloc[max(0, scan_i-5):scan_i].min() - (0.5 * atr)
+                    vol_sl = entry_price - (2.5 * atr)
+                    sl = max(struct_sl, vol_sl)
+                    
+                    p_max = df_htf['high'].iloc[res_line['start_idx']:res_line['end_idx']].max()
+                    p_min = df_htf['low'].iloc[res_line['start_idx']:res_line['end_idx']].min()
+                    structure_height = p_max - p_min
+                    
+                    tp = entry_price + (1.618 * structure_height)
+                    
+                    # Sanity checks
+                    if tp <= entry_price:
+                        tp = entry_price * 1.05
+                    if sl >= entry_price:
+                        sl = entry_price * 0.98
+                    
+                    # Validation: Not already expired
+                    if latest_price >= tp or latest_price <= sl:
+                        continue
+                    if latest_price > entry_price * 1.03:
+                        continue
+                    
+                    # MIN TP FILTER: Reject if profit target too small
+                    MIN_TP_PERCENT = 0.03  # 3% minimum
+                    tp_pct = (tp - entry_price) / entry_price
+                    if tp_pct < MIN_TP_PERCENT:
+                        continue
+                    
+                    # Calculate score (simplified for backtest)
+                    p_start = df_htf['close'].iloc[res_line['start_idx']]
+                    p_end = df_htf['close'].iloc[res_line['end_idx']]
+                    price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
+                    duration = max(1, res_line['end_idx'] - res_line['start_idx'])
+                    
+                    scoring_data = {
+                        "symbol": df_htf['symbol'].iloc[0] if 'symbol' in df_htf.columns else "BACKTEST",
+                        "price_change_pct": float(price_change_pct),
+                        "duration_candles": int(duration),
+                        "price_slope": float(price_change_pct / duration),
+                        "rsi_slope": float((res_line['end_val'] - res_line['start_val']) / duration),
+                        "divergence_type": 0
+                    }
+                    
+                    score_result = calculate_score(scoring_data)
+                    geometry_score = min(StrategyConfig.SCORE_GEOMETRY_MAX, score_result['geometry_component'])
+                    momentum_score = min(StrategyConfig.SCORE_MOMENTUM_MAX, score_result['momentum_component'])
+                    total_score = geometry_score + momentum_score
+                    
+                    risk = entry_price - sl
+                    rr = round((tp - entry_price) / risk, 2) if risk > 0 else 0.0
+                    
+                    setup = {'side': 'LONG', 'entry': entry_price, 'tp': tp, 'sl': sl, 'rr': rr}
+                    
+                    signal = {
+                        "timestamp": int(df_htf['timestamp'].iloc[scan_i]) if 'timestamp' in df_htf.columns else scan_i,
+                        "price": float(latest_price),
+                        "score": float(total_score),
+                        "bias": "LONG",
+                        "action": "LONG",
+                        "rr": float(rr),
+                        "entry": float(entry_price),
+                        "stop_loss": float(sl),
+                        "take_profit": float(tp),
+                        "setup": setup,
+                        "details": {
+                            'total': total_score,
+                            'geometry_component': geometry_score,
+                            'momentum_component': momentum_score,
+                            'score_breakdown': {
+                                'base': 10.0,
+                                'geometry': geometry_score,
+                                'momentum': momentum_score,
+                                'total': total_score
+                            }
+                        },
+                        "htf": {"bias": "LONG", "trend": "UP", "adx": 0},
+                        "ltf": {
+                            "rsi": float(rsi_series.iloc[scan_i]),
+                            "bias": "LONG",
+                            "obvImbalance": "NEUTRAL",
+                            "divergence": "NONE",
+                            "isPullback": False,
+                            "pullbackDepth": 0.0,
+                            "volumeOk": True,
+                            "momentumOk": True,
+                            "isOverextended": False
+                        }
+                    }
+                    
+                    all_signals.append(signal)
+            
+            # SHORT: Check support breakout
+            if sup_line and scan_i >= 50:
+                projected_rsi = sup_line['m'] * scan_i + sup_line['c']
+                avg_gain_prev = df_htf['avg_gain'].iloc[scan_i-1]
+                avg_loss_prev = df_htf['avg_loss'].iloc[scan_i-1]
+                close_prev = df_htf['close'].iloc[scan_i-1]
+                
+                entry_price = self.calculate_reverse_rsi(projected_rsi, close_prev, avg_gain_prev, avg_loss_prev)
+                
+                current_high = df_htf['high'].iloc[scan_i]
+                current_low = df_htf['low'].iloc[scan_i]
+                
+                is_breakout = current_low <= entry_price and entry_price < current_high * 1.1
+                
+                rsi_prev = rsi_series.iloc[scan_i-1]
+                line_prev = sup_line['m'] * (scan_i-1) + sup_line['c']
+                
+                if is_breakout and rsi_prev >= line_prev:
+                    # Calculate SL/TP for SHORT
+                    atr = df_htf['atr'].iloc[scan_i]
+                    struct_sl = df_htf['high'].iloc[max(0, scan_i-5):scan_i].max() + (0.5 * atr)
+                    vol_sl = entry_price + (2.5 * atr)
+                    sl = min(struct_sl, vol_sl)
+                    
+                    p_max = df_htf['high'].iloc[sup_line['start_idx']:sup_line['end_idx']].max()
+                    p_min = df_htf['low'].iloc[sup_line['start_idx']:sup_line['end_idx']].min()
+                    structure_height = p_max - p_min
+                    
+                    tp = entry_price - (1.618 * structure_height)
+                    
+                    if tp >= entry_price:
+                        tp = entry_price * 0.95
+                    if sl <= entry_price:
+                        sl = entry_price * 1.02
+                    
+                    if latest_price <= tp or latest_price >= sl:
+                        continue
+                    if latest_price < entry_price * 0.97:
+                        continue
+                    
+                    # MIN TP FILTER: Reject if profit target too small
+                    MIN_TP_PERCENT = 0.03  # 3% minimum
+                    tp_pct = (entry_price - tp) / entry_price
+                    if tp_pct < MIN_TP_PERCENT:
+                        continue
+                    
+                    # Calculate score
+                    p_start = df_htf['close'].iloc[sup_line['start_idx']]
+                    p_end = df_htf['close'].iloc[sup_line['end_idx']]
+                    price_change_pct = (abs(p_end - p_start) / p_start) * 100.0
+                    duration = max(1, sup_line['end_idx'] - sup_line['start_idx'])
+                    
+                    scoring_data = {
+                        "symbol": df_htf['symbol'].iloc[0] if 'symbol' in df_htf.columns else "BACKTEST",
+                        "price_change_pct": float(price_change_pct),
+                        "duration_candles": int(duration),
+                        "price_slope": float(price_change_pct / duration),
+                        "rsi_slope": float((sup_line['end_val'] - sup_line['start_val']) / duration),
+                        "divergence_type": 0
+                    }
+                    
+                    score_result = calculate_score(scoring_data)
+                    geometry_score = min(StrategyConfig.SCORE_GEOMETRY_MAX, score_result['geometry_component'])
+                    momentum_score = min(StrategyConfig.SCORE_MOMENTUM_MAX, score_result['momentum_component'])
+                    total_score = geometry_score + momentum_score
+                    
+                    risk = sl - entry_price
+                    rr = round((entry_price - tp) / risk, 2) if risk > 0 else 0.0
+                    
+                    setup = {'side': 'SHORT', 'entry': entry_price, 'tp': tp, 'sl': sl, 'rr': rr}
+                    
+                    signal = {
+                        "timestamp": int(df_htf['timestamp'].iloc[scan_i]) if 'timestamp' in df_htf.columns else scan_i,
+                        "price": float(latest_price),
+                        "score": float(total_score),
+                        "bias": "SHORT",
+                        "action": "SHORT",
+                        "rr": float(rr),
+                        "entry": float(entry_price),
+                        "stop_loss": float(sl),
+                        "take_profit": float(tp),
+                        "setup": setup,
+                        "details": {
+                            'total': total_score,
+                            'geometry_component': geometry_score,
+                            'momentum_component': momentum_score,
+                            'score_breakdown': {
+                                'base': 10.0,
+                                'geometry': geometry_score,
+                                'momentum': momentum_score,
+                                'total': total_score
+                            }
+                        },
+                        "htf": {"bias": "SHORT", "trend": "DOWN", "adx": 0},
+                        "ltf": {
+                            "rsi": float(rsi_series.iloc[scan_i]),
+                            "bias": "SHORT",
+                            "obvImbalance": "NEUTRAL",
+                            "divergence": "NONE",
+                            "isPullback": False,
+                            "pullbackDepth": 0.0,
+                            "volumeOk": True,
+                            "momentumOk": True,
+                            "isOverextended": False
+                        }
+                    }
+                    
+                    all_signals.append(signal)
+        
+        return all_signals
 
     def find_trendlines(self, rsi_series, direction='RESISTANCE'):
         """

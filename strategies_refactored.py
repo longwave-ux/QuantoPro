@@ -59,6 +59,55 @@ class Strategy(ABC):
     def name(self) -> str:
         """Strategy name."""
         pass
+    
+    def _build_market_context(self, context: SharedContext, local_vars: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Build unified market context (Tier 2) - shared across all strategies.
+        Provides all available data for understanding context, even if not used in scoring.
+        
+        Args:
+            context: SharedContext with indicators and external data
+            local_vars: Dictionary of local variables from strategy analyze()
+            
+        Returns:
+            Unified market context dictionary
+        """
+        # Institutional data (from Coinalyze)
+        institutional = {
+            "oi_z_score": float(local_vars.get('oi_z_score', 0)),
+            "oi_available": bool(context.get_external('oi_available', False)),
+            "funding_rate": context.get_external('funding_rate'),
+            "ls_ratio": context.get_external('ls_ratio'),
+            "liquidations": context.get_external('liquidations', {'longs': 0, 'shorts': 0}),
+            "coinalyze_symbol": context.get_external('coinalyze_symbol'),
+            "oi_status": context.get_external('oi_status', 'neutral')
+        }
+        
+        # Technical indicators
+        technical = {
+            "adx": float(local_vars.get('adx_val', 0)),
+            "trend": local_vars.get('trend_struct', 'NONE'),
+            "pullback_detected": bool(local_vars.get('is_pullback', False)),
+            "pullback_depth": float(local_vars.get('pullback_depth', 0)),
+            "obv_slope": float(local_vars.get('obv_slope', 0)),
+            "obv_imbalance": local_vars.get('obv_imbalance', 'NEUTRAL'),
+            "volume_ok": bool(local_vars.get('volume_ok', True)),
+            "is_overextended": bool(local_vars.get('is_overextended', False))
+        }
+        
+        # RSI analysis
+        rsi_analysis = {
+            "current": float(local_vars.get('rsi_val', 50)),
+            "cardwell_range": local_vars.get('cardwell_range', 'NEUTRAL'),
+            "divergence": local_vars.get('divergence', 'NONE'),
+            "trendlines": context.get_htf_indicator('rsi_trendlines', {})
+        }
+        
+        return {
+            "institutional": clean_nans(institutional),
+            "technical": clean_nans(technical),
+            "rsi_analysis": clean_nans(rsi_analysis)
+        }
 
 
 class QuantProLegacyRefactored(Strategy):
@@ -233,8 +282,79 @@ class QuantProLegacyRefactored(Strategy):
         # Extract RSI trendline visuals from context (HTF for all strategies)
         rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
         
-        # Build comprehensive observability object
+        # Build local vars for market context
+        local_vars = {
+            'rsi_val': rsi_val,
+            'adx_val': htf_adx,
+            'trend_struct': trend_struct,
+            'is_pullback': is_pullback,
+            'pullback_depth': pullback_depth,
+            'obv_imbalance': obv_imbalance,
+            'divergence': divergence,
+            'volume_ok': volume_ok,
+            'is_overextended': is_overextended,
+            'oi_z_score': 0,  # Legacy doesn't calculate this
+            'obv_slope': 0,   # Legacy doesn't calculate this
+            'cardwell_range': 'NEUTRAL'  # Legacy doesn't use Cardwell
+        }
+        
+        # Build comprehensive observability object with ENHANCED structure
         observability = {
+            # TIER 1: Core Strategy Scoring (what Legacy uses)
+            "core_strategy": {
+                "name": "Legacy",
+                "scoring_method": "4-Component Weighted (Trend + Structure + Money Flow + Timing)",
+                "components": {
+                    "trend": {
+                        "inputs": {
+                            "htf_trend": trend_struct,
+                            "ema_alignment": bias,
+                            "adx": float(htf_adx),
+                            "adx_strong": bool(htf_adx > self.adx_trend)
+                        },
+                        "score": float(score_breakdown.get('trendScore', 0)),
+                        "weight": 0.25
+                    },
+                    "structure": {
+                        "inputs": {
+                            "pullback_detected": bool(is_pullback),
+                            "pullback_depth": float(pullback_depth),
+                            "adx_strong": bool(htf_adx > self.adx_trend)
+                        },
+                        "score": float(score_breakdown.get('structureScore', 0)),
+                        "weight": 0.25
+                    },
+                    "money_flow": {
+                        "inputs": {
+                            "obv_imbalance": obv_imbalance,
+                            "divergence": divergence,
+                            "rsi_range": "optimal" if 40 < rsi_val < 60 else "suboptimal"
+                        },
+                        "score": float(score_breakdown.get('moneyFlowScore', 0)),
+                        "weight": 0.25
+                    },
+                    "timing": {
+                        "inputs": {
+                            "rsi": float(rsi_val),
+                            "volume_ok": bool(volume_ok),
+                            "not_overextended": not is_overextended
+                        },
+                        "score": float(score_breakdown.get('timingScore', 0)),
+                        "weight": 0.25
+                    }
+                },
+                "modifiers": {
+                    "volume_multiplier": 1.0 if volume_ok else 0.8,
+                    "mcap_bonus": float(mcap * 0.001) if mcap > 0 else 0.0
+                },
+                "total_score": float(score_breakdown['total']),
+                "decision": bias
+            },
+            
+            # TIER 2: Market Context (all available data)
+            "market_context": self._build_market_context(context, local_vars),
+            
+            # OLD FORMAT: Keep for backward compatibility
             "score_composition": {
                 # Raw indicator values
                 "rsi": float(rsi_val) if pd.notna(rsi_val) else 0,
@@ -788,8 +908,58 @@ class QuantProBreakoutRefactored(Strategy):
         # Extract RSI trendline visuals from context (Already HTF now)
         # rsi_trendlines already retrieved above
         
-        # Build comprehensive observability object
+        # Build local vars for market context
+        local_vars = {
+            'rsi_val': rsi_series.iloc[-1] if rsi_series is not None else 50.0,
+            'adx_val': 0,  # V1 doesn't use ADX
+            'trend_struct': 'NONE',
+            'is_pullback': False,
+            'pullback_depth': 0,
+            'obv_imbalance': 'NEUTRAL',
+            'divergence': 'NONE',
+            'volume_ok': True,
+            'is_overextended': False,
+            'oi_z_score': 0,  # V1 doesn't calculate this
+            'obv_slope': 0,   # V1 doesn't calculate this  
+            'cardwell_range': 'NEUTRAL'
+        }
+        
+        # Build comprehensive observability object with ENHANCED structure
         observability = {
+            # TIER 1: Core Strategy Scoring (what V1 uses)
+            "core_strategy": {
+                "name": "Breakout",
+                "scoring_method": "Geometry + Momentum",
+                "components": {
+                    "geometry": {
+                        "inputs": {
+                            "trendline_slope": res_line.get('slope', 0) if res_line and action == 'LONG' else (sup_line.get('slope', 0) if sup_line and action == 'SHORT' else 0),
+                            "touch_points": res_line.get('touches_count', 0) if res_line and action == 'LONG' else (sup_line.get('touches_count', 0) if sup_line and action == 'SHORT' else 0),
+                            "breakout_type": "resistance" if action == "LONG" else ("support" if action == "SHORT" else "none"),
+                            "trendline_start_idx": res_line['pivot_1']['index'] if res_line and action == 'LONG' else (sup_line['pivot_1']['index'] if sup_line and action == 'SHORT' else 0),
+                            "trendline_end_idx": res_line['pivot_2']['index'] if res_line and action == 'LONG' else (sup_line['pivot_2']['index'] if sup_line and action == 'SHORT' else 0)
+                        },
+                        "score": float(details.get('geometry_component', 0)),
+                        "weight": 0.5
+                    },
+                    "momentum": {
+                        "inputs": {
+                            "rsi": float(rsi_series.iloc[-1]) if rsi_series is not None else 50.0,
+                            "oi_flow": float(details.get('oi_flow_score', 0))
+                        },
+                        "score": float(details.get('momentum_component', 0)),
+                        "weight": 0.5
+                    }
+                },
+                "base_score": 10.0,
+                "total_score": float(details.get('total', 0)),
+                "decision": action
+            },
+            
+            # TIER 2: Market Context (all available data)
+            "market_context": self._build_market_context(context, local_vars),
+            
+            # OLD FORMAT: Keep for backward compatibility
             "score_composition": {
                 # Raw indicator values
                 "rsi": float(rsi_series.iloc[-1]) if rsi_series is not None else 50.0,
@@ -1130,7 +1300,77 @@ class QuantProBreakoutV2Refactored(Strategy):
         }
         timing_score = cardwell_timing_map.get(cardwell_range, 0.0)
         
+        # Get trendline data
+        rsi_trendlines = context.get_htf_indicator('rsi_trendlines', {})
+        res_line = rsi_trendlines.get('resistance', {})
+        sup_line = rsi_trendlines.get('support', {})
+        
+        # Build local vars for market context
+        local_vars = {
+            'rsi_val': rsi_val,
+            'adx_val': 0,
+            'trend_struct': 'NONE',
+            'is_pullback': False,
+            'pullback_depth': 0,
+            'obv_imbalance': 'NEUTRAL',
+            'divergence': 'NONE',
+            'volume_ok': True,
+            'is_overextended': False,
+            'oi_z_score': oi_z_score,
+            'obv_slope': obv_slope,
+            'cardwell_range': cardwell_range
+        }
+        
         return {
+            # TIER 1: Core Strategy Scoring (V1 geometry + V2 filters)
+            "core_strategy": {
+                "name": "BreakoutV2",
+                "scoring_method": "RSI Breakout + Institutional Confirmation",
+                "components": {
+                    # V1 Part: Breakout Geometry
+                    "breakout_geometry": {
+                        "inputs": {
+                            "trendline_slope": res_line.get('slope', 0) if bias == 'LONG' else sup_line.get('slope', 0),
+                            "touch_points": res_line.get('touches_count', 0) if bias == 'LONG' else sup_line.get('touches_count', 0),
+                            "rsi_vs_trendline": float(rsi_val) - (res_line.get('slope', 0) * (len(context.htf_data) - 1) + res_line.get('intercept', 0)) if bias == 'LONG' else float(rsi_val) - (sup_line.get('slope', 0) * (len(context.htf_data) - 1) + sup_line.get('intercept', 0)),
+                            "breakout_type": breakout_type if breakout_type else "none",
+                            "atr": float(atr_val)
+                        },
+                        "validated": bool(breakout_type)
+                    },
+                    
+                    # V2 Part: Institutional Filters
+                    "institutional_confirmation": {
+                        "oi_filter": {
+                            "z_score": float(oi_z_score),
+                            "threshold": 1.5,
+                            "passed": bool(oi_z_score_valid),
+                            "status": "PASS" if oi_z_score_valid else "FAIL"
+                        },
+                        "obv_filter": {
+                            "slope": float(obv_slope),
+                            "direction": "positive" if obv_slope > 0 else "negative",
+                            "passed": (bias == "LONG" and obv_slope > 0) or (bias == "SHORT" and obv_slope < 0),
+                            "status": "PASS" if ((bias == "LONG" and obv_slope > 0) or (bias == "SHORT" and obv_slope < 0)) else "FAIL"
+                        }
+                    },
+                    
+                    # V2 Part: Cardwell Timing
+                    "timing": {
+                        "cardwell_range": cardwell_range,
+                        "rsi": float(rsi_val),
+                        "score": float(timing_score)
+                    }
+                },
+                "filters_passed": bool(oi_z_score_valid and ((bias == "LONG" and obv_slope > 0) or (bias == "SHORT" and obv_slope < 0))),
+                "total_score": 0.0,  # V2 doesn't use numeric scoring
+                "decision": bias
+            },
+            
+            # TIER 2: Market Context (all available data)
+            "market_context": self._build_market_context(context, local_vars),
+            
+            # OLD FORMAT: Keep for backward compatibility
             "score_composition": {
                 # Raw V2 metrics (for reference)
                 "rsi": float(rsi_val),

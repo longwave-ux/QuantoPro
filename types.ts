@@ -104,6 +104,45 @@ export interface ScoreComposition {
 }
 
 export interface Observability {
+  // Enhanced structure (Tier 1 + Tier 2)
+  core_strategy?: {
+    name: string;
+    scoring_method: string;
+    components: any;  // Strategy-specific structure
+    total_score: number;
+    decision: string;
+    filters_passed?: boolean;
+    modifiers?: any;
+  };
+  market_context?: {
+    institutional?: {
+      oi_z_score: number;
+      oi_available: boolean;
+      funding_rate?: number | null;
+      ls_ratio?: number | null;
+      liquidations?: any;
+      coinalyze_symbol?: string | null;
+      oi_status?: string;
+    };
+    technical?: {
+      adx: number;
+      trend: string;
+      pullback_detected: boolean;
+      pullback_depth: number;
+      obv_slope: number;
+      obv_imbalance: string;
+      volume_ok: boolean;
+      is_overextended: boolean;
+    };
+    rsi_analysis?: {
+      current: number;
+      cardwell_range: string;
+      divergence: string;
+      trendlines?: any;
+    };
+  };
+
+  // Old format (backward compatibility)
   score_composition: ScoreComposition;
   rsi_visuals: RsiVisuals;
   calculated_at: number;
