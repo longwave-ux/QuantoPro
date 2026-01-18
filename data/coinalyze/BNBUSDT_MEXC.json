@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 583422.15
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 584133.71
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 584430.54
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 584980.8
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 585592.1
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 585720.54
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 585929.33
-    },
-    {
       "timestamp": 1768680900,
       "value": 586124.15
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 581007.67
+      "value": 581016.02
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 581103.15
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 581024.72
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 581127.45
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 581194.68
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 580912.27
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 580862.57
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 581665.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.4059945504087192,
+  "ls_ratio": 2.4188034188034186,
   "liquidations": {
     "longs": 0,
-    "shorts": 31.929999999999996
+    "shorts": 31.939999999999998
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BNBUSDT_PERP.A",
-  "fetched_at": 1768761874341
+  "fetched_at": 1768768227902
 }

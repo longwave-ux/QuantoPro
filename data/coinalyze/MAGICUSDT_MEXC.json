@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 40378507.7
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 40593911.1
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 40627528.1
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 40675166.9
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 40503856.2
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 40822189.2
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 40855213.3
-    },
-    {
       "timestamp": 1768682700,
       "value": 40960055.2
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 45882653.5
+      "value": 45806123.9
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 45621014.7
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 45435147.9
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 45409459.2
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 45477681.9
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 45456042.4
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 45361334.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 45357556.4
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6780931976432778,
+  "ls_ratio": 1.663825253063399,
   "liquidations": {
-    "longs": 12355.3,
+    "longs": 10358.5,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MAGICUSDT_PERP.A",
-  "fetched_at": 1768763080351
+  "fetched_at": 1768769434416
 }

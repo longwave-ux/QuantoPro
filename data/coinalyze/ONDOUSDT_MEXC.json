@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 63192545
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 63260123.6
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 63241006.6
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 63155126.1
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 63213176.8
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 63315144.3
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 63277658.9
-    },
-    {
       "timestamp": 1768681800,
       "value": 63148215.8
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 68978374.4
+      "value": 68946352.4
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 68987565.3
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 68864834.7
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 68870154.2
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 68735226
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 69266785.5
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 69129756.8
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 69145675.4
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2246941045606228,
+  "ls_ratio": 1.1815008726003489,
   "liquidations": {
-    "longs": 1530.5,
+    "longs": 169068.7,
     "shorts": 1916.8
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ONDOUSDT_PERP.A",
-  "fetched_at": 1768762355692
+  "fetched_at": 1768768709135
 }

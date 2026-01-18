@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 215682247
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 215688942
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 215457840
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 215243096
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 214976032
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 215180718
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 215410298
-    },
-    {
       "timestamp": 1768682700,
       "value": 215400810
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 216036326
+      "value": 216126244
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 216296769
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 216736889
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 216542328
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 216789038
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 216769593
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 216465258
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 216210706
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.4281796366129584,
+  "ls_ratio": 2.469812630117974,
   "liquidations": {
     "longs": 18397,
     "shorts": 6828
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TOWNSUSDT_PERP.A",
-  "fetched_at": 1768763321844
+  "fetched_at": 1768769675070
 }

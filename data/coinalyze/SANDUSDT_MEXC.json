@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 87114495
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 91071364
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 95180004
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 91908397
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 90705226
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 93026703
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 92600732
-    },
-    {
       "timestamp": 1768681800,
       "value": 91723787
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 111290147
+      "value": 110808399
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 110711384
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 111391102
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 110784326
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 111027900
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 110366278
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 109351397
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 108922650
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.5933609958506223,
+  "ls_ratio": 1.618486514794449,
   "liquidations": {
-    "longs": 45069,
-    "shorts": 504
+    "longs": 30167,
+    "shorts": 67558
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SANDUSDT_PERP.A",
-  "fetched_at": 1768762476054
+  "fetched_at": 1768768831073
 }

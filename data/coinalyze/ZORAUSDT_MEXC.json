@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 107475254
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 106869698
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 106810550
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 106570567
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 106532713
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 106882437
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 106872891
-    },
-    {
       "timestamp": 1768681800,
       "value": 106562960
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 94926901
+      "value": 94902868
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 94821702
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 94752047
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 94551518
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 94473595
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 94470687
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 94532370
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 94578856
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9197542714532538,
+  "ls_ratio": 0.936108422071636,
   "liquidations": {
     "longs": 414388,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ZORAUSDT_PERP.A",
-  "fetched_at": 1768762717835
+  "fetched_at": 1768769071621
 }

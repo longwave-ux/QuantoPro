@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 67295824
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 67259448
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 67269067
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 67336606
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 67331422
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 67341734
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 67369603
-    },
-    {
       "timestamp": 1768681800,
       "value": 67453829
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 68546632
+      "value": 68562382
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 68533535
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 68235932
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 68215446
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 68235154
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 68209002
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 68216431
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 68239559
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.265839320705421,
+  "ls_ratio": 2.299241174529858,
   "liquidations": {
     "longs": 32993,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MAVUSDT_PERP.A",
-  "fetched_at": 1768762235275
+  "fetched_at": 1768768588835
 }

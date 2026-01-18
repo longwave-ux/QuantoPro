@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 302280529
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 285512232
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 276935313
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 262665900
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 252358865
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 248254465
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 240372227
-    },
-    {
       "timestamp": 1768682700,
       "value": 238846044
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 186284698
+      "value": 186233470
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 186432297
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 186426150
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 186442205
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 186527122
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 186601417
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 185499659
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 186164229
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.128911138923655,
+  "ls_ratio": 2.0358227079538556,
   "liquidations": {
-    "longs": 847807,
+    "longs": 230458,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TANSSIUSDT_PERP.A",
-  "fetched_at": 1768763321843
+  "fetched_at": 1768769675069
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 71865407
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 71879103
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 71850063
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 71796625
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 71792408
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 71902388
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 71966577
-    },
-    {
       "timestamp": 1768681800,
       "value": 72001738
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 71051627
+      "value": 71036066
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 70946214
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 70889209
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 70909978
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 70830992
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 70794785
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 70639893
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 70682475
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.5752592062924564,
+  "ls_ratio": 2.5739814152966405,
   "liquidations": {
     "longs": 156231,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "VINEUSDT_PERP.A",
-  "fetched_at": 1768762596404
+  "fetched_at": 1768768951334
 }

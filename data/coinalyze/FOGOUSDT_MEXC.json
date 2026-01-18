@@ -1,38 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 326208686
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 326341282
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 326326528
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 327504240
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 329949610
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 329622563
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 329975269
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 330034175
-    },
-    {
       "timestamp": 1768681800,
       "value": 330665042
     },
@@ -387,15 +355,47 @@
     {
       "timestamp": 1768761000,
       "value": 370103638
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 368833237
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 367758256
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 369604185
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 365010496
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 363132511
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 362591601
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 363426474
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 363142353
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9770660340055358,
+  "ls_ratio": 0.9778481012658227,
   "liquidations": {
-    "longs": 18946,
-    "shorts": 103437
+    "longs": 120214,
+    "shorts": 91237
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FOGOUSDT_PERP.A",
-  "fetched_at": 1768761994664
+  "fetched_at": 1768768348211
 }

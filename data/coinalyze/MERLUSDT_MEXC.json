@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 64370026
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 64723441
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 64798105
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 65204821
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 65765909
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 66159527
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 65942560
-    },
-    {
       "timestamp": 1768681800,
       "value": 66516844
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 65732619
+      "value": 65673281
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 65729985
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 65818188
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 65662573
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 65706886
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 65721982
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 65720302
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 65700970
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6079755587715068,
+  "ls_ratio": 0.6233766233766234,
   "liquidations": {
-    "longs": 101744,
+    "longs": 722,
     "shorts": 100
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MERLUSDT_PERP.A",
-  "fetched_at": 1768762235277
+  "fetched_at": 1768768588836
 }

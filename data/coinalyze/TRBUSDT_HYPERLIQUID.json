@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 321327.9
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 322010.1
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 321793.3
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 320945.6
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 320928.7
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 321211.3
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 320659.4
-    },
-    {
       "timestamp": 1768681800,
       "value": 319343.5
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 310508.2
+      "value": 310450.5
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 310669.4
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 310685.6
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 310306.4
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 310569
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 310719.1
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 311000.4
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 310974.5
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.0902348578491967,
+  "ls_ratio": 2.0873726458783572,
   "liquidations": {
-    "longs": 27.200000000000003,
-    "shorts": 5.7
+    "longs": 36,
+    "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TRBUSDT_PERP.A",
-  "fetched_at": 1768762596399
+  "fetched_at": 1768768951326
 }

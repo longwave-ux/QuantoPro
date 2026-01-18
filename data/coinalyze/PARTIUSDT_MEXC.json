@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 139064356
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 139057857
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 139031065
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 139030499
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 138985601
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 138989583
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 138963963
-    },
-    {
       "timestamp": 1768682700,
       "value": 138985752
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 139245839
+      "value": 139319837
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 139334447
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 139328960
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 139328290
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 139315547
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 139301218
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 139295743
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 139297021
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6189088554314391,
+  "ls_ratio": 0.6139444803098774,
   "liquidations": {
     "longs": 628,
     "shorts": 1252
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PARTIUSDT_PERP.A",
-  "fetched_at": 1768763200748
+  "fetched_at": 1768769554681
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 761766.259
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 760947.352
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 755897.935
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 756203.835
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 756774.202
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 754682.504
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 754327.29
-    },
-    {
       "timestamp": 1768680900,
       "value": 756557.959
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 786024.517
+      "value": 785672.036
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 773932.211
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 769062.83
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 759884.503
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 755666.431
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 753849.842
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 753730.487
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 751094.199
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.121790791427965,
+  "ls_ratio": 1.0894274968658588,
   "liquidations": {
-    "longs": 396.78999999999996,
-    "shorts": 439.537
+    "longs": 525.998,
+    "shorts": 203.53900000000002
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DASHUSDT_PERP.A",
-  "fetched_at": 1768761874348
+  "fetched_at": 1768768227909
 }

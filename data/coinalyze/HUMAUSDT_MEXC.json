@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 434877057
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 434810042
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 434846038
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 434697149
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 434271535
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 434124394
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 434114514
-    },
-    {
       "timestamp": 1768682700,
       "value": 434118440
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 435941618
+      "value": 436005019
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 436040389
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 436017796
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 436015169
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 435957732
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 436117817
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 435945741
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 435877888
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.7882689556509298,
+  "ls_ratio": 0.7714791851195748,
   "liquidations": {
     "longs": 6426,
     "shorts": 43247
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HUMAUSDT_PERP.A",
-  "fetched_at": 1768763080342
+  "fetched_at": 1768769434410
 }

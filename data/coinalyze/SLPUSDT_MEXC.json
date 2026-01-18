@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 2184488072
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 2166099945
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 2073833745
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 2019896836
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 2000757919
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 1970225803
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 1977445015
-    },
-    {
       "timestamp": 1768682700,
       "value": 1978673724
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 1760809139
+      "value": 1756538660
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 1753819791
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 1752684161
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 1748467946
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 1742468169
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 1723837022
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 1722467043
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1724832069
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6198585276395074,
+  "ls_ratio": 1.6226068712300024,
   "liquidations": {
-    "longs": 302562,
-    "shorts": 732069
+    "longs": 302704,
+    "shorts": 3938751
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SLPUSDT_PERP.A",
-  "fetched_at": 1768763321837
+  "fetched_at": 1768769675064
 }

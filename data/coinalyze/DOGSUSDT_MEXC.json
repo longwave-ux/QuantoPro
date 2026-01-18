@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 53010553886
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 53119601117
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 53133242043
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 52966173178
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 52948286122
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 52961094447
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 52967653766
-    },
-    {
       "timestamp": 1768682700,
       "value": 52954390469
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 51025668261
+      "value": 51023489656
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 51016205169
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 51006075598
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 50977602156
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 51039326487
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 50962737478
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 50928655046
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 50926244981
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 3.0716612377850163,
+  "ls_ratio": 3.0933278755628324,
   "liquidations": {
-    "longs": 283175696,
+    "longs": 73129586,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "DOGSUSDT_PERP.A",
-  "fetched_at": 1768762960044
+  "fetched_at": 1768769313448
 }

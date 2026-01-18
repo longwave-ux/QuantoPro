@@ -348,14 +348,37 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                               {pair.history.consecutiveScans}x Stable
                             </span>
                           )}
-                          {/* Context Badges */}
-                          {pair.components && (
-                            <>
-                              {pair.details?.context_badge && (
-                                <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${pair.details.context_badge === 'DIV-PREP' ? 'bg-indigo-900 text-indigo-300 border-indigo-700' : 'bg-gray-700 text-gray-300'}`}>
-                                  {pair.details.context_badge}
+
+                          {/* RETEST Badge - HIGHEST PRIORITY */}
+                          {pair.details?.setup_type === 'RETEST' && (
+                            <span className="px-1.5 py-0.5 rounded text-[9px] bg-emerald-900/40 text-emerald-300 font-bold border border-emerald-700 flex items-center gap-1">
+                              ⭐ RETEST
+                              {pair.details.retest_quality && pair.details.retest_quality > 0 && (
+                                <span className="opacity-75 text-[8px]">
+                                  {pair.details.retest_quality.toFixed(0)}
                                 </span>
                               )}
+                            </span>
+                          )}
+
+
+                          {/* Context Badge from strategy (OI DATA, RETEST, HIDDEN DIV, etc.) */}
+                          {pair.details?.context_badge && (
+                            <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${pair.details.context_badge === 'RETEST' ? 'bg-emerald-900/40 text-emerald-300 border-emerald-700' :
+                                pair.details.context_badge === 'OI DATA' ? 'bg-blue-900/40 text-blue-300 border-blue-700' :
+                                  pair.details.context_badge === 'HIDDEN DIV' ? 'bg-purple-900/40 text-purple-300 border-purple-700' :
+                                    pair.details.context_badge === 'K-CANDLE' ? 'bg-cyan-900/40 text-cyan-300 border-cyan-700' :
+                                      pair.details.context_badge === 'MTF CONF' ? 'bg-indigo-900/40 text-indigo-300 border-indigo-700' :
+                                        pair.details.context_badge === 'TP CAPPED' ? 'bg-orange-900/40 text-orange-300 border-orange-700' :
+                                          'bg-gray-700 text-gray-300 border-gray-600'
+                              }`}>
+                              {pair.details.context_badge}
+                            </span>
+                          )}
+
+                          {/* Component-based badges (legacy) */}
+                          {pair.components && (
+                            <>
                               {pair.components?.divergence_type >= 3 && (
                                 <span className="px-1.5 py-0.5 rounded text-[9px] bg-purple-900 text-purple-300 font-bold border border-purple-700">TRIPLE DIV</span>
                               )}
@@ -363,9 +386,6 @@ export const ScannerTable: React.FC<ScannerTableProps> = ({ data, activeExchange
                                 <span className="px-1.5 py-0.5 rounded text-[9px] bg-blue-900 text-blue-300 font-bold border border-blue-700">HUGE AREA</span>
                               )}
                             </>
-                          )}
-                          {pair.details?.type === 'RETEST' && (
-                            <span className="px-1.5 py-0.5 rounded text-[9px] bg-orange-900/40 text-orange-300 border border-orange-800">RETEST</span>
                           )}
                         </div>
                       </td>

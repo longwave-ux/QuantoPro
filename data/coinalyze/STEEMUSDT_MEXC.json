@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 15895558
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 15896971
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 15913171
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 15910710
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 15904417
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 15901428
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 15905510
-    },
-    {
       "timestamp": 1768682700,
       "value": 15897193
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 15390871
+      "value": 15389122
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 15389358
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 15402191
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 15203038
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 15206054
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 15177703
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 15200239
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 15196566
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9120559114735,
+  "ls_ratio": 1.8546959748786753,
   "liquidations": {
     "longs": 7680,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "STEEMUSDT_PERP.A",
-  "fetched_at": 1768763321841
+  "fetched_at": 1768769675067
 }

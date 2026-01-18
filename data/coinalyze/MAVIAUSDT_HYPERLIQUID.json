@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 15060402
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 14788276
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 14788640
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 14800746
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 14753408
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 14741848
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 14733978
-    },
-    {
       "timestamp": 1768681800,
       "value": 14725109
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 14025143
+      "value": 14024756
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 14028416
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 13997536
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 14012938
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 14033528
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 14026053
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 14012712
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 14014899
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 3.2372881355932206,
+  "ls_ratio": 3.284490145672665,
   "liquidations": {
     "longs": 701,
     "shorts": 653
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MAVIAUSDT_PERP.A",
-  "fetched_at": 1768762235274
+  "fetched_at": 1768768588834
 }

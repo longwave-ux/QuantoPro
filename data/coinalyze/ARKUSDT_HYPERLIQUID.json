@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 4555227
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 4553590
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 4552880
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 4550954
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 4551039
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 4548881
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 4547048
-    },
-    {
       "timestamp": 1768680900,
       "value": 4545044
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 4456109
+      "value": 4455669
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 4462402
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 4462884
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 4463591
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 4463455
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 4472304
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 4472334
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 4474111
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9472443265546713,
+  "ls_ratio": 1.9735355337496283,
   "liquidations": {
     "longs": 745,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ARKUSDT_PERP.A",
-  "fetched_at": 1768761753875
+  "fetched_at": 1768768106170
 }

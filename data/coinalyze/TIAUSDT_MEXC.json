@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 39479183
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 39454971
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 39695272
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 39679205
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 39725781
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 39731677
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 39741419
-    },
-    {
       "timestamp": 1768681800,
       "value": 39734175
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 39410932
+      "value": 39397047
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 39455671
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 39438802
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 39418687
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 39490761
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 39439321
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 39425525
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 39440063
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8401022436807726,
+  "ls_ratio": 1.8352707683583782,
   "liquidations": {
-    "longs": 16812,
+    "longs": 16379,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TIAUSDT_PERP.A",
-  "fetched_at": 1768762596397
+  "fetched_at": 1768768951323
 }

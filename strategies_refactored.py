@@ -871,7 +871,11 @@ class QuantProBreakoutRefactored(Strategy):
                         score_result = calculate_score(scoring_data)
                         geometry_score = round(min(StrategyConfig.SCORE_GEOMETRY_MAX, score_result['geometry_component']), 1)
                         momentum_score = round(min(StrategyConfig.SCORE_MOMENTUM_MAX, score_result['momentum_component']), 1)
-                        
+                        # Calculate score with V2 bonus features
+            # This section seems to be a mix-up from a different scoring logic.
+            # The original V1 logic for total_score is retained below.
+            # The context_badge generation is moved to the V2 strategy's analyze method.
+            
                         oi_flow_score = 0
                         if oi_available and oi_data:
                             oi_flow_score = 5
@@ -1110,7 +1114,7 @@ class QuantProBreakoutV2Refactored(Strategy):
         # === HIDDEN DIVERGENCE DETECTION (PDF Recommended) ===
         # Adds bonus scoring when hidden divergence detected
         # Impact: +15% win rate when combined with trendline break
-        self.hidden_div_enabled = self.config.get('hidden_div_enabled', True)
+        self.hidden_div_enabled = self.config.get('hidden_div_bonus_enabled', True)
         self.hidden_div_bonus = self.config.get('hidden_div_bonus', 10)
     
     @property
@@ -1182,6 +1186,12 @@ class QuantProBreakoutV2Refactored(Strategy):
         setup = None
         score = 0.0
         breakout_type = None
+        details = {}  # Initialize to prevent scope issues
+        total_score = 0.0  # Initialize total_score
+        
+        # Hidden Divergence Detection
+        hidden_div_result = self._detect_hidden_divergence(df, rsi_series, bias)
+        hidden_div_detected = hidden_div_result['detected']
         
         # LONG: RSI breaking above resistance
         if bias == 'LONG' and 'resistance' in rsi_trendlines:
@@ -1191,6 +1201,21 @@ class QuantProBreakoutV2Refactored(Strategy):
             
             # Check if RSI broke above trendline
             if rsi_val > projected_rsi + 1.0:  # 1.0 point buffer for confirmation
+                
+                # CLASSIFY TRENDLINE INTERACTION (RETEST vs INITIAL BREAKOUT vs CONTINUATION)
+                interaction = self._classify_trendline_interaction(rsi_series, res, 'LONG')
+                
+                # Reject if it's a continuation (too late)
+                if interaction['type'] == 'CONTINUATION':
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"Breakout continuation: {interaction.get('reason', 'window passed')}",
+                                            obv_slope=obv_slope,
+                                            cardwell_range=cardwell_range)
+                
+                # Determine setup type and adjust parameters
+                setup_type = interaction['type']  # 'INITIAL_BREAKOUT' or 'RETEST'
+                retest_quality = interaction.get('quality', 0)
+                
                 # K-CANDLE CONFIRMATION CHECK
                 k_candle_result = self._check_k_candle_confirmation(rsi_series, res, 'LONG')
                 
@@ -1199,7 +1224,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                     return self._wait_result(context, close, rsi_val,
                                             reason=f"K-Candle: {k_candle_result['reason']}",
                                             obv_slope=obv_slope,
-                                            cardwall_range=cardwall_range,
+                                            cardwell_range=cardwell_range,
                                             k_candle=k_candle_result)
                 
                 # MTF CONFLUENCE CHECK
@@ -1210,18 +1235,23 @@ class QuantProBreakoutV2Refactored(Strategy):
                     return self._wait_result(context, close, rsi_val,
                                             reason=f"MTF Filter: {mtf_result['reason']}",
                                             obv_slope=obv_slope,
-                                            cardwall_range=cardwall_range,
+                                            cardwell_range=cardwell_range,
                                             k_candle=k_candle_result,
                                             mtf_confluence=mtf_result)
                 
                 breakout_type = 'RESISTANCE_BREAK'
                 action = 'LONG'
                 
-                # Calculate setup with Cardwell projection
-                sl = close - (self.atr_multiplier * atr_val)
+                # Calculate setup - ADJUST FOR RETEST
+                if setup_type == 'RETEST':
+                    # Tighter stop loss for retests (lower risk)
+                    sl = close - (1.5 * atr_val)  # vs 3.0x for initial breakout
+                else:
+                    # Standard stop loss for initial breakout
+                    sl = close - (self.atr_multiplier * atr_val)  # 3.0x ATR
                 
                 # Cardwell TP: Project momentum amplitude
-                tp = self._calculate_cardwell_tp(df, close, 'LONG', atr_val)
+                tp, tp_percent = self._calculate_cardwell_tp(df, close, 'LONG', atr_val)
                 
                 risk = close - sl
                 rr = (tp - close) / risk if risk > 0 else 0.0
@@ -1237,8 +1267,33 @@ class QuantProBreakoutV2Refactored(Strategy):
                 # Calculate score with Cardwell weighting
                 score = self._calculate_v2_score(
                     rsi_val, cardwell_range, oi_z_score, obv_slope, 
-                    breakout_type, rr
+                    breakout_type, rr, hidden_div_detected
                 )
+
+                # Generate context badge for signal
+                context_badge = self._generate_context_badges(
+                    context,
+                    hidden_div_detected=hidden_div_detected,
+                    k_candle_confirmed=k_candle_result['confirmed'],
+                    mtf_confirmed=mtf_result['passed'],
+                    cardwall_tp_capped=(tp_percent > self.max_tp_percent) if self.cardwall_tp_enabled else False
+                )
+                
+                # Update details with V2 specific info and context badge
+                details = {
+                    "breakout_type": "RESISTANCE",
+                    "setup_type": setup_type,
+                    "retest_quality": retest_quality if setup_type == 'RETEST' else None,
+                    "cardwell_range": cardwell_range,
+                    "obv_slope": obv_slope,
+                    "oi_z_score": oi_z_score,
+                    "total": total_score,
+                    "context_badge": context_badge if context_badge else None,
+                    "hidden_divergence": hidden_div_result,
+                    "k_candle_confirmation": k_candle_result,
+                    "mtf_confluence": mtf_result,
+                    "interaction": interaction  # Include full interaction details
+                }
         
         # SHORT: RSI breaking below support
         elif bias == 'SHORT' and 'support' in rsi_trendlines:
@@ -1248,6 +1303,19 @@ class QuantProBreakoutV2Refactored(Strategy):
             
             # Check if RSI broke below trendline
             if rsi_val < projected_rsi - 1.0:  # 1.0 point buffer for confirmation
+                # CLASSIFY TRENDLINE INTERACTION (RETEST vs INITIAL BREAKOUT vs CONTINUATION)
+                interaction = self._classify_trendline_interaction(rsi_series, sup, 'SHORT')
+
+                # Reject if it's a continuation (too late)
+                if interaction['type'] == 'CONTINUATION':
+                    return self._wait_result(context, close, rsi_val,
+                                            reason=f"Breakout continuation: {interaction.get('reason', 'window passed')}",
+                                            obv_slope=obv_slope,
+                                            cardwell_range=cardwell_range)
+
+                setup_type = interaction['type']
+                retest_quality = interaction.get('quality', 0)
+
                 # K-CANDLE CONFIRMATION CHECK
                 k_candle_result = self._check_k_candle_confirmation(rsi_series, sup, 'SHORT')
                 
@@ -1256,7 +1324,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                     return self._wait_result(context, close, rsi_val,
                                             reason=f"K-Candle: {k_candle_result['reason']}",
                                             obv_slope=obv_slope,
-                                            cardwall_range=cardwall_range,
+                                            cardwell_range=cardwell_range,
                                             k_candle=k_candle_result)
                 
                 # MTF CONFLUENCE CHECK
@@ -1267,7 +1335,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                     return self._wait_result(context, close, rsi_val,
                                             reason=f"MTF Filter: {mtf_result['reason']}",
                                             obv_slope=obv_slope,
-                                            cardwall_range=cardwall_range,
+                                            cardwell_range=cardwell_range,
                                             k_candle=k_candle_result,
                                             mtf_confluence=mtf_result)
                 
@@ -1275,10 +1343,13 @@ class QuantProBreakoutV2Refactored(Strategy):
                 action = 'SHORT'
                 
                 # Calculate setup with Cardwell projection
-                sl = close + (self.atr_multiplier * atr_val)
+                if setup_type == 'RETEST':
+                    sl = close + (1.5 * atr_val)
+                else:
+                    sl = close + (self.atr_multiplier * atr_val)
                 
                 # Cardwell TP: Project momentum amplitude
-                tp = self._calculate_cardwell_tp(df, close, 'SHORT', atr_val)
+                tp, tp_percent = self._calculate_cardwell_tp(df, close, 'SHORT', atr_val)
                 
                 risk = sl - close
                 rr = (close - tp) / risk if risk > 0 else 0.0
@@ -1292,15 +1363,43 @@ class QuantProBreakoutV2Refactored(Strategy):
                 }
                 
                 # Calculate score with Cardwell weighting
-                score = self._calculate_v2_score(
+                total_score = self._calculate_v2_score(
                     rsi_val, cardwell_range, oi_z_score, obv_slope,
-                    breakout_type, rr
+                    breakout_type, rr, hidden_div_detected, setup_type, retest_quality
                 )
+
+                # Generate context badge for signal
+                context_badge = self._generate_context_badges(
+                    context,
+                    hidden_div_detected=hidden_div_detected,
+                    k_candle_confirmed=k_candle_result['confirmed'],
+                    mtf_confirmed=mtf_result['passed'],
+                    cardwall_tp_capped=(tp_percent > self.max_tp_percent) if self.cardwall_tp_enabled else False
+                )
+                
+                # Update details with V2 specific info and context badge
+                details = {
+                    "breakout_type": "SUPPORT",
+                    "setup_type": setup_type,
+                    "retest_quality": retest_quality if setup_type == 'RETEST' else None,
+                    "cardwell_range": cardwell_range,
+                    "obv_slope": obv_slope,
+                    "oi_z_score": oi_z_score,
+                    "total": total_score,
+                    "context_badge": context_badge if context_badge else None,
+                    "hidden_divergence": hidden_div_result,
+                    "k_candle_confirmation": k_candle_result,
+                    "mtf_confluence": mtf_result,
+                    "interaction": interaction # Include full interaction details
+                }
         
         # Build observability object using helper method
         observability = self._build_observability_dict(
             context, rsi_val, close, oi_z_score, oi_z_score_valid,
-            obv_slope, cardwell_range, breakout_type, atr_val, bias
+            obv_slope, cardwell_range, breakout_type, atr_val, bias,
+            hidden_div_result=hidden_div_result,
+            k_candle_result=k_candle_result if 'k_candle_result' in locals() else None,
+            mtf_result=mtf_result if 'mtf_result' in locals() else None
         )
         
         # Build result
@@ -1310,8 +1409,8 @@ class QuantProBreakoutV2Refactored(Strategy):
             "canonical_symbol": context.canonical_symbol,
             "exchange": context.exchange,
             "price": float(close),
-            "score": float(score),
-            "total_score": float(score),
+            "score": float(total_score), # Use total_score here
+            "total_score": float(total_score),
             "bias": bias,
             "action": action,
             "rr": float(setup['rr']) if setup else 0.0,
@@ -1319,13 +1418,7 @@ class QuantProBreakoutV2Refactored(Strategy):
             "stop_loss": float(setup['sl']) if setup else None,
             "take_profit": float(setup['tp']) if setup else None,
             "setup": setup,
-            "details": {
-                "total": float(score),
-                "oi_z_score": float(oi_z_score),
-                "obv_slope": float(obv_slope),
-                "cardwell_range": cardwell_range,
-                "breakout_type": breakout_type
-            },
+            "details": details,
             "htf": {"trend": "NONE", "bias": bias, "adx": 0},
             "ltf": {
                 "rsi": float(rsi_val),
@@ -1349,7 +1442,10 @@ class QuantProBreakoutV2Refactored(Strategy):
     def _build_observability_dict(self, context: SharedContext, rsi_val: float, 
                                    close: float, oi_z_score: float, oi_z_score_valid: bool,
                                    obv_slope: float, cardwell_range: str, breakout_type: str = None,
-                                   atr_val: float = 0.0, bias: str = "NONE") -> Dict[str, Any]:
+                                   atr_val: float = 0.0, bias: str = "NONE",
+                                   hidden_div_result: Dict[str, Any] = None,
+                                   k_candle_result: Dict[str, Any] = None,
+                                   mtf_result: Dict[str, Any] = None) -> Dict[str, Any]:
         """
         Build observability dictionary with V2 metrics mapped to standard Dashboard keys.
         
@@ -1437,6 +1533,13 @@ class QuantProBreakoutV2Refactored(Strategy):
                         "cardwell_range": cardwell_range,
                         "rsi": float(rsi_val),
                         "score": float(timing_score)
+                    },
+                    
+                    # V2 Part: Additional Filters
+                    "additional_filters": {
+                        "k_candle_confirmation": k_candle_result if k_candle_result else {'enabled': self.k_candle_enabled, 'confirmed': False, 'reason': 'Not checked'},
+                        "mtf_confluence": mtf_result if mtf_result else {'enabled': self.mtf_filter_enabled, 'passed': False, 'reason': 'Not checked'},
+                        "hidden_divergence": hidden_div_result if hidden_div_result else {'enabled': self.hidden_div_enabled, 'detected': False}
                     }
                 },
                 "filters_passed": bool(oi_z_score_valid and ((bias == "LONG" and obv_slope > 0) or (bias == "SHORT" and obv_slope < 0))),
@@ -1521,7 +1624,8 @@ class QuantProBreakoutV2Refactored(Strategy):
         if not self.k_candle_enabled:
             return {
                 'enabled': False,
-                'confirmed': True  # Auto-pass if disabled
+                'confirmed': True,  # Auto-pass if disabled
+                'reason': 'K-Candle confirmation disabled'
             }
         
         if len(rsi_series) < 2:
@@ -1531,7 +1635,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                 'bar0_rsi': 0.0,
                 'bar1_rsi': 0.0,
                 'trendline_bar1': 0.0,
-                'reason': 'Insufficient data'
+                'reason': 'Insufficient data for K-Candle check'
             }
         
         # Bar 0 = current candle (breakout detected)
@@ -1593,7 +1697,7 @@ class QuantProBreakoutV2Refactored(Strategy):
         Expected impact: +10-15% win rate (PDF strategy).
         """
         if not self.mtf_filter_enabled:
-            return {'enabled': False, 'passed': True}
+            return {'enabled': False, 'passed': True, 'reason': 'MTF filter disabled'}
         
         htf_analysis = self._determine_htf_bias(rsi_series)
         htf_rsi = htf_analysis['rsi_value']
@@ -1622,10 +1726,10 @@ class QuantProBreakoutV2Refactored(Strategy):
         Expected impact: +15% win rate with trendline break.
         """
         if not self.hidden_div_enabled:
-            return {'enabled': False, 'detected': False, 'bonus': 0}
+            return {'enabled': False, 'detected': False, 'bonus': 0, 'reason': 'Hidden divergence detection disabled'}
         
         if len(df) < 20 or len(rsi_series) < 20:
-            return {'enabled': True, 'detected': False, 'bonus': 0}
+            return {'enabled': True, 'detected': False, 'bonus': 0, 'reason': 'Insufficient data for hidden divergence'}
         
         # Find pivots in last 20 candles
         lookback = min(20, len(df))
@@ -1635,34 +1739,42 @@ class QuantProBreakoutV2Refactored(Strategy):
         price_pivots = []
         rsi_pivots = []
         
+        # Simplified pivot detection for demonstration
+        # In a real scenario, this would use a more robust pivot detection algorithm
         for i in range(2, len(recent_prices) - 2):
-            if signal_bias == 'LONG':
+            if signal_bias == 'LONG': # Looking for Higher Lows in price, Lower Lows in RSI
+                # Price Low
                 if (recent_prices[i] < recent_prices[i-1] and recent_prices[i] < recent_prices[i-2] and
                     recent_prices[i] < recent_prices[i+1] and recent_prices[i] < recent_prices[i+2]):
                     price_pivots.append({'idx': i, 'value': recent_prices[i]})
                     rsi_pivots.append({'idx': i, 'value': recent_rsi[i]})
-            else:
+            else: # Looking for Lower Highs in price, Higher Highs in RSI
+                # Price High
                 if (recent_prices[i] > recent_prices[i-1] and recent_prices[i] > recent_prices[i-2] and
                     recent_prices[i] > recent_prices[i+1] and recent_prices[i] > recent_prices[i+2]):
                     price_pivots.append({'idx': i, 'value': recent_prices[i]})
                     rsi_pivots.append({'idx': i, 'value': recent_rsi[i]})
         
         if len(price_pivots) < 2:
-            return {'enabled': True, 'detected': False, 'bonus': 0}
+            return {'enabled': True, 'detected': False, 'bonus': 0, 'reason': 'Not enough pivots found'}
         
+        # Consider the last two relevant pivots
         pivot1, pivot2 = price_pivots[-2], price_pivots[-1]
         rsi1, rsi2 = rsi_pivots[-2], rsi_pivots[-1]
         
         detected = False
         if signal_bias == 'LONG':
+            # Hidden Bullish Divergence: Price makes Higher Low, RSI makes Lower Low
             detected = pivot2['value'] > pivot1['value'] and rsi2['value'] < rsi1['value']
         else:
+            # Hidden Bearish Divergence: Price makes Lower High, RSI makes Higher High
             detected = pivot2['value'] < pivot1['value'] and rsi2['value'] > rsi1['value']
         
         return {
             'enabled': True,
             'detected': detected,
-            'bonus': self.hidden_div_bonus if detected else 0
+            'bonus': self.hidden_div_bonus if detected else 0,
+            'reason': 'Detected' if detected else 'Not detected'
         }
     
     def _apply_cardwell_rules(self, rsi_val: float) -> tuple:
@@ -1693,7 +1805,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                 return 'SHORT', 'BEAR_MOMENTUM'  # Bearish range
     
     def _calculate_cardwell_tp(self, df: pd.DataFrame, entry: float, 
-                                side: str, atr: float) -> float:
+                                side: str, atr: float) -> tuple[float, float]:
         """
         Calculate Take Profit using Cardwall momentum projection with safety caps.
         
@@ -1701,13 +1813,20 @@ class QuantProBreakoutV2Refactored(Strategy):
         - Configurable structure multiplier (default 1.618)
         - Maximum TP percentage cap (default 15%)
         - Minimum R:R ratio enforcement
+        
+        Returns: (tp_value, tp_percentage_from_entry)
         """
+        tp = 0.0
+        tp_percent = 0.0
+        
         if not self.cardwall_tp_enabled:
             # Fallback to simple R:R-based TP
             if side == 'LONG':
-                return entry + (self.min_rr_ratio * atr * self.atr_multiplier)
+                tp = entry + (self.min_rr_ratio * atr * self.atr_multiplier)
             else:
-                return entry - (self.min_rr_ratio * atr * self.atr_multiplier)
+                tp = entry - (self.min_rr_ratio * atr * self.atr_multiplier)
+            tp_percent = abs(tp - entry) / entry
+            return tp, tp_percent
         
         # Find recent momentum swing
         lookback = min(50, len(df))
@@ -1722,13 +1841,18 @@ class QuantProBreakoutV2Refactored(Strategy):
             tp_cardwall = h_mom + (self.tp_structure_multiplier * amplitude)
             
             # Apply safety caps
-            tp_percent_cap = entry * (1 + self.max_tp_percent)
-            tp = min(tp_cardwall, tp_percent_cap)
+            tp_percent_cap_val = entry * (1 + self.max_tp_percent)
+            tp = min(tp_cardwall, tp_percent_cap_val)
             
             # Ensure minimum RR
-            min_tp = entry + (self.min_rr_ratio * (entry - (entry - self.atr_multiplier * atr)))
-            if tp < min_tp:
-                tp = min_tp
+            # Calculate SL based on ATR for RR calculation
+            sl_for_rr = entry - (self.atr_multiplier * atr)
+            risk_for_rr = entry - sl_for_rr
+            min_tp_val_for_rr = entry + (self.min_rr_ratio * risk_for_rr)
+            
+            if tp < min_tp_val_for_rr:
+                tp = min_tp_val_for_rr
+            
         else:  # SHORT
             h_mom = recent_df['high'].max()
             l_mom = recent_df['low'].min()
@@ -1738,19 +1862,26 @@ class QuantProBreakoutV2Refactored(Strategy):
             tp_cardwall = l_mom - (self.tp_structure_multiplier * amplitude)
             
             # Apply safety caps
-            tp_percent_cap = entry * (1 - self.max_tp_percent)
-            tp = max(tp_cardwall, tp_percent_cap)
+            tp_percent_cap_val = entry * (1 - self.max_tp_percent)
+            tp = max(tp_cardwall, tp_percent_cap_val)
             
             # Ensure minimum RR
-            min_tp = entry - (self.min_rr_ratio * ((entry + self.atr_multiplier * atr) - entry))
-            if tp > min_tp:
-                tp = min_tp
+            # Calculate SL based on ATR for RR calculation
+            sl_for_rr = entry + (self.atr_multiplier * atr)
+            risk_for_rr = sl_for_rr - entry
+            min_tp_val_for_rr = entry - (self.min_rr_ratio * risk_for_rr)
+            
+            if tp > min_tp_val_for_rr:
+                tp = min_tp_val_for_rr
         
-        return tp
+        tp_percent = abs(tp - entry) / entry
+        return tp, tp_percent
     
     def _calculate_v2_score(self, rsi: float, cardwell_range: str, 
                             oi_z_score: float, obv_slope: float,
-                            breakout_type: str, rr: float) -> float:
+                            breakout_type: str, rr: float,
+                            hidden_div_detected: bool,
+                            setup_type: str, retest_quality: float) -> float:
         """
         Calculate V2 score with Cardwell weighting.
         
@@ -1760,30 +1891,47 @@ class QuantProBreakoutV2Refactored(Strategy):
         - OBV Slope: 0-20 points (scaled by slope magnitude)
         - Cardwell Position: 0-20 points (bonus for optimal RSI range)
         - Risk/Reward: 0-10 points (bonus for RR > 3.0)
+        - Hidden Divergence: 0-10 points (bonus if detected)
+        - Retest Quality: 0-15 points (bonus for high quality retests)
         """
-        score = 20.0  # Base for passing filters
+        base_score = 20.0  # Base for passing filters
         
         # OI Z-Score component (0-30 points)
-        oi_component = min(30.0, (oi_z_score - 1.5) * 10.0)
-        score += oi_component
+        oi_component = min(30.0, max(0, (oi_z_score - 1.5) * 10.0)) # Only positive contribution above threshold
+        base_score += oi_component
         
         # OBV Slope component (0-20 points)
-        obv_component = min(20.0, abs(obv_slope) / 1000.0 * 20.0)
-        score += obv_component
+        # Normalize slope to a reasonable range for scoring, e.g., 10000 units = 20 points
+        obv_component = min(20.0, abs(obv_slope) / 1000.0 * 2.0) # Adjust multiplier as needed
+        base_score += obv_component
         
         # Cardwell Range bonus (0-20 points)
         if 'BULL_MOMENTUM' in cardwell_range or 'BEAR_MOMENTUM' in cardwell_range:
-            score += 20.0  # Optimal range
+            base_score += 20.0  # Optimal range
         elif 'NEUTRAL' in cardwell_range:
-            score += 10.0  # Acceptable range
+            base_score += 10.0  # Acceptable range
         
         # Risk/Reward bonus (0-10 points)
-        if rr >= 3.0:
-            score += 10.0
-        elif rr >= 2.0:
-            score += 5.0
+        if rr >= self.min_rr_ratio:
+            base_score += 10.0
+        elif rr >= (self.min_rr_ratio - 1.0): # e.g., if min_rr_ratio is 3, this is for RR >= 2
+            base_score += 5.0
         
-        return min(100.0, score)
+        # Calculate score with V2 bonus features
+        score = base_score
+        
+        # Add hidden divergence bonus
+        if hidden_div_detected:
+            score += self.hidden_div_bonus
+        
+        # Add retest quality bonus (up to 15 points for perfect retest)
+        if setup_type == 'RETEST' and retest_quality > 0:
+            quality_bonus = (retest_quality / 100.0) * 15.0
+            score += quality_bonus
+        
+        total_score = score
+        
+        return min(100.0, total_score)
     
     def _empty_result(self, context: SharedContext) -> Dict[str, Any]:
         """Return empty result for insufficient data."""
@@ -1791,6 +1939,9 @@ class QuantProBreakoutV2Refactored(Strategy):
         observability = self._build_observability_dict(
             context, 0.0, 0.0, 0.0, False, 0.0, "NEUTRAL", None, 0.0, "NONE"
         )
+        
+        # Generate context badge for empty result
+        context_badge = self._generate_context_badges(context)
         
         return {
             "strategy_name": self.name,
@@ -1803,7 +1954,10 @@ class QuantProBreakoutV2Refactored(Strategy):
             "bias": "NONE",
             "action": "WAIT",
             "setup": None,
-            "details": {"reason": "Insufficient data"},
+            "details": {
+                "reason": "Insufficient data",
+                "context_badge": context_badge if context_badge else None
+            },
             "htf": {"trend": "NONE", "bias": "NONE", "adx": 0},
             "ltf": {"rsi": 0.0, "bias": "NONE", "cardwell_range": "NEUTRAL"},
             "observability": observability,
@@ -1820,6 +1974,212 @@ class QuantProBreakoutV2Refactored(Strategy):
             }
         }
     
+    def _find_initial_breakout(self, rsi_series: pd.Series, trendline: dict, 
+                              direction: str, lookback: int = 20) -> Optional[int]:
+        """
+        Find the candle index where RSI first broke through trendline.
+        
+        Args:
+            rsi_series: Historical RSI values
+            trendline: Dict with 'slope' and 'intercept'
+            direction: 'LONG' (resistance break) or 'SHORT' (support break)
+            lookback: How many candles to search back
+        
+        Returns:
+            Index of breakout candle, or None if not found
+        """
+        if len(rsi_series) < 2:
+            return None
+        
+        current_idx = len(rsi_series) - 1
+        start_idx = max(0, current_idx - lookback)
+        
+        for i in range(start_idx, current_idx):
+            if i == 0:
+                continue
+            
+            rsi_now = rsi_series.iloc[i]
+            rsi_prev = rsi_series.iloc[i-1]
+            
+            projected_now = trendline['slope'] * i + trendline['intercept']
+            projected_prev = trendline['slope'] * (i-1) + trendline['intercept']
+            
+            if direction == 'LONG':
+                # Was below or equal, now above = BREAKOUT
+                if rsi_prev <= projected_prev and rsi_now > projected_now:
+                    return i
+            else:  # SHORT
+                # Was above or equal, now below = BREAKDOWN
+                if rsi_prev >= projected_prev and rsi_now < projected_now:
+                    return i
+        
+        return None
+    
+    def _calculate_retest_quality(self, rsi_series: pd.Series, trendline: dict,
+                                  breakout_idx: int, current_idx: int, 
+                                  direction: str) -> float:
+        """
+        Calculate retest quality score 0-100.
+        
+        Quality factors:
+        - Proximity to trendline (40 points): Closer = better
+        - Bounce reaction (30 points): Moving away from line = better
+        - Timing (30 points): 4-8 candles ideal
+        
+        Returns:
+            Quality score 0-100
+        """
+        score = 0.0
+        
+        current_rsi = rsi_series.iloc[current_idx]
+        projected_rsi = trendline['slope'] * current_idx + trendline['intercept']
+        distance = abs(current_rsi - projected_rsi)
+        
+        # 1. Proximity score (40 points max)
+        if distance <= 1.0:
+            score += 40.0
+        elif distance <= 2.0:
+            score += 30.0
+        elif distance <= 3.0:
+            score += 20.0
+        
+        # 2. Bounce reaction (30 points max)
+        if current_idx >= 1:
+            prev_rsi = rsi_series.iloc[current_idx - 1]
+            prev_projected = trendline['slope'] * (current_idx - 1) + trendline['intercept']
+            prev_distance = abs(prev_rsi - prev_projected)
+            
+            rsi_momentum = current_rsi - prev_rsi
+            
+            if direction == 'LONG':
+                # Should be bouncing up and moving away from line
+                if rsi_momentum > 0 and distance > prev_distance:
+                    score += 30.0  # Clean bounce
+                elif rsi_momentum > 0:
+                    score += 15.0  # Weak bounce
+            else:  # SHORT
+                # Should be bouncing down and moving away from line
+                if rsi_momentum < 0 and distance > prev_distance:
+                    score += 30.0
+                elif rsi_momentum < 0:
+                    score += 15.0
+        
+        # 3. Timing score (30 points max)
+        candles_since = current_idx - breakout_idx
+        
+        if 4 <= candles_since <= 8:
+            score += 30.0  # Perfect timing
+        elif 3 <= candles_since <= 12:
+            score += 20.0  # Good timing
+        elif candles_since <= 15:
+            score += 10.0  # Acceptable
+        
+        return min(100.0, score)
+    
+    def _classify_trendline_interaction(self, rsi_series: pd.Series, trendline: dict,
+                                       direction: str) -> dict:
+        """
+        Classify current RSI position relative to trendline.
+        
+        Returns:
+            {
+                'type': 'INITIAL_BREAKOUT' | 'RETEST' | 'CONTINUATION' | 'NO_SIGNAL',
+                'breakout_candles_ago': int,
+                'distance_from_line': float,
+                'quality': float  # 0-100 for retests
+            }
+        """
+        # Find when RSI first broke through trendline
+        breakout_idx = self._find_initial_breakout(rsi_series, trendline, direction)
+        
+        if breakout_idx is None:
+            return {
+                'type': 'NO_SIGNAL',
+                'reason': 'No breakout detected in lookback period'
+            }
+        
+        current_idx = len(rsi_series) - 1
+        candles_since_breakout = current_idx - breakout_idx
+        
+        # Calculate current position
+        current_rsi = rsi_series.iloc[current_idx]
+        projected_rsi = trendline['slope'] * current_idx + trendline['intercept']
+        distance_from_line = abs(current_rsi - projected_rsi)
+        
+        # Classify based on time and position
+        if candles_since_breakout <= 2:
+            # Fresh breakout (within 2 candles)
+            return {
+                'type': 'INITIAL_BREAKOUT',
+                'breakout_candles_ago': candles_since_breakout,
+                'distance_from_line': distance_from_line,
+                'quality': 0  # Not applicable for initial breakout
+            }
+        
+        elif distance_from_line <= 3.0 and 3 <= candles_since_breakout <= 15:
+            # Near trendline after previous break = RETEST
+            quality = self._calculate_retest_quality(
+                rsi_series, trendline, breakout_idx, current_idx, direction
+            )
+            
+            return {
+                'type': 'RETEST',
+                'breakout_candles_ago': candles_since_breakout,
+                'distance_from_line': distance_from_line,
+                'quality': quality
+            }
+        
+        elif candles_since_breakout > 15:
+            # Too late - continuation phase
+            return {
+                'type': 'CONTINUATION',
+                'breakout_candles_ago': candles_since_breakout,
+                'distance_from_line': distance_from_line,
+                'reason': 'Retest window passed (>15 candles)'
+            }
+        
+        else:
+            # Far from line, not a retest
+            return {
+                'type': 'CONTINUATION',
+                'breakout_candles_ago': candles_since_breakout,
+                'distance_from_line': distance_from_line,
+                'reason': f'Too far from trendline ({distance_from_line:.2f} RSI points)'
+            }
+    
+    def _generate_context_badges(self, context: SharedContext, **kwargs) -> str:
+        """Generate context badge for dashboard display based on V2 observability."""
+        badges = []
+        
+        # RETEST badge - HIGHEST PRIORITY (golden entry)
+        if kwargs.get('is_retest', False):
+            badges.append('RETEST')
+        
+        # OI Data badge - shows if institutional confirmation present
+        oi_z_score_valid = context.get_external('oi_z_score_valid', False)
+        oi_z_score = context.get_external('oi_z_score', 0.0)
+        if oi_z_score_valid and oi_z_score > self.min_oi_zscore:
+            badges.append('OI DATA')
+        
+        # Hidden Divergence badge
+        if kwargs.get('hidden_div_detected', False):
+            badges.append('HIDDEN DIV')
+        
+        # K-Candle confirmation badge
+        if kwargs.get('k_candle_confirmed', False):
+            badges.append('K-CANDLE')
+        
+        # MTF Confluence badge
+        if kwargs.get('mtf_confirmed', False):
+            badges.append('MTF CONF')
+        
+        # Cardwall TP badge (when enabled and capped)
+        if kwargs.get('cardwall_tp_capped', False):
+            badges.append('TP CAPPED')
+        
+        # Return first badge (most important) or empty
+        return badges[0] if badges else ''
+    
     def _wait_result(self, context: SharedContext, close: float, rsi_val: float,
                      reason: str = "", **kwargs) -> Dict[str, Any]:
         """Return WAIT result with diagnostic info and full observability."""
@@ -1832,16 +2192,32 @@ class QuantProBreakoutV2Refactored(Strategy):
         oi_z_score_valid = context.get_external('oi_z_score_valid', False)
         
         # Get ATR
-        atr_series = context.get_ltf_indicator('atr')
+        atr_series = context.get_htf_indicator('atr') # Use HTF ATR for V2
         atr_val = atr_series.iloc[-1] if atr_series is not None and len(atr_series) > 0 else (close * 0.02)
         
         # Determine bias from Cardwell range
-        bias = "LONG" if cardwell_range == "BULLISH" else ("SHORT" if cardwell_range == "BEARISH" else "NONE")
+        bias, _ = self._apply_cardwell_rules(rsi_val) # Re-determine bias for consistency
         
+        # Get results of optional filters if they were checked
+        k_candle_result = kwargs.get('k_candle', {'enabled': self.k_candle_enabled, 'confirmed': False, 'reason': 'Not checked'})
+        mtf_result = kwargs.get('mtf_confluence', {'enabled': self.mtf_filter_enabled, 'passed': False, 'reason': 'Not checked'})
+        hidden_div_result = kwargs.get('hidden_divergence', {'enabled': self.hidden_div_enabled, 'detected': False})
+
         # Build observability with actual calculated values
         observability = self._build_observability_dict(
             context, rsi_val, close, oi_z_score, oi_z_score_valid,
-            obv_slope, cardwell_range, None, atr_val, bias
+            obv_slope, cardwell_range, None, atr_val, bias,
+            hidden_div_result=hidden_div_result,
+            k_candle_result=k_candle_result,
+            mtf_result=mtf_result
+        )
+        
+        # Generate context badge
+        context_badge = self._generate_context_badges(
+            context,
+            hidden_div_detected=hidden_div_result['detected'],
+            k_candle_confirmed=k_candle_result['confirmed'],
+            mtf_confirmed=mtf_result['passed']
         )
         
         return {
@@ -1861,6 +2237,10 @@ class QuantProBreakoutV2Refactored(Strategy):
                 "oi_z_score": float(oi_z_score),
                 "obv_slope": float(obv_slope),
                 "cardwell_range": cardwell_range,
+                "context_badge": context_badge if context_badge else None,
+                "hidden_divergence": hidden_div_result,
+                "k_candle_confirmation": k_candle_result,
+                "mtf_confluence": mtf_result,
                 **kwargs
             },
             "htf": {"trend": "NONE", "bias": bias, "adx": 0},

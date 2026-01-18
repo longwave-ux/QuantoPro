@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 384630615
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 383651361
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 384749590
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 385240700
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 385110560
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 385390709
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 384516621
-    },
-    {
       "timestamp": 1768681800,
       "value": 385240628
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 377557512
+      "value": 377543873
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 376321719
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 375904679
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 376812495
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 376697402
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 376939847
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 376747378
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 376641566
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3963575365444527,
+  "ls_ratio": 1.3747328425552126,
   "liquidations": {
-    "longs": 0,
-    "shorts": 219523
+    "longs": 4964,
+    "shorts": 66552
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "CHZUSDT_PERP.A",
-  "fetched_at": 1768762838055
+  "fetched_at": 1768769193099
 }

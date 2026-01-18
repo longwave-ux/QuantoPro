@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 68278000
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 68299349
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 68240299
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 68232317
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 68222175
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 68228721
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 68239292
-    },
-    {
       "timestamp": 1768682700,
       "value": 68247508
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 68228346
+      "value": 68206798
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 68204033
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 68153512
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 68106034
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 68083844
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 68055460
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 67987239
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 67976365
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.127932436659368,
+  "ls_ratio": 2.137076537013802,
   "liquidations": {
-    "longs": 29273,
+    "longs": 0,
     "shorts": 32903
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "IDOLUSDT_PERP.A",
-  "fetched_at": 1768763080343
+  "fetched_at": 1768769434410
 }

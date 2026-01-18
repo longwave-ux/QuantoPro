@@ -221,7 +221,9 @@ export interface AnalysisResult {
     geometry_component?: number; // Added for UI tooltip
     momentum_component?: number; // Added for UI tooltip
     type?: string; // Added for Breakout/Retest type
-    context_badge?: string;
+    context_badge?: string; // V2: Context badges (OI DATA, RETEST, etc.)
+    setup_type?: string;     // V2: RETEST, INITIAL_BREAKOUT
+    retest_quality?: number; // V2: 0-100 quality score for retests
     raw_components?: any;
     score_breakdown?: {
       geometry: number;

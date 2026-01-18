@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 244652234
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 244700045
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 244836236
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 244656902
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 244644823
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 245258272
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 245985667
-    },
-    {
       "timestamp": 1768682700,
       "value": 246441473
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 240639269
+      "value": 240082813
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 240020197
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 240188984
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 240505813
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 240308480
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 240424682
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 240417601
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 240406801
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 4.720823798627002,
+  "ls_ratio": 4.841121495327102,
   "liquidations": {
-    "longs": 488744,
+    "longs": 72535,
     "shorts": 80330
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "HANAUSDT_PERP.A",
-  "fetched_at": 1768763080340
+  "fetched_at": 1768769434409
 }

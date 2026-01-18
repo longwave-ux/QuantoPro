@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 1654675.6
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 1653950.6
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 1652880.9
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 1652565.7
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 1651750.3
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 1652728.9
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 1652263
-    },
-    {
       "timestamp": 1768680900,
       "value": 1651394.5
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 1626680.5
+      "value": 1629153.8
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 1632105.5
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 1637895.2
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 1639231.1
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 1652527
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 1650536.1
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 1650295
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 1656776.1
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.564102564102564,
+  "ls_ratio": 1.566735112936345,
   "liquidations": {
     "longs": 14.5,
     "shorts": 231.2
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ARUSDT_PERP.A",
-  "fetched_at": 1768761753875
+  "fetched_at": 1768768106170
 }

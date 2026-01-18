@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 29552052
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 29560083
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 29554782
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 29511829
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 29506731
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 29521121
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 29525714
-    },
-    {
       "timestamp": 1768682700,
       "value": 29548255
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 30826542
+      "value": 30811205
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 30821650
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 30831578
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 30840530
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 30810469
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 30903710
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 30915686
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 30930470
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3573785950023574,
+  "ls_ratio": 1.3752969121140142,
   "liquidations": {
     "longs": 102559,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "KAIAUSDT_PERP.A",
-  "fetched_at": 1768763080348
+  "fetched_at": 1768769434413
 }

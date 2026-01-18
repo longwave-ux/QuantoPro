@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 54708119
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 54790278
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 54773254
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 54707328
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 54743487
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 54780925
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 55404657
-    },
-    {
       "timestamp": 1768681800,
       "value": 55535556
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 52132067
+      "value": 52131335
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 53934814
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 52910525
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 53145915
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 53162069
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 53294541
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 53380272
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 54890756
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9377203290246767,
+  "ls_ratio": 1.962962962962963,
   "liquidations": {
-    "longs": 205274,
+    "longs": 19409,
     "shorts": 13494
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "COOKIEUSDT_PERP.A",
-  "fetched_at": 1768762838062
+  "fetched_at": 1768769193101
 }

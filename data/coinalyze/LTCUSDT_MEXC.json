@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 1826880.885
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 1827814.242
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 1825469.896
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 1826149.072
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 1825683.953
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 1824565.89
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 1826344.698
-    },
-    {
       "timestamp": 1768681800,
       "value": 1826720.783
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 1810808.009
+      "value": 1808687.588
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 1807476.122
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 1807208.93
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 1806523.439
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 1803665.824
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 1803427.039
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 1803793.484
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 1803764.181
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.4059945504087192,
+  "ls_ratio": 2.445899379738112,
   "liquidations": {
-    "longs": 148.557,
+    "longs": 122.253,
     "shorts": 4.6
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "LTCUSDT_PERP.A",
-  "fetched_at": 1768762235273
+  "fetched_at": 1768768588832
 }

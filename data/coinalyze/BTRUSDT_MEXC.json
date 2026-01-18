@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 95989828
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 96090006
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 95993357
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 95837975
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 95624282
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 95599160
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 95426684
-    },
-    {
       "timestamp": 1768681800,
       "value": 94194980
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 81285860
+      "value": 81273317
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 80555687
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 80294128
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 80215912
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 80219028
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 80044226
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 79970586
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 79897351
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.5812776723592662,
+  "ls_ratio": 0.574555188159345,
   "liquidations": {
-    "longs": 3895,
-    "shorts": 111282
+    "longs": 3966,
+    "shorts": 110115
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BTRUSDT_PERP.A",
-  "fetched_at": 1768762838047
+  "fetched_at": 1768769193097
 }

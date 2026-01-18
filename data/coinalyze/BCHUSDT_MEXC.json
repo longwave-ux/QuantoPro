@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 357539.319
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 357629.204
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 357767.964
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 357710.006
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 357684.265
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 357627.215
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 357682.558
-    },
-    {
       "timestamp": 1768680900,
       "value": 357723.041
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 360135.857
+      "value": 360074.721
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 360121.344
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 360193.921
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 360318.821
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 360273.774
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 360176.668
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 360141.787
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 360044.168
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0746887966804979,
+  "ls_ratio": 1.0751193193608632,
   "liquidations": {
-    "longs": 1.544,
+    "longs": 3.51,
     "shorts": 1
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BCHUSDT_PERP.A",
-  "fetched_at": 1768761874336
+  "fetched_at": 1768768227900
 }

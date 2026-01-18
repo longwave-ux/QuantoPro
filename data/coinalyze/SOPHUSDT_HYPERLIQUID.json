@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 258754415
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 258488460
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 258657232
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 258324220
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 258337133
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 258217241
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 258049043
-    },
-    {
       "timestamp": 1768681800,
       "value": 257917197
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 251352501
+      "value": 251342699
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 251436353
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 251325647
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 251402239
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 251435779
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 251295154
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 251314714
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 251483957
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0072260136491369,
+  "ls_ratio": 1.033760423022168,
   "liquidations": {
     "longs": 370362,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SOPHUSDT_PERP.A",
-  "fetched_at": 1768762476058
+  "fetched_at": 1768768831078
 }

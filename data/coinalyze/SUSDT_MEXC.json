@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 71146319
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 71204851
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 71131998
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 71136581
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 71058799
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 70985138
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 71003162
-    },
-    {
       "timestamp": 1768681800,
       "value": 71216545
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 80015457
+      "value": 79965941
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 80068882
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 80050024
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 79947832
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 79880410
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 79816282
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 79877249
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 79900338
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.8331805682859763,
+  "ls_ratio": 0.841959845275373,
   "liquidations": {
     "longs": 11687,
-    "shorts": 79
+    "shorts": 10773
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SUSDT_PERP.A",
-  "fetched_at": 1768762476062
+  "fetched_at": 1768768831086
 }

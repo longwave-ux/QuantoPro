@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 6957347218
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 6961677790
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 6999329094
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 6987384591
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 6986873586
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 6996470385
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 7019401267
-    },
-    {
       "timestamp": 1768682700,
       "value": 7065423397
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 6768894968
+      "value": 6771914523
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 6755939433
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 6749934919
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 6762524813
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 6769834849
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 6779659131
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 6922767447
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 6938787421
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.909514111143439,
+  "ls_ratio": 1.8296547821165816,
   "liquidations": {
-    "longs": 25842454,
-    "shorts": 346348
+    "longs": 25787745,
+    "shorts": 188338
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SPELLUSDT_PERP.A",
-  "fetched_at": 1768763321839
+  "fetched_at": 1768769675066
 }

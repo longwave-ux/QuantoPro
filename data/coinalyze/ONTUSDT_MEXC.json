@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 55777166.7
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 55918544.6
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 55890385.8
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 56189465.2
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 56152872.1
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 56117049.3
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 56116127.2
-    },
-    {
       "timestamp": 1768682700,
       "value": 56057221
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 54734245.1
+      "value": 54780262.2
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 54799534.9
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 54861895.3
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 54868426.4
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 54942142.3
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 54929878.1
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 54830699.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 54829471.4
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.7988846914912753,
+  "ls_ratio": 0.793400286944046,
   "liquidations": {
     "longs": 96198,
     "shorts": 956.1
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ONTUSDT_PERP.A",
-  "fetched_at": 1768763200746
+  "fetched_at": 1768769554679
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 35448459.1
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 35460758.7
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 35454667.6
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 35424219.6
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 35452673.9
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 35448571.1
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 35438476.8
-    },
-    {
       "timestamp": 1768682700,
       "value": 35469013.9
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 34334107.9
+      "value": 34326723.1
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 34341470.2
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 34340949.8
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 34370339.4
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 34369330.8
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 34381288.9
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 34430775.6
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 34434972.9
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.9972039145196725,
+  "ls_ratio": 0.9872813990461049,
   "liquidations": {
     "longs": 9142.5,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ZRXUSDT_PERP.A",
-  "fetched_at": 1768763382050
+  "fetched_at": 1768769735419
 }

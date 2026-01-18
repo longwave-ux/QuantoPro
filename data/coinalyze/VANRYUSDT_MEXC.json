@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 208972900
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 208288284
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 208690718
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 208761222
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 209024925
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 208994944
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 208640158
-    },
-    {
       "timestamp": 1768682700,
       "value": 211399565
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 295387354
+      "value": 296051850
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 304700195
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 308648403
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 308559732
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 306515116
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 308823181
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 309835281
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 311293730
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9368575624082234,
+  "ls_ratio": 1.8826751225136928,
   "liquidations": {
-    "longs": 21347,
-    "shorts": 35468
+    "longs": 495544,
+    "shorts": 52627
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "VANRYUSDT_PERP.A",
-  "fetched_at": 1768763321847
+  "fetched_at": 1768769675073
 }

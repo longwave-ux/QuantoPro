@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 71604407
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 71483814
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 71432569
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 71352951
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 71236579
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 71337825
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 71346106
-    },
-    {
       "timestamp": 1768682700,
       "value": 71314575
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 68869608
+      "value": 68834628
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 68847649
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 68906790
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 68810436
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 68859275
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 68804195
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 68822370
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 68767331
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1710811984368215,
+  "ls_ratio": 1.1881838074398248,
   "liquidations": {
     "longs": 956,
-    "shorts": 495
+    "shorts": 444
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PIPPINUSDT_PERP.A",
-  "fetched_at": 1768763200749
+  "fetched_at": 1768769554681
 }

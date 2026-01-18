@@ -1,38 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 254662.76
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 254353.29
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 254878.58
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 254714.95
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 254610.44
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 254536.36
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 254385.97
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 254377.61
-    },
-    {
       "timestamp": 1768681800,
       "value": 254102.48
     },
@@ -387,15 +355,47 @@
     {
       "timestamp": 1768761000,
       "value": 250870.91
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 250773.95
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 250632.37
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 250518.49
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 250478.2
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 250387.73
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 250222.73
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 249602.71
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 249676.51
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.0525030525030523,
+  "ls_ratio": 2.014772384684956,
   "liquidations": {
     "longs": 40.71,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GMXUSDT_PERP.A",
-  "fetched_at": 1768761994667
+  "fetched_at": 1768768348213
 }

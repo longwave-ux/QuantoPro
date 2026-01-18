@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 22013935
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 22035326.4
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 22034485.9
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 22011373.8
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 21976512
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 21974547.3
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 21961195
-    },
-    {
       "timestamp": 1768680900,
       "value": 21935951.2
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 21587172.2
+      "value": 21584796.8
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 21586216.7
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 21577263.5
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 21575575.2
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 21594302.7
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 21582085.5
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 21585296.2
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 21608093.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3386342376052387,
+  "ls_ratio": 1.334267040149393,
   "liquidations": {
-    "longs": 12141.599999999999,
+    "longs": 707.3,
     "shorts": 40.7
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "APTUSDT_PERP.A",
-  "fetched_at": 1768761753874
+  "fetched_at": 1768768106169
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 67230370
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 67219734
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 67166978
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 67205969
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 67223972
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 67562368
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 67585331
-    },
-    {
       "timestamp": 1768681800,
       "value": 67582701
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 69620088
+      "value": 69626783
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 69635854
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 69853091
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 69845147
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 69666422
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 69781925
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 69783480
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 69616761
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1767522855899,
+  "ls_ratio": 1.162629757785467,
   "liquidations": {
-    "longs": 21676,
+    "longs": 21877,
     "shorts": 156
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "WLDUSDT_PERP.A",
-  "fetched_at": 1768762717827
+  "fetched_at": 1768769071613
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 66482176
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 66483925
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 66459702
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 66431828
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 66536113
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 66547569
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 66455204
-    },
-    {
       "timestamp": 1768682700,
       "value": 66468956
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 67232742
+      "value": 67224791
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 67262344
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 67125878
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 67071049
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 66968371
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 66957791
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 66988060
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 66985019
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4330900243309002,
+  "ls_ratio": 1.4925224327018944,
   "liquidations": {
     "longs": 8243,
     "shorts": 6570
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "WOOUSDT_PERP.A",
-  "fetched_at": 1768763382046
+  "fetched_at": 1768769735414
 }

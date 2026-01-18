@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 2047267.6
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 2045965.1
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 2049804.8
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 2049409.1
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 2049904.6
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 2052108.7
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 2052229.5
-    },
-    {
       "timestamp": 1768682700,
       "value": 2056340
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 2092601.5
+      "value": 2091723.7
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 2091733.1
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 2091484.2
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 2088370.4
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 2087053
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 2086990.6
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 2078944.4
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 2079596.4
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3337222870478411,
+  "ls_ratio": 1.3568230025925052,
   "liquidations": {
     "longs": 1087,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "QTUMUSDT_PERP.A",
-  "fetched_at": 1768763200753
+  "fetched_at": 1768769554685
 }

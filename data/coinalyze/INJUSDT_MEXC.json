@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 3101603.2
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 3103092.6
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 3102465.1
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 3098729.7
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 3091609.5
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 3092253
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 3091335.5
-    },
-    {
       "timestamp": 1768681800,
       "value": 3092948.7
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 3072338.7
+      "value": 3073283.6
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 3064794.3
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 3062278.8
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 3065104.4
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 3060221.4
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 3058975
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 3059769.2
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 3060801.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2820629849383842,
+  "ls_ratio": 1.3397285914833879,
   "liquidations": {
-    "longs": 70,
-    "shorts": 0
+    "longs": 67.9,
+    "shorts": 190.5
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "INJUSDT_PERP.A",
-  "fetched_at": 1768762115025
+  "fetched_at": 1768768468512
 }

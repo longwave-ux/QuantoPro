@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 12923569.8
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 12917653.3
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 12925618.9
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 12965319.4
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 12997647.5
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 12981430.2
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 12996125.5
-    },
-    {
       "timestamp": 1768681800,
       "value": 13013388.9
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 15209889.1
+      "value": 15206449.8
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 15258603.6
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 15277321
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 15296622.5
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 15443637
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 15854162.5
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 15909321.8
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 16067628.5
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6130128037627383,
+  "ls_ratio": 1.5406504065040652,
   "liquidations": {
-    "longs": 528.9,
-    "shorts": 1579.2
+    "longs": 349.5,
+    "shorts": 3964.5999999999995
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "IPUSDT_PERP.A",
-  "fetched_at": 1768762115028
+  "fetched_at": 1768768468514
 }

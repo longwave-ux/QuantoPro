@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 37649785.6
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 37669681.2
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 37693132.2
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 37796255.2
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 37783418.5
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 37722785.9
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 37715012.6
-    },
-    {
       "timestamp": 1768681800,
       "value": 37751948.5
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 37076492.5
+      "value": 37077531.8
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 37041612.3
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 37059765.9
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 37036035.1
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 37071767
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 37129048.4
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 37105052.5
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 37101334.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6207455429497568,
+  "ls_ratio": 0.6215339711366953,
   "liquidations": {
     "longs": 1762.8999999999999,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "KAITOUSDT_PERP.A",
-  "fetched_at": 1768762115030
+  "fetched_at": 1768768468516
 }

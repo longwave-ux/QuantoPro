@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 724726765
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 726086760
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 725652013
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 726457042
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 726893487
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 727657154
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 728304596
-    },
-    {
       "timestamp": 1768682700,
       "value": 728096523
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 712576165
+      "value": 712162767
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 712748091
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 712637640
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 712960291
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 712676576
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 713786961
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 713457607
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 713709884
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6673779674579887,
+  "ls_ratio": 1.7078256160303276,
   "liquidations": {
-    "longs": 574916,
+    "longs": 32775,
     "shorts": 374504
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "VETUSDT_PERP.A",
-  "fetched_at": 1768763321848
+  "fetched_at": 1768769675074
 }

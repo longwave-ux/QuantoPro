@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 10133179.5
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 10133660.6
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 10156140.5
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 10165985.3
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 10061160.9
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 10038717.5
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 10021072.9
-    },
-    {
       "timestamp": 1768681800,
       "value": 10008614.5
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 10676190.9
+      "value": 10646807.4
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 10624012.5
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 10619925.9
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 10632287.6
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 10627956.1
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 10640111.3
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 10656167.2
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 10659912.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.7041644131963225,
+  "ls_ratio": 1.7100271002710028,
   "liquidations": {
     "longs": 2582.2,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "GRASSUSDT_PERP.A",
-  "fetched_at": 1768762115018
+  "fetched_at": 1768768468505
 }

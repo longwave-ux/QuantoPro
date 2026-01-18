@@ -174,18 +174,68 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({ pair, activeExchange =
 
     const { segment: trendLineSegment, projection: trendLineProjection } = getTrendlineData();
 
-    // Calculate Slice Start for Zoomed View
+    // Calculate optimal time window for RSI chart display
     const getZoomedData = () => {
         // ALL strategies now use HTF (4h) for RSI trendlines
         const sourceData = indicators.htfData;
 
-        let sliceStart = 0;
-        if (pair.setup?.trendline?.start_idx) {
-            sliceStart = Math.max(0, pair.setup.trendline.start_idx - 10);
+        // Default: show all data if no trendline
+        if (!pair.setup?.trendline?.start_idx && !pair.observability?.rsi_visuals) {
+            return {
+                slicedData: sourceData,
+                isZoomed: false
+            };
+        }
+
+        let earliestIdx = 0;
+        let latestIdx = sourceData.length - 1;
+
+        // Calculate range from setup trendline (Breakout strategy)
+        if (pair.setup?.trendline?.start_idx !== undefined) {
+            earliestIdx = pair.setup.trendline.start_idx;
+        }
+
+        // Calculate range from observability trendlines (V2 strategy)
+        if (pair.observability?.rsi_visuals) {
+            const visuals = pair.observability.rsi_visuals;
+
+            // Find earliest pivot from resistance or support
+            if (visuals.resistance?.pivot_1?.index !== undefined) {
+                earliestIdx = Math.min(earliestIdx || visuals.resistance.pivot_1.index, visuals.resistance.pivot_1.index);
+            }
+            if (visuals.support?.pivot_1?.index !== undefined) {
+                earliestIdx = Math.min(earliestIdx || visuals.support.pivot_1.index, visuals.support.pivot_1.index);
+            }
+        }
+
+        // Smart padding calculation
+        // Show some candles before the trendline start for context
+        // And some after current for projection visibility
+        const totalDataPoints = sourceData.length;
+        const trendlineDuration = latestIdx - earliestIdx;
+
+        // Padding: 20% of trendline duration, minimum 5 candles, maximum 20 candles
+        const padding = Math.max(5, Math.min(20, Math.floor(trendlineDuration * 0.2)));
+
+        // Calculate slice window
+        const sliceStart = Math.max(0, earliestIdx - padding);
+        const sliceEnd = Math.min(totalDataPoints, latestIdx + Math.floor(padding / 2)); // Less padding after
+
+        // Safety: Ensure we show at least 15 candles for context
+        const minCandles = 15;
+        if (sliceEnd - sliceStart < minCandles) {
+            const center = Math.floor((sliceStart + sliceEnd) / 2);
+            return {
+                slicedData: sourceData.slice(
+                    Math.max(0, center - Math.floor(minCandles / 2)),
+                    Math.min(totalDataPoints, center + Math.ceil(minCandles / 2))
+                ),
+                isZoomed: true
+            };
         }
 
         return {
-            slicedData: sourceData.slice(sliceStart),
+            slicedData: sourceData.slice(sliceStart, sliceEnd),
             isZoomed: sliceStart > 0
         };
     };

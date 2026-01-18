@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 8893941
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 8891965
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 8888755
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 8860848
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 8828514
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 8823764
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 8848717
-    },
-    {
       "timestamp": 1768682700,
       "value": 8871163
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 8973991
+      "value": 8980049
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 8979106
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 8980038
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 8982022
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 8980147
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 8979114
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 8983377
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 8983286
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.8604651162790697,
+  "ls_ratio": 0.8601190476190477,
   "liquidations": {
     "longs": 214,
     "shorts": 1021
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ESPORTSUSDT_PERP.A",
-  "fetched_at": 1768762960048
+  "fetched_at": 1768769313453
 }

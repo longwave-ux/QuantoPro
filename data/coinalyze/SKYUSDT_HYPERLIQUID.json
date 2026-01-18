@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 84798998
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 84902019
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 85166574
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 85220867
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 85156745
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 85145779
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 85152390
-    },
-    {
       "timestamp": 1768681800,
       "value": 85127188
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 80957707
+      "value": 80952263
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 80897278
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 80889085
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 80849028
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 80868501
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 80792404
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 80766238
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 80744421
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3820867079561698,
+  "ls_ratio": 1.3485204321277595,
   "liquidations": {
     "longs": 3142,
-    "shorts": 60158
+    "shorts": 9165
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SKYUSDT_PERP.A",
-  "fetched_at": 1768762476055
+  "fetched_at": 1768768831075
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 770022835
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 768974999
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 766731790
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 765327358
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 766703894
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 765621679
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 762143981
-    },
-    {
       "timestamp": 1768682700,
       "value": 762305235
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 758081728
+      "value": 761410956
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 760752777
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 757837777
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 759358748
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 759320466
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 757888421
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 755180002
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 755085457
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6728002676480428,
+  "ls_ratio": 0.6897600540723218,
   "liquidations": {
     "longs": 700127,
     "shorts": 925
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "JASMYUSDT_PERP.A",
-  "fetched_at": 1768763080345
+  "fetched_at": 1768769434412
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 1674868.2
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 1660261.5
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 1626206.8
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 1619301.3
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 1620401.3
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 1621567.7
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 1622874.4
-    },
-    {
       "timestamp": 1768682700,
       "value": 1617736.2
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 1767735.4
+      "value": 1763170.1
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 1764423.9
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 1763057
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 1768680.6
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 1773627.1
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 1772114.4
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 1770633
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1763700
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.5239256324291375,
+  "ls_ratio": 0.5124016938898972,
   "liquidations": {
-    "longs": 233.60000000000002,
-    "shorts": 594.2
+    "longs": 72,
+    "shorts": 352.9
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "RIVERUSDT_PERP.A",
-  "fetched_at": 1768763200757
+  "fetched_at": 1768769554687
 }

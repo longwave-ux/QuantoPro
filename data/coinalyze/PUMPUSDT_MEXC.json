@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 30975572248
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 30974266951
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 30968544835
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 30944276348
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 30824135181
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 30697231204
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 30670205275
-    },
-    {
       "timestamp": 1768681800,
       "value": 30632490844
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 29701167487
+      "value": 29703117289
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 29699893140
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 29693868589
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 29622191923
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 29623840079
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 29182396099
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 29089295423
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 28995862397
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.3975065931431312,
+  "ls_ratio": 1.5859839668994051,
   "liquidations": {
-    "longs": 130674,
-    "shorts": 1424434
+    "longs": 17371020,
+    "shorts": 208144
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "PUMPUSDT_PERP.A",
-  "fetched_at": 1768762355711
+  "fetched_at": 1768768709144
 }

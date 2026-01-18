@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768674600,
-      "value": 9468635.71
-    },
-    {
-      "timestamp": 1768675500,
-      "value": 9467608.18
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 9462573.73
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 9462408.59
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 9468520.75
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 9472611.97
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 9452812.43
-    },
-    {
       "timestamp": 1768680900,
       "value": 9457733.99
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761000,
-      "value": 9111544.81
+      "value": 9108670.22
+    },
+    {
+      "timestamp": 1768761900,
+      "value": 9109529.34
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 9108087.24
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 9115463.01
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 9113204.26
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 9113507.69
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 9115697.85
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 9110382.58
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2789425706472195,
+  "ls_ratio": 1.2609088853719197,
   "liquidations": {
-    "longs": 538.88,
-    "shorts": 548.97
+    "longs": 766.94,
+    "shorts": 93.13
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ATOMUSDT_PERP.A",
-  "fetched_at": 1768761753876
+  "fetched_at": 1768768106171
 }

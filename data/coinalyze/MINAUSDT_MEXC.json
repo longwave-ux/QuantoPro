@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 42253717
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 42294882
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 42335942
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 42244447
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 42150296
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 42181595
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 42181410
-    },
-    {
       "timestamp": 1768681800,
       "value": 42151013
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 41995246
+      "value": 41967405
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 41900133
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 41824603
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 41827116
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 41793190
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 41821634
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 41933226
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 41864260
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8169014084507042,
+  "ls_ratio": 1.7855153203342617,
   "liquidations": {
-    "longs": 10774,
-    "shorts": 1628
+    "longs": 0,
+    "shorts": 3850
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MINAUSDT_PERP.A",
-  "fetched_at": 1768762235281
+  "fetched_at": 1768768588838
 }

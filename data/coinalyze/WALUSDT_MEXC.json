@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 25142614
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 25138878
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 25103959
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 25076334
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 25063899
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 25060654
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 25065053
-    },
-    {
       "timestamp": 1768682700,
       "value": 25068777
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 24351249
+      "value": 24361124
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 24360055
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 24325543
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 24274270
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 24262579
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 24233581
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 24203566
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 24200435
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4654832347140039,
+  "ls_ratio": 1.4888003982080638,
   "liquidations": {
     "longs": 32,
     "shorts": 232
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "WALUSDT_PERP.A",
-  "fetched_at": 1768763321849
+  "fetched_at": 1768769675075
 }

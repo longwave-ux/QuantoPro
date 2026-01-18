@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 11039424
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 11154288
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 11275434
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 11424519
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 11178372
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 11076027
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 11041050
-    },
-    {
       "timestamp": 1768682700,
       "value": 10923779
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 9057254
+      "value": 8820627
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 8709260
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 8731961
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 8714641
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 8880414
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 8952985
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 8980823
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 9116270
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6911889058007779,
+  "ls_ratio": 0.6534391534391535,
   "liquidations": {
-    "longs": 825,
-    "shorts": 33611
+    "longs": 2140,
+    "shorts": 6875
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FRAXUSDT_PERP.A",
-  "fetched_at": 1768762960052
+  "fetched_at": 1768769313458
 }

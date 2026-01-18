@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 8852794.67
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 8850711.77
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 8814415.74
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 8824344.74
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 8822087.84
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 8821602.88
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 8814100.68
-    },
-    {
       "timestamp": 1768681800,
       "value": 8794191.75
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 9018826.91
+      "value": 9033744.37
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 9031067.34
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 9003655.16
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 9027280.41
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 9029154.19
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 9028870.71
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 9036150.12
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 9034376.87
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.4283632831471589,
+  "ls_ratio": 1.423654871546292,
   "liquidations": {
-    "longs": 1631.0899999999997,
-    "shorts": 1189.8400000000001
+    "longs": 87.96000000000001,
+    "shorts": 982.5500000000001
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TRUMPUSDT_PERP.A",
-  "fetched_at": 1768762596399
+  "fetched_at": 1768768951327
 }

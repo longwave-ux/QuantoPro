@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 1309058.5
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 1309412.9
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 1309578.1
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 1309229.3
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 1309435
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 1307106
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 1307563.4
-    },
-    {
       "timestamp": 1768682700,
       "value": 1305982.4
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 1318570.6
+      "value": 1318557.5
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 1318637.9
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 1320215.8
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 1318762.3
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 1318516.6
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 1317458.9
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 1314195.4
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 1316148.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.2779043280182234,
+  "ls_ratio": 1.2701475595913736,
   "liquidations": {
     "longs": 139.4,
     "shorts": 498.00000000000006
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SANTOSUSDT_PERP.A",
-  "fetched_at": 1768763200761
+  "fetched_at": 1768769554690
 }

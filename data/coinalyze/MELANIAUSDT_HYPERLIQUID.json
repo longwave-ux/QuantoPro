@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 39834910.05
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 39790826.87
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 39791811.97
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 39791548.86
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 39795708.49
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 39804732.95
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 39788451.21
-    },
-    {
       "timestamp": 1768681800,
       "value": 39772882.71
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 39635552.66
+      "value": 39649829.28
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 39660674.18
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 39669257.93
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 39676733.68
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 39672395.88
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 39690714.12
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 39687267.38
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 39682211.92
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9691211401425177,
+  "ls_ratio": 1.9717682020802376,
   "liquidations": {
     "longs": 9188,
     "shorts": 76.89
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MELANIAUSDT_PERP.A",
-  "fetched_at": 1768762235276
+  "fetched_at": 1768768588836
 }

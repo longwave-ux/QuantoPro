@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 17566669
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 17565712
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 17570876
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 17641817
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 17621045
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 17594486
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 17581217
-    },
-    {
       "timestamp": 1768681800,
       "value": 17383562
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 17130000
+      "value": 17153764
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 17161607
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 17223744
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 17272141
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 17276636
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 17246505
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 17211875
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 17221841
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.17258883248731,
+  "ls_ratio": 2.1857279388340234,
   "liquidations": {
     "longs": 551,
-    "shorts": 2412
+    "shorts": 201
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SCRUSDT_PERP.A",
-  "fetched_at": 1768762476054
+  "fetched_at": 1768768831074
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 104776025
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 104633456
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 104616630
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 104189373
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 104160764
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 104086326
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 104003374
-    },
-    {
       "timestamp": 1768681800,
       "value": 104119425
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 103475031
+      "value": 103226816
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 103629342
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 102698498
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 102615070
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 102667642
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 102625839
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 102634618
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 102817743
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.1104199066874028,
+  "ls_ratio": 2.1525851197982346,
   "liquidations": {
-    "longs": 35811,
-    "shorts": 0
+    "longs": 22961,
+    "shorts": 1318
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "USUALUSDT_PERP.A",
-  "fetched_at": 1768762596404
+  "fetched_at": 1768768951333
 }

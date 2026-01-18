@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 35032349.9
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 35042062.5
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 35009098.9
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 35001903.4
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 35098743
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 35097435.3
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 35104765.4
-    },
-    {
       "timestamp": 1768682700,
       "value": 35089967.5
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 35844446.5
+      "value": 35833958.5
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 35833662
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 35815402.2
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 35823556.8
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 35875446.7
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 35861295.7
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 35755626.6
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 35792133.8
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.9708853238265005,
+  "ls_ratio": 2.024803387779794,
   "liquidations": {
     "longs": 13919.6,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "KAVAUSDT_PERP.A",
-  "fetched_at": 1768763080349
+  "fetched_at": 1768769434414
 }

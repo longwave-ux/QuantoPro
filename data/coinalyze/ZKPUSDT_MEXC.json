@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 65303326
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 65395961
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 65652930
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 65654390
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 65566784
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 65803217
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 65811038
-    },
-    {
       "timestamp": 1768682700,
       "value": 65820473
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 65772718
+      "value": 65793037
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 65797069
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 65993967
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 66028957
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 65155696
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 64981983
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 64886836
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 64832766
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.7743080198722498,
+  "ls_ratio": 0.7818959372772631,
   "liquidations": {
     "longs": 2447,
     "shorts": 5309
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "ZKPUSDT_PERP.A",
-  "fetched_at": 1768763382049
+  "fetched_at": 1768769735418
 }

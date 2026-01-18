@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 202020589
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 201995787
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 201984208
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 201836296
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 201781704
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 201736008
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 201740131
-    },
-    {
       "timestamp": 1768682700,
       "value": 201725055
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 204925720
+      "value": 204960387
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 204909408
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 204899911
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 204490341
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 204402567
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 204248100
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 204170723
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 204172582
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 0.6455487905216388,
+  "ls_ratio": 0.6431153466973382,
   "liquidations": {
     "longs": 941,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FFUSDT_PERP.A",
-  "fetched_at": 1768762960050
+  "fetched_at": 1768769313455
 }

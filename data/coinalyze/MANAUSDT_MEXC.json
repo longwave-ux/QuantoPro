@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 41337789
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 42433967
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 42010201
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 42311618
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 42634714
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 43873281
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 43704967
-    },
-    {
       "timestamp": 1768682700,
       "value": 43946060
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 53450318
+      "value": 53341299
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 53369924
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 53384315
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 53343256
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 53266407
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 53342821
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 53374704
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 53357455
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.8918449971081552,
+  "ls_ratio": 1.857959416976279,
   "liquidations": {
-    "longs": 960,
-    "shorts": 243
+    "longs": 2837,
+    "shorts": 280
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "MANAUSDT_PERP.A",
-  "fetched_at": 1768763080352
+  "fetched_at": 1768769434416
 }

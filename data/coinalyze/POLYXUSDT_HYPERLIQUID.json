@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768675500,
-      "value": 50568321
-    },
-    {
-      "timestamp": 1768676400,
-      "value": 50521588
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 50490691
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 50454563
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 50458185
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 50363091
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 50367645
-    },
-    {
       "timestamp": 1768681800,
       "value": 50347228
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768761900,
-      "value": 50410810
+      "value": 50436072
+    },
+    {
+      "timestamp": 1768762800,
+      "value": 50482742
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 50497472
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 50493637
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 50500306
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 50525697
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 50499437
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 50498678
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.7464982147761607,
+  "ls_ratio": 1.6939655172413794,
   "liquidations": {
     "longs": 6167,
     "shorts": 11453
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "POLYXUSDT_PERP.A",
-  "fetched_at": 1768762355704
+  "fetched_at": 1768768709141
 }

@@ -1,34 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768676400,
-      "value": 57658037.6
-    },
-    {
-      "timestamp": 1768677300,
-      "value": 57628798.1
-    },
-    {
-      "timestamp": 1768678200,
-      "value": 57539340.7
-    },
-    {
-      "timestamp": 1768679100,
-      "value": 57633433.7
-    },
-    {
-      "timestamp": 1768680000,
-      "value": 57644591.4
-    },
-    {
-      "timestamp": 1768680900,
-      "value": 57614892
-    },
-    {
-      "timestamp": 1768681800,
-      "value": 57601573.7
-    },
-    {
       "timestamp": 1768682700,
       "value": 57585587.9
     },
@@ -386,16 +358,44 @@
     },
     {
       "timestamp": 1768762800,
-      "value": 57147707.9
+      "value": 57078138.6
+    },
+    {
+      "timestamp": 1768763700,
+      "value": 57071602
+    },
+    {
+      "timestamp": 1768764600,
+      "value": 57075864.9
+    },
+    {
+      "timestamp": 1768765500,
+      "value": 57828934.8
+    },
+    {
+      "timestamp": 1768766400,
+      "value": 57361066.8
+    },
+    {
+      "timestamp": 1768767300,
+      "value": 57387710.1
+    },
+    {
+      "timestamp": 1768768200,
+      "value": 57616529.9
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 57614852.1
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.1867483052700636,
+  "ls_ratio": 1.1992522542335606,
   "liquidations": {
     "longs": 3422.5,
     "shorts": 0
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "FLOWUSDT_PERP.A",
-  "fetched_at": 1768762960051
+  "fetched_at": 1768769313456
 }
