@@ -466,9 +466,62 @@ app.get('/api/settings', async (req, res) => {
 });
 
 app.get('/api/performance', async (req, res) => {
-    const history = await getTradeHistory();
-    const stats = await getPerformanceStats();
-    res.json({ history, stats });
+    try {
+        const history = await getTradeHistory();
+        const stats = await getPerformanceStats();
+
+        // Group trades by strategy
+        const tradesByStrategy = history.reduce((acc, trade) => {
+            const strategy = trade.strategy || 'Legacy'; // Default to Legacy for old trades
+            if (!acc[strategy]) {
+                acc[strategy] = [];
+            }
+            acc[strategy].push(trade);
+            return acc;
+        }, {});
+
+        // Calculate stats per strategy
+        const strategies = {};
+        for (const [name, trades] of Object.entries(tradesByStrategy)) {
+            // Calculate strategy-specific stats
+            const closedTrades = trades.filter(t => t.status === 'CLOSED');
+            const wins = closedTrades.filter(t => t.result === 'WIN').length;
+            const losses = closedTrades.filter(t => t.result === 'LOSS').length;
+            const totalTrades = closedTrades.length;
+            const winRate = totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(1) + '%' : '0%';
+
+            const pnlValues = closedTrades.filter(t => t.pnl !== null).map(t => t.pnl);
+            const avgPnL = pnlValues.length > 0
+                ? (pnlValues.reduce((a, b) => a + b, 0) / pnlValues.length).toFixed(2) + '%'
+                : '0%';
+            const netPnL = pnlValues.length > 0
+                ? pnlValues.reduce((a, b) => a + b, 0).toFixed(2) + '%'
+                : '0%';
+
+            strategies[name] = {
+                stats: {
+                    totalTrades,
+                    wins,
+                    losses,
+                    winRate,
+                    avgPnL,
+                    netPnL
+                },
+                history: trades
+            };
+        }
+
+        res.json({
+            strategies,  // Per-strategy data
+            overall: {   // Combined stats (backwards compatibility)
+                stats,
+                history
+            }
+        });
+    } catch (error) {
+        console.error('[API] Failed to fetch performance data:', error);
+        res.status(500).json({ error: 'Failed to fetch performance data' });
+    }
 });
 
 import { getExchangeData } from './server/exchange.js';

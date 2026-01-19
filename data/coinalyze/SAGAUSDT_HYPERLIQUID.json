@@ -1,26 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 38020847.3
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 38001541.9
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 37933376.8
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 37897793.8
-    },
-    {
-      "timestamp": 1768685400,
-      "value": 37851039.3
-    },
-    {
       "timestamp": 1768686300,
       "value": 37793955.9
     },
@@ -386,16 +366,36 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 42782277.6
+      "value": 42533137.3
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 41923898.3
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 44161918.5
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 43973884
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 44593956.4
+    },
+    {
+      "timestamp": 1768772700,
+      "value": 45063474.3
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 2.739715781600599,
+  "ls_ratio": 2.5348179568752207,
   "liquidations": {
-    "longs": 4950.7,
-    "shorts": 46287.799999999996
+    "longs": 5918,
+    "shorts": 193577
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "SAGAUSDT_PERP.A",
-  "fetched_at": 1768768831073
+  "fetched_at": 1768773161956
 }

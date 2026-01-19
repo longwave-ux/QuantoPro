@@ -1273,6 +1273,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                 # Generate context badge for signal
                 context_badge = self._generate_context_badges(
                     context,
+                    is_retest=(setup_type == 'RETEST'),
                     hidden_div_detected=hidden_div_detected,
                     k_candle_confirmed=k_candle_result['confirmed'],
                     mtf_confirmed=mtf_result['passed'],
@@ -1371,6 +1372,7 @@ class QuantProBreakoutV2Refactored(Strategy):
                 # Generate context badge for signal
                 context_badge = self._generate_context_badges(
                     context,
+                    is_retest=(setup_type == 'RETEST'),
                     hidden_div_detected=hidden_div_detected,
                     k_candle_confirmed=k_candle_result['confirmed'],
                     mtf_confirmed=mtf_result['passed'],

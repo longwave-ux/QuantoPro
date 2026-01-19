@@ -1,98 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768681800,
-      "value": 59954785.6
-    },
-    {
-      "timestamp": 1768682700,
-      "value": 60012343.3
-    },
-    {
-      "timestamp": 1768683600,
-      "value": 60163865.6
-    },
-    {
-      "timestamp": 1768684500,
-      "value": 59910139.7
-    },
-    {
-      "timestamp": 1768685400,
-      "value": 59861762.1
-    },
-    {
-      "timestamp": 1768686300,
-      "value": 59970898.3
-    },
-    {
-      "timestamp": 1768687200,
-      "value": 60151964.5
-    },
-    {
-      "timestamp": 1768688100,
-      "value": 60260500.7
-    },
-    {
-      "timestamp": 1768689000,
-      "value": 60218098.1
-    },
-    {
-      "timestamp": 1768689900,
-      "value": 60185199.2
-    },
-    {
-      "timestamp": 1768690800,
-      "value": 60151395.9
-    },
-    {
-      "timestamp": 1768691700,
-      "value": 60144100.7
-    },
-    {
-      "timestamp": 1768692600,
-      "value": 60215144.4
-    },
-    {
-      "timestamp": 1768693500,
-      "value": 60150461.8
-    },
-    {
-      "timestamp": 1768694400,
-      "value": 60127512.4
-    },
-    {
-      "timestamp": 1768695300,
-      "value": 60209266.6
-    },
-    {
-      "timestamp": 1768696200,
-      "value": 60020009.1
-    },
-    {
-      "timestamp": 1768697100,
-      "value": 60035531.8
-    },
-    {
-      "timestamp": 1768698000,
-      "value": 59915754.6
-    },
-    {
-      "timestamp": 1768698900,
-      "value": 59907254.2
-    },
-    {
-      "timestamp": 1768699800,
-      "value": 60048590.4
-    },
-    {
-      "timestamp": 1768700700,
-      "value": 60058364.6
-    },
-    {
-      "timestamp": 1768701600,
-      "value": 60115484.7
-    },
-    {
       "timestamp": 1768702500,
       "value": 60128170.3
     },
@@ -386,16 +294,108 @@
     },
     {
       "timestamp": 1768768200,
-      "value": 64204660.7
+      "value": 64201130.2
+    },
+    {
+      "timestamp": 1768769100,
+      "value": 64128682.1
+    },
+    {
+      "timestamp": 1768770000,
+      "value": 64034824.2
+    },
+    {
+      "timestamp": 1768770900,
+      "value": 63973464.4
+    },
+    {
+      "timestamp": 1768771800,
+      "value": 63908103
+    },
+    {
+      "timestamp": 1768772700,
+      "value": 63835962.4
+    },
+    {
+      "timestamp": 1768773600,
+      "value": 63686705.1
+    },
+    {
+      "timestamp": 1768774500,
+      "value": 63611017.6
+    },
+    {
+      "timestamp": 1768775400,
+      "value": 63598476.4
+    },
+    {
+      "timestamp": 1768776300,
+      "value": 63532593
+    },
+    {
+      "timestamp": 1768777200,
+      "value": 63377533.4
+    },
+    {
+      "timestamp": 1768778100,
+      "value": 62499037.3
+    },
+    {
+      "timestamp": 1768779000,
+      "value": 62389975.1
+    },
+    {
+      "timestamp": 1768779900,
+      "value": 61311334.1
+    },
+    {
+      "timestamp": 1768780800,
+      "value": 57768795.3
+    },
+    {
+      "timestamp": 1768781700,
+      "value": 57936283.9
+    },
+    {
+      "timestamp": 1768782600,
+      "value": 57679709.1
+    },
+    {
+      "timestamp": 1768783500,
+      "value": 57754995.7
+    },
+    {
+      "timestamp": 1768784400,
+      "value": 58171431.7
+    },
+    {
+      "timestamp": 1768785300,
+      "value": 58311179
+    },
+    {
+      "timestamp": 1768786200,
+      "value": 58268608.7
+    },
+    {
+      "timestamp": 1768787100,
+      "value": 58120499.6
+    },
+    {
+      "timestamp": 1768788000,
+      "value": 57883022.1
+    },
+    {
+      "timestamp": 1768788900,
+      "value": 57910960.2
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.0185708518368994,
+  "ls_ratio": 0.859427296392711,
   "liquidations": {
-    "longs": 106152.6,
-    "shorts": 8706.1
+    "longs": 1879268.1,
+    "shorts": 21637
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "TNSRUSDT_PERP.A",
-  "fetched_at": 1768768951324
+  "fetched_at": 1768789502004
 }

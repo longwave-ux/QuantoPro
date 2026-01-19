@@ -36,9 +36,25 @@ const saveHistory = async (history) => {
 };
 
 export const registerSignals = async (results) => {
+    console.log(`[TRACKER] ========== registerSignals called ==========`);
+    console.log(`[TRACKER] Received ${results.length} total results`);
+
     let history = await loadHistory();
+    console.log(`[TRACKER] Current history length: ${history.length}`);
+
     // Filter for high quality signals
     const highQuality = results.filter(r => r.score >= CONFIG.THRESHOLDS.MIN_SCORE_SIGNAL && r.setup);
+    console.log(`[TRACKER] High quality signals (score >= ${CONFIG.THRESHOLDS.MIN_SCORE_SIGNAL} AND has setup): ${highQuality.length}`);
+
+    if (highQuality.length > 0) {
+        console.log(`[TRACKER] Sample high quality signal:`, {
+            symbol: highQuality[0].symbol,
+            score: highQuality[0].score,
+            strategy: highQuality[0].strategy,
+            hasSetup: !!highQuality[0].setup,
+            hasBias: !!highQuality[0].htf?.bias
+        });
+    }
 
     let addedCount = 0;
     let replacedCount = 0;
@@ -53,6 +69,7 @@ export const registerSignals = async (results) => {
             // If the trade is already filled (active), we DO NOT replace it.
             // We also DO NOT add a new one (prevent stacking).
             if (existingTrade.isFilled) {
+                console.log(`[TRACKER] Skipping ${signal.symbol} - already has filled trade`);
                 continue;
             }
 
@@ -60,14 +77,19 @@ export const registerSignals = async (results) => {
             // Remove the old one
             history.splice(existingIndex, 1);
             replacedCount++;
+            console.log(`[TRACKER] Replaced pending trade for ${signal.symbol}`);
         }
 
         // Add the new signal
-        history.push({
-            id: `${signal.symbol}_${signal.timestamp}`,
+        // NOTE: Signals use 'calculated_at' field, not 'timestamp'
+        const signalTime = signal.calculated_at || signal.timestamp || Date.now();
+
+        const trade = {
+            id: `${signal.symbol}_${signalTime}`,
             symbol: signal.symbol,
             exchange: signal.source,
-            signalTimestamp: signal.timestamp,
+            strategy: signal.strategy || 'Legacy', // Track which strategy generated this signal
+            signalTimestamp: signalTime,  // Use calculated_at from signal
             entryDate: new Date().toISOString(),
             status: 'OPEN', // OPEN, CLOSED
             result: 'PENDING', // PENDING, WIN, LOSS
@@ -81,14 +103,21 @@ export const registerSignals = async (results) => {
             pnl: null,
             isFilled: false,
             fillDate: null
-        });
+        };
+
+        history.push(trade);
+        console.log(`[TRACKER] Added new trade: ${signal.symbol} (${signal.strategy}) score=${signal.score} timestamp=${signalTime}`);
         addedCount++;
     }
 
     if (addedCount > 0 || replacedCount > 0) {
         await saveHistory(history);
         Logger.info(`[TRACKER] Registered ${addedCount} new signals (${replacedCount} replaced) for forward testing.`);
+        console.log(`[TRACKER] Total trades in history after save: ${history.length}`);
+    } else {
+        console.log(`[TRACKER] No trades added or replaced`);
     }
+    console.log(`[TRACKER] ========== registerSignals complete ==========`);
 };
 
 export const updateOutcomes = async () => {

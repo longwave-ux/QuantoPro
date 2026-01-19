@@ -1,46 +1,6 @@
 {
   "oi_history": [
     {
-      "timestamp": 1768685400,
-      "value": 140502439
-    },
-    {
-      "timestamp": 1768686300,
-      "value": 140801381
-    },
-    {
-      "timestamp": 1768687200,
-      "value": 140695177
-    },
-    {
-      "timestamp": 1768688100,
-      "value": 141221305
-    },
-    {
-      "timestamp": 1768689000,
-      "value": 141766221
-    },
-    {
-      "timestamp": 1768689900,
-      "value": 142453313
-    },
-    {
-      "timestamp": 1768690800,
-      "value": 141367467
-    },
-    {
-      "timestamp": 1768691700,
-      "value": 143326403
-    },
-    {
-      "timestamp": 1768692600,
-      "value": 135870387
-    },
-    {
-      "timestamp": 1768693500,
-      "value": 135065050
-    },
-    {
       "timestamp": 1768694400,
       "value": 132570704
     },
@@ -386,16 +346,56 @@
     },
     {
       "timestamp": 1768771800,
-      "value": 142318654
+      "value": 142359235
+    },
+    {
+      "timestamp": 1768772700,
+      "value": 141929656
+    },
+    {
+      "timestamp": 1768773600,
+      "value": 142158160
+    },
+    {
+      "timestamp": 1768774500,
+      "value": 142162806
+    },
+    {
+      "timestamp": 1768775400,
+      "value": 142107555
+    },
+    {
+      "timestamp": 1768776300,
+      "value": 141861137
+    },
+    {
+      "timestamp": 1768777200,
+      "value": 142356374
+    },
+    {
+      "timestamp": 1768778100,
+      "value": 141157510
+    },
+    {
+      "timestamp": 1768779000,
+      "value": 138610097
+    },
+    {
+      "timestamp": 1768779900,
+      "value": 136398682
+    },
+    {
+      "timestamp": 1768780800,
+      "value": 136475385
     }
   ],
   "funding_rate": null,
-  "ls_ratio": 1.6455026455026458,
+  "ls_ratio": 1.6322716504343247,
   "liquidations": {
-    "longs": 43999,
-    "shorts": 60344
+    "longs": 2997260,
+    "shorts": 9113
   },
   "oi_status": "aggregated",
   "coinalyze_symbol": "BIGTIMEUSDT_PERP.A",
-  "fetched_at": 1768772558305
+  "fetched_at": 1768781579733
 }
